@@ -26,15 +26,22 @@ Examples are real HTML files in `src/examples`, written with the classes of Boot
 `<name>.bs4.html` when the markup has to differ. Sizes, paddings, radii, type and colours in the tables and in the inspector are read
 from the computed style of the example, never typed.
 
+## Data for other documentation
+
+Everything the site knows is also published as static JSON under `/api/` (see the guide "Connect a plugin's docs"): the index of pages
+and versions, each page with the source of its text, the CSS variables of each Moodle version, the table of icons and the brand. Every
+file carries `"schema": 1`. Any page opens in a given state with `?version=v45&mode=dark&brand=1`.
+
 ## Layout
 
 ```
 src/content/docs/<lang>/<section>/<page>.mdx   one page per language; same group, order, code and versions in both
 src/examples/<component>/<name>.html           the markup of a live example (and <name>.bs4.html where it differs)
-src/components/                                Example, Matrix, Rule, Tokens, IconGrid
-src/data/                                      versions.json (hand-kept), icons.json and tokens.json (generated)
+src/components/                                Header, Footer, Logo, Icon, Example, Matrix, Rule, Colours, ThemeLab, IconGrid
+src/data/                                      versions.json, brand.json and team.json (hand-kept), icons.json and tokens.json (generated)
+src/pages/api/                                 the JSON API
 src/scripts/site.js                            version, colour mode, examples, inspector, icon grid
-tools/                                         build-moodle, extract-data, check-content
+tools/                                         build-moodle, extract-data, check-content, build-brand (icon and share image; needs sharp)
 ```
 
 ## Commands

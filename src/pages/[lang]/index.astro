@@ -2,6 +2,7 @@
 import {getCollection} from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
+import Logo from '../../components/Logo.astro';
 import versions from '../../data/versions.json';
 import icons from '../../data/icons.json';
 import tokens from '../../data/tokens.json';
@@ -35,7 +36,6 @@ const stats = [
     [2, h.stats.languages],
     [pages.length, h.stats.pages],
 ] as const;
-const brand = [['teal-50', '#f0fdfa'], ['teal-100', '#ccfbf1'], ['teal-300', '#5eead4'], ['teal-500', '#14b8a6'], ['teal-600', '#0d9488'], ['teal-700', '#0f766e'], ['logo', '#00555a'], ['teal-900', '#134e4a']];
 const [before, after] = h.title.split(h.accent);
 ---
 
@@ -51,57 +51,68 @@ const [before, after] = h.title.split(h.accent);
                     <a class="ds-cta-alt" href={href('foundations/colour')}>{h.ctaSecondary}</a>
                     <a class="ds-cta-alt" href={href('start/introduction')}>{h.ctaTertiary}</a>
                 </div>
-                <ul class="ds-vers" aria-label={t.version}>
-                    {versions.map((v) => <li><span class:list={['ds-dot2', {on: v.id === 'v53'}]}></span>{v.label}</li>)}
-                </ul>
             </div>
 
             <div class="ds-art" aria-hidden="true">
                 <div class="ds-art-label">{h.artboard}</div>
                 <div class="ds-art-frame">
                     <div class="ds-art-card">
-                        <img src={`${base}/brand/didactika-logo.png`} alt="" width="132" height="132" />
+                        <Logo size="lg" />
                         <b>Didactika</b>
                         <span>Moodle UI</span>
-                    </div>
-                    <div class="ds-art-item ds-art-btns ds-v-scope">
-                        <div class="ds-selbox">
-                            <i></i><i></i><i></i><i></i>
-                            <span class="ds-seltag">{h.mini.sel} · 126 × 38</span>
-                            <button type="button" class="btn btn-primary" tabindex="-1">{h.mini.save}</button>
-                        </div>
-                        <button type="button" class="btn btn-outline-secondary" tabindex="-1">{h.mini.cancel}</button>
-                    </div>
-                    <div class="ds-art-item ds-art-progress ds-v-scope">
-                        <div class="progress" style="width:9.5rem"><div class="progress-bar" style="width:68%"></div></div>
-                    </div>
-                    <div class="ds-art-item ds-art-alert ds-v-scope">
-                        <div class="alert alert-success mb-0 py-2 px-3">{h.mini.done}</div>
                     </div>
                     <div class="ds-art-item ds-art-swatches">
                         {['#00555a', '#0f766e', '#14b8a6', '#5eead4', '#ccfbf1'].map((c) => <i style={`background:${c}`}></i>)}
                     </div>
+                    <div class="ds-art-item ds-art-progress"><i></i></div>
+                    <div class="ds-art-item ds-art-btns">
+                        <span class="ds-selbox"><i></i><i></i><i></i><i></i><b class="ds-seltag">{h.mini.sel} · 96 × 36</b><span class="ds-mini-btn is-solid">{h.mini.save}</span></span>
+                        <span class="ds-mini-btn">{h.mini.cancel}</span>
+                    </div>
+                    <div class="ds-art-item ds-art-alert">{h.mini.done}</div>
                     <div class="ds-cursor ds-cursor-a"><Icon name="pointer" /><span>Design</span></div>
                     <div class="ds-cursor ds-cursor-b"><Icon name="pointer" /><span>Moodle</span></div>
                 </div>
             </div>
         </section>
 
-        <section class="ds-stats" aria-label="Stats">
-            {stats.map(([n, label]) => <div><b>{n}</b><span>{label}</span></div>)}
+        <section class="ds-try" aria-labelledby="ds-try-title">
+            <header><h2 id="ds-try-title">{h.tryTitle}</h2><p>{h.tryLead}</p></header>
+            <div class="ds-try-grid">
+                <div class="ds-try-controls">
+                    <div class="ds-try-row">
+                        <div class="ds-try-label"><b><Icon name="layers" />{h.tryVersion}</b><span>{h.tryVersionHelp}</span></div>
+                        <div class="ds-chips" role="group" aria-label={h.tryVersion}>
+                            {versions.map((v) => <button type="button" data-pick-version={v.id} aria-pressed="false"><b>{v.moodle}</b><small>{v.id === 'v41' ? 'legacy' : 'LTS'}</small></button>)}
+                        </div>
+                    </div>
+                    <div class="ds-try-row">
+                        <div class="ds-try-label"><b><Icon name="swatch" />{h.tryTheme}</b><span>{h.tryThemeHelp}</span></div>
+                        <button type="button" class="ds-switchbtn" data-brand-toggle aria-pressed="false" aria-label={h.tryTheme}><span class="ds-switch" aria-hidden="true"><i></i></span></button>
+                    </div>
+                    <div class="ds-try-row">
+                        <div class="ds-try-label"><b><Icon name="pointer" />{h.tryInspect}</b><span>{h.tryInspectHelp}</span></div>
+                    </div>
+                </div>
+                <div class="ds-livebox ds-v-scope" aria-label={h.sampleTitle}>
+                    <div class="ds-live-row">
+                        <button type="button" class="btn btn-primary" tabindex="-1">{h.mini.save}</button>
+                        <button type="button" class="btn btn-outline-secondary" tabindex="-1">{h.mini.cancel}</button>
+                        <button type="button" class="btn btn-danger" tabindex="-1">{h.mini.del}</button>
+                    </div>
+                    <div class="alert alert-success mb-0" role="status">{h.sampleAlert}</div>
+                    <div class="ds-live-row">
+                        <input class="form-control" type="text" value={h.sampleInput} aria-label={h.sampleInput} style="max-width:14rem" />
+                        <span class="badge bg-primary text-white">primary</span>
+                        <span class="badge bg-success text-white">success</span>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width:62%"></div></div>
+                </div>
+            </div>
         </section>
 
-        <section class="ds-block">
-            <header><h2>{h.principlesTitle}</h2><p>{h.principlesLead}</p></header>
-            <div class="ds-cards">
-                {h.principles.map((p) => (
-                    <article class="ds-card">
-                        <span class="ds-card-i"><Icon name={p.icon} /></span>
-                        <h3>{p.title}</h3>
-                        <p>{p.text}</p>
-                    </article>
-                ))}
-            </div>
+        <section class="ds-stats" aria-label="Stats">
+            {stats.map(([n, label]) => <div><b>{n}</b><span>{label}</span></div>)}
         </section>
 
         <section class="ds-block">
@@ -122,22 +133,17 @@ const [before, after] = h.title.split(h.accent);
             </div>
         </section>
 
-        <section class="ds-block ds-brand-block">
-            <header><h2>{h.paletteTitle}</h2><p>{h.paletteLead}</p></header>
-            <div class="ds-brand-strip">
-                {brand.map(([name, value]) => <div style={`background:${value};color:${['teal-50', 'teal-100', 'teal-300'].includes(name) ? '#134e4a' : '#fff'}`}><b>{name}</b><span>{value}</span></div>)}
+        <section class="ds-block">
+            <header><h2>{h.principlesTitle}</h2><p>{h.principlesLead}</p></header>
+            <div class="ds-cards">
+                {h.principles.map((p) => (
+                    <article class="ds-card">
+                        <span class="ds-card-i"><Icon name={p.icon} /></span>
+                        <h3>{p.title}</h3>
+                        <p>{p.text}</p>
+                    </article>
+                ))}
             </div>
-            <a class="ds-cta-alt" href={href('foundations/colour')}>{h.paletteCta}<Icon name="arrow" /></a>
         </section>
-
-        <footer class="ds-foot">
-            <span class="ds-logo"><img src={`${base}/brand/didactika-logo.png`} alt="" width="28" height="28" /></span>
-            <p>{h.footer}</p>
-            <nav>
-                <a href="https://didactika.org">{h.footerLinks.site}</a>
-                <a href="https://github.com/didactika/moodle-design-system">{h.footerLinks.repo}</a>
-                <span>{h.footerLinks.licence}</span>
-            </nav>
-        </footer>
     </main>
 </Base>

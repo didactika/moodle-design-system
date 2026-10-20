@@ -1,0 +1,62 @@
+---
+title: Conectar la documentación de un plugin
+summary: Los datos de este sitio se publican como JSON, y cada página se abre en una versión de Moodle, un modo de color y un tema concretos, para que otra documentación pueda leerla y enlazarla.
+group: guides
+order: 1
+code: DS-CONNECT
+---
+
+La documentación de un plugin no debería copiar qué es un botón, una tabla o un color: debería apuntar aquí. Todo lo que sabe este sitio se publica como JSON estático, servido por GitHub Pages con cabeceras CORS abiertas, así que cualquier otra documentación, script de compilación o editor puede leerlo.
+
+## El punto de entrada
+
+```
+GET https://didactika.github.io/moodle-design-system/api/index.json
+```
+
+Lista las versiones de Moodle (con los enlaces a su hoja de estilos y a sus tokens), cada página con su identificador, código, grupo, versiones a las que aplica, título, resumen y dirección en los dos idiomas, y los demás recursos.
+
+| Dirección | Qué contiene |
+|---|---|
+| `/api/index.json` | Versiones, páginas, recursos y cómo funcionan los enlaces con estado |
+| `/api/pages/<id>.json` | Una página en los dos idiomas, con el texto fuente |
+| `/api/tokens/<version>.json` | Las variables CSS de esa versión de Moodle, en claro y en oscuro |
+| `/api/icons.json` | Cada identificador de icono de Moodle y el nombre de Font Awesome con el que lo dibuja cada versión |
+| `/api/brand.json` | Los colores, el logo, el icono, el enlace de apoyo y el equipo de Didactika |
+
+## Estable a propósito
+
+Cada fichero lleva `"schema": 1`. El número cambia solo cuando se quita un campo o cambia su significado; añadir campos nunca lo cambia. Un lector que compruebe el número sigue funcionando cuando el sitio crece. Los identificadores de página (como `bootstrap/buttons`) y los códigos (como `DS-BTN`) no cambian una vez publicados.
+
+## Enlazar una página con un estado
+
+Cualquier página se abre en un estado concreto con parámetros de la dirección, para que la documentación de un plugin pueda mostrar su pantalla como la vería un sitio.
+
+| Parámetro | Valores | Efecto |
+|---|---|---|
+| `version` | `v53`, `v45`, `v41` | La versión de Moodle con la que se dibujan los ejemplos |
+| `mode` | `light`, `dark` | El modo de color (el oscuro solo existe desde Moodle 5.x) |
+| `brand` | `1`, `0` | Los colores de Didactika en cada ejemplo |
+
+```
+https://didactika.github.io/moodle-design-system/es/bootstrap/buttons/?version=v45&mode=light&brand=1
+```
+
+## Leerlo desde una compilación
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const index = await (await fetch(root + '/api/index.json')).json();
+if (index.schema !== 1) { throw new Error('Esquema desconocido'); }
+
+const button = index.pages.find((page) => page.code === 'DS-BTN');
+console.log(button.title.es, button.url.es);
+
+// El texto fuente de una página, para incluirlo o citarlo.
+const page = await (await fetch(button.api)).json();
+console.log(page.body.es);
+```
+
+## Qué viene después
+
+Los plugins dirán qué componentes usa cada una de sus pantallas, y este sitio mostrará, en la página de cada componente, los plugins y pantallas que lo usan. Los identificadores de arriba son la base de eso, así que enlaza un componente por su código o por el identificador de su página, nunca por su texto.
