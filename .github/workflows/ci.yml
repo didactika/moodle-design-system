@@ -1,9 +1,9 @@
 name: CI
 
+# Only on pull requests. A push to main is built, checked and published by the Pages workflow, which runs the same `npm run build`, so
+# building it here too would run the same job twice for every merge.
 on:
   pull_request:
-    branches: [main]
-  push:
     branches: [main]
 
 concurrency:
