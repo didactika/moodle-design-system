@@ -3,7 +3,7 @@
 The design system of Didactika's Moodle plugins, as a static site in English and Spanish: Bootstrap, Moodle and plugin components with
 every variant, drawn with the real stylesheet of each supported Moodle version and measured from it.
 
-Published at <https://didactika.github.io/moodle-design-system/> (GitHub Pages, from `main`).
+Published at <https://didactika.github.io/moodle-design-system/> (GitHub Pages, from `main`). Pages was turned on once with GitHub Actions as its source; the workflow only deploys.
 
 ## What it is for
 
