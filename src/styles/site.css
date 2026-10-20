@@ -626,3 +626,15 @@ h1 .ds-vbadges .ds-vb { font-size: .72rem; }
 .ds-article th, .ds-article td { padding: .55rem .8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
 .ds-article tbody tr:last-child td { border-bottom: 0; }
 .ds-article td code { white-space: nowrap; }
+
+/* the version chips keep their place in every language: the text of the row adjusts to them, not the other way round */
+.ds-try-row { flex-wrap: nowrap; }
+.ds-try-label { flex: 1 1 0; min-width: 0; }
+.ds-chips { flex: none; flex-wrap: nowrap; }
+.ds-chips button { flex: none; width: 4.6rem; min-width: 0; }
+.ds-switchbtn { flex: none; }
+@media (max-width: 560px) {
+  .ds-try-row { flex-wrap: wrap; }
+  .ds-try-row .ds-chips { width: 100%; }
+  .ds-chips button { flex: 1 1 0; width: auto; }
+}
