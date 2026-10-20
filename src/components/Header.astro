@@ -1,10 +1,11 @@
 ---
+import config from '../config/site.json';
 import versions from '../data/versions.json';
 import {languages, ui, type Lang} from '../i18n/ui';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
-/** The bar at the top of every page: brand, Moodle version, language, colour mode, the Didactika colours and the repository. */
+/** The bar at the top of every page: brand, Moodle version, language, colour mode, the Didactika colours, and the links of the project. */
 interface Props {
     lang: Lang;
     /** Slug of the page, so the language menu can point at the same page in the other language. Empty on the home page. */
@@ -63,7 +64,7 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
             <ul class="ds-dd-list ds-dd-narrow" role="menu" aria-label={t.theme}>
                 {modes.map(([mode, icon, label]) => (
                     <li role="none">
-                        <button type="button" role="menuitemradio" aria-checked="false" data-mode={mode}>
+                        <button type="button" role="menuitemradio" aria-checked="false" data-set-mode={mode}>
                             <span class="ds-dd-row"><Icon name={icon} />{label}</span><span class="ds-check"><Icon name="check" /></span>
                         </button>
                     </li>
@@ -77,6 +78,9 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
             <span class="ds-switch" aria-hidden="true"><i></i></span>
         </button>
 
-        <a class="ds-iconbtn ds-github" href="https://github.com/didactika/moodle-design-system" title="GitHub" aria-label="GitHub"><Icon name="github" /></a>
+        <span class="ds-head-sep" aria-hidden="true"></span>
+        <a class="ds-iconbtn ds-site-link" href={config.organisation.website} title={t.linkWebsite} aria-label={t.linkWebsite}><img src={`${base}/brand/didactika-logo.png`} alt="" width="20" height="20" /></a>
+        <a class="ds-iconbtn ds-heart" href={config.support.url} rel="noopener" title={`${t.support} · ${config.support.platform}`} aria-label={`${t.support} · ${config.support.platform}`}><Icon name="heart" /></a>
+        <a class="ds-iconbtn ds-github" href={config.repository} title="GitHub" aria-label="GitHub"><Icon name="github" /></a>
     </div>
 </header>

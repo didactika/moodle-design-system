@@ -4,7 +4,7 @@
 /**
  * Checks the content of the site before it is published, and fails the build when something is missing:
  *
- * - every page exists in English and in Spanish, with the same `group`, `order`, `code` and `versions`;
+ * - every page exists in English and in Spanish, with the same `group`, `order` and `versions`;
  * - every example a page names (`src="..."`) exists as a file, and every example file is used by some page;
  * - every page has a summary, and no page is left with text in the other language's file untranslated (title equal in both is allowed
  *   only for proper names).
@@ -57,7 +57,7 @@ for (const lang of ['en', 'es']) {
         }
         const a = pages[lang][slug].data;
         const b = pages[other][slug].data;
-        for (const key of ['group', 'order', 'code', 'versions']) {
+        for (const key of ['group', 'order', 'versions']) {
             if ((a[key] ?? '') !== (b[key] ?? '')) {
                 errors.push(`${slug}: "${key}" differs between languages (${a[key]} / ${b[key]})`);
             }

@@ -3,7 +3,6 @@ title: Color
 summary: Los colores de Didactika junto a todos los colores de Bootstrap y de Moodle, leídos de la versión que elijas, con su contraste y un laboratorio para probar los tuyos.
 group: foundations
 order: 1
-code: DS-COLOUR
 ---
 
 import ColourControls from '../../../../components/ColourControls.astro';
@@ -20,9 +19,9 @@ El verde azulado del logo (`#00555a`) y la familia que usa la web (didactika.org
 
 <Colours kind="brand" />
 
-### Didactika como tema
+### La paleta de Didactika
 
-Activa **Colores de Didactika** en la barra de arriba y todos los ejemplos del sitio, también las muestras de abajo, se dibujan con los roles de tema que propone Didactika: primario `#0f766e`, secundario `#475569`, éxito `#15803d`, información `#0e7490`, advertencia `#b45309` y peligro `#b91c1c`. Cada uno llega a AA (4,5:1) con texto blanco. Cuando Didactika tenga un tema de Moodle propio, estos serán los roles que fije, para que todos los plugins los tomen sin cambiar una línea. Es una propuesta abierta a revisión.
+Activa **Colores de Didactika** en la barra de arriba y todos los ejemplos del sitio, también las muestras de abajo, se dibujan con la paleta de Didactika aplicada a los roles de Bootstrap: primario `#0f766e`, secundario `#475569`, éxito `#15803d`, información `#0e7490`, advertencia `#b45309` y peligro `#b91c1c`. Cada uno llega a AA (4,5:1) con texto blanco.
 
 ## Colores de tema de esta versión
 
@@ -30,11 +29,11 @@ Los ocho colores del tema de Bootstrap. En Bootstrap 5 (Moodle 5.x) son variable
 
 <Colours kind="theme" />
 
-### Texto, fondos y bordes
+### Texto, fondos y bordes <Versions of="v53" />
 
 <Colours kind="surface" />
 
-### Tonos suaves y de énfasis
+### Tonos suaves y de énfasis <Versions of="v53" />
 
 Fondos suaves, bordes y texto fuerte para cada rol, que usan las alertas y los elementos de lista. Existen desde Bootstrap 5.3.
 
@@ -50,7 +49,7 @@ Los diez tonos de Bootstrap, negro y blanco, y en Bootstrap 5 la escala de cada 
 
 <Colours kind="grays" />
 
-## Escalas de Moodle 5.3
+## Escalas de Moodle 5.3 <Versions of="v53" />
 
 Moodle 5.3 añade un conjunto propio de tokens (`--mds-color-<tono>-<paso>`). Usa un color de escala solo donde un color del tema no sirva, por ejemplo el color de un tipo de actividad.
 

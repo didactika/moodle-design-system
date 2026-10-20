@@ -1,0 +1,20 @@
+---
+import versions from '../data/versions.json';
+import {ui, langFromPath} from '../i18n/ui';
+
+/**
+ * Small, quiet badges with the Moodle versions something applies to, next to a title or a section. They are only written where it does not
+ * apply to every version; the one of the version selected in the header is a little stronger.
+ */
+interface Props {
+    /** Version ids separated by commas, e.g. "v53" or "v53,v45". */
+    of: string;
+}
+const {of} = Astro.props;
+const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/\/$/, ''));
+const ids = of.split(',').map((id) => id.trim()).filter(Boolean);
+const list = versions.filter((v) => ids.includes(v.id));
+const label = `${ui[lang].applies}: ${list.map((v) => 'Moodle ' + v.moodle).join(', ')}`;
+---
+
+<span class="ds-vbadges" title={label} aria-label={label}>{list.map((v) => <span class="ds-vb" data-v={v.id}>{v.moodle}</span>)}</span>

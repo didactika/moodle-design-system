@@ -3,7 +3,6 @@ title: Colour
 summary: Didactika's colours next to every colour of Bootstrap and Moodle, read from the version you pick, with their contrast and a lab to try your own.
 group: foundations
 order: 1
-code: DS-COLOUR
 ---
 
 import ColourControls from '../../../../components/ColourControls.astro';
@@ -20,9 +19,9 @@ The teal of the logo (`#00555a`) and the family the website uses (didactika.org)
 
 <Colours kind="brand" />
 
-### Didactika as a theme
+### Didactika's palette
 
-Switch on **Didactika colours** in the bar at the top and every example of the site, including the swatches below, is drawn with the theme roles Didactika proposes: primary `#0f766e`, secondary `#475569`, success `#15803d`, info `#0e7490`, warning `#b45309` and danger `#b91c1c`. Each reaches AA (4.5:1) with white text. When Didactika has a Moodle theme of its own, these are the roles it will set, so every plugin takes them without changing a line. It is a proposal, open to review.
+Switch on **Didactika colours** in the bar at the top and every example of the site, including the swatches below, is drawn with Didactika's palette applied to the Bootstrap roles: primary `#0f766e`, secondary `#475569`, success `#15803d`, info `#0e7490`, warning `#b45309` and danger `#b91c1c`. Each reaches AA (4.5:1) with white text.
 
 ## Theme colours of this version
 
@@ -30,11 +29,11 @@ The eight colours of Bootstrap's theme. On Bootstrap 5 (Moodle 5.x) they are `--
 
 <Colours kind="theme" />
 
-### Text, backgrounds and borders
+### Text, backgrounds and borders <Versions of="v53" />
 
 <Colours kind="surface" />
 
-### Subtle and emphasis tones
+### Subtle and emphasis tones <Versions of="v53" />
 
 Soft backgrounds, borders and strong text for each role, used by alerts and list items. They exist from Bootstrap 5.3.
 
@@ -50,7 +49,7 @@ The ten hues of Bootstrap, black and white, and on Bootstrap 5 each hue's scale 
 
 <Colours kind="grays" />
 
-## Moodle 5.3 scales
+## Moodle 5.3 scales <Versions of="v53" />
 
 Moodle 5.3 adds a design token set of its own (`--mds-color-<hue>-<step>`). Use a scale colour only where a theme colour does not fit, for example the colour of a type of activity.
 

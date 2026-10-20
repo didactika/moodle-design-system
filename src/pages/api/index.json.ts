@@ -14,7 +14,7 @@ export const GET: APIRoute = async({site}) => {
         licence: 'GPL-3.0-or-later',
         languages: ['en', 'es'],
         versions: versions.map((v) => ({...v, tokens: abs(`/api/tokens/${v.id}.json`), stylesheet: abs(`/moodle/${v.id}/boost.css`)})),
-        resources: {icons: abs('/api/icons.json'), brand: abs('/api/brand.json')},
+        resources: {components: abs('/api/components/index.json'), icons: abs('/api/icons.json'), brand: abs('/api/brand.json')},
         pages: list.map(({body, ...page}) => page),
         deepLinks: {
             description: 'Any page opens in a given state with query parameters.',
