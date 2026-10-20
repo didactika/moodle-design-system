@@ -1,0 +1,105 @@
+---
+title: Campos de texto
+summary: "Las entradas de texto de un formulario: texto, email, número, contraseña, área de texto, solo lectura y archivo. Siempre con etiqueta visible y nunca redibujadas por un plugin."
+group: bootstrap
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un campo de texto recoge texto escrito o elegido. Es el `form-control` del tema: la misma altura, borde y anillo de foco en todos los plugins. Moodle dibuja sus formularios con él; un plugin que necesita un campo usa la clase y nada más.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Una `label` visible en cada campo, enlazada con `for` e `id`.
+- Una línea `form-text` bajo el campo para una pista que hace falta antes de escribir.
+- `readonly` para un valor que se puede copiar pero no cambiar, `disabled` para un campo que ahora no está disponible.
+- El `type` correcto (`email`, `number`, `password`, `search`) para que el teclado y el navegador ayuden.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar el placeholder como etiqueta: desaparece al escribir.
+- Redibujar el borde, el radio, el relleno o el anillo de foco en un plugin.
+- Poner un ancho fijo en píxeles; usa la rejilla o `max-width`.
+- Mostrar un error solo con color; añade el texto que dice qué falla ([validación](../validation/)).
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un campo tiene una **etiqueta** encima, el **control** (texto, con un placeholder opcional), una **pista** opcional (`form-text`) debajo y, cuando algo falla, un **mensaje** (ver [validación](../validation/)). Un campo nunca lleva un icono dentro; usa un [grupo de entrada](../input-group/) para un complemento.
+
+## Variantes y estados
+
+<Matrix
+  title="Campo de texto"
+  variants={['text']}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
+  template='<input type="text" class="form-control {s}" value="Valor" aria-label="Campo de texto"{disabled}>'
+/>
+
+<Matrix
+  title="Área de texto"
+  variants={['textarea']}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
+  template='<textarea class="form-control {s}" rows="2" aria-label="Área de texto"{disabled}>Valor</textarea>'
+/>
+
+<Example title="Campos de un formulario" src="form-controls/fields" />
+
+### Tamaños
+
+<Example title="Pequeño, normal y grande" src="form-controls/sizes" measure="Height,Padding,Font size,Line height,Radius,Border" />
+
+Usa el tamaño normal. El pequeño es para sitios densos (una barra de filtros sobre una tabla); el grande, solo para un campo principal único de una página, como un buscador.
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `form-control` | Base de todo campo de texto, área de texto y entrada de archivo |
+| `form-control-sm`, `form-control-lg` | Más pequeño y más grande |
+| `form-label` | Etiqueta sobre un campo |
+| `form-text` | Pista bajo un campo |
+| `form-control-plaintext` | Un valor de solo lectura mostrado como texto, alineado con los demás campos |
+| `readonly`, `disabled` | Atributos, no clases |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- Todo campo tiene etiqueta; si el diseño no la tiene, dale `aria-label`.
+- `aria-describedby` apunta a la pista y al mensaje de error.
+- `autocomplete` con el valor correcto en datos personales.
+- El anillo de foco debe verse siempre; nunca `outline: none`.
+- El contraste del texto con el campo es 4,5:1; el del borde con la página, 3:1.
+
+## Usado en
+
+Todo formulario de Moodle; los filtros de FileBank y servicemanager; los formularios de ajustes de cada plugin.

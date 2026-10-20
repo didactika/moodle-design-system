@@ -1,0 +1,95 @@
+---
+title: Validación
+summary: "Cómo un formulario dice que algo está bien o mal: el estado del campo y un mensaje que dice qué hacer."
+group: bootstrap
+order: 7
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un campo con error cambia su borde y muestra un mensaje debajo. El color es un refuerzo: lo que dice al usuario qué falla y cómo arreglarlo es el mensaje.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- `is-invalid` con un `invalid-feedback` que diga qué hacer ("Escribe un email válido").
+- Validar al salir del campo o al enviar, no en cada tecla.
+- `is-valid` solo cuando confirmar ayuda (un nombre corto libre); no marques todos los campos.
+- Enlaza el mensaje con `aria-describedby`.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Mostrar el estado solo con color.
+- Escribir "Valor no válido" o un código de error.
+- Borrar lo que el usuario escribió cuando está mal.
+- Mostrar el mensaje lejos del campo.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un campo con error tiene su **control** con la clase de estado y, debajo, el **mensaje** (`invalid-feedback`), en el mismo grupo que la etiqueta. Las casillas muestran el mensaje bajo su etiqueta.
+
+## Variantes y estados
+
+<Example title="Válido e inválido" src="validation/states" />
+
+<Matrix
+  title="Campo de texto inválido"
+  variants={['invalid']}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
+  template='<input type="text" class="form-control is-{v} {s}" value="ada@" aria-label="Inválido"{disabled}>'
+/>
+
+<Matrix
+  title="Campo de texto válido"
+  variants={['valid']}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
+  template='<input type="text" class="form-control is-{v} {s}" value="MATH101" aria-label="Válido"{disabled}>'
+/>
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `is-invalid`, `is-valid` | Estado de un control |
+| `invalid-feedback`, `valid-feedback` | Mensaje bajo el control; se muestra cuando el control tiene el estado |
+| `was-validated` | En el formulario: los estados siguen la validación del propio navegador |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable. El mensaje es el hermano que sigue al control.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. El mensaje es el hermano que sigue al control.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. El mensaje es el hermano que sigue al control.
+
+</Only>
+
+## Accesibilidad
+
+- El mensaje es texto, no solo un color o un icono.
+- `aria-invalid="true"` en un campo con error.
+- Tras enviar, mueve el foco al primer error.
+- Un resumen al principio de un formulario largo lista los errores con enlaces a los campos.
+
+## Usado en
+
+Todo formulario de Moodle; los diálogos de importación de FileBank y servicemanager.

@@ -8,7 +8,7 @@ const renamed = {
     'dropdown-menu-end': 'dropdown-menu-right', 'fw-bold': 'font-weight-bold', 'fw-semibold': 'font-weight-bold', 'fw-normal': 'font-weight-normal',
     'fst-italic': 'font-italic', 'rounded-end': 'rounded-right', 'rounded-start': 'rounded-left', 'text-bg-primary': 'badge-primary',
     'text-bg-secondary': 'badge-secondary', 'text-bg-success': 'badge-success', 'text-bg-danger': 'badge-danger', 'text-bg-warning': 'badge-warning',
-    'text-bg-info': 'badge-info', 'text-bg-light': 'badge-light', 'text-bg-dark': 'badge-dark', 'form-label': '', 'form-check-reverse': '',
+    'text-bg-info': 'badge-info', 'text-bg-light': 'badge-light', 'text-bg-dark': 'badge-dark', 'form-label': 'd-block', 'form-check-reverse': '',
     'btn-close': 'close', 'g-0': 'no-gutters', 'accordion-button': 'btn btn-link', 'ratio': 'embed-responsive',
 };
 
