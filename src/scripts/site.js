@@ -1,6 +1,8 @@
 // The behaviour of the documentation site: the selected Moodle version and colour mode, the examples drawn with the CSS of that version,
 // the icons and tokens of each version, and an inspector that measures anything inside an example.
 
+import './colour.js';
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const escapeHtml = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -68,9 +70,9 @@ const apply = () => {
     const dark = state.mode ? state.mode === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
     root.dataset.version = state.version;
     $$('[data-version-css]').forEach((link) => { link.media = link.dataset.versionCss === state.version ? 'all' : 'not all'; });
-    $('#ds-version-label').textContent = version.label;
+    $('#ds-version-label').innerHTML = version.label.replace(/^Moodle /, '<span class="ds-vl">Moodle </span>');
     $$('[data-version]', $('#ds-version')).forEach((b) => b.setAttribute('aria-checked', String(b.dataset.version === state.version)));
-    $$('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === (dark ? 'dark' : 'light'))));
+    $$('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === (state.mode ?? 'system'))));
     if (state.mode) { root.dataset.theme = state.mode; } else { delete root.dataset.theme; }
 
     $$('.ds-v-scope').forEach((el) => {
@@ -91,7 +93,11 @@ const apply = () => {
     loadIcons();
     drawIcons(document, version);
     // Everything that is read from the CSS waits until the stylesheet of the version is there.
-    whenStyled(() => { renderMeasures(); renderTokens(); renderIcons(); });
+    whenStyled(() => {
+        renderMeasures();
+        renderIcons();
+        document.dispatchEvent(new CustomEvent('ds:render', {detail: {version: state.version, dark: version.darkMode && dark}}));
+    });
     clearSelection();
 };
 
@@ -154,58 +160,6 @@ const renderMeasures = () => {
     });
 };
 
-// ---------------------------------------------------------------- tokens
-const readTokens = () => {
-    const node = $('#ds-tokens-data');
-    return node ? JSON.parse(node.textContent) : null;
-};
-const resolveColour = (scope, value) => {
-    const probe = document.createElement('i');
-    probe.style.cssText = `position:absolute;visibility:hidden;color:${value}`;
-    scope.appendChild(probe);
-    const colour = getComputedStyle(probe).color;
-    probe.remove();
-    return colour;
-};
-const toHex = (c) => {
-    const m = c.match(/rgba?\(([\d.]+)[, ]+([\d.]+)[, ]+([\d.]+)(?:[,/ ]+([\d.]+))?\)/);
-    if (!m) { return c; }
-    const h = [m[1], m[2], m[3]].map((x) => Math.round(+x).toString(16).padStart(2, '0')).join('');
-    return m[4] !== undefined && +m[4] < 1 ? `#${h} · ${Math.round(+m[4] * 100)}%` : `#${h}`;
-};
-const renderTokens = () => {
-    const tokens = readTokens();
-    if (!tokens) { return; }
-    const version = versionOf(state.version);
-    const set = tokens[state.version];
-    const bs5 = version.bootstrap.startsWith('5');
-    const dark = version.darkMode && (state.mode ? state.mode === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches);
-    $$('[data-tokens]').forEach((host) => {
-        const scope = host.closest('.ds-v-scope') || host;
-        const kind = host.dataset.tokens;
-        const names = Object.keys(set.light);
-        const pick = (re) => names.filter((n) => re.test(n));
-        let list = [];
-        if (kind === 'theme') {
-            list = bs5
-                ? ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'].map((n) => `--bs-${n}`).concat(['--bs-body-color', '--bs-body-bg', '--bs-border-color', '--bs-secondary-color', '--bs-tertiary-bg', '--bs-link-color'])
-                : ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'].map((n) => `--${n}`);
-            list = list.filter((n) => n in set.light);
-            host.innerHTML = list.map((n) => {
-                const raw = (dark && set.dark[n]) || set.light[n];
-                const colour = toHex(resolveColour(scope, `var(${n})`));
-                return `<div class="ds-swatch"><div class="c" style="background:var(${n})"></div><div><b>${n}</b><code>${colour}</code></div></div>`;
-            }).join('');
-        } else if (kind === 'scale') {
-            const hues = [...new Set(pick(/^--mds-color-[a-z]+-\d+$/).map((n) => n.split('-')[3]))];
-            host.innerHTML = hues.length ? hues.map((hue) => {
-                const steps = pick(new RegExp(`^--mds-color-${hue}-\\d+$`)).sort((a, b) => +a.split('-').pop() - +b.split('-').pop());
-                return `<h3>${hue}</h3><div class="ds-scale">${steps.map((n) => `<div style="background:var(${n});color:${+n.split('-').pop() >= 500 ? '#fff' : '#212529'}" title="${n}: ${set.light[n]}">${n.split('-').pop()}</div>`).join('')}</div>`;
-            }).join('') : `<p class="ds-nodark">${text.unavailable}</p>`;
-        }
-    });
-};
-
 // ---------------------------------------------------------------- icon grid
 const renderIcons = () => {
     const host = $('[data-icon-grid]');
@@ -213,19 +167,21 @@ const renderIcons = () => {
     const version = versionOf(state.version);
     const query = ($('#ds-icon-filter')?.value || '').trim().toLowerCase();
     const ids = Object.keys(iconMap);
-    const missing = ids.filter((id) => !iconMap[id][state.version]).length;
-    host.innerHTML = ids.filter((id) => !query || id.includes(query) || (iconMap[id][state.version] || '').includes(query)).map((id) => {
+    const here = ids.filter((id) => iconMap[id][state.version]);
+    const shown = here.filter((id) => !query || id.includes(query) || iconMap[id][state.version].includes(query));
+    host.innerHTML = shown.map((id) => {
         const classes = iconClass(id, version);
-        return `<div class="ds-icon${classes ? '' : ' is-missing'}"><i class="icon ${classes ?? 'fa-regular fa-circle-xmark'}" aria-hidden="true"></i><span class="n">${id}</span><span class="c">${classes ? iconMap[id][state.version] : text.unavailable}</span></div>`;
+        return `<button type="button" class="ds-icon" data-copy="${id}" title="${id}"><i class="icon ${classes}" aria-hidden="true"></i><span class="n">${id}</span><span class="c">${iconMap[id][state.version]}</span></button>`;
     }).join('');
     const meta = $('#ds-icon-meta');
-    if (meta) { meta.textContent = `${ids.length - missing} / ${ids.length}`; }
+    if (meta) { meta.textContent = `${query ? `${shown.length} / ` : ''}${here.length} ${text.inVersion} · ${ids.length} ${text.inTotal}`; }
 };
 
 // ---------------------------------------------------------------- inspector
-const rail = $('#ds-rail');
-const body = $('#ds-insp-body');
+const rail = $('#ds-rail') ?? document.createElement('div');
+const body = $('#ds-insp-body') ?? document.createElement('div');
 const layer = document.body.appendChild(document.createElement('div'));
+layer.className = 'ds-layer';
 let hoverBox = null;
 let selected = null;
 const describe = (el) => el.tagName.toLowerCase() + [...el.classList].filter((c) => !c.startsWith('ds-')).map((c) => `.${c}`).join('');
@@ -239,6 +195,9 @@ const drawSelection = () => {
     layer.innerHTML = '';
     if (!selected || !document.contains(selected)) { return; }
     const r = selected.getBoundingClientRect();
+    // The marks stay inside the canvas of the example: when the element scrolls out of it, they go with it.
+    const area = (selected.closest('.ds-canvas') || document.body).getBoundingClientRect();
+    layer.style.clipPath = `inset(${Math.max(area.top, 0)}px ${Math.max(innerWidth - area.right, 0)}px ${Math.max(innerHeight - area.bottom, 0)}px ${Math.max(area.left, 0)}px)`;
     const cs = getComputedStyle(selected);
     const add = (cls, x, y, w, h) => {
         const d = document.createElement('div');
@@ -312,6 +271,12 @@ document.addEventListener('click', (event) => {
         $$('[data-pane]', block).forEach((p) => { p.hidden = p.dataset.pane !== tab.dataset.tab; });
         return;
     }
+    const icon = target.closest('[data-copy]');
+    if (icon) {
+        const done = () => { icon.classList.add('is-copied'); setTimeout(() => icon.classList.remove('is-copied'), 900); };
+        try { navigator.clipboard.writeText(icon.dataset.copy).then(done, () => {}); } catch (error) { /* the id stays readable on the tile */ }
+        return;
+    }
     const copy = target.closest('.ds-copy');
     if (copy) {
         const code = copy.parentElement.querySelector('code');
@@ -329,7 +294,12 @@ document.addEventListener('click', (event) => {
         return;
     }
     const mode = target.closest('[data-mode]');
-    if (mode) { state.mode = mode.dataset.mode; store('ds-mode', state.mode); apply(); return; }
+    if (mode) {
+        state.mode = mode.dataset.mode === 'system' ? null : mode.dataset.mode;
+        try { if (state.mode) { localStorage.setItem('ds-mode', state.mode); } else { localStorage.removeItem('ds-mode'); } } catch (error) { /* optional */ }
+        apply();
+        return;
+    }
     if (!target.closest('#ds-version')) { $('#ds-version').open = false; }
     if (!target.closest('#ds-rail') && !inFrame) { clearSelection(); }
 });
@@ -339,20 +309,21 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('submit', (event) => {
     if (event.target.closest('.ds-frame')) { event.preventDefault(); }
 }, true);
-window.addEventListener('scroll', drawSelection, {passive: true});
+// Capture: the canvas of an example scrolls on its own, and that does not bubble to the window.
+window.addEventListener('scroll', () => { drawSelection(); if (hoverBox) { hoverBox.hidden = true; } }, {passive: true, capture: true});
 window.addEventListener('resize', () => { drawSelection(); renderMeasures(); });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!state.mode) { apply(); } });
 $('#ds-icon-filter')?.addEventListener('input', renderIcons);
 
-$('#ds-find').addEventListener('input', (event) => {
+$('#ds-find')?.addEventListener('input', (event) => {
     const q = event.target.value.trim().toLowerCase();
     $$('#ds-nav a').forEach((a) => { a.hidden = q !== '' && !a.dataset.find.includes(q); });
     $$('#ds-nav [data-group]').forEach((g) => { g.hidden = $$('a', g).every((a) => a.hidden); });
 });
 const menu = $('#ds-menu');
 const nav = $('#ds-nav');
-menu.addEventListener('click', () => { const open = !nav.classList.contains('is-open'); nav.classList.toggle('is-open', open); menu.setAttribute('aria-expanded', String(open)); });
-nav.addEventListener('click', (event) => { if (event.target.closest('a')) { nav.classList.remove('is-open'); menu.setAttribute('aria-expanded', 'false'); } });
+menu?.addEventListener('click', () => { const open = !nav.classList.contains('is-open'); nav.classList.toggle('is-open', open); menu.setAttribute('aria-expanded', String(open)); });
+nav?.addEventListener('click', (event) => { if (event.target.closest('a')) { nav.classList.remove('is-open'); menu?.setAttribute('aria-expanded', 'false'); } });
 
 const headings = $$('.ds-article h2[id], .ds-article h3[id]');
 if (headings.length) {

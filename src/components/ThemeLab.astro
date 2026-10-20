@@ -1,0 +1,87 @@
+---
+import {langFromPath, ui} from '../i18n/ui';
+
+/**
+ * A lab: change the colour of a theme role and see it on real components of the selected Moodle version, with the contrast of the text
+ * on it, and copy the SCSS for a Boost preset or the CSS variables. Only the preview of this page changes; nothing else does.
+ */
+const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/\/$/, ''));
+const l = ui[lang].lab;
+const roles = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'] as const;
+const presets = {
+    didactika: {primary: '#0f766e', secondary: '#475569', success: '#15803d', info: '#0e7490', warning: '#b45309', danger: '#b91c1c'},
+    ocean: {primary: '#0369a1', secondary: '#64748b', success: '#15803d', info: '#0891b2', warning: '#d97706', danger: '#dc2626'},
+    grape: {primary: '#7c3aed', secondary: '#6b7280', success: '#16a34a', info: '#0ea5e9', warning: '#f59e0b', danger: '#e11d48'},
+    sunset: {primary: '#c2410c', secondary: '#78716c', success: '#4d7c0f', info: '#0e7490', warning: '#ca8a04', danger: '#b91c1c'},
+};
+const label = (role: string) => l.roles[role as keyof typeof l.roles];
+---
+
+<div class="ds-lab-wrap" data-lab>
+    <div class="ds-lab-controls">
+        <div class="ds-lab-presets" role="group" aria-label={l.presets}>
+            <button type="button" data-lab-preset="stock" aria-pressed="true">{l.stock}</button>
+            <button type="button" data-lab-preset="didactika" aria-pressed="false">{l.didactika}</button>
+            <button type="button" data-lab-preset="ocean" aria-pressed="false">Ocean</button>
+            <button type="button" data-lab-preset="grape" aria-pressed="false">Grape</button>
+            <button type="button" data-lab-preset="sunset" aria-pressed="false">Sunset</button>
+        </div>
+        <div class="ds-lab-roles">
+            {roles.map((role) => (
+                <div class="ds-lab-role">
+                    <label for={`lab-${role}`}>{label(role)}</label>
+                    <div class="ds-lab-inputs">
+                        <input type="color" id={`lab-${role}`} data-lab-role={role} value="#0f6cbf" aria-label={label(role)} />
+                        <input type="text" data-lab-role={role} value="#0f6cbf" maxlength="7" spellcheck="false" aria-label={`${label(role)} hex`} />
+                        <span class="ds-ratio" data-lab-ratio={role} title={l.ratio}></span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <div class="ds-example">
+        <div class="ds-canvas">
+            <div class="ds-frame ds-v-scope ds-lab">
+                <div class="ds-lab-row">
+                    {roles.map((role) => <button type="button" class={`btn btn-${role}`}>{label(role)}</button>)}
+                </div>
+                <div class="ds-lab-row">
+                    {roles.map((role) => <button type="button" class={`btn btn-outline-${role}`}>{label(role)}</button>)}
+                </div>
+                <div class="alert alert-primary" role="status">{l.alertPrimary}</div>
+                <div class="alert alert-success" role="status">{l.alertSuccess}</div>
+                <div class="alert alert-warning" role="status">{l.alertWarning}</div>
+                <div class="alert alert-danger" role="status">{l.alertDanger}</div>
+                <div class="progress" role="progressbar" aria-label="62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width:62%"></div></div>
+                <p style="margin:.9rem 0">{l.textLink} <a href="#">{l.link}</a> · <span class="text-primary">text-primary</span> · <span class="text-danger">text-danger</span></p>
+                <div class="ds-lab-two">
+                    <input class="form-control" type="text" value={l.focusMe} aria-label={l.focusMe} />
+                    <ul class="list-group">
+                        <li class="list-group-item active">{l.active}</li>
+                        <li class="list-group-item">{l.item}</li>
+                    </ul>
+                </div>
+                <div class="ds-lab-row" style="margin-top:.9rem">
+                    <span class="bg-primary rounded" style="padding:.4rem .8rem">bg-primary</span>
+                    <span class="border border-primary rounded" style="padding:.4rem .8rem">border-primary</span>
+                    <span class="bg-danger rounded" style="padding:.4rem .8rem">bg-danger</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ds-lab-out">
+        <section>
+            <h3>{l.scss}</h3>
+            <p>{l.scssHelp}</p>
+            <pre class="ds-source"><button class="ds-copy" type="button" data-lab-copy="[data-lab-scss]">{l.copy}</button><code data-lab-scss></code></pre>
+        </section>
+        <section>
+            <h3>{l.cssVars}</h3>
+            <p>{l.cssHelp}</p>
+            <pre class="ds-source"><button class="ds-copy" type="button" data-lab-copy="[data-lab-css]">{l.copy}</button><code data-lab-css></code></pre>
+        </section>
+    </div>
+    <script type="application/json" id="ds-lab-presets" set:html={JSON.stringify(presets)} is:inline />
+</div>

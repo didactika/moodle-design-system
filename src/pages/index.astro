@@ -8,14 +8,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Didactika Moodle UI</title>
-        <meta http-equiv="refresh" content={`0; url=${base}/en/start/introduction/`} />
-        <link rel="canonical" href={`${base}/en/start/introduction/`} />
+        <meta name="theme-color" content="#0f766e" />
+        <link rel="icon" href={`${base}/brand/favicon.ico`} sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href={`${base}/brand/favicon-32x32.png`} />
+        <link rel="apple-touch-icon" href={`${base}/brand/apple-touch-icon.png`} />
+        <meta http-equiv="refresh" content={`0; url=${base}/en/`} />
+        <link rel="canonical" href={`${base}/en/`} />
         <script is:inline define:vars={{base}}>
             // Spanish for people whose browser asks for it; English otherwise.
-            if ((navigator.language || '').toLowerCase().startsWith('es')) { location.replace(base + '/es/start/introduction/'); }
+            if ((navigator.language || '').toLowerCase().startsWith('es')) { location.replace(base + '/es/'); }
         </script>
     </head>
     <body>
-        <p><a href={`${base}/en/start/introduction/`}>English</a> · <a href={`${base}/es/start/introduction/`}>Español</a></p>
+        <p><a href={`${base}/en/`}>English</a> · <a href={`${base}/es/`}>Español</a></p>
     </body>
 </html>

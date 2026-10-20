@@ -1,0 +1,56 @@
+---
+import versions from '../data/versions.json';
+import {languages, ui, type Lang} from '../i18n/ui';
+import Icon from './Icon.astro';
+
+/** The bar at the top of every page: brand, Moodle version, language and colour mode. */
+interface Props {
+    lang: Lang;
+    /** Slug of the page in the other language; empty for the home page. */
+    slug: string;
+    /** Show the button that opens the navigation (pages that have one). */
+    menu?: boolean;
+}
+const {lang, slug, menu = true} = Astro.props;
+const t = ui[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = (l: string, s: string) => `${base}/${l}/${s ? s + '/' : ''}`;
+---
+
+<header class="ds-head">
+    {menu && <button class="ds-iconbtn ds-menu-btn" id="ds-menu" type="button" aria-controls="ds-nav" aria-expanded="false" aria-label={t.menu}><Icon name="bars" /></button>}
+    <a class="ds-brand" href={href(lang, '')} aria-label={t.site}>
+        <span class="ds-logo"><img src={`${base}/brand/didactika-logo.png`} alt="" width="30" height="30" /></span>
+        <span class="ds-wordmark">Didactika<b>Moodle UI</b></span>
+    </a>
+    <div class="ds-head-tools">
+        <details class="ds-dd" id="ds-version">
+            <summary aria-label={t.version}>
+                <Icon name="layers" /><span id="ds-version-label"><span class="ds-vl">Moodle </span>{versions[0].label.replace(/^Moodle /, '')}</span>
+            </summary>
+            <ul class="ds-dd-list" role="menu" aria-label={t.version}>
+                {versions.map((v) => (
+                    <li role="none">
+                        <button type="button" role="menuitemradio" aria-checked="false" data-version={v.id}>
+                            <b>{v.label}</b>
+                            <span class="ds-chip">{t.bootstrap} {v.bootstrap}</span>
+                            <small>{v.support[lang]} · {v.icons === 'fa4' ? 'Font Awesome 4.7' : 'Font Awesome 6'}{v.darkMode ? ' · ' + t.dark.toLowerCase() : ''}</small>
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </details>
+        <div class="ds-seg" role="group" aria-label={t.language}>
+            <span class="ds-seg-icon"><Icon name="globe" /></span>
+            {(Object.keys(languages) as Lang[]).map((l) => (
+                <a href={l === lang ? undefined : href(l, slug)} hreflang={l} lang={l} title={languages[l]} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
+            ))}
+        </div>
+        <div class="ds-seg ds-seg-modes" role="group" aria-label={t.theme}>
+            <button type="button" data-mode="light" aria-pressed="false" title={t.light} aria-label={t.light}><Icon name="sun" /></button>
+            <button type="button" data-mode="system" aria-pressed="false" title={t.system} aria-label={t.system}><Icon name="auto" /></button>
+            <button type="button" data-mode="dark" aria-pressed="false" title={t.dark} aria-label={t.dark}><Icon name="moon" /></button>
+        </div>
+        <a class="ds-iconbtn ds-github" href="https://github.com/didactika/moodle-design-system" title="GitHub" aria-label="GitHub"><Icon name="github" /></a>
+    </div>
+</header>
