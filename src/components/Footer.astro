@@ -1,13 +1,13 @@
 ---
-import config from '../config/site.json';
-import people from '../data/people.generated.json';
+import project from '../data/project.generated.json';
 import {ui, type Lang} from '../i18n/ui';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
 /**
- * The foot of every page. It stays one row however much the project grows: the co-founders are the people of the configuration, the
- * collaborators are read from GitHub when the page opens and cut at a maximum (the rest is a "+ n" that leads to the full list).
+ * The foot of every page. It stays one row however much the project grows. Everything in it comes from GitHub (`tools/fetch-project.ts`): the
+ * co-founders are the owners of the organisation, the collaborators are its contributors (refreshed in the browser with its public members) and
+ * cut at a maximum, the rest being a "+ n" that leads to the full list.
  */
 interface Props {
     lang: Lang;
@@ -16,11 +16,13 @@ const {lang} = Astro.props;
 const t = ui[lang];
 const f = t.foot;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const c = config.collaborators;
-const cofounders = new Set(config.cofounders.map((p) => p.github.toLowerCase()));
+const {organisation, repository, founders, funding} = project;
+const max = 8;
+const cofounders = new Set(founders.map((p) => p.login.toLowerCase()));
 /** Everyone who has contributed to the repositories of the organisation, except the co-founders, who are shown on their own. */
-const seed = people.contributors.filter((p) => !cofounders.has(p.login.toLowerCase()));
-const shown = seed.slice(0, c.max);
+const seed = project.contributors.filter((p) => !cofounders.has(p.login.toLowerCase()));
+const shown = seed.slice(0, max);
+const host = organisation.website ? new URL(organisation.website).host : null;
 ---
 
 <footer class="ds-footer">
@@ -33,31 +35,31 @@ const shown = seed.slice(0, c.max);
 
             <div class="ds-foot-people">
                 <ul class="ds-founders" aria-label={f.cofounders}>
-                    {config.cofounders.map((p) => (
+                    {founders.map((p) => (
                         <li>
-                            <a class="ds-founder" href={`https://github.com/${p.github}`} title={`${p.name} · GitHub`}>
-                                <img src={`https://github.com/${p.github}.png?size=64`} alt="" width="32" height="32" loading="lazy" />
-                                <span><b>{p.name}</b><small>{f.cofounder}</small></span>
+                            <a class="ds-founder" href={p.url} title={`${p.name ?? p.login} · GitHub`}>
+                                <img src={`${p.avatar}${p.avatar.includes('?') ? '&' : '?'}s=64`} alt="" width="32" height="32" loading="lazy" />
+                                <span><b>{p.name ?? p.login}</b><small>{f.cofounder}</small></span>
                             </a>
                         </li>
                     ))}
                 </ul>
-                <div class:list={['ds-collabs', {'has-people': seed.length > 0}]} data-people data-org={c.org} data-exclude={[...cofounders].join(',')} data-max={c.max} data-all={c.all} data-more={f.moreCollaborators} data-seed={JSON.stringify(seed)}>
+                <div class:list={['ds-collabs', {'has-people': seed.length > 0}]} data-people data-org={organisation.login} data-exclude={[...cofounders].join(',')} data-max={max} data-all={organisation.peopleUrl} data-more={f.moreCollaborators} data-seed={JSON.stringify(seed)}>
                     <span class="ds-collabs-label">{f.collaborators}</span>
-                    <span class="ds-stack" data-people-list>{shown.map((p) => <a href={p.url} title={p.login} aria-label={p.login}><img src={`${p.avatar}${p.avatar.includes('?') ? '&' : '?'}s=64`} alt="" width="32" height="32" loading="lazy" /></a>)}{seed.length > c.max && <a class="more" href={c.all} title={f.moreCollaborators}>+{seed.length - c.max}</a>}</span>
-                    <a class="ds-collab-add" href={c.join} title={f.join} aria-label={f.join}><Icon name="userplus" /></a>
+                    <span class="ds-stack" data-people-list>{shown.map((p) => <a href={p.url} title={p.login} aria-label={p.login}><img src={`${p.avatar}${p.avatar.includes('?') ? '&' : '?'}s=64`} alt="" width="32" height="32" loading="lazy" /></a>)}{seed.length > max && <a class="more" href={organisation.peopleUrl} title={f.moreCollaborators}>+{seed.length - max}</a>}</span>
+                    <a class="ds-collab-add" href={organisation.repositoriesUrl} title={f.join} aria-label={f.join}><Icon name="userplus" /></a>
                 </div>
             </div>
 
             <nav class="ds-foot-links" aria-label={f.links}>
-                <a href={config.organisation.website}><img src={`${base}/brand/didactika-logo.png`} alt="" width="16" height="16" />didactika.org</a>
-                <a href={config.organisation.github}><Icon name="github" />github.com/didactika</a>
+                {organisation.website && <a href={organisation.website}><img src={organisation.avatar ?? `${base}/brand/didactika-logo.png`} alt="" width="16" height="16" />{host}</a>}
+                <a href={organisation.url}><Icon name="github" />github.com/{organisation.login}</a>
             </nav>
         </div>
 
         <div class="ds-footer-bar">
-            <span>© Didactika · GPL-3.0-or-later</span>
-            <a class="ds-support-link" href={config.support.url} rel="noopener"><Icon name="heart" />{f.supportLink}</a>
+            <span>© {organisation.login}{repository.licence && ` · ${repository.licence}`}</span>
+            {funding ? <a class="ds-support-link" href={funding.url} rel="noopener"><Icon name="heart" />{f.supportLink}</a> : <span></span>}
             <span>{f.credits}</span>
         </div>
     </div>

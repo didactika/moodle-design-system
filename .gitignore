@@ -3,4 +3,4 @@ dist/
 vendor/
 .astro/
 public/moodle/
-src/data/people.generated.json
+src/data/project.generated.json

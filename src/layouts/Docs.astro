@@ -36,13 +36,12 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
     <div class="ds-shell">
         <nav class="ds-nav" id="ds-nav" aria-label={t.menu}>
             <div class="ds-nav-in">
-                <input class="ds-find" id="ds-find" type="search" placeholder={t.search} aria-label={t.search} />
                 <a class="ds-nav-home" href={href(lang, '')}>{t.home}</a>
                 {groups.map((g) => (
                     <div data-group>
                         <h2>{g.label}</h2>
                         {g.pages.map((p) => (
-                            <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined} data-find={`${p.title} ${p.summary}`.toLowerCase()}>
+                            <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined}>
                                 {p.title}{p.versions && <Versions of={p.versions.join(',')} />}
                             </a>
                         ))}

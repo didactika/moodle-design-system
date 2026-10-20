@@ -15,6 +15,7 @@ import access from '@fortawesome/fontawesome-free/svgs/solid/universal-access.sv
 import language from '@fortawesome/fontawesome-free/svgs/solid/language.svg?raw';
 import arrow from '@fortawesome/fontawesome-free/svgs/solid/arrow-right.svg?raw';
 import ruler from '@fortawesome/fontawesome-free/svgs/solid/ruler-combined.svg?raw';
+import designer from '@fortawesome/fontawesome-free/svgs/solid/pen-ruler.svg?raw';
 import swatch from '@fortawesome/fontawesome-free/svgs/solid/swatchbook.svg?raw';
 import branch from '@fortawesome/fontawesome-free/svgs/solid/code-branch.svg?raw';
 import sparkles from '@fortawesome/fontawesome-free/svgs/solid/wand-magic-sparkles.svg?raw';
@@ -32,7 +33,7 @@ import userplus from '@fortawesome/fontawesome-free/svgs/solid/user-plus.svg?raw
 import github from '@fortawesome/fontawesome-free/svgs/brands/github.svg?raw';
 import linkedin from '@fortawesome/fontawesome-free/svgs/brands/linkedin.svg?raw';
 
-const raw = {sun, moon, auto, globe, layers, bars, search, palette, cubes, book, puzzle, access, language, arrow, ruler, swatch, branch, sparkles, check, pointer, heart, mug, code, plug, external, download, users, star, userplus, github, linkedin};
+const raw = {designer, sun, moon, auto, globe, layers, bars, search, palette, cubes, book, puzzle, access, language, arrow, ruler, swatch, branch, sparkles, check, pointer, heart, mug, code, plug, external, download, users, star, userplus, github, linkedin};
 
 export type IconName = keyof typeof raw;
 

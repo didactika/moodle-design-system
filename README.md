@@ -55,6 +55,16 @@ npm run data       # refresh icons.json and tokens.json after changing a version
 `npm run build` fails when a page is missing in one language, when the two languages disagree on `group`, `order` or
 `versions`, or when an example file is missing or unused.
 
+## Nothing is kept up to date by hand
+
+The people, the organisation and the funding of the footer are assembled from GitHub on every build by `tools/fetch-project.ts`:
+
+- the repository comes from `GITHUB_REPOSITORY` (in Actions) or the `origin` remote of the clone, and the address of the site (`https://<owner>.github.io/<repository>/`) follows it;
+- the organisation (name, website, avatar), its owners (the co-founders, with the name each has on GitHub) and everyone who contributed to any of its public repositories;
+- the funding, from the `FUNDING.yml` of the repository or of the organisation's `.github` repository, which is also what GitHub uses for its Sponsor button.
+
+A token is read from `GH_TOKEN`, `GITHUB_TOKEN` or the `gh` CLI. In Actions the owners of the organisation are listed with the optional secret `ORG_READ_TOKEN` (a token that can read the organisation's members) and, without it, with the token of the workflow. If GitHub does not answer, the data of the last build is kept. The Pages workflow builds every day, so the site follows the organisation without a push.
+
 ## Adding a component page
 
 Copy `src/content/docs/en/bootstrap/buttons.mdx` and its Spanish twin: it is the template. Every component page has what it is for and
