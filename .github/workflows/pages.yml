@@ -22,10 +22,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # Pages is turned on once by an administrator, with GitHub Actions as its source (gh api -X POST repos/<owner>/<repo>/pages -f build_type=workflow):
+      # the token of a workflow cannot create the site, so asking configure-pages to do it fails with "Resource not accessible by integration".
       - uses: actions/configure-pages@v5
-        with:
-          # Turns Pages on, with GitHub Actions as its source, the first time it runs.
-          enablement: true
       - uses: actions/setup-node@v4
         with:
           node-version: 22
