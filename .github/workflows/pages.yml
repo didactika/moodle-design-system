@@ -3,6 +3,9 @@ name: Pages
 on:
   push:
     branches: [main]
+  # Every day, so the collaborators of the footer follow the organisation without a push.
+  schedule:
+    - cron: '17 5 * * *'
   workflow_dispatch:
 
 permissions:
@@ -31,6 +34,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

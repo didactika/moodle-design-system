@@ -1,5 +1,6 @@
 ---
 import config from '../config/site.json';
+import people from '../data/people.generated.json';
 import {ui, type Lang} from '../i18n/ui';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
@@ -16,6 +17,10 @@ const t = ui[lang];
 const f = t.foot;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const c = config.collaborators;
+const cofounders = new Set(config.cofounders.map((p) => p.github.toLowerCase()));
+/** Everyone who has contributed to the repositories of the organisation, except the co-founders, who are shown on their own. */
+const seed = people.contributors.filter((p) => !cofounders.has(p.login.toLowerCase()));
+const shown = seed.slice(0, c.max);
 ---
 
 <footer class="ds-footer">
@@ -37,9 +42,9 @@ const c = config.collaborators;
                         </li>
                     ))}
                 </ul>
-                <div class="ds-collabs" data-people data-org={c.org} data-exclude={c.exclude.join(',')} data-max={c.max} data-all={c.all} data-more={f.moreCollaborators}>
+                <div class:list={['ds-collabs', {'has-people': seed.length > 0}]} data-people data-org={c.org} data-exclude={[...cofounders].join(',')} data-max={c.max} data-all={c.all} data-more={f.moreCollaborators} data-seed={JSON.stringify(seed)}>
                     <span class="ds-collabs-label">{f.collaborators}</span>
-                    <span class="ds-stack" data-people-list></span>
+                    <span class="ds-stack" data-people-list>{shown.map((p) => <a href={p.url} title={p.login} aria-label={p.login}><img src={`${p.avatar}${p.avatar.includes('?') ? '&' : '?'}s=64`} alt="" width="32" height="32" loading="lazy" /></a>)}{seed.length > c.max && <a class="more" href={c.all} title={f.moreCollaborators}>+{seed.length - c.max}</a>}</span>
                     <a class="ds-collab-add" href={c.join} title={f.join} aria-label={f.join}><Icon name="userplus" /></a>
                 </div>
             </div>

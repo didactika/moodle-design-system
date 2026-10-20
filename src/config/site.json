@@ -22,12 +22,8 @@
   ],
   "collaborators": {
     "org": "didactika",
-    "exclude": [
-      "E2RD0",
-      "hector-ae21"
-    ],
     "max": 8,
-    "join": "https://github.com/didactika/moodle-design-system/issues",
+    "join": "https://github.com/orgs/didactika/repositories",
     "all": "https://github.com/orgs/didactika/people"
   }
 }

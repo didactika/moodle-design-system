@@ -1,9 +1,11 @@
-// The collaborators of the footer: the public members of the GitHub organisation, read when the page opens (and kept for half an hour so a
-// visit does not spend the limit GitHub puts on anonymous requests). If they cannot be read, the footer simply shows no one.
+// The collaborators of the footer: the people who contributed to any repository of the organisation (rendered when the site was built) plus the
+// public members of the organisation on GitHub, read when the page opens and kept for half an hour so a visit does not spend the limit GitHub puts
+// on anonymous requests. If the members cannot be read, the footer keeps what the build rendered.
 const KEY = 'ds-people';
 const TTL = 30 * 60 * 1000;
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 
-const read = async(org) => {
+const members = async(org) => {
     try {
         const cached = JSON.parse(sessionStorage.getItem(KEY) ?? 'null');
         if (cached && cached.org === org && Date.now() - cached.at < TTL) { return cached.list; }
@@ -19,13 +21,16 @@ document.querySelectorAll('[data-people]').forEach(async(box) => {
     const stack = box.querySelector('[data-people-list]');
     const skip = (box.dataset.exclude || '').toLowerCase().split(',').filter(Boolean);
     const max = Number(box.dataset.max) || 8;
+    let seed = [];
+    try { seed = JSON.parse(box.dataset.seed || '[]'); } catch (error) { /* nothing rendered by the build */ }
     try {
-        const people = (await read(box.dataset.org)).filter((p) => p.avatar && !skip.includes(p.login.toLowerCase()));
-        const esc = (s) => s.replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+        const live = await members(box.dataset.org);
+        const known = new Set(seed.map((p) => p.login.toLowerCase()));
+        const people = [...seed, ...live.filter((p) => !known.has(p.login.toLowerCase()))].filter((p) => p.avatar && !skip.includes(p.login.toLowerCase()));
         stack.innerHTML = people.slice(0, max).map((p) => `<a href="${esc(p.url)}" title="${esc(p.login)}" aria-label="${esc(p.login)}"><img src="${esc(p.avatar)}${p.avatar.includes('?') ? '&' : '?'}s=64" alt="" width="32" height="32" loading="lazy"></a>`).join('')
             + (people.length > max ? `<a class="more" href="${esc(box.dataset.all)}" title="${esc(box.dataset.more)}">+${people.length - max}</a>` : '');
         box.classList.toggle('has-people', people.length > 0);
     } catch (error) {
-        box.classList.remove('has-people');
+        /* the members are not available: what the build rendered stays */
     }
 });
