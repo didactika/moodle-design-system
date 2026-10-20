@@ -1,0 +1,24 @@
+---
+import versions from '../data/versions.json';
+import {ui, langFromPath} from '../i18n/ui';
+
+/**
+ * A small, quiet badge next to a title or a section that says from which Moodle version something exists ("5.3+"), or in which ones when it
+ * is not a stretch up to the newest. It is written only where something does not exist in every version; the badge of the version selected in
+ * the header is a little stronger.
+ */
+interface Props {
+    /** Version ids separated by commas, e.g. "v53" or "v53,v45". */
+    of: string;
+}
+const {of} = Astro.props;
+const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/\/$/, ''));
+const ids = of.split(',').map((id) => id.trim()).filter(Boolean);
+const list = versions.filter((v) => ids.includes(v.id));
+// The versions are listed newest first: a stretch up to the newest is "since" the oldest of it.
+const since = list.length > 0 && list.every((v, i) => versions[i]?.id === v.id);
+const badges = since ? [{label: `${list[list.length - 1].moodle}+`, ids: list.map((v) => v.id)}] : list.map((v) => ({label: v.moodle, ids: [v.id]}));
+const title = since ? `${ui[lang].since} Moodle ${list[list.length - 1].moodle}` : `${ui[lang].applies}: ${list.map((v) => 'Moodle ' + v.moodle).join(', ')}`;
+---
+
+<span class="ds-vbadges" title={title} aria-label={title}>{badges.map((b) => <span class="ds-vb" data-v={b.ids.join(' ')}>{b.label}</span>)}</span>

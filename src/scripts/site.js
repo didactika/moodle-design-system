@@ -1,7 +1,8 @@
 // The behaviour of the documentation site: the selected Moodle version, colour mode and Didactika theme, the examples drawn with the CSS of that
 // version, the icons of each version, and an inspector that measures anything inside an example and shows its code.
 import './colour.js';
-import {DIDACTIKA, styleElements, themeCss, toHex} from './theme.js';
+import {DIDACTIKA, contrast, grade, hex, parse, styleElements, themeCss, toHex} from './theme.js';
+import {toBootstrap4} from '../lib/bootstrap4.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -16,26 +17,6 @@ const store = (key, value) => {
     try { if (value === null) { localStorage.removeItem(key); } else { localStorage.setItem(key, value); } } catch (error) { /* optional */ }
 };
 const styles = styleElements();
-
-// ---------------------------------------------------------------- Bootstrap 5 markup for the versions that have Bootstrap 4
-const renamed = {
-    'form-select': 'custom-select', 'form-select-sm': 'custom-select-sm', 'form-select-lg': 'custom-select-lg', 'visually-hidden': 'sr-only',
-    'form-range': 'custom-range', 'float-end': 'float-right', 'float-start': 'float-left', 'text-end': 'text-right', 'text-start': 'text-left',
-    'dropdown-menu-end': 'dropdown-menu-right', 'fw-bold': 'font-weight-bold', 'fw-semibold': 'font-weight-bold', 'fw-normal': 'font-weight-normal',
-    'fst-italic': 'font-italic', 'rounded-end': 'rounded-right', 'rounded-start': 'rounded-left', 'text-bg-primary': 'badge-primary',
-    'text-bg-secondary': 'badge-secondary', 'text-bg-success': 'badge-success', 'text-bg-danger': 'badge-danger', 'text-bg-warning': 'badge-warning',
-    'text-bg-info': 'badge-info', 'text-bg-light': 'badge-light', 'text-bg-dark': 'badge-dark', 'form-label': '', 'form-check-reverse': '',
-    'btn-close': 'close', 'g-0': 'no-gutters', 'accordion-button': 'btn btn-link', 'ratio': 'embed-responsive',
-};
-const toBootstrap4 = (html) => html.replace(/class="([^"]*)"/g, (match, value) => {
-    const names = value.split(/\s+/).filter(Boolean).map((name) => {
-        if (name in renamed) { return renamed[name]; }
-        const spacing = name.match(/^([mp])([se])-((?:sm|md|lg|xl|xxl)-)?(\d|auto)$/);
-        if (spacing) { return `${spacing[1]}${spacing[2] === 's' ? 'l' : 'r'}-${spacing[3] || ''}${spacing[4]}`; }
-        return name;
-    });
-    return `class="${[...new Set(names.join(' ').split(/\s+/).filter(Boolean))].join(' ')}"`;
-}).replace(/ data-bs-/g, ' data-');
 
 // ---------------------------------------------------------------- icons: the Moodle icon id of a pix icon, drawn with the Font Awesome of the version
 let iconMap = null;
@@ -111,7 +92,8 @@ const apply = () => {
     $('#ds-version-label').innerHTML = version.label.replace(/^Moodle /, '<span class="ds-vl">Moodle </span>');
     $$('#ds-version [data-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.version === state.version)));
     $$('[data-pick-version]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pickVersion === state.version)));
-    $$('[data-mode]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.mode === (state.mode ?? 'system'))));
+    $$('[data-set-mode]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.setMode === (state.mode ?? 'system'))));
+    $$('.ds-vb').forEach((b) => b.classList.toggle('is-current', b.dataset.v.split(' ').includes(state.version)));
     if (state.mode) { root.dataset.theme = state.mode; } else { delete root.dataset.theme; }
 
     $$('.ds-v-scope').forEach((el) => {
@@ -133,6 +115,10 @@ const apply = () => {
     if (node && !iconMap) { iconMap = JSON.parse(node.textContent); }
     drawIcons(document, version);
     applyBrand();
+    $$('.ds-toc a').forEach((a) => {
+        const heading = document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));
+        a.closest('li').hidden = !heading || heading.getClientRects().length === 0;
+    });
     // Everything that is read from the CSS waits until the stylesheet of the version is there.
     whenStyled(() => {
         renderMeasures();
@@ -187,7 +173,7 @@ const renderIcons = () => {
     if (meta) { meta.textContent = `${query ? `${shown.length} / ` : ''}${here.length} ${text.inVersion} · ${ids.length} ${text.inTotal}`; }
 };
 
-// ---------------------------------------------------------------- inspector: design and code
+// ---------------------------------------------------------------- inspector: design, code and edit
 const rail = $('#ds-rail') ?? document.createElement('div');
 const body = $('#ds-insp-body') ?? document.createElement('div');
 const layer = document.body.appendChild(document.createElement('div'));
@@ -197,11 +183,12 @@ let selected = null;
 let path = [];
 
 const describe = (el) => el.tagName.toLowerCase() + [...el.classList].filter((c) => !c.startsWith('ds-')).map((c) => `.${c}`).join('');
+const inFrame = (el) => Boolean(el && el.closest('.ds-frame') && !el.classList.contains('ds-frame'));
 const clearSelection = () => {
     selected = null;
     path = [];
     layer.innerHTML = '';
-    rail.dataset.mode = 'toc';
+    rail.dataset.rail = 'toc';
     body.innerHTML = `<p class="ds-insp-empty">${text.inspectHint}</p>`;
 };
 const drawSelection = () => {
@@ -221,6 +208,12 @@ const drawSelection = () => {
     };
     const [pt, pr, pb, pl] = ['Top', 'Right', 'Bottom', 'Left'].map((s) => parseFloat(cs[`padding${s}`]));
     const [bt, br, bb, bl] = ['Top', 'Right', 'Bottom', 'Left'].map((s) => parseFloat(cs[`border${s}Width`]));
+    const [mt, mr, mb, ml] = ['Top', 'Right', 'Bottom', 'Left'].map((s) => Math.max(parseFloat(cs[`margin${s}`]) || 0, 0));
+    // margin, padding, then the box and its size
+    add('ds-sel-mar', r.left - ml, r.top - mt, r.width + ml + mr, mt);
+    add('ds-sel-mar', r.left - ml, r.bottom, r.width + ml + mr, mb);
+    add('ds-sel-mar', r.left - ml, r.top, ml, r.height);
+    add('ds-sel-mar', r.right, r.top, mr, r.height);
     add('ds-sel-pad', r.left + bl, r.top + bt, r.width - bl - br, pt);
     add('ds-sel-pad', r.left + bl, r.bottom - bb - pb, r.width - bl - br, pb);
     add('ds-sel-pad', r.left + bl, r.top + bt + pt, pl, r.height - bt - bb - pt - pb);
@@ -302,33 +295,114 @@ const codePane = (el) => {
       <div class="ds-css-list" id="ds-insp-css">${css || `<p class="ds-insp-empty">${text.noRules}</p>`}${rules.length > 60 ? `<p class="ds-insp-empty">… ${rules.length - 60} ${text.moreRules}</p>` : ''}</div>`;
 };
 
+/** The colour an element is really drawn on: the first ancestor with an opaque background. */
+const backdrop = (el) => {
+    for (let node = el; node; node = node.parentElement) {
+        const c = parse(getComputedStyle(node).backgroundColor);
+        if (c && c.a > 0.99) { return c; }
+    }
+    return {r: 255, g: 255, b: 255, a: 1};
+};
+const ROLES = {a: 'link', button: 'button', select: 'combobox', textarea: 'textbox', ul: 'list', ol: 'list', li: 'listitem', table: 'table', nav: 'navigation', img: 'img', h1: 'heading', h2: 'heading', h3: 'heading', h4: 'heading', h5: 'heading', h6: 'heading', progress: 'progressbar'};
+const roleOf = (el) => el.getAttribute('role') || (el.tagName === 'INPUT' ? ({checkbox: 'checkbox', radio: 'radio', range: 'slider', submit: 'button', button: 'button'}[el.type] ?? 'textbox') : (el.tagName === 'A' && !el.hasAttribute('href') ? 'generic' : (ROLES[el.tagName.toLowerCase()] ?? 'generic')));
+const nameOf = (el) => (el.getAttribute('aria-label') || el.labels?.[0]?.textContent || el.getAttribute('title') || el.getAttribute('placeholder') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+
 const designPane = (el) => {
     const cs = getComputedStyle(el);
     const r = el.getBoundingClientRect();
-    const sides = (name) => ['Top', 'Right', 'Bottom', 'Left'].map((s) => px(cs[name === 'border' ? `border${s}Width` : `${name}${s}`]));
-    const colour = (c) => `<span class="ds-dot" style="background:${c}"></span>${toHex(c)}`;
+    const round = (v) => Math.round(parseFloat(v) * 10) / 10 || 0;
+    const four = (name) => ['Top', 'Right', 'Bottom', 'Left'].map((s) => round(cs[name === 'border' ? `border${s}Width` : `${name}${s}`]));
     const inner = (axis) => {
-        const [a, b] = axis === 'w' ? ['Left', 'Right'] : ['Top', 'Bottom'];
+        const [x, y] = axis === 'w' ? ['Left', 'Right'] : ['Top', 'Bottom'];
         const total = axis === 'w' ? r.width : r.height;
-        return Math.round((total - parseFloat(cs[`padding${a}`]) - parseFloat(cs[`padding${b}`]) - parseFloat(cs[`border${a}Width`]) - parseFloat(cs[`border${b}Width`])) * 10) / 10;
+        return Math.round((total - parseFloat(cs[`padding${x}`]) - parseFloat(cs[`padding${y}`]) - parseFloat(cs[`border${x}Width`]) - parseFloat(cs[`border${y}Width`])) * 10) / 10;
     };
-    const rows = [
-        ['Size', `${Math.round(r.width * 100) / 100} × ${Math.round(r.height * 100) / 100}`],
-        ['Display', cs.display + (cs.display.includes('flex') ? ` · gap ${px(cs.columnGap === 'normal' ? '0px' : cs.columnGap)}` : '')],
-        ['Font', cs.fontFamily.split(',')[0].replace(/"/g, '')],
-        ['Font size', both(cs.fontSize)],
-        ['Weight · line', `${cs.fontWeight} · ${px(cs.lineHeight)}`],
-        ['Text', colour(cs.color)],
-        ['Background', cs.backgroundColor === 'rgba(0, 0, 0, 0)' ? 'none' : colour(cs.backgroundColor)],
-        ['Border', `${sides('border').join(' ')} ${cs.borderTopStyle}` + (parseFloat(cs.borderTopWidth) ? ` · ${toHex(cs.borderTopColor)}` : '')],
-        ['Radius', [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius].map(px).join(' ')],
-        ['Shadow', cs.boxShadow === 'none' ? 'none' : cs.boxShadow],
-    ];
-    return `<div class="ds-box"><span class="l" style="top:.3rem;left:.5rem">margin ${sides('margin').join(' ')}</span>
-        <div class="b"><span class="l" style="margin-top:-1.05rem;margin-left:-.6rem">border ${sides('border').join(' ')}</span>
-          <div class="p"><span class="l" style="margin-top:-1rem;margin-left:-.6rem">padding ${sides('padding').join(' ')}</span>
-            <div class="c">${inner('w')} × ${inner('h')}</div></div></div></div>
-      <table class="ds-props">${rows.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
+    const ring = (cls, label, v, content) => `<div class="bm ${cls}"><span class="k">${label}</span><b class="t">${v[0]}</b><b class="r">${v[1]}</b><b class="b">${v[2]}</b><b class="l">${v[3]}</b>${content}</div>`;
+    const box = ring('bm-margin', 'margin', four('margin'), ring('bm-border', 'border', four('border'), ring('bm-padding', 'padding', four('padding'), `<div class="bm-content">${inner('w')} × ${inner('h')}</div>`)));
+
+    const dot = (c) => `<span class="ds-dot" style="background:${c}"></span>`;
+    const row = (k, v, copyValue) => `<div class="ds-prop"><span>${k}</span><button type="button" class="ds-val" data-copy-id="${escapeHtml(copyValue)}" title="${text.copy}">${v}</button></div>`;
+    const group = (title, rows) => `<section class="ds-pgroup"><h3>${title}</h3>${rows.join('')}</section>`;
+    const ink = parse(cs.color);
+    const ratio = ink ? contrast(ink, backdrop(el)) : 0;
+    const focusable = el.matches('a[href], button, input, select, textarea, [tabindex]') && !el.disabled;
+    const bg = cs.backgroundColor === 'rgba(0, 0, 0, 0)' ? null : cs.backgroundColor;
+    const radius = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius].map(px).join(' ');
+    const border = parseFloat(cs.borderTopWidth) ? `${px(cs.borderTopWidth)} ${cs.borderTopStyle} ${toHex(cs.borderTopColor)}` : 'none';
+    const fontFamily = cs.fontFamily.split(',')[0].replace(/"/g, '');
+    return `<div class="ds-bm" aria-label="Box model">${box}</div>
+      ${group(text.groupLayout, [
+        row('Size', `${round(r.width)} × ${round(r.height)}`, `${round(r.width)}px ${round(r.height)}px`),
+        row('Display', cs.display + (cs.display.includes('flex') ? ` · gap ${px(cs.columnGap === 'normal' ? '0px' : cs.columnGap)}` : ''), cs.display),
+      ])}
+      ${group(text.groupType, [
+        row('Font', escapeHtml(fontFamily), fontFamily),
+        row('Size', both(cs.fontSize), cs.fontSize),
+        row('Weight · line', `${cs.fontWeight} · ${px(cs.lineHeight)}`, `${cs.fontWeight}`),
+        row('Text', `${dot(cs.color)}${toHex(cs.color)}`, toHex(cs.color)),
+      ])}
+      ${group(text.groupFill, [row('Background', bg ? `${dot(bg)}${toHex(bg)}` : 'none', bg ? toHex(bg) : 'none')])}
+      ${group(text.groupStroke, [row('Border', escapeHtml(border), border), row('Radius', radius, radius)])}
+      ${group(text.groupEffects, [row('Shadow', cs.boxShadow === 'none' ? 'none' : escapeHtml(cs.boxShadow), cs.boxShadow)])}
+      <section class="ds-pgroup"><h3>${text.a11y}</h3>
+        <div class="ds-prop"><span>${text.a11yRole}</span><span class="ds-chipx">${roleOf(el)}</span></div>
+        <div class="ds-prop"><span>${text.a11yName}</span><span class="ds-val-text">${escapeHtml(nameOf(el)) || '—'}</span></div>
+        <div class="ds-prop"><span>${text.a11yFocus}</span><span class="ds-chipx" data-pass="${focusable ? 'yes' : 'no'}">${focusable ? text.yes : text.no}</span></div>
+        <div class="ds-prop"><span>${text.a11yContrast}</span>${el.textContent.trim() ? `<span class="ds-ratio" data-pass="${ratio >= 4.5 ? 'yes' : 'no'}">${ratio.toFixed(1)}:1 ${grade(ratio)}</span>` : '<span class="ds-val-text">—</span>'}</div>
+      </section>`;
+};
+
+// What can be changed on an element, and how the value is read from and written to it.
+const EDITS = [
+    ['color', 'textColour', 'colour'],
+    ['backgroundColor', 'background', 'colour'],
+    ['fontSize', 'fontSize', 'px'],
+    ['fontWeight', 'weight', 'weight'],
+    ['borderRadius', 'radius', 'px'],
+    ['padding', 'padding', 'px'],
+    ['borderWidth', 'borderWidth', 'px'],
+];
+const kebab = (prop) => prop.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
+const STATES = [['ds-is-hover', 'stateHover'], ['ds-is-focus', 'stateFocus'], ['ds-is-active', 'statePressed']];
+
+const editPane = (el) => {
+    const cs = getComputedStyle(el);
+    const field = ([prop, label, kind]) => {
+        const value = cs[prop];
+        let input;
+        if (kind === 'colour') {
+            const c = parse(value);
+            input = `<input type="color" data-edit="${prop}" value="${c ? hex(c) : '#000000'}" aria-label="${text[label]}">`;
+        } else if (kind === 'weight') {
+            input = `<select data-edit="${prop}" aria-label="${text[label]}">${[300, 400, 500, 600, 700].map((w) => `<option value="${w}"${String(w) === String(parseInt(value, 10)) ? ' selected' : ''}>${w}</option>`).join('')}</select>`;
+        } else {
+            input = `<input type="number" min="0" step="1" data-edit="${prop}" value="${Math.round(parseFloat(value) || 0)}" aria-label="${text[label]}"><span class="u">px</span>`;
+        }
+        return `<label>${text[label]}</label><span class="ctl">${input}</span>`;
+    };
+    const disabled = 'disabled' in el ? el.disabled : el.classList.contains('disabled');
+    return `<h3>${text.states}</h3>
+      <div class="ds-states">${STATES.map(([cls, key]) => `<label class="ds-statechip"><input type="checkbox" data-state="${cls}"${el.classList.contains(cls) ? ' checked' : ''}>${text[key]}</label>`).join('')}<label class="ds-statechip"><input type="checkbox" data-state="disabled"${disabled ? ' checked' : ''}>${text.stateDisabled}</label></div>
+      <h3>${text.editHeading}<button type="button" class="ds-mini" data-edit-reset>${text.reset}</button></h3>
+      <div class="ds-edit-grid">${EDITS.map(field).join('')}</div>
+      <h3>${text.changes}<button type="button" class="ds-mini" data-copy-code="edit">${text.copy}</button></h3>
+      <pre class="ds-source ds-insp-pre"><code id="ds-insp-edit">${editOutput(el)}</code></pre>`;
+};
+const editOutput = (el) => {
+    const set = el._dsEdits ?? {};
+    const lines = Object.entries(set).map(([prop, value]) => `  ${kebab(prop)}: ${value};`);
+    return lines.length ? escapeHtml(`${describe(el)} {\n${lines.join('\n')}\n}`) : `<span class="ds-insp-empty">${text.noChanges}</span>`;
+};
+const applyEdit = (el, prop, value, kind) => {
+    const css = kind === 'px' ? `${value}px` : value;
+    el.style[prop] = css;
+    el._dsEdits = {...(el._dsEdits ?? {}), [prop]: css};
+};
+const resetEdits = (el) => {
+    Object.keys(el._dsEdits ?? {}).forEach((prop) => { el.style[prop] = ''; });
+    el._dsEdits = {};
+    STATES.forEach(([cls]) => el.classList.remove(cls));
+    if ('disabled' in el) { el.disabled = false; } else { el.classList.remove('disabled'); }
 };
 
 const inspect = (el, keepPath = false) => {
@@ -337,17 +411,27 @@ const inspect = (el, keepPath = false) => {
         path = [];
         for (let node = el; node && !node.classList?.contains('ds-frame'); node = node.parentElement) { path.unshift(node); }
     }
-    rail.dataset.mode = 'inspect';
+    rail.dataset.rail = 'inspect';
     // Whatever fails while the panel is built must not leave a half-empty panel: say so in it.
-    let design = '';
-    let code = '';
-    try { design = designPane(el); } catch (error) { design = `<p class="ds-insp-empty">${escapeHtml(String(error))}</p>`; }
-    try { code = codePane(el); } catch (error) { code = `<p class="ds-insp-empty">${escapeHtml(String(error))}</p>`; }
-    body.innerHTML = `<div class="ds-insp-sel">${escapeHtml(describe(el))}</div>
-      <div class="ds-itabs" role="tablist"><button type="button" role="tab" data-itab="design" aria-selected="${state.itab === 'design'}">${text.design}</button><button type="button" role="tab" data-itab="code" aria-selected="${state.itab === 'code'}">${text.code}</button></div>
-      <div data-ipane="design"${state.itab === 'design' ? '' : ' hidden'}>${design}</div>
-      <div data-ipane="code"${state.itab === 'code' ? '' : ' hidden'}>${code}</div>`;
+    const build = (fn) => { try { return fn(el); } catch (error) { return `<p class="ds-insp-empty">${escapeHtml(String(error))}</p>`; } };
+    const tabs = [['design', text.design], ['code', text.code], ['edit', text.edit]];
+    const move = (to, label, tip, ok) => `<button type="button" data-inav="${to}" title="${tip}" aria-label="${tip}"${ok ? '' : ' disabled'}>${label}</button>`;
+    const parent = el.parentElement && inFrame(el.parentElement);
+    const child = el.firstElementChild;
+    body.innerHTML = `<div class="ds-insp-head"><div class="ds-insp-id"><b class="tag">${escapeHtml(el.tagName.toLowerCase())}</b><span class="cls">${escapeHtml([...el.classList].filter((c) => !c.startsWith('ds-')).map((c) => `.${c}`).join('')) || '—'}</span></div>
+        <div class="ds-inav">${move('up', '↑', text.navParent, parent)}${move('prev', '←', text.navPrev, Boolean(el.previousElementSibling))}${move('next', '→', text.navNext, Boolean(el.nextElementSibling))}${move('down', '↓', text.navChild, Boolean(child))}</div></div>
+      <div class="ds-itabs" role="tablist">${tabs.map(([id, label]) => `<button type="button" role="tab" data-itab="${id}" aria-selected="${state.itab === id}">${label}</button>`).join('')}</div>
+      <div data-ipane="design"${state.itab === 'design' ? '' : ' hidden'}>${build(designPane)}</div>
+      <div data-ipane="code"${state.itab === 'code' ? '' : ' hidden'}>${build(codePane)}</div>
+      <div data-ipane="edit"${state.itab === 'edit' ? '' : ' hidden'}>${build(editPane)}</div>`;
     drawSelection();
+};
+
+/** Move the selection to the parent, a sibling or the first child. */
+const go = (to) => {
+    if (!selected) { return; }
+    const next = {up: selected.parentElement, prev: selected.previousElementSibling, next: selected.nextElementSibling, down: selected.firstElementChild}[to];
+    if (next && inFrame(next)) { inspect(next); }
 };
 
 // ---------------------------------------------------------------- wiring
@@ -365,13 +449,18 @@ document.addEventListener('mousemove', (event) => {
     hoverBox.hidden = false;
 });
 
+const MODES = ['light', 'dark', 'system'];
+const EDIT_KIND = Object.fromEntries(EDITS.map(([prop, , kind]) => [prop, kind]));
+const COPIES = {html: '#ds-insp-html', css: '#ds-insp-css', edit: '#ds-insp-edit'};
+
 document.addEventListener('click', (event) => {
     const target = event.target instanceof Element ? event.target : null;
     if (!target) { return; }
     closeMenus(target.closest('details.ds-dd'));
 
-    const inFrame = target.closest('.ds-frame');
-    if (inFrame && target !== inFrame) { event.preventDefault(); inspect(target); return; }
+    // An element of an example is selected; everything else on a click is about the page.
+    const frame = target.closest('.ds-frame');
+    if (frame && target !== frame) { event.preventDefault(); inspect(target); return; }
 
     const itab = target.closest('[data-itab]');
     if (itab) {
@@ -380,10 +469,13 @@ document.addEventListener('click', (event) => {
         $$('[data-ipane]', body).forEach((p) => { p.hidden = p.dataset.ipane !== state.itab; });
         return;
     }
+    const move = target.closest('[data-inav]');
+    if (move) { go(move.dataset.inav); return; }
     const step = target.closest('[data-ipath]');
     if (step) { inspect(path[Number(step.dataset.ipath)], true); return; }
+    if (target.closest('[data-edit-reset]') && selected) { resetEdits(selected); inspect(selected, true); return; }
     const code = target.closest('[data-copy-code]');
-    if (code) { copy($(code.dataset.copyCode === 'html' ? '#ds-insp-html' : '#ds-insp-css').innerText, code); return; }
+    if (code) { copy($(COPIES[code.dataset.copyCode]).innerText, code); return; }
 
     const tab = target.closest('[data-tab]');
     if (tab) {
@@ -409,9 +501,10 @@ document.addEventListener('click', (event) => {
         apply();
         return;
     }
-    const mode = target.closest('[data-mode]');
-    if (mode) {
-        state.mode = mode.dataset.mode === 'system' ? null : mode.dataset.mode;
+    // The buttons of the colour mode carry data-set-mode: the side panel has a data-rail of its own, so nothing else can be taken for one.
+    const mode = target.closest('[data-set-mode]');
+    if (mode && MODES.includes(mode.dataset.setMode)) {
+        state.mode = mode.dataset.setMode === 'system' ? null : mode.dataset.setMode;
         store('ds-mode', state.mode);
         apply();
         return;
@@ -422,10 +515,39 @@ document.addEventListener('click', (event) => {
         apply();
         return;
     }
-    if (!target.closest('#ds-rail') && !inFrame) { clearSelection(); }
+    if (!target.closest('#ds-rail') && !frame) { clearSelection(); }
 });
+
+// Edit the selected element and force its states.
+document.addEventListener('input', (event) => {
+    const input = event.target;
+    if (!(input instanceof HTMLElement) || !selected || !input.matches('[data-edit]')) { return; }
+    const prop = input.dataset.edit;
+    applyEdit(selected, prop, input.value, EDIT_KIND[prop]);
+    $('#ds-insp-edit').innerHTML = editOutput(selected);
+    drawSelection();
+});
+document.addEventListener('change', (event) => {
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement) || !selected || !input.matches('[data-state]')) { return; }
+    const flag = input.dataset.state;
+    if (flag === 'disabled') {
+        if ('disabled' in selected) { selected.disabled = input.checked; } else { selected.classList.toggle('disabled', input.checked); }
+    } else {
+        selected.classList.toggle(flag, input.checked);
+    }
+    drawSelection();
+});
+
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') { clearSelection(); closeMenus(); }
+    if (event.key === 'Escape') { clearSelection(); closeMenus(); return; }
+    // With something selected the arrows walk the tree: up to the parent, down to the first child, sideways between siblings.
+    const keys = {ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'prev', ArrowRight: 'next'};
+    const typing = event.target instanceof Element && event.target.closest('input, select, textarea, [contenteditable]');
+    if (selected && keys[event.key] && !typing && !event.altKey && !event.ctrlKey && !event.metaKey) {
+        event.preventDefault();
+        go(keys[event.key]);
+    }
 });
 document.addEventListener('submit', (event) => {
     if (event.target.closest('.ds-frame')) { event.preventDefault(); }

@@ -3,7 +3,6 @@ title: Colour
 summary: Didactika's colours next to every colour of Bootstrap and Moodle, read from the version you pick, with their contrast and a lab to try your own.
 group: foundations
 order: 1
-code: DS-COLOUR
 ---
 
 import ColourControls from '../../../../components/ColourControls.astro';
@@ -20,29 +19,55 @@ The teal of the logo (`#00555a`) and the family the website uses (didactika.org)
 
 <Colours kind="brand" />
 
-### Didactika as a theme
+### Didactika's palette
 
-Switch on **Didactika colours** in the bar at the top and every example of the site, including the swatches below, is drawn with the theme roles Didactika proposes: primary `#0f766e`, secondary `#475569`, success `#15803d`, info `#0e7490`, warning `#b45309` and danger `#b91c1c`. Each reaches AA (4.5:1) with white text. When Didactika has a Moodle theme of its own, these are the roles it will set, so every plugin takes them without changing a line. It is a proposal, open to review.
+Switch on **Didactika colours** in the bar at the top and every example of the site, including the swatches below, is drawn with Didactika's palette applied to the Bootstrap roles: primary `#0f766e`, secondary `#475569`, success `#15803d`, info `#0e7490`, warning `#b45309` and danger `#b91c1c`. Each reaches AA (4.5:1) with white text.
 
 ## Theme colours of this version
 
-The eight colours of Bootstrap's theme. On Bootstrap 5 (Moodle 5.x) they are `--bs-*` variables and follow the colour mode; on Bootstrap 4 (Moodle 4.x) they are the variables of the root (`--primary`, `--success`…).
+The eight colours of Bootstrap's theme.
+
+<Only of="v53">
+
+They are `--bs-*` variables and follow the colour mode of the page.
+
+</Only>
+
+<Only of="v45,v41">
+
+They are the variables of the root (`--primary`, `--success`…).
+
+</Only>
 
 <Colours kind="theme" />
 
-### Text, backgrounds and borders
+<Only of="v53">
+
+### Text, backgrounds and borders <Versions of="v53" />
 
 <Colours kind="surface" />
 
-### Subtle and emphasis tones
+</Only>
 
-Soft backgrounds, borders and strong text for each role, used by alerts and list items. They exist from Bootstrap 5.3.
+<Only of="v53">
+
+### Subtle and emphasis tones <Versions of="v53" />
+
+Soft backgrounds, borders and strong text for each role, used by alerts and list items.
 
 <Colours kind="subtle" />
 
+</Only>
+
 ## Bootstrap palette
 
-The ten hues of Bootstrap, black and white, and on Bootstrap 5 each hue's scale from 100 to 900, computed the way Bootstrap does: a tint mixes with white and a shade with black.
+The ten hues of Bootstrap, black and white.
+
+<Only of="v53">
+
+Each hue also has its scale from 100 to 900, computed the way Bootstrap does: a tint mixes with white and a shade with black.
+
+</Only>
 
 <Colours kind="palette" />
 
@@ -50,11 +75,15 @@ The ten hues of Bootstrap, black and white, and on Bootstrap 5 each hue's scale 
 
 <Colours kind="grays" />
 
-## Moodle 5.3 scales
+<Only of="v53">
 
-Moodle 5.3 adds a design token set of its own (`--mds-color-<hue>-<step>`). Use a scale colour only where a theme colour does not fit, for example the colour of a type of activity.
+## Moodle scales <Versions of="v53" />
+
+Moodle adds a design token set of its own (`--mds-color-<hue>-<step>`). Use a scale colour only where a theme colour does not fit, for example the colour of a type of activity.
 
 <Colours kind="scale" />
+
+</Only>
 
 ## What each colour means
 

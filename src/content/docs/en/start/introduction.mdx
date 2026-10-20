@@ -1,30 +1,30 @@
 ---
 title: Introduction
-summary: One look for every Didactika plugin, drawn with the real CSS of each Moodle version and governed by the theme.
+summary: How Didactika's Moodle plugins draw their screens, and how to read and use this reference.
 group: start
 order: 1
 ---
 
-This is the reference for how Didactika's Moodle plugins draw their screens. It exists so that a list, a form, a dialog or a badge looks and behaves the same in every plugin, on every Moodle version we support, and so that a site's theme can change all of them at once.
+This reference describes how the Moodle plugins of Didactika are drawn. Its aim is that a list, a form, a dialog or a badge looks and behaves the same in every plugin and on every Moodle version we support, and that the theme of a site can restyle all of them at once.
 
-## How the site works
+## How to use this site
 
-Every example on these pages is drawn by the stylesheet that Moodle itself ships for the version you pick in the header, not by a copy kept by hand. Click anything inside an example to open the **inspector**: it measures size, padding, radius, type and colours from that version's CSS, so the numbers on the page cannot drift from the code.
+Every example is drawn by the stylesheet that Moodle itself ships for the version selected in the header, not by a copy kept by hand. Click anything inside an example to open the **inspector**. Its Design tab measures size, padding, radius, type and colours from that version's CSS; its Code tab shows the HTML of the element as a plugin would write it, every class with the number of rules it brings, and the CSS that applies. The numbers cannot drift from the code.
 
-- **Pick a Moodle version** in the header. Pages show what changes between versions, and a class, an icon or a component that does not exist in a version is marked as unavailable there.
-- **Switch the colour mode.** Moodle 5.3 has a dark mode and its examples follow it; older versions have none and stay light.
-- **Read it in English or Spanish.** Every page exists in both.
+- **Moodle version.** Every page is written for the version selected in the header. A class, an icon or a component that does not exist in a version is not shown in it, and what appeared later carries a badge such as "5.3+".
+- **Colour mode.** Where the selected version has a dark mode, the examples follow it.
+- **Didactika colours.** One switch in the header draws every example with Didactika's palette.
+- **Language.** Every page exists in English and Spanish.
 
-## Three rules behind everything
+## Principles
 
 1. **Moodle draws, the theme decides.** Buttons, fields, forms, dialogs and alerts are Bootstrap and Moodle components with their own classes. A plugin never redraws them.
-2. **Plugins add a thin layer** only for what Moodle has no component for: the chrome of a list (toolbar, filters, pager, row actions), tinted badges, steps, choice cards and empty states.
-3. **Same markup on Bootstrap 4 and 5.** Moodle 4.x runs Bootstrap 4 and Moodle 5.x runs Bootstrap 5. The pages show where a class name differs.
+2. **A thin layer on top.** Plugins add only what Moodle has no component for: the chrome of a list (toolbar, filters, pager, row actions), tinted badges, steps, choice cards and empty states.
+3. **One markup for every version.** The same classes work on every supported version, and each page gives the names of the version you selected.
+4. **Measured, not described.** Sizes, spacing, radius, type and colours are read from the real CSS.
+5. **Accessible by default.** Contrast, focus, keyboard and labels are part of every component.
+6. **One meaning for each element.** The same icon, colour or action means the same thing everywhere in the platform, and what removes or stops is always danger.
 
-## What is here now
+## Anatomy of a component page
 
-This first release holds the foundations and one finished component page, [Buttons](../../bootstrap/buttons/), which is the template every other component will follow. The rest of Bootstrap, the Moodle components and the plugins' own components are added section by section, each reviewed before the next begins.
-
-## Reviewing
-
-Every page has an identifier such as `DS-BTN`. Answer per identifier with **keep**, **change** (what and why) or **remove**. A comment in the pull request or a screenshot with an arrow is enough.
+Each component page states what the component is for and when not to use it, its anatomy, every variant against every state, its measured sizes, its classes (the names of the selected version), its code, what changes by version, its accessibility and where it is used.

@@ -1,9 +1,8 @@
 ---
 title: Connect a plugin's docs
-summary: The data of this site is published as JSON, and every page opens in a given Moodle version, colour mode and theme, so another documentation can read it and link to it.
+summary: The data and the components of this site are published as JSON, and every page opens in a given Moodle version, colour mode and palette, so other documentation can read and link to them.
 group: guides
 order: 1
-code: DS-CONNECT
 ---
 
 The documentation of a plugin should not copy what a button, a table or a colour is: it should point here. Everything this site knows is published as static JSON, served with open CORS headers by GitHub Pages, so any other documentation, build script or editor can read it.
@@ -14,49 +13,61 @@ The documentation of a plugin should not copy what a button, a table or a colour
 GET https://didactika.github.io/moodle-design-system/api/index.json
 ```
 
-It lists the Moodle versions (with the links to their stylesheet and tokens), every page with its identifier, code, group, applicable versions, title, summary and address in both languages, and the other resources.
+It lists the Moodle versions (with the links to their stylesheet and tokens), every page with its identifier, group, applicable versions, title, summary and address in both languages, and the other resources.
 
 | Address | What it holds |
 |---|---|
 | `/api/index.json` | Versions, pages, resources and how deep links work |
-| `/api/pages/<id>.json` | One page in both languages, with the source of its text |
+| `/api/pages/<id>.json` | One page in both languages, with the source of its text and the examples it uses |
+| `/api/components/index.json` | The components that have examples |
+| `/api/components/<component>.json` | The markup of every example of a component, for Bootstrap 5 and for Bootstrap 4 |
 | `/api/tokens/<version>.json` | The CSS variables of that Moodle version, light and dark |
 | `/api/icons.json` | Every Moodle icon id and the Font Awesome name each version draws it with |
-| `/api/brand.json` | Didactika's colours, logo, icon, sponsor link and team |
+| `/api/brand.json` | Didactika's colours, logo and icon |
+
+## Components
+
+Each example of a component is published as markup you can use as it is. It comes in two forms for each Bootstrap generation (Moodle 5.x runs Bootstrap 5, Moodle 4.x runs Bootstrap 4): plain HTML, and a Moodle template in which every icon is the call a template makes (`{{#pix}}t/add, core{{/pix}}`). The icon ids used are listed apart.
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const buttons = await (await fetch(root + '/api/components/buttons.json')).json();
+
+const example = buttons.examples.find((e) => e.id === 'buttons/icons');
+console.log(example.title.en);
+console.log(example.bootstrap5.mustache); // for a template of a plugin on Moodle 5.x
+console.log(example.bootstrap4.mustache); // the same, with the class names of Bootstrap 4
+console.log(example.icons);               // ['t/add', 'i/import', 't/delete', ...]
+```
 
 ## Stable on purpose
 
-Every file carries `"schema": 1`. The number changes only when a field is removed or changes meaning; adding fields never changes it. A reader that checks the number keeps working when the site grows. Page identifiers (such as `bootstrap/buttons`) and codes (such as `DS-BTN`) do not change once published.
+Every file carries `"schema": 1`. The number changes only when a field is removed or changes meaning; adding fields never changes it. A reader that checks the number keeps working when the site grows. Page and example identifiers (such as `bootstrap/buttons` or `buttons/icons`) do not change once published.
 
 ## Link to a page in a state
 
-Any page opens in a given state with query parameters, so a plugin's documentation can show its screen the way a site would see it.
+Any page opens in a given state with query parameters, so the documentation of a plugin can show its screen the way a site would see it.
 
 | Parameter | Values | Effect |
 |---|---|---|
 | `version` | `v53`, `v45`, `v41` | The Moodle version the examples are drawn with |
 | `mode` | `light`, `dark` | The colour mode (dark only exists from Moodle 5.x) |
-| `brand` | `1`, `0` | Didactika's colours on every example |
+| `brand` | `1`, `0` | Didactika's palette on every example |
 
 ```
 https://didactika.github.io/moodle-design-system/en/bootstrap/buttons/?version=v45&mode=light&brand=1
 ```
 
-## Read it from a build
+## Read the pages from a build
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
 const index = await (await fetch(root + '/api/index.json')).json();
 if (index.schema !== 1) { throw new Error('Unknown schema'); }
 
-const button = index.pages.find((page) => page.code === 'DS-BTN');
-console.log(button.title.en, button.url.en);
+const page = index.pages.find((p) => p.id === 'bootstrap/buttons');
+console.log(page.title.en, page.url.en, page.examples);
 
 // The source of the text of a page, to include or to quote.
-const page = await (await fetch(button.api)).json();
-console.log(page.body.en);
+const detail = await (await fetch(page.api)).json();
+console.log(detail.body.en);
 ```
-
-## What comes next
-
-Plugins will say which components each of their screens uses, and this site will show, in the page of each component, the plugins and screens that use it. The identifiers above are what that will be built on, so link to a component by its code or its page identifier, never by its text.

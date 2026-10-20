@@ -3,35 +3,34 @@ title: Iconos
 summary: Los iconos vienen de Moodle por identificador, así que cada versión los dibuja con su propia fuente. Un significado por icono, un icono por significado.
 group: foundations
 order: 4
-code: DS-ICON
 ---
 
 import IconGrid from '../../../../components/IconGrid.astro';
 
-Un plugin nunca escribe una clase de Font Awesome. Pide a Moodle un icono por su identificador (`t/edit`, `i/reload`), con `{{#pix}}t/edit, core{{/pix}}` en una plantilla o `$OUTPUT->pix_icon('t/edit', ...)` en PHP, y el código React usa los mismos identificadores. Cada versión de Moodle asocia el identificador al icono de su Font Awesome (4.7 en Moodle 4.1, 6 desde la 4.5), y un tema puede asociarlo a otro. Por eso el mismo identificador se ve distinto de una versión a otra, y por eso unos pocos identificadores existen solo en una versión.
+Un plugin nunca escribe una clase de Font Awesome. Pide a Moodle un icono por su identificador (`t/edit`, `i/reload`), con `{{#pix}}t/edit, core{{/pix}}` en una plantilla o `$OUTPUT->pix_icon('t/edit', ...)` en PHP, y el código React usa los mismos identificadores. Moodle asocia cada identificador a un icono de su Font Awesome, y un tema puede asociarlo a otro.
+
+<Only of="v41" inline>Esta versión dibuja los iconos con Font Awesome 4.7.</Only><Only of="v45,v53" inline>Esta versión dibuja los iconos con Font Awesome 6.</Only>
 
 ## Un significado por icono
 
-| Significado | Id de Moodle | Uso |
-|---|---|---|
-| Editar, o abrir un elemento que aún puede cambiar | `t/edit` | Perfiles, migraciones en revisión. Un lápiz en 4.5 y 5.3, **un engranaje en 4.1** |
-| Abrir el detalle de un elemento que ya no puede cambiar | `i/info` | Migraciones completadas |
-| Mostrar u ocultar, activar o desactivar | `t/hide`, `t/show` | En Moodle el ojo (`t/hide`) dice que el elemento está visible y un clic lo oculta; el ojo tachado (`t/show`) dice que está oculto y un clic lo muestra. Nunca "ver" |
-| Eliminar | `t/delete` | Siempre peligro, siempre con confirmación |
-| Historial de versiones | `i/log` hoy | Moodle no tiene un icono de historial: `i/log` es una lista en 4.1 y una lista de comprobación en 4.5 y 5.3, no un reloj. Qué identificador estandarizar es una decisión abierta de esta revisión |
-| Crear | `t/add` | Nuevo perfil, Nueva migración |
-| Importar, exportar | `i/import`, `i/export` | Moodle cambia su sentido entre versiones (en 5.3 importar es una flecha hacia abajo; en 4.5 hacia arriba; en 4.1 es otro icono). Decisión abierta: elegir iconos explícitos para que el sentido nunca cambie |
-| Buscar | `a/search` | El campo de búsqueda, como decoración dentro de él |
-| Filtros | `i/filter` | El botón Filtros |
-| Restablecer | `i/reload` | El restablecer de un panel de filtros, como icono sin texto |
-| Anterior, siguiente | `i/previous`, `i/next` | Flechas del paginador |
-| Calendario | `i/calendar` | Campos de fecha, como decoración |
-| Borrar, cerrar | `e/cancel` | Borrar un campo, cerrar una barra |
+| Significado | Icono | Id de Moodle | Uso |
+|---|---|---|---|
+| Editar, o abrir un elemento que aún puede cambiar | <span class="ds-icon-cell ds-v-scope"><i data-pix="t/edit" /></span> | `t/edit` | Perfiles, migraciones en revisión |
+| Abrir el detalle de un elemento que ya no puede cambiar | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/info" /></span> | `i/info` | Migraciones completadas |
+| Mostrar u ocultar, activar o desactivar | <span class="ds-icon-cell ds-v-scope"><i data-pix="t/hide" /><i data-pix="t/show" /></span> | `t/hide`, `t/show` | Activar un perfil. Nunca "ver" |
+| Eliminar | <span class="ds-icon-cell ds-v-scope"><i data-pix="t/delete" /></span> | `t/delete` | Siempre peligro, siempre con confirmación |
+| Historial de versiones | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/log" /></span> | `i/log` | Perfiles |
+| Crear | <span class="ds-icon-cell ds-v-scope"><i data-pix="t/add" /></span> | `t/add` | Nuevo perfil, Nueva migración |
+| Importar, exportar | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/import" /><i data-pix="i/export" /></span> | `i/import`, `i/export` | Perfiles |
+| Buscar | <span class="ds-icon-cell ds-v-scope"><i data-pix="a/search" /></span> | `a/search` | El campo de búsqueda, como decoración dentro de él |
+| Filtros | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/filter" /></span> | `i/filter` | El botón Filtros |
+| Restablecer | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/reload" /></span> | `i/reload` | El restablecer de un panel de filtros, como icono sin texto |
+| Anterior, siguiente | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/previous" /><i data-pix="i/next" /></span> | `i/previous`, `i/next` | Flechas del paginador |
+| Calendario | <span class="ds-icon-cell ds-v-scope"><i data-pix="i/calendar" /></span> | `i/calendar` | Campos de fecha, como decoración |
+| Borrar, cerrar | <span class="ds-icon-cell ds-v-scope"><i data-pix="e/cancel" /></span> | `e/cancel` | Borrar un campo, cerrar una barra |
 
-Reglas: un icono nunca lleva un significado por sí solo (un botón con solo un icono tiene título y una etiqueta oculta), el ojo nunca significa "abrir", y la papelera siempre es roja.
+## Todos los iconos
 
-## Todos los iconos, en la versión elegida
-
-La cuadrícula lee el mapa de iconos del propio Moodle de cada versión. Una casilla rayada significa que la versión no tiene icono para ese identificador.
+La cuadrícula lee el mapa de iconos del propio Moodle para la versión elegida. Haz clic en un icono para copiar su identificador.
 
 <IconGrid />

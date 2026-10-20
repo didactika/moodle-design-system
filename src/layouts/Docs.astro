@@ -1,8 +1,8 @@
 ---
 import {getCollection} from 'astro:content';
-import versions from '../data/versions.json';
 import {ui, type Lang} from '../i18n/ui';
 import Base from './Base.astro';
+import Versions from '../components/Versions.astro';
 
 /** A documentation page: navigation on the left, the page, and its table of contents or the inspector on the right. */
 interface Props {
@@ -12,12 +12,12 @@ interface Props {
     title: string;
     summary: string;
     group?: string;
-    code?: string;
+    /** Versions the page is limited to; none when it applies to all of them. */
     appliesTo?: string[];
     headings?: {depth: number; slug: string; text: string}[];
 }
 
-const {lang, slug, title, summary, group, code, appliesTo, headings = []} = Astro.props;
+const {lang, slug, title, summary, group, appliesTo, headings = []} = Astro.props;
 const t = ui[lang];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const href = (l: string, s: string) => `${base}/${l}/${s ? s + '/' : ''}`;
@@ -30,48 +30,48 @@ const groups = order
     .map((g) => ({key: g, label: t.groups[g], pages: all.filter((p) => p.group === g).sort((a, b) => a.order - b.order)}))
     .filter((g) => g.pages.length);
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
-const applies = appliesTo && appliesTo.length ? appliesTo : null;
 ---
 
 <Base lang={lang} title={title} summary={summary} slug={slug}>
     <div class="ds-shell">
         <nav class="ds-nav" id="ds-nav" aria-label={t.menu}>
-            <input class="ds-find" id="ds-find" type="search" placeholder={t.search} aria-label={t.search} />
-            <a class="ds-nav-home" href={href(lang, '')}>{t.home}</a>
-            {groups.map((g) => (
-                <div data-group>
-                    <h2>{g.label}</h2>
-                    {g.pages.map((p) => (
-                        <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined} data-find={`${p.title} ${p.code ?? ''} ${p.summary}`.toLowerCase()}>
-                            {p.title}{p.code && <span>{p.code}</span>}
-                        </a>
-                    ))}
-                </div>
-            ))}
+            <div class="ds-nav-in">
+                <input class="ds-find" id="ds-find" type="search" placeholder={t.search} aria-label={t.search} />
+                <a class="ds-nav-home" href={href(lang, '')}>{t.home}</a>
+                {groups.map((g) => (
+                    <div data-group>
+                        <h2>{g.label}</h2>
+                        {g.pages.map((p) => (
+                            <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined} data-find={`${p.title} ${p.summary}`.toLowerCase()}>
+                                {p.title}{p.versions && <Versions of={p.versions.join(',')} />}
+                            </a>
+                        ))}
+                    </div>
+                ))}
+            </div>
         </nav>
 
         <main class="ds-main" id="content">
             <article class="ds-article" data-doc>
                 {group && <div class="ds-eyebrow">{t.groups[group as keyof typeof t.groups]}</div>}
-                <h1>{title}{code && <span class="ds-chip ds-code-id">{code}</span>}</h1>
+                <h1>{title}{appliesTo && appliesTo.length > 0 && <Versions of={appliesTo.join(',')} />}</h1>
                 <p class="ds-summary">{summary}</p>
-                <div class="ds-badges">
-                    <span class="ds-chip">{t.applies}: {applies ? applies.map((id) => versions.find((v) => v.id === id)?.moodle).join(', ') : t.allVersions}</span>
-                </div>
                 <slot />
             </article>
         </main>
 
-        <aside class="ds-rail" id="ds-rail" data-mode="toc" aria-label={t.onThisPage}>
-            <div class="ds-toc-wrap">
-                <h2>{t.onThisPage}</h2>
-                <ul class="ds-toc">
-                    {toc.map((h) => <li class={`l${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}
-                </ul>
-            </div>
-            <div class="ds-insp" id="ds-insp">
-                <h2>{t.inspector}</h2>
-                <div id="ds-insp-body"><p class="ds-insp-empty">{t.inspectHint}</p></div>
+        <aside class="ds-rail" id="ds-rail" data-rail="toc" aria-label={t.onThisPage}>
+            <div class="ds-rail-in">
+                <div class="ds-toc-wrap">
+                    <h2>{t.onThisPage}</h2>
+                    <ul class="ds-toc">
+                        {toc.map((h) => <li class={`l${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}
+                    </ul>
+                </div>
+                <div class="ds-insp" id="ds-insp">
+                    <h2>{t.inspector}</h2>
+                    <div id="ds-insp-body"><p class="ds-insp-empty">{t.inspectHint}</p></div>
+                </div>
             </div>
         </aside>
     </div>

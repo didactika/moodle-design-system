@@ -10,7 +10,6 @@ Published at <https://didactika.github.io/moodle-design-system/> (GitHub Pages, 
 - One reference for how every Didactika plugin draws lists, forms, dialogs, badges and icons, on every Moodle version we support.
 - The source of truth plugins are checked against. A plugin copies nothing from here at run time; it uses the classes of Bootstrap and
   Moodle that these pages document.
-- The content from which the page for Moodle's component library and the theme `theme_didactika` are built later.
 
 ## How it works
 
@@ -35,7 +34,7 @@ file carries `"schema": 1`. Any page opens in a given state with `?version=v45&m
 ## Layout
 
 ```
-src/content/docs/<lang>/<section>/<page>.mdx   one page per language; same group, order, code and versions in both
+src/content/docs/<lang>/<section>/<page>.mdx   one page per language; same group, order and versions in both
 src/examples/<component>/<name>.html           the markup of a live example (and <name>.bs4.html where it differs)
 src/components/                                Header, Footer, Logo, Icon, Example, Matrix, Rule, Colours, ThemeLab, IconGrid
 src/data/                                      versions.json, brand.json and team.json (hand-kept), icons.json and tokens.json (generated)
@@ -53,7 +52,7 @@ npm run build      # build + content check, as CI does
 npm run data       # refresh icons.json and tokens.json after changing a version (needs vendor/ from `npm run moodle`)
 ```
 
-`npm run build` fails when a page is missing in one language, when the two languages disagree on `group`, `order`, `code` or
+`npm run build` fails when a page is missing in one language, when the two languages disagree on `group`, `order` or
 `versions`, or when an example file is missing or unused.
 
 ## Adding a component page

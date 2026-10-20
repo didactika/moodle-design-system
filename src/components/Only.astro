@@ -1,0 +1,17 @@
+---
+/**
+ * Content that exists in some Moodle versions only. The page carries all of it and shows what belongs to the version selected in the header,
+ * so a page tells about one version at a time instead of comparing them.
+ */
+interface Props {
+    /** Version ids separated by commas, e.g. "v53" or "v45,v41". */
+    of: string;
+    /** A phrase inside a sentence or a table cell, not a block. */
+    inline?: boolean;
+}
+const {of, inline = false} = Astro.props;
+const ids = of.split(',').map((id) => id.trim()).filter(Boolean).join(' ');
+const Tag = inline ? 'span' : 'div';
+---
+
+<Tag class="ds-only" data-only={ids}><slot /></Tag>

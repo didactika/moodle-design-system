@@ -28,10 +28,11 @@ import external from '@fortawesome/fontawesome-free/svgs/solid/arrow-up-right-fr
 import download from '@fortawesome/fontawesome-free/svgs/solid/download.svg?raw';
 import users from '@fortawesome/fontawesome-free/svgs/solid/users.svg?raw';
 import star from '@fortawesome/fontawesome-free/svgs/solid/star.svg?raw';
+import userplus from '@fortawesome/fontawesome-free/svgs/solid/user-plus.svg?raw';
 import github from '@fortawesome/fontawesome-free/svgs/brands/github.svg?raw';
 import linkedin from '@fortawesome/fontawesome-free/svgs/brands/linkedin.svg?raw';
 
-const raw = {sun, moon, auto, globe, layers, bars, search, palette, cubes, book, puzzle, access, language, arrow, ruler, swatch, branch, sparkles, check, pointer, heart, mug, code, plug, external, download, users, star, github, linkedin};
+const raw = {sun, moon, auto, globe, layers, bars, search, palette, cubes, book, puzzle, access, language, arrow, ruler, swatch, branch, sparkles, check, pointer, heart, mug, code, plug, external, download, users, star, userplus, github, linkedin};
 
 export type IconName = keyof typeof raw;
 

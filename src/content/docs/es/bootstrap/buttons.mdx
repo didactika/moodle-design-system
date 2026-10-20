@@ -3,7 +3,6 @@ title: Botones
 summary: Los botones del tema, sin tocar. Una acción principal por zona, peligro para lo que elimina, y un icono solo donde la tabla de iconos lo tiene.
 group: bootstrap
 order: 1
-code: DS-BTN
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -80,20 +79,36 @@ Los iconos se escriben con el identificador de icono de Moodle (`{{#pix}}t/add, 
 
 ## Clases
 
-| Clase | Qué hace | Moodle con Bootstrap 4 |
-|---|---|---|
-| `btn` | Base de todo botón | igual |
-| `btn-primary`, `btn-secondary`, `btn-success`, `btn-danger`, `btn-warning`, `btn-info`, `btn-light`, `btn-dark` | Color por significado | igual |
-| `btn-outline-*` | Variante con contorno para acciones secundarias | igual |
-| `btn-link` | Parece un enlace, actúa como botón | igual |
-| `btn-sm`, `btn-lg` | Más pequeño y más grande | igual |
-| `btn-group` | Une botones relacionados | igual |
-| `d-grid gap-2` | Pila a ancho completo | `btn-block` |
-| `btn-close` | Botón de cerrar dentro de alertas y modales, lo escribe Moodle | `close` |
+| Clase | Qué hace |
+|---|---|
+| `btn` | Base de todo botón |
+| `btn-primary`, `btn-secondary`, `btn-success`, `btn-danger`, `btn-warning`, `btn-info`, `btn-light`, `btn-dark` | Color por significado |
+| `btn-outline-*` | Variante con contorno para acciones secundarias |
+| `btn-link` | Parece un enlace, actúa como botón |
+| `btn-sm`, `btn-lg` | Más pequeño y más grande |
+| `btn-group` | Une botones relacionados |
+| <Only of="v53" inline>`d-grid gap-2`</Only><Only of="v45,v41" inline>`btn-block`</Only> | Pila a ancho completo |
+| <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cerrar dentro de alertas y modales, lo escribe Moodle |
 
-## Versiones
+## En esta versión
 
-La tabla de tamaños de arriba se lee del CSS de la versión elegida, así que muestra las diferencias directamente. En corto: Bootstrap 5 (Moodle 5.x) dibuja el anillo de foco como una sombra suave alrededor del botón y fija los colores con variables CSS (`--bs-btn-*`), lo que permite a un tema recolorear un botón con una sola variable; Bootstrap 4 (Moodle 4.1 y 4.5) usa colores fijos y otra sombra de foco. Moodle 4.1 dibuja los iconos con Font Awesome 4.7; la 4.5 y posteriores, con Font Awesome 6.
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el anillo de foco como una sombra suave alrededor del botón y fija los colores de cada botón con variables CSS (`--bs-btn-*`), lo que permite a un tema recolorear un botón con una sola variable. Los iconos se dibujan con Font Awesome 6.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 da a cada botón colores fijos y dibuja el foco como una sombra de color, así que un tema recolorea un botón compilando sus colores. Los iconos se dibujan con Font Awesome 6.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 da a cada botón colores fijos y dibuja el foco como una sombra de color, así que un tema recolorea un botón compilando sus colores. Los iconos se dibujan con Font Awesome 4.7.
+
+</Only>
 
 ## Accesibilidad
 

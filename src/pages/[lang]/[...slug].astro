@@ -7,6 +7,8 @@ import Rule from '../../components/Rule.astro';
 import ColourControls from '../../components/ColourControls.astro';
 import Colours from '../../components/Colours.astro';
 import ThemeLab from '../../components/ThemeLab.astro';
+import Versions from '../../components/Versions.astro';
+import Only from '../../components/Only.astro';
 import IconGrid from '../../components/IconGrid.astro';
 import type {Lang} from '../../i18n/ui';
 
@@ -21,7 +23,7 @@ export async function getStaticPaths() {
 const {lang, slug} = Astro.params;
 const {entry} = Astro.props;
 const {Content, headings} = await render(entry);
-const components = {Example, Matrix, Rule, ColourControls, Colours, ThemeLab, IconGrid};
+const components = {Example, Matrix, Rule, ColourControls, Colours, ThemeLab, IconGrid, Versions, Only};
 ---
 
 <Docs
@@ -30,7 +32,6 @@ const components = {Example, Matrix, Rule, ColourControls, Colours, ThemeLab, Ic
     title={entry.data.title}
     summary={entry.data.summary}
     group={entry.data.group}
-    code={entry.data.code}
     appliesTo={entry.data.versions}
     headings={headings}
 >
