@@ -1,11 +1,11 @@
 ---
-import config from '../config/site.json';
+import project from '../data/project.generated.json';
 import versions from '../data/versions.json';
 import {languages, ui, type Lang} from '../i18n/ui';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 
-/** The bar at the top of every page: brand, Moodle version, language, colour mode, the Didactika colours, and the links of the project. */
+/** The bar at the top of every page: brand, the page search, Moodle version, language, colour mode, designer mode, the Didactika colours and the links of the project. */
 interface Props {
     lang: Lang;
     /** Slug of the page, so the language menu can point at the same page in the other language. Empty on the home page. */
@@ -17,15 +17,30 @@ const {lang, slug, menu = true} = Astro.props;
 const t = ui[lang];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const href = (l: string, s: string) => `${base}/${l}/${s ? s + '/' : ''}`;
+const {organisation, repository, funding} = project;
 const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark', 'moon', t.dark]] as const;
 ---
 
 <header class="ds-head">
-    {menu && <button class="ds-iconbtn ds-menu-btn" id="ds-menu" type="button" aria-controls="ds-nav" aria-expanded="false" aria-label={t.menu}><Icon name="bars" /></button>}
-    <a class="ds-brand" href={href(lang, '')} aria-label={t.site}>
-        <Logo />
-        <span class="ds-wordmark">Didactika<b>Moodle UI</b></span>
-    </a>
+    <div class="ds-head-left">
+        {menu && <button class="ds-iconbtn ds-menu-btn" id="ds-menu" type="button" aria-controls="ds-nav" aria-expanded="false" aria-label={t.menu}><Icon name="bars" /></button>}
+        <a class="ds-brand" href={href(lang, '')} aria-label={t.site}>
+            <Logo />
+            <span class="ds-wordmark">Didactika<b>Moodle UI</b></span>
+        </a>
+    </div>
+    <div class="ds-search" id="ds-search" data-open="false">
+        <div class="ds-search-bar">
+            <button type="button" class="ds-search-open" id="ds-search-open" aria-label={t.searchOpen} title={`${t.searchOpen} (Ctrl K)`}><Icon name="search" /><span class="ds-search-label">{t.search}</span><kbd>Ctrl K</kbd></button>
+            <input class="ds-search-input" id="ds-search-input" type="search" role="combobox" aria-expanded="false" aria-controls="ds-search-results" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder={t.search} aria-label={t.search} />
+            <button type="button" class="ds-search-close" id="ds-search-close" aria-label={t.searchClose}><kbd>Esc</kbd></button>
+        </div>
+        <div class="ds-search-panel" id="ds-search-panel" hidden>
+            <ul class="ds-search-results" id="ds-search-results" role="listbox" aria-label={t.search}></ul>
+            <p class="ds-search-empty" id="ds-search-empty" hidden>{t.searchEmpty}</p>
+            <p class="ds-search-keys">{t.searchKeys}</p>
+        </div>
+    </div>
     <div class="ds-head-tools">
         <details class="ds-dd" id="ds-version">
             <summary aria-label={t.version} title={t.version}>
@@ -72,6 +87,8 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
             </ul>
         </details>
 
+        <button type="button" class="ds-iconbtn ds-designer-btn" data-designer-toggle aria-pressed="false" title={`${t.designerMode}: ${t.designerHelp}`} aria-label={t.designerMode}><Icon name="designer" /></button>
+
         <button type="button" class="ds-brandsw" data-brand-toggle aria-pressed="false" title={t.brandThemeHelp}>
             <span class="ds-brandsw-mark"><Icon name="swatch" /></span>
             <span class="ds-brandsw-label">{t.brandTheme}</span>
@@ -79,8 +96,8 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
         </button>
 
         <span class="ds-head-sep" aria-hidden="true"></span>
-        <a class="ds-iconbtn ds-site-link" href={config.organisation.website} title={t.linkWebsite} aria-label={t.linkWebsite}><img src={`${base}/brand/didactika-logo.png`} alt="" width="20" height="20" /></a>
-        <a class="ds-iconbtn ds-heart" href={config.support.url} rel="noopener" title={`${t.support} · ${config.support.platform}`} aria-label={`${t.support} · ${config.support.platform}`}><Icon name="heart" /></a>
-        <a class="ds-iconbtn ds-github" href={config.repository} title="GitHub" aria-label="GitHub"><Icon name="github" /></a>
+        {organisation.website && <a class="ds-iconbtn ds-site-link" href={organisation.website} title={t.linkWebsite} aria-label={t.linkWebsite}><img src={`${base}/brand/didactika-logo.png`} alt="" width="20" height="20" /></a>}
+        {funding && <a class="ds-iconbtn ds-heart" href={funding.url} rel="noopener" title={`${t.support} · ${funding.platform}`} aria-label={`${t.support} · ${funding.platform}`}><Icon name="heart" /></a>}
+        <a class="ds-iconbtn ds-github" href={repository.url} title="GitHub" aria-label="GitHub"><Icon name="github" /></a>
     </div>
 </header>

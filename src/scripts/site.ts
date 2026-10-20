@@ -27,10 +27,11 @@ const named = (style: CSSStyleDeclaration): Record<string, string> => style as u
 const config = readJson<Config>('ds-config') as Config;
 const text = config.ui;
 const root = document.documentElement;
-const state: {version: string; mode: Mode | null; brand: boolean; itab: InspectorTab} = {
+const state: {version: string; mode: Mode | null; brand: boolean; designer: boolean; itab: InspectorTab} = {
     version: root.dataset.version ?? (config.versions[0] as VersionInfo).id,
     mode: (root.dataset.theme as Mode | undefined) || null,
     brand: root.dataset.brand === '1',
+    designer: root.dataset.designer === '1',
     itab: 'design',
 };
 const versionOf = (id: string): VersionInfo => {
@@ -218,8 +219,15 @@ const clearSelection = (): void => {
     selected = null;
     path = [];
     layer.innerHTML = '';
-    rail.dataset.rail = 'toc';
+    rail.dataset.rail = state.designer ? 'idle' : 'toc';
     body.innerHTML = `<p class="ds-insp-empty">${text.inspectHint}</p>`;
+};
+/** Turns the inspector on or off for the whole site. Off, the components of the examples can be used like any other. */
+const applyDesigner = (): void => {
+    root.dataset.designer = state.designer ? '1' : '0';
+    $$('[data-designer-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(state.designer)));
+    if (hoverBox) { hoverBox.hidden = true; }
+    clearSelection();
 };
 const drawSelection = (): void => {
     layer.innerHTML = '';
@@ -279,6 +287,7 @@ const matchedRules = (el: HTMLElement): MatchedRule[] => {
         const node = sheet.ownerNode as HTMLElement | null;
         if (!node) { return; }
         if (node.dataset?.versionCss === state.version) { sources.push([sheet, version.label]); }
+        if (node.id === 'ds-didactika') { sources.push([sheet, text.didactikaLayer as string]); }
         if (node.id === 'ds-brand-style') { sources.push([sheet, text.brandTheme as string]); }
         if (node.id === 'ds-lab-style') { sources.push([sheet, 'Lab']); }
     });
@@ -303,7 +312,7 @@ const matchedRules = (el: HTMLElement): MatchedRule[] => {
     sources.forEach(([sheet, from]) => { try { walk(sheet.cssRules, from); } catch (error) { /* a sheet from another origin cannot be read */ } });
     return out.reverse();
 };
-const stripScope = (selector: string): string => selector.replace(/\.ds-v\d+\.ds-(themed|lab)\s?|\.ds-v-scope\.ds-(themed|lab)\s?|\.ds-v\d+\s?/g, '').trim() || ':scope';
+const stripScope = (selector: string): string => selector.replace(/\.ds-v\d+\.ds-(themed|lab)\s?|\.ds-v-scope\.ds-(themed|lab)\s?|\.ds-v-scope\s?|\.ds-v\d+\s?/g, '').trim() || ':scope';
 
 const codePane = (el: HTMLElement): string => {
     const rules = matchedRules(el);
@@ -487,7 +496,7 @@ const copy = async(value: string, el: Element): Promise<boolean> => {
 };
 
 document.addEventListener('mousemove', (event) => {
-    const el = event.target instanceof Element ? event.target.closest('.ds-frame *') : null;
+    const el = state.designer && event.target instanceof Element ? event.target.closest('.ds-frame *') : null;
     if (!hoverBox) { hoverBox = document.body.appendChild(document.createElement('div')); hoverBox.className = 'ds-hover-box'; }
     if (!el) { hoverBox.hidden = true; return; }
     const r = el.getBoundingClientRect();
@@ -506,7 +515,16 @@ document.addEventListener('click', (event) => {
 
     // An element of an example is selected; everything else on a click is about the page.
     const frame = target.closest('.ds-frame');
-    if (frame && target !== frame) { event.preventDefault(); inspect(target as Editable); return; }
+    if (frame && target !== frame) {
+        if (state.designer) { event.preventDefault(); inspect(target as Editable); } else if (target.closest('a[href]')) { event.preventDefault(); }
+        return;
+    }
+    if (target.closest('[data-designer-toggle]')) {
+        state.designer = !state.designer;
+        store('ds-designer', state.designer ? '1' : '0');
+        applyDesigner();
+        return;
+    }
 
     const itab = target.closest<HTMLElement>('[data-itab]');
     if (itab) {
@@ -606,11 +624,6 @@ window.addEventListener('resize', () => { drawSelection(); renderMeasures(); });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (!state.mode) { apply(); } });
 $('#ds-icon-filter')?.addEventListener('input', renderIcons);
 
-$('#ds-find')?.addEventListener('input', (event) => {
-    const q = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    $$('#ds-nav a[data-find]').forEach((a) => { a.hidden = q !== '' && !(a.dataset.find ?? '').includes(q); });
-    $$('#ds-nav [data-group]').forEach((g) => { g.hidden = $$('a', g).every((a) => a.hidden); });
-});
 const menu = $('#ds-menu');
 const nav = $('#ds-nav');
 menu?.addEventListener('click', () => {
@@ -631,4 +644,5 @@ if (headings.length) {
     headings.forEach((h) => spy.observe(h));
 }
 
+applyDesigner();
 apply();

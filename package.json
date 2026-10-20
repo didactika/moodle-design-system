@@ -11,8 +11,8 @@
   "scripts": {
     "moodle": "tsx tools/build-moodle.ts",
     "data": "tsx tools/extract-data.ts",
-    "dev": "tsx tools/build-moodle.ts && tsx tools/fetch-people.ts && astro dev",
-    "build": "tsx tools/build-moodle.ts && tsx tools/fetch-people.ts && astro build && tsx tools/check-content.ts",
+    "dev": "tsx tools/build-moodle.ts && tsx tools/fetch-project.ts && astro dev",
+    "build": "tsx tools/build-moodle.ts && tsx tools/fetch-project.ts && astro build && tsx tools/check-content.ts",
     "preview": "astro preview",
     "check": "tsx tools/check-content.ts",
     "typecheck": "astro sync && tsc --noEmit"

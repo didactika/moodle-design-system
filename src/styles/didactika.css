@@ -1,0 +1,213 @@
+/*
+ * The Didactika layer.
+ *
+ * Every example of the site is Bootstrap's component with this layer on top: it is how Didactika draws the component, not a comparison with
+ * Bootstrap. The layer sits after the stylesheet of the Moodle version and keeps the markup untouched, so it works the same on Bootstrap 5
+ * (Moodle 5.x) and on Bootstrap 4 (Moodle 4.x). The inspector reads it as one more source and shows it as "Didactika".
+ *
+ * Rules of the layer:
+ *  - Colour comes from the theme (`--bs-primary` on Bootstrap 5, `--primary` on Bootstrap 4), never from this file, so Didactika's colours
+ *    and a theme of the colour lab reach every component the same way.
+ *  - The border of a control has 3:1 contrast against the page; decoration uses the hairline.
+ *  - One focus ring for everything that takes focus: 3px of the primary colour at 30%, with the border in the primary colour.
+ *  - A control is 40px high (32px small, 48px large) and has the same radius as the others.
+ *  - Every state that a user can reach also exists as a class (`ds-is-hover`, `ds-is-focus`, `ds-is-active`) so the pages can draw it at rest.
+ */
+
+.ds-v-scope {
+  --dd-primary: var(--bs-primary, var(--primary, #0f766e));
+  --dd-danger: var(--bs-danger, var(--danger, #b42318));
+  --dd-success: var(--bs-success, var(--success, #1a7f4b));
+  --dd-ink: #0f172a;
+  --dd-muted: #566579;
+  --dd-line: #7f8da3;
+  --dd-line-hover: #5a6980;
+  --dd-hairline: #d3dae5;
+  --dd-surface: #fff;
+  --dd-surface-2: #f1f4f8;
+  --dd-ring: color-mix(in srgb, var(--dd-primary) 30%, transparent);
+  --dd-ring-danger: color-mix(in srgb, var(--dd-danger) 28%, transparent);
+  --dd-radius: .625rem;
+  --dd-radius-sm: .5rem;
+  --dd-radius-lg: .875rem;
+  --dd-h: 2.5rem;
+  --dd-h-sm: 2rem;
+  --dd-h-lg: 3rem;
+  --dd-ease: 140ms cubic-bezier(.2, 0, 0, 1);
+  --dd-check: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+  --dd-dot: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+.ds-v-scope[data-bs-theme="dark"] {
+  --dd-ink: #e6eaf0;
+  --dd-muted: #9aa7b8;
+  --dd-line: #6f7c8f;
+  --dd-line-hover: #9aa7b8;
+  --dd-hairline: #3a424d;
+  --dd-surface: #1e2125;
+  --dd-surface-2: #2a2f36;
+}
+
+/* ------------------------------------------------------------------ buttons */
+.ds-v-scope .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: var(--dd-h);
+  padding: .5rem 1rem;
+  border-radius: var(--dd-radius-sm);
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .005em;
+  transition: background-color var(--dd-ease), border-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease);
+}
+.ds-v-scope .btn-sm { min-height: var(--dd-h-sm); padding: .25rem .75rem; border-radius: .4rem; font-size: .8125rem; }
+.ds-v-scope .btn-lg { min-height: var(--dd-h-lg); padding: .625rem 1.25rem; border-radius: var(--dd-radius); font-size: 1.0625rem; }
+.ds-v-scope .btn-link { min-height: 0; padding-inline: .25rem; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.ds-v-scope .btn-primary, .ds-v-scope .btn-secondary, .ds-v-scope .btn-success, .ds-v-scope .btn-danger,
+.ds-v-scope .btn-warning, .ds-v-scope .btn-info, .ds-v-scope .btn-light, .ds-v-scope .btn-dark { box-shadow: 0 1px 2px rgb(15 23 42 / 12%); }
+.ds-v-scope .btn:active, .ds-v-scope .btn.ds-is-active { box-shadow: none; }
+.ds-v-scope .btn:focus, .ds-v-scope .btn:focus-visible, .ds-v-scope .btn.ds-is-focus,
+.ds-v-scope .btn-check:focus-visible + .btn { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .btn:disabled, .ds-v-scope .btn.disabled { opacity: .55; box-shadow: none; }
+.ds-v-scope .btn-block { display: flex; width: 100%; }
+.ds-v-scope .btn-group > .btn { border-radius: 0; }
+.ds-v-scope .btn-group > .btn:first-child { border-radius: var(--dd-radius-sm) 0 0 var(--dd-radius-sm); }
+.ds-v-scope .btn-group > .btn:last-child { border-radius: 0 var(--dd-radius-sm) var(--dd-radius-sm) 0; }
+
+/* ------------------------------------------------------------------ labels and hints */
+.ds-v-scope .form-label, .ds-v-scope .col-form-label {
+  margin-bottom: .375rem;
+  color: var(--dd-ink);
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.ds-v-scope .form-text { margin-top: .375rem; color: var(--dd-muted); font-size: .8125rem; line-height: 1.4; }
+
+/* ------------------------------------------------------------------ text fields and selects */
+.ds-v-scope .form-control, .ds-v-scope .form-select, .ds-v-scope .custom-select {
+  height: auto;
+  min-height: var(--dd-h);
+  padding: .5rem .875rem;
+  border: 1px solid var(--dd-line);
+  border-radius: var(--dd-radius-sm);
+  background-color: var(--dd-surface);
+  box-shadow: none;
+  color: var(--dd-ink);
+  font-size: .9375rem;
+  line-height: 1.5;
+  transition: border-color var(--dd-ease), box-shadow var(--dd-ease), background-color var(--dd-ease);
+}
+.ds-v-scope .form-select, .ds-v-scope .custom-select { padding-right: 2.5rem; }
+.ds-v-scope textarea.form-control { min-height: 5rem; resize: vertical; }
+.ds-v-scope .form-control-sm, .ds-v-scope .form-select-sm, .ds-v-scope .custom-select-sm { min-height: var(--dd-h-sm); padding: .25rem .625rem; border-radius: .4rem; font-size: .8125rem; }
+.ds-v-scope .form-control-lg, .ds-v-scope .form-select-lg, .ds-v-scope .custom-select-lg { min-height: var(--dd-h-lg); padding: .625rem 1rem; border-radius: var(--dd-radius); font-size: 1.0625rem; }
+.ds-v-scope .form-select[multiple], .ds-v-scope .form-select[size]:not([size="1"]), .ds-v-scope .custom-select[multiple], .ds-v-scope .custom-select[size]:not([size="1"]) { min-height: 0; padding: .375rem; }
+.ds-v-scope .form-control::placeholder { color: var(--dd-muted); opacity: 1; }
+.ds-v-scope .form-control[type="file"] { padding: .375rem .625rem; }
+.ds-v-scope .form-control::file-selector-button { margin: -.375rem .75rem -.375rem -.625rem; padding: .5rem .875rem; border-radius: calc(var(--dd-radius-sm) - 1px) 0 0 calc(var(--dd-radius-sm) - 1px); font-weight: 600; }
+.ds-v-scope .form-control:hover:not(:disabled):not([readonly]), .ds-v-scope .form-control.ds-is-hover,
+.ds-v-scope .form-select:hover:not(:disabled), .ds-v-scope .form-select.ds-is-hover,
+.ds-v-scope .custom-select:hover:not(:disabled), .ds-v-scope .custom-select.ds-is-hover { border-color: var(--dd-line-hover); }
+.ds-v-scope .form-control:focus, .ds-v-scope .form-control.ds-is-focus,
+.ds-v-scope .form-select:focus, .ds-v-scope .form-select.ds-is-focus,
+.ds-v-scope .custom-select:focus, .ds-v-scope .custom-select.ds-is-focus { border-color: var(--dd-primary); outline: 0; background-color: var(--dd-surface); box-shadow: 0 0 0 3px var(--dd-ring); color: var(--dd-ink); }
+.ds-v-scope .form-control:disabled, .ds-v-scope .form-control[readonly], .ds-v-scope .form-select:disabled, .ds-v-scope .custom-select:disabled {
+  border-color: var(--dd-hairline);
+  background-color: var(--dd-surface-2);
+  color: var(--dd-muted);
+  opacity: 1;
+}
+.ds-v-scope .form-control-plaintext { color: var(--dd-ink); font-size: .9375rem; }
+
+/* ------------------------------------------------------------------ checkboxes, radios and switches */
+.ds-v-scope .form-check-input {
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: .1875rem;
+  border: 1.5px solid var(--dd-line);
+  border-radius: .3rem;
+  background-color: var(--dd-surface);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background-color var(--dd-ease), border-color var(--dd-ease), box-shadow var(--dd-ease);
+}
+.ds-v-scope .form-check-input[type="radio"] { border-radius: 50%; }
+.ds-v-scope .form-check:not(.form-check-inline) { padding-left: 1.75rem; }
+.ds-v-scope .form-check:not(.form-check-inline) .form-check-input { margin-left: -1.75rem; }
+.ds-v-scope .form-check-inline .form-check-input { margin-right: .5rem; }
+.ds-v-scope .form-check-label { color: var(--dd-ink); font-size: .9375rem; line-height: 1.5; }
+.ds-v-scope .form-check-input:hover:not(:disabled), .ds-v-scope .form-check-input.ds-is-hover { border-color: var(--dd-line-hover); }
+/* [type] raises the specificity above Moodle's own focus rule for input[type=checkbox] and input[type=radio]. */
+.ds-v-scope .form-check-input[type]:focus, .ds-v-scope .form-check-input[type].ds-is-focus { border-color: var(--dd-primary); outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .form-check-input:checked { border-color: var(--dd-primary); background-color: var(--dd-primary); }
+.ds-v-scope .form-check:not(.form-switch) .form-check-input:checked[type="checkbox"] { background-image: var(--dd-check); }
+.ds-v-scope .form-check .form-check-input:checked[type="radio"] { background-image: var(--dd-dot); }
+.ds-v-scope .form-check-input:disabled, .ds-v-scope .form-check-input:disabled ~ .form-check-label { opacity: .5; }
+.ds-v-scope .form-check-input.is-invalid { border-color: var(--dd-danger); }
+.ds-v-scope .form-check-input.is-invalid ~ .form-check-label { color: var(--dd-danger); }
+.ds-v-scope .form-check-input[type].is-invalid:focus { box-shadow: 0 0 0 3px var(--dd-ring-danger); }
+
+.ds-v-scope .form-switch { padding-left: 3.25rem; }
+.ds-v-scope .form-switch .form-check-input { width: 2.5rem; height: 1.375rem; margin-left: -3.25rem; border-radius: 2rem; background-position: left center; }
+.ds-v-scope .form-switch .form-check-input:checked { background-position: right center; }
+
+/* Bootstrap 4 draws its switch with the label; it gets the same track and knob. */
+.ds-v-scope .custom-switch { padding-left: 3.25rem; }
+.ds-v-scope .custom-switch .custom-control-label::before { top: .0625rem; left: -3.25rem; width: 2.5rem; height: 1.375rem; border: 1.5px solid var(--dd-line); border-radius: 2rem; background-color: var(--dd-surface); }
+.ds-v-scope .custom-switch .custom-control-label::after { top: calc(.0625rem + 3px + 1.5px); left: calc(-3.25rem + 3px + 1.5px); width: 1rem; height: 1rem; border-radius: 50%; background-color: var(--dd-line); }
+.ds-v-scope .custom-switch .custom-control-input:checked ~ .custom-control-label::before { border-color: var(--dd-primary); background-color: var(--dd-primary); }
+.ds-v-scope .custom-switch .custom-control-input:checked ~ .custom-control-label::after { background-color: #fff; transform: translateX(1.125rem); }
+.ds-v-scope .custom-switch .custom-control-input:focus ~ .custom-control-label::before { box-shadow: 0 0 0 3px var(--dd-ring); }
+
+/* ------------------------------------------------------------------ range */
+.ds-v-scope .form-range, .ds-v-scope .custom-range { height: 1.5rem; padding: 0; background: transparent; }
+.ds-v-scope .form-range::-webkit-slider-runnable-track, .ds-v-scope .custom-range::-webkit-slider-runnable-track { height: .375rem; border-radius: 1rem; background-color: var(--dd-hairline); }
+.ds-v-scope .form-range::-moz-range-track, .ds-v-scope .custom-range::-moz-range-track { height: .375rem; border-radius: 1rem; background-color: var(--dd-hairline); }
+.ds-v-scope .form-range::-webkit-slider-thumb, .ds-v-scope .custom-range::-webkit-slider-thumb { width: 1.25rem; height: 1.25rem; margin-top: calc((.375rem - 1.25rem) / 2); border: 2px solid var(--dd-surface); border-radius: 50%; background-color: var(--dd-primary); box-shadow: 0 1px 3px rgb(15 23 42 / 35%); transition: box-shadow var(--dd-ease); }
+.ds-v-scope .form-range::-moz-range-thumb, .ds-v-scope .custom-range::-moz-range-thumb { width: 1.25rem; height: 1.25rem; border: 2px solid var(--dd-surface); border-radius: 50%; background-color: var(--dd-primary); box-shadow: 0 1px 3px rgb(15 23 42 / 35%); }
+.ds-v-scope .form-range:focus, .ds-v-scope .custom-range:focus { outline: 0; box-shadow: none; }
+.ds-v-scope .form-range:focus::-webkit-slider-thumb, .ds-v-scope .form-range.ds-is-focus::-webkit-slider-thumb,
+.ds-v-scope .custom-range:focus::-webkit-slider-thumb, .ds-v-scope .custom-range.ds-is-focus::-webkit-slider-thumb { box-shadow: 0 0 0 4px var(--dd-ring), 0 1px 3px rgb(15 23 42 / 35%); }
+.ds-v-scope .form-range:focus::-moz-range-thumb, .ds-v-scope .custom-range:focus::-moz-range-thumb { box-shadow: 0 0 0 4px var(--dd-ring), 0 1px 3px rgb(15 23 42 / 35%); }
+.ds-v-scope .form-range:disabled::-webkit-slider-thumb, .ds-v-scope .custom-range:disabled::-webkit-slider-thumb { background-color: var(--dd-line); }
+.ds-v-scope .form-range:disabled::-moz-range-thumb, .ds-v-scope .custom-range:disabled::-moz-range-thumb { background-color: var(--dd-line); }
+
+/* ------------------------------------------------------------------ input group */
+.ds-v-scope .input-group-text {
+  min-height: var(--dd-h);
+  padding: .5rem .875rem;
+  border: 1px solid var(--dd-line);
+  border-radius: var(--dd-radius-sm);
+  background-color: var(--dd-surface-2);
+  color: var(--dd-muted);
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.ds-v-scope .input-group-sm > .input-group-text, .ds-v-scope .input-group-sm .input-group-text { min-height: var(--dd-h-sm); padding: .25rem .625rem; font-size: .8125rem; }
+.ds-v-scope .input-group-lg > .input-group-text, .ds-v-scope .input-group-lg .input-group-text { min-height: var(--dd-h-lg); padding: .625rem 1rem; font-size: 1.0625rem; }
+.ds-v-scope .input-group > .btn, .ds-v-scope .input-group-append > .btn, .ds-v-scope .input-group-prepend > .btn { box-shadow: none; }
+
+/* ------------------------------------------------------------------ validation */
+.ds-v-scope .form-control.is-invalid, .ds-v-scope .form-select.is-invalid, .ds-v-scope .custom-select.is-invalid, .ds-v-scope .was-validated .form-control:invalid { border-color: var(--dd-danger); }
+.ds-v-scope .form-control.is-valid, .ds-v-scope .form-select.is-valid, .ds-v-scope .custom-select.is-valid, .ds-v-scope .was-validated .form-control:valid { border-color: var(--dd-success); }
+.ds-v-scope .form-control.is-invalid:focus, .ds-v-scope .form-select.is-invalid:focus, .ds-v-scope .custom-select.is-invalid:focus { box-shadow: 0 0 0 3px var(--dd-ring-danger); }
+.ds-v-scope .form-control.is-valid:focus, .ds-v-scope .form-select.is-valid:focus, .ds-v-scope .custom-select.is-valid:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--dd-success) 28%, transparent); }
+.ds-v-scope .invalid-feedback, .ds-v-scope .valid-feedback { margin-top: .375rem; font-size: .8125rem; font-weight: 500; line-height: 1.4; }
+.ds-v-scope .invalid-feedback { color: var(--dd-danger); }
+.ds-v-scope .valid-feedback { color: var(--dd-success); }
+
+/* ------------------------------------------------------------------ floating labels (Bootstrap 5) */
+.ds-v-scope .form-floating > .form-control, .ds-v-scope .form-floating > .form-select { padding-inline: .875rem; }
+.ds-v-scope .form-floating > label { padding-inline: .875rem; color: var(--dd-muted); font-size: .9375rem; font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-v-scope .btn, .ds-v-scope .form-control, .ds-v-scope .form-select, .ds-v-scope .custom-select, .ds-v-scope .form-check-input { transition: none; }
+}
