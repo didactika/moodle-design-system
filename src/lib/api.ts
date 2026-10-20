@@ -1,21 +1,21 @@
 import {getCollection} from 'astro:content';
 import versions from '../data/versions.json';
-import {toBootstrap4} from './bootstrap4.js';
+import {toBootstrap4} from './bootstrap4';
 
 /** The version of the shape of the JSON. It changes only when a field is removed or changes meaning; adding fields does not change it. */
 export const SCHEMA = 1;
 
 export const json = (data: unknown) => new Response(JSON.stringify(data, null, 2) + '\n', {headers: {'Content-Type': 'application/json; charset=utf-8'}});
 
-export const urls = (site: URL | undefined) => {
+export const urls = () => {
     const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-    const root = new URL(base + '/', site ?? 'https://didactika.github.io').href.replace(/\/$/, '');
+    const root = new URL(base + '/', import.meta.env.SITE ?? 'https://didactika.github.io').href.replace(/\/$/, '');
     return {root, abs: (path: string) => root + path};
 };
 
 /** Every page of the site, with both languages joined under the slug. */
-export const pages = async(site: URL | undefined) => {
-    const {abs} = urls(site);
+export const pages = async() => {
+    const {abs} = urls();
     const entries = await getCollection('docs');
     const slugs = [...new Set(entries.map((e) => e.id.split('/').slice(1).join('/')))].sort();
     return slugs.map((slug) => {
@@ -43,8 +43,8 @@ const mustache = (html: string) => html.replace(/<i [^>]*data-pix="([^"]*)"[^>]*
 const iconsOf = (html: string) => [...html.matchAll(/data-pix="([^"]*)"/g)].map((m) => m[1]);
 
 /** Every example of the site grouped by component, in Bootstrap 5 and in Bootstrap 4, with the Moodle icon calls. */
-export const components = async(site: URL | undefined) => {
-    const {abs} = urls(site);
+export const components = async() => {
+    const {abs} = urls();
     const titles: Record<string, Record<string, string>> = {en: {}, es: {}};
     const pageOf: Record<string, string> = {};
     for (const entry of await getCollection('docs')) {

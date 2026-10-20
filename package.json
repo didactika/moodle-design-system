@@ -9,12 +9,13 @@
     "node": ">=20.3"
   },
   "scripts": {
-    "moodle": "node tools/build-moodle.mjs",
-    "data": "node tools/extract-data.mjs",
-    "dev": "node tools/build-moodle.mjs && node tools/fetch-people.mjs && astro dev",
-    "build": "node tools/build-moodle.mjs && node tools/fetch-people.mjs && astro build && node tools/check-content.mjs",
+    "moodle": "tsx tools/build-moodle.ts",
+    "data": "tsx tools/extract-data.ts",
+    "dev": "tsx tools/build-moodle.ts && tsx tools/fetch-people.ts && astro dev",
+    "build": "tsx tools/build-moodle.ts && tsx tools/fetch-people.ts && astro build && tsx tools/check-content.ts",
     "preview": "astro preview",
-    "check": "node tools/check-content.mjs"
+    "check": "tsx tools/check-content.ts",
+    "typecheck": "astro sync && tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.0",
@@ -22,6 +23,9 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "6.7.2",
-    "postcss": "^8.5.31"
+    "@types/node": "^26.6.5",
+    "postcss": "^8.5.31",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }

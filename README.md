@@ -13,11 +13,11 @@ Published at <https://didactika.github.io/moodle-design-system/> (GitHub Pages, 
 
 ## How it works
 
-Moodle commits the compiled stylesheet of its Boost theme in every branch. `tools/build-moodle.mjs` downloads it for each version in
+Moodle commits the compiled stylesheet of its Boost theme in every branch. `tools/build-moodle.ts` downloads it for each version in
 [`src/data/versions.json`](src/data/versions.json), points its fonts at local copies, and scopes every rule under `.ds-<id>` so all
 versions live in one page and are switched without a reload. Every rule for `:hover`, `:focus` and `:active` also gets a
 `.ds-is-hover`, `.ds-is-focus` and `.ds-is-active` twin, so a page can draw the states of a component side by side.
-`tools/extract-data.mjs` reads from the same sources the table of Moodle icons per version (`src/data/icons.json`) and the design
+`tools/extract-data.ts` reads from the same sources the table of Moodle icons per version (`src/data/icons.json`) and the design
 tokens of each stylesheet (`src/data/tokens.json`).
 
 Examples are real HTML files in `src/examples`, written with the classes of Bootstrap 5 and the Moodle icon ids
@@ -39,7 +39,7 @@ src/examples/<component>/<name>.html           the markup of a live example (and
 src/components/                                Header, Footer, Logo, Icon, Example, Matrix, Rule, Colours, ThemeLab, IconGrid
 src/data/                                      versions.json, brand.json and team.json (hand-kept), icons.json and tokens.json (generated)
 src/pages/api/                                 the JSON API
-src/scripts/site.js                            version, colour mode, examples, inspector, icon grid
+src/scripts/site.ts                            version, colour mode, examples, inspector, icon grid
 tools/                                         build-moodle, extract-data, check-content, build-brand (icon and share image; needs sharp)
 ```
 

@@ -9,7 +9,7 @@
  * - every page has a summary, and no page is left with text in the other language's file untranslated (title equal in both is allowed
  *   only for proper names).
  *
- * Usage: node tools/check-content.mjs
+ * Usage: tsx tools/check-content.ts
  */
 import {readdirSync, readFileSync, statSync, existsSync} from 'node:fs';
 import {dirname, join, relative, resolve} from 'node:path';
@@ -18,15 +18,18 @@ import {fileURLToPath} from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const docs = join(root, 'src/content/docs');
 const examples = join(root, 'src/examples');
-const errors = [];
+const errors: string[] = [];
 
-const walk = (dir) => readdirSync(dir).flatMap((name) => {
+/** A page of the content collection: its file and the front matter read from it. */
+interface Page { file: string; data: Record<string, string> }
+
+const walk = (dir: string): string[] => readdirSync(dir).flatMap((name) => {
     const path = join(dir, name);
     return statSync(path).isDirectory() ? walk(path) : [path];
 });
 
 /** The front matter of an MDX file as a plain object (flat keys, scalar or inline list values). */
-const frontMatter = (file) => {
+const frontMatter = (file: string): Record<string, string> => {
     const match = readFileSync(file, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (!match) {
         errors.push(`${relative(root, file)}: no front matter`);
@@ -34,11 +37,11 @@ const frontMatter = (file) => {
     }
     return Object.fromEntries(match[1].split(/\r?\n/).map((line) => {
         const i = line.indexOf(':');
-        return [line.slice(0, i).trim(), line.slice(i + 1).trim()];
+        return [line.slice(0, i).trim(), line.slice(i + 1).trim()] as [string, string];
     }));
 };
 
-const pages = {en: {}, es: {}};
+const pages: Record<string, Record<string, Page>> = {en: {}, es: {}};
 for (const file of walk(docs).filter((f) => f.endsWith('.mdx'))) {
     const [lang, ...rest] = relative(docs, file).replace(/\\/g, '/').split('/');
     if (!pages[lang]) {

@@ -3,9 +3,9 @@ import versions from '../../data/versions.json';
 import {SCHEMA, json, pages, urls} from '../../lib/api';
 
 /** The entry point of the data of the site: what exists, where it is, and how to open a page in a state. */
-export const GET: APIRoute = async({site}) => {
-    const {abs} = urls(site);
-    const list = await pages(site);
+export const GET: APIRoute = async() => {
+    const {abs} = urls();
+    const list = await pages();
     return json({
         schema: SCHEMA,
         name: 'Didactika Moodle UI',

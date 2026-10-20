@@ -11,20 +11,21 @@
  * rule for :hover, :focus and :active also gets a twin for `.ds-is-hover`, `.ds-is-focus` and `.ds-is-active`, so the states of a
  * component can be drawn at rest.
  *
- * Usage: node tools/build-moodle.mjs [--refresh]
+ * Usage: tsx tools/build-moodle.ts [--refresh]
  */
 import {existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, statSync} from 'node:fs';
 import {dirname, join, resolve, basename} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import postcss from 'postcss';
+import type {VersionConfig} from './types';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const refresh = process.argv.includes('--refresh');
-const versions = JSON.parse(readFileSync(join(root, 'src/data/versions.json'), 'utf8'));
+const versions = JSON.parse(readFileSync(join(root, 'src/data/versions.json'), 'utf8')) as VersionConfig[];
 const RAW = 'https://raw.githubusercontent.com/moodle/moodle';
 
 /** Download a file once and keep it in vendor/. */
-const cached = async(url, file) => {
+const cached = async(url: string, file: string): Promise<Buffer> => {
     if (existsSync(file) && !refresh) {
         return readFileSync(file);
     }
@@ -42,19 +43,19 @@ const cached = async(url, file) => {
 const pageRoot = /^(:root|html|body|:host)(?=$|[.[:#\s>+~])/;
 const colourMode = /^\[data-bs-theme="?(dark|light)"?\]/;
 
-const scopeSelector = (selector, scope) => {
+const scopeSelector = (selector: string, scope: string): string => {
     const s = selector.trim();
     if (pageRoot.test(s)) {
         return s.replace(pageRoot, scope);
     }
     if (colourMode.test(s)) {
         // On the example itself and on anything inside it.
-        return `${s.replace(colourMode, (m) => scope + m)}, ${scope} ${s}`;
+        return `${s.replace(colourMode, (m: string) => scope + m)}, ${scope} ${s}`;
     }
     return `${scope} ${s}`;
 };
 
-const build = async(version) => {
+const build = async(version: VersionConfig): Promise<string> => {
     const scope = `.ds-${version.id}`;
     const out = join(root, 'public/moodle', version.id);
     mkdirSync(join(out, 'fonts'), {recursive: true});
@@ -64,8 +65,8 @@ const build = async(version) => {
         join(root, 'vendor/moodle', version.id, 'moodle.css'))).toString('utf8');
 
     // The fonts the stylesheet asks for. A face whose file is not available here is dropped, so nothing points at a missing URL.
-    const available = new Map();
-    const font = async(name, url, fromFile) => {
+    const available = new Map<string, string>();
+    const font = async(name: string, url: string, fromFile?: string): Promise<void> => {
         const target = join(out, 'fonts', basename(name));
         if (fromFile) {
             copyFileSync(fromFile, target);
@@ -97,13 +98,13 @@ const build = async(version) => {
         rule.walkDecls('src', (decl) => {
             src = decl.value;
         });
-        const wanted = [...src.matchAll(/\[\[font:[a-z]+\|([^\]]+)\]\]/g)].map((m) => m[1]);
+        const wanted = [...src.matchAll(/\[\[font:[a-z]+\|([^\]]+)\]\]/g)].map((m) => m[1] as string);
         const hit = wanted.find((name) => available.has(name));
         if (!hit) {
             rule.remove();
             return;
         }
-        rule.walkDecls('src', (decl) => decl.remove());
+        rule.walkDecls('src', (decl) => { decl.remove(); });
         rule.append({prop: 'src', value: `url("fonts/${hit}") format("woff2")`});
     });
     tree.walkRules((rule) => {

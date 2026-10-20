@@ -7,7 +7,7 @@
  * favicon.ico, the apple touch icon and the image used when a link is shared.
  *
  * The output is committed; run it only when the icon changes. It needs sharp, which the site itself does not:
- *   npm i --no-save sharp && node tools/build-brand.mjs
+ *   npm i --no-save sharp && tsx tools/build-brand.ts
  */
 import {readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
@@ -20,7 +20,7 @@ const logo = readFileSync(join(pub, 'brand/didactika-logo.png')).toString('base6
 const TEAL = '#0f766e';
 const DEEP = '#00555a';
 
-const handle = (x, y) => `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="6" fill="#fff" stroke="${TEAL}" stroke-width="9"/>`;
+const handle = (x: number, y: number): string => `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="6" fill="#fff" stroke="${TEAL}" stroke-width="9"/>`;
 
 /** The icon as an SVG of 512 by 512. */
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
@@ -36,17 +36,18 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" widt
 writeFileSync(join(pub, 'favicon.svg'), icon);
 writeFileSync(join(pub, 'brand/favicon.svg'), icon);
 
-const png = (size) => sharp(Buffer.from(icon), {density: 384}).resize(size, size).png().toBuffer();
-const sizes = {16: 'favicon-16x16.png', 32: 'favicon-32x32.png', 180: 'apple-touch-icon.png', 192: 'brand/android-chrome-192x192.png', 512: 'brand/android-chrome-512x512.png'};
-const buffers = {};
+const png = (size: number): Promise<Buffer> => sharp(Buffer.from(icon), {density: 384}).resize(size, size).png().toBuffer();
+const sizes: Record<number, string> = {16: 'favicon-16x16.png', 32: 'favicon-32x32.png', 180: 'apple-touch-icon.png', 192: 'brand/android-chrome-192x192.png', 512: 'brand/android-chrome-512x512.png'};
+const buffers: Record<number, Buffer> = {};
 for (const [size, name] of Object.entries(sizes)) {
-    buffers[size] = await png(Number(size));
-    writeFileSync(join(pub, name), buffers[size]);
-    if (!name.includes('/')) { writeFileSync(join(pub, 'brand', name), buffers[size]); }
+    const buffer = await png(Number(size));
+    buffers[Number(size)] = buffer;
+    writeFileSync(join(pub, name), buffer);
+    if (!name.includes('/')) { writeFileSync(join(pub, 'brand', name), buffer); }
 }
 
 // favicon.ico: a container with the 16 and 32 pixel PNGs.
-const entries = [16, 32].map((s) => ({size: s, data: buffers[s]}));
+const entries = [16, 32].map((s) => ({size: s, data: buffers[s] as Buffer}));
 const head = Buffer.alloc(6 + 16 * entries.length);
 head.writeUInt16LE(0, 0); head.writeUInt16LE(1, 2); head.writeUInt16LE(entries.length, 4);
 let offset = head.length;
