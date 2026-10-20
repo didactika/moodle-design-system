@@ -1,0 +1,21 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Didactika Moodle UI</title>
+        <meta http-equiv="refresh" content={`0; url=${base}/en/start/introduction/`} />
+        <link rel="canonical" href={`${base}/en/start/introduction/`} />
+        <script is:inline define:vars={{base}}>
+            // Spanish for people whose browser asks for it; English otherwise.
+            if ((navigator.language || '').toLowerCase().startsWith('es')) { location.replace(base + '/es/start/introduction/'); }
+        </script>
+    </head>
+    <body>
+        <p><a href={`${base}/en/start/introduction/`}>English</a> · <a href={`${base}/es/start/introduction/`}>Español</a></p>
+    </body>
+</html>

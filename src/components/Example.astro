@@ -1,0 +1,50 @@
+---
+import {langFromPath, ui} from '../i18n/ui';
+
+/**
+ * A live example. The markup is a real HTML file in src/examples (written with the classes of Bootstrap 5 and the Moodle icon ids as
+ * `<i data-pix="t/edit">`), drawn with the CSS of the selected Moodle version; for Bootstrap 4 versions the page translates the class
+ * names, or uses `<name>.bs4.html` when the markup has to be different.
+ */
+interface Props {
+    title: string;
+    /** Path of the example below src/examples, without extension. */
+    src?: string;
+    /** Markup given directly (used by Matrix). */
+    html?: string;
+    /** Properties to measure on the elements marked data-measure: "Height,Padding,...". */
+    measure?: string;
+    narrow?: boolean;
+}
+
+const {title, src, html, measure, narrow = false} = Astro.props;
+const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/\/$/, ''));
+const t = ui[lang];
+const files = import.meta.glob('../examples/**/*.html', {query: '?raw', import: 'default', eager: true}) as Record<string, string>;
+const markup = html ?? (src ? files[`../examples/${src}.html`] : undefined);
+if (markup === undefined) {
+    throw new Error(`Example "${title}": no markup (src=${src})`);
+}
+const bs4 = src ? files[`../examples/${src}.bs4.html`] : undefined;
+const id = (src ?? title).replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+---
+
+<div class="ds-example">
+    <div class="ds-example-head">
+        <strong>{title}</strong>
+        <div class="ds-tabs" role="tablist">
+            <button type="button" role="tab" aria-selected="true" data-tab="preview">{t.preview}</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="code">{t.code}</button>
+        </div>
+    </div>
+    <div data-pane="preview">
+        <div class="ds-canvas">
+            <div class:list={['ds-frame', 'ds-v-scope', {'is-narrow': narrow}]} data-example={id} data-source-bs4={bs4} set:html={markup} />
+            <p class="ds-nodark" hidden>{t.noDarkMode}</p>
+        </div>
+    </div>
+    <div data-pane="code" hidden>
+        <pre class="ds-source"><button class="ds-copy" type="button">{t.copy}</button><code></code></pre>
+    </div>
+</div>
+{measure && <div data-measure-table={id} data-props={measure} />}

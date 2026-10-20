@@ -1,0 +1,30 @@
+---
+title: Introduction
+summary: One look for every Didactika plugin, drawn with the real CSS of each Moodle version and governed by the theme.
+group: start
+order: 1
+---
+
+This is the reference for how Didactika's Moodle plugins draw their screens. It exists so that a list, a form, a dialog or a badge looks and behaves the same in every plugin, on every Moodle version we support, and so that a site's theme can change all of them at once.
+
+## How the site works
+
+Every example on these pages is drawn by the stylesheet that Moodle itself ships for the version you pick in the header, not by a copy kept by hand. Click anything inside an example to open the **inspector**: it measures size, padding, radius, type and colours from that version's CSS, so the numbers on the page cannot drift from the code.
+
+- **Pick a Moodle version** in the header. Pages show what changes between versions, and a class, an icon or a component that does not exist in a version is marked as unavailable there.
+- **Switch the colour mode.** Moodle 5.3 has a dark mode and its examples follow it; older versions have none and stay light.
+- **Read it in English or Spanish.** Every page exists in both.
+
+## Three rules behind everything
+
+1. **Moodle draws, the theme decides.** Buttons, fields, forms, dialogs and alerts are Bootstrap and Moodle components with their own classes. A plugin never redraws them.
+2. **Plugins add a thin layer** only for what Moodle has no component for: the chrome of a list (toolbar, filters, pager, row actions), tinted badges, steps, choice cards and empty states.
+3. **Same markup on Bootstrap 4 and 5.** Moodle 4.x runs Bootstrap 4 and Moodle 5.x runs Bootstrap 5. The pages show where a class name differs.
+
+## What is here now
+
+This first release holds the foundations and one finished component page, [Buttons](../../bootstrap/buttons/), which is the template every other component will follow. The rest of Bootstrap, the Moodle components and the plugins' own components are added section by section, each reviewed before the next begins.
+
+## Reviewing
+
+Every page has an identifier such as `DS-BTN`. Answer per identifier with **keep**, **change** (what and why) or **remove**. A comment in the pull request or a screenshot with an arrow is enough.

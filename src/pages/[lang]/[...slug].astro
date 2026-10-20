@@ -1,0 +1,36 @@
+---
+import {getCollection, render} from 'astro:content';
+import Docs from '../../layouts/Docs.astro';
+import Example from '../../components/Example.astro';
+import Matrix from '../../components/Matrix.astro';
+import Rule from '../../components/Rule.astro';
+import Tokens from '../../components/Tokens.astro';
+import IconGrid from '../../components/IconGrid.astro';
+import type {Lang} from '../../i18n/ui';
+
+export async function getStaticPaths() {
+    const entries = await getCollection('docs');
+    return entries.map((entry) => {
+        const [lang, ...rest] = entry.id.split('/');
+        return {params: {lang, slug: rest.join('/')}, props: {entry}};
+    });
+}
+
+const {lang, slug} = Astro.params;
+const {entry} = Astro.props;
+const {Content, headings} = await render(entry);
+const components = {Example, Matrix, Rule, Tokens, IconGrid};
+---
+
+<Docs
+    lang={lang as Lang}
+    slug={slug as string}
+    title={entry.data.title}
+    summary={entry.data.summary}
+    group={entry.data.group}
+    code={entry.data.code}
+    appliesTo={entry.data.versions}
+    headings={headings}
+>
+    <Content components={components} />
+</Docs>

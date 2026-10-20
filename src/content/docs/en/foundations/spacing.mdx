@@ -1,0 +1,29 @@
+---
+title: Spacing, radius and elevation
+summary: The spacers, corner radii and shadows of Bootstrap, as the theme sets them. Rows of components use gap, not margins.
+group: foundations
+order: 3
+code: DS-SPACE
+---
+
+import Example from '../../../../components/Example.astro';
+
+Distances come from the spacing scale of Bootstrap (`p-1` to `p-5`, `m-*`, `gap-*`), corners from its radius classes and depth from its shadows. A plugin adds no values of its own to any of them. The tables are read from the CSS of the selected version.
+
+## Spacing
+
+<Example title="Padding scale" src="spacing/padding" measure="Padding" />
+
+Lay out a row or a grid of siblings with `gap` on the container (`d-flex gap-2`), not with margins on each child: margins collapse and double without warning, and `gap` does neither.
+
+## Radius
+
+<Example title="Corner radius" src="spacing/radius" measure="Radius" />
+
+Forms, dialogs and the inside of panels keep the radius of the theme. Only the chrome of a list (the search and buttons of a toolbar, the actions of a row, badges and the size select of a pager) is rounded as a pill (`rounded-pill`).
+
+## Elevation
+
+<Example title="Shadows" src="spacing/shadow" measure="Shadow" />
+
+Use elevation to say that something floats above the page (a dropdown, a floating bar, a dialog), not to decorate a card. A card sitting in the page has a border and no shadow, or `shadow-sm` when it must stand out, as the figures at the top of a dashboard do.

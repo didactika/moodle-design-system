@@ -1,0 +1,17 @@
+---
+import {langFromPath, ui} from '../i18n/ui';
+
+/** Every icon Moodle maps to Font Awesome, drawn with the font of the selected version and marked where that version has none. */
+const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/\/$/, ''));
+const t = ui[lang];
+---
+
+<div class="ds-iconbar">
+    <input id="ds-icon-filter" type="search" placeholder="t/edit, trash, rotate…" aria-label={t.search} />
+    <span class="ds-iconmeta"><span id="ds-icon-meta"></span> {t.icons}</span>
+</div>
+<div class="ds-example">
+    <div class="ds-canvas ds-icon-grid-frame">
+        <div class="ds-frame ds-v-scope"><div class="ds-icons" data-icon-grid></div></div>
+    </div>
+</div>

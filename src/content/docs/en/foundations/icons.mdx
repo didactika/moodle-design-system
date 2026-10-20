@@ -1,0 +1,37 @@
+---
+title: Icons
+summary: Icons come from Moodle by id, so each version draws them with its own font. One meaning per icon, one icon per meaning.
+group: foundations
+order: 4
+code: DS-ICON
+---
+
+import IconGrid from '../../../../components/IconGrid.astro';
+
+A plugin never writes a Font Awesome class. It asks Moodle for an icon by its id (`t/edit`, `i/reload`), with `{{#pix}}t/edit, core{{/pix}}` in a template or `$OUTPUT->pix_icon('t/edit', ...)` in PHP, and React code uses the same ids. Each Moodle version maps the id to the icon of its Font Awesome (4.7 in Moodle 4.1, 6 from 4.5), and a theme can map it to another. That is why the same id looks different from one version to another, and why a few ids exist in one version only.
+
+## One meaning per icon
+
+| Meaning | Moodle id | Use |
+|---|---|---|
+| Edit, or open an item that can still change | `t/edit` | Profiles, migrations in review. A pencil in 4.5 and 5.3, **a cog in 4.1** |
+| Open the details of an item that cannot change any more | `i/info` | Completed migrations |
+| Show or hide, enable or disable | `t/hide`, `t/show` | In Moodle the eye (`t/hide`) says the item is visible and a click hides it; the slashed eye (`t/show`) says it is hidden and a click shows it. Never "view" |
+| Delete | `t/delete` | Always danger, always confirmed |
+| Version history | `i/log` today | Moodle has no history icon: `i/log` is a list in 4.1 and a checklist in 4.5 and 5.3, not a clock. Which id to standardise on is an open decision of this review |
+| Create | `t/add` | New profile, New migration |
+| Import, export | `i/import`, `i/export` | Moodle swaps their direction between versions (in 5.3 import is a downward arrow; in 4.5 it is upward; in 4.1 it is a different icon). Open decision: pick explicit icons so the direction never changes |
+| Search | `a/search` | The search field, as a decoration inside it |
+| Filters | `i/filter` | The Filters button |
+| Reset | `i/reload` | The reset of a filter panel, as an icon without text |
+| Previous, next | `i/previous`, `i/next` | Pager arrows |
+| Calendar | `i/calendar` | Date fields, as a decoration |
+| Clear, close | `e/cancel` | Clear a field, close a bar |
+
+Rules: an icon never carries a meaning on its own (a button with only an icon has a title and a hidden label), the eye never means "open", and the bin is always red.
+
+## Every icon, in the selected version
+
+The grid reads Moodle's own icon map for each version. A hatched tile means the version has no icon for that id.
+
+<IconGrid />

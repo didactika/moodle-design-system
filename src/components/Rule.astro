@@ -1,0 +1,13 @@
+---
+/** A "do" or "don't" card: the rule as a short list, in the colour of what it means. */
+interface Props {
+    kind: 'do' | 'dont';
+    title: string;
+}
+const {kind, title} = Astro.props;
+---
+
+<section class:list={['ds-rule', kind === 'do' ? 'is-do' : 'is-dont']}>
+    <h3>{title}</h3>
+    <slot />
+</section>
