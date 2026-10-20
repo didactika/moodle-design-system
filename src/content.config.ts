@@ -4,7 +4,7 @@ import {z} from 'astro/zod';
 
 /**
  * Every page of the site, one file per language: `src/content/docs/<lang>/<section>/<page>.mdx`. The two files of a page share
- * `group` and `order`; `tools/check-content.mjs` fails the build when one language is missing or they disagree.
+ * `group` and `order`; `tools/check-content.ts` fails the build when one language is missing or they disagree.
  */
 const docs = defineCollection({
     loader: glob({pattern: '**/*.mdx', base: './src/content/docs'}),

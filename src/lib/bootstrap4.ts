@@ -2,7 +2,7 @@
 // the classes that Bootstrap 4 calls something else. It is used by the pages (to draw an example in a Bootstrap 4 version) and by the JSON
 // API (to publish both markups), so both always agree.
 
-const renamed = {
+const renamed: Record<string, string> = {
     'form-select': 'custom-select', 'form-select-sm': 'custom-select-sm', 'form-select-lg': 'custom-select-lg', 'visually-hidden': 'sr-only',
     'form-range': 'custom-range', 'float-end': 'float-right', 'float-start': 'float-left', 'text-end': 'text-right', 'text-start': 'text-left',
     'dropdown-menu-end': 'dropdown-menu-right', 'fw-bold': 'font-weight-bold', 'fw-semibold': 'font-weight-bold', 'fw-normal': 'font-weight-normal',
@@ -12,7 +12,7 @@ const renamed = {
     'btn-close': 'close', 'g-0': 'no-gutters', 'accordion-button': 'btn btn-link', 'ratio': 'embed-responsive',
 };
 
-export const toBootstrap4 = (html) => html.replace(/class="([^"]*)"/g, (match, value) => {
+export const toBootstrap4 = (html: string): string => html.replace(/class="([^"]*)"/g, (_match: string, value: string) => {
     const names = value.split(/\s+/).filter(Boolean).map((name) => {
         if (name in renamed) { return renamed[name]; }
         const spacing = name.match(/^([mp])([se])-((?:sm|md|lg|xl|xxl)-)?(\d|auto)$/);

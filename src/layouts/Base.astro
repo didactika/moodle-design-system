@@ -70,8 +70,8 @@ const versionData = versions.map((v) => ({id: v.id, moodle: v.moodle, label: v.l
         <script type="application/json" id="ds-icons-data" set:html={JSON.stringify(icons)} is:inline />
         <script type="application/json" id="ds-config" set:html={JSON.stringify({versions: versionData, lang, ui: t})} />
         <script>
-            import '../scripts/site.js';
-            import '../scripts/people.js';
+            import '../scripts/site';
+            import '../scripts/people';
         </script>
     </body>
 </html>
