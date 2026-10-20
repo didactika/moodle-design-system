@@ -1,0 +1,62 @@
+---
+import versions from '../data/versions.json';
+import icons from '../data/icons.json';
+import {ui, type Lang} from '../i18n/ui';
+import Header from '../components/Header.astro';
+import '../styles/site.css';
+
+/** What every page shares: the head (fonts, favicons, the Moodle stylesheets), the header, the data the script reads and the script. */
+interface Props {
+    lang: Lang;
+    title: string;
+    summary: string;
+    /** The page's slug without the language, so the language switch can point at it. Empty on the home page. */
+    slug: string;
+    /** Whether the page has a navigation the header can open. */
+    menu?: boolean;
+}
+
+const {lang, title, summary, slug, menu = true} = Astro.props;
+const t = ui[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const versionData = versions.map((v) => ({id: v.id, moodle: v.moodle, label: v.label, bootstrap: v.bootstrap, icons: v.icons, darkMode: v.darkMode, support: v.support[lang]}));
+---
+
+<!doctype html>
+<html lang={lang} data-version="v53">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>{title === t.site ? title : `${title} · ${t.site}`}</title>
+        <meta name="description" content={summary} />
+        <meta name="theme-color" content="#0f766e" />
+        <link rel="icon" href={`${base}/brand/favicon.ico`} sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href={`${base}/brand/favicon-32x32.png`} />
+        <link rel="apple-touch-icon" href={`${base}/brand/apple-touch-icon.png`} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
+        {versions.map((v) => <link rel="stylesheet" data-version-css={v.id} href={`${base}/moodle/${v.id}/boost.css`} media="not all" />)}
+        <script is:inline define:vars={{versionIds: versions.map((v) => v.id)}}>
+            // Before the first paint: the version, the colour mode and the Moodle stylesheet that goes with them.
+            try {
+                const root = document.documentElement;
+                const version = localStorage.getItem('ds-version');
+                const mode = localStorage.getItem('ds-mode');
+                root.dataset.version = versionIds.includes(version) ? version : 'v53';
+                if (mode === 'light' || mode === 'dark') { root.dataset.theme = mode; }
+            } catch (e) { /* the page works without storage */ }
+            document.querySelectorAll('[data-version-css]').forEach((l) => { l.media = l.dataset.versionCss === document.documentElement.dataset.version ? 'all' : 'not all'; });
+        </script>
+    </head>
+    <body>
+        <a class="ds-skip" href="#content">{t.skip}</a>
+        <Header lang={lang} slug={slug} menu={menu} />
+        <slot />
+        <script type="application/json" id="ds-icons-data" set:html={JSON.stringify(icons)} is:inline />
+        <script type="application/json" id="ds-config" set:html={JSON.stringify({versions: versionData, lang, ui: {copy: t.copy, copied: t.copied, noDarkMode: t.noDarkMode, unavailable: t.unavailable, inVersion: t.inVersion, inTotal: t.inTotal, inspectHint: t.inspectHint, sizes: t.sizesHeading}})} />
+        <script>
+            import '../scripts/site.js';
+        </script>
+    </body>
+</html>

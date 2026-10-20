@@ -1,0 +1,9 @@
+---
+/** A set of colours read from the selected Moodle version (or Didactika's own): brand, proposal, theme, surface, subtle, palette, grays, scale. */
+interface Props {
+    kind: 'brand' | 'proposal' | 'theme' | 'surface' | 'subtle' | 'palette' | 'grays' | 'scale';
+}
+const {kind} = Astro.props;
+---
+
+<div data-colours={kind}></div>

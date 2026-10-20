@@ -1,13 +1,13 @@
 ---
 import {getCollection} from 'astro:content';
 import versions from '../data/versions.json';
-import icons from '../data/icons.json';
-import {languages, ui, type Lang} from '../i18n/ui';
-import '../styles/site.css';
+import {ui, type Lang} from '../i18n/ui';
+import Base from './Base.astro';
 
+/** A documentation page: navigation on the left, the page, and its table of contents or the inspector on the right. */
 interface Props {
     lang: Lang;
-    /** The page's slug without the language, e.g. foundations/colour. Empty on the home page. */
+    /** The page's slug without the language, e.g. foundations/colour. */
     slug: string;
     title: string;
     summary: string;
@@ -29,112 +29,50 @@ const order = ['start', 'foundations', 'bootstrap', 'moodle', 'didactika', 'patt
 const groups = order
     .map((g) => ({key: g, label: t.groups[g], pages: all.filter((p) => p.group === g).sort((a, b) => a.order - b.order)}))
     .filter((g) => g.pages.length);
-const other = lang === 'en' ? 'es' : 'en';
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const applies = appliesTo && appliesTo.length ? appliesTo : null;
-const versionData = versions.map((v) => ({id: v.id, moodle: v.moodle, label: v.label, bootstrap: v.bootstrap, icons: v.icons, darkMode: v.darkMode, support: v.support[lang]}));
 ---
 
-<!doctype html>
-<html lang={lang} data-version="v53">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <title>{title} · {t.site}</title>
-        <meta name="description" content={summary} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
-        {versions.map((v) => <link rel="stylesheet" data-version-css={v.id} href={`${base}/moodle/${v.id}/boost.css`} media="not all" />)}
-        <script is:inline define:vars={{versionIds: versions.map((v) => v.id)}}>
-            // Before the first paint: the version, the colour mode and the Moodle stylesheet that goes with them.
-            try {
-                const root = document.documentElement;
-                const version = localStorage.getItem('ds-version');
-                const mode = localStorage.getItem('ds-mode');
-                root.dataset.version = versionIds.includes(version) ? version : 'v53';
-                if (mode === 'light' || mode === 'dark') { root.dataset.theme = mode; }
-            } catch (e) { /* the page works without storage */ }
-            document.querySelectorAll('[data-version-css]').forEach((l) => { l.media = l.dataset.versionCss === document.documentElement.dataset.version ? 'all' : 'not all'; });
-        </script>
-    </head>
-    <body>
-        <a class="ds-skip" href="#content">{t.skip}</a>
-        <header class="ds-head">
-            <button class="ds-btn ds-menu-btn" id="ds-menu" type="button" aria-controls="ds-nav" aria-expanded="false">{t.menu}</button>
-            <a class="ds-brand" href={href(lang, '')}>{t.site}<small>v0.1</small></a>
-            <div class="ds-head-tools">
-                <details class="ds-dd" id="ds-version">
-                    <summary aria-label={t.version}><span id="ds-version-label">{versions[0].label}</span></summary>
-                    <ul class="ds-dd-list" role="menu" aria-label={t.version}>
-                        {versions.map((v) => (
-                            <li role="none">
-                                <button type="button" role="menuitemradio" aria-checked="false" data-version={v.id}>
-                                    <b>{v.label}</b>
-                                    <span class="ds-chip">{t.bootstrap} {v.bootstrap}</span>
-                                    <small>{v.support[lang]} · {v.icons === 'fa4' ? 'Font Awesome 4.7' : 'Font Awesome 6'}{v.darkMode ? ' · ' + t.dark.toLowerCase() : ''}</small>
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </details>
-                <div class="ds-seg" role="group" aria-label={t.language}>
-                    {(Object.keys(languages) as Lang[]).map((l) => (
-                        <a href={l === lang ? undefined : href(l, slug)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
+<Base lang={lang} title={title} summary={summary} slug={slug}>
+    <div class="ds-shell">
+        <nav class="ds-nav" id="ds-nav" aria-label={t.menu}>
+            <input class="ds-find" id="ds-find" type="search" placeholder={t.search} aria-label={t.search} />
+            <a class="ds-nav-home" href={href(lang, '')}>{t.home}</a>
+            {groups.map((g) => (
+                <div data-group>
+                    <h2>{g.label}</h2>
+                    {g.pages.map((p) => (
+                        <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined} data-find={`${p.title} ${p.code ?? ''} ${p.summary}`.toLowerCase()}>
+                            {p.title}{p.code && <span>{p.code}</span>}
+                        </a>
                     ))}
                 </div>
-                <div class="ds-seg" role="group" aria-label={t.theme}>
-                    <button type="button" data-mode="light" aria-pressed="false">{t.light}</button>
-                    <button type="button" data-mode="dark" aria-pressed="false">{t.dark}</button>
+            ))}
+        </nav>
+
+        <main class="ds-main" id="content">
+            <article class="ds-article" data-doc>
+                {group && <div class="ds-eyebrow">{t.groups[group as keyof typeof t.groups]}</div>}
+                <h1>{title}{code && <span class="ds-chip ds-code-id">{code}</span>}</h1>
+                <p class="ds-summary">{summary}</p>
+                <div class="ds-badges">
+                    <span class="ds-chip">{t.applies}: {applies ? applies.map((id) => versions.find((v) => v.id === id)?.moodle).join(', ') : t.allVersions}</span>
                 </div>
+                <slot />
+            </article>
+        </main>
+
+        <aside class="ds-rail" id="ds-rail" data-mode="toc" aria-label={t.onThisPage}>
+            <div class="ds-toc-wrap">
+                <h2>{t.onThisPage}</h2>
+                <ul class="ds-toc">
+                    {toc.map((h) => <li class={`l${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}
+                </ul>
             </div>
-        </header>
-
-        <div class="ds-shell">
-            <nav class="ds-nav" id="ds-nav" aria-label={t.menu}>
-                <input class="ds-find" id="ds-find" type="search" placeholder={t.search} aria-label={t.search} />
-                {groups.map((g) => (
-                    <div data-group>
-                        <h2>{g.label}</h2>
-                        {g.pages.map((p) => (
-                            <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined} data-find={`${p.title} ${p.code ?? ''} ${p.summary}`.toLowerCase()}>
-                                {p.title}{p.code && <span>{p.code}</span>}
-                            </a>
-                        ))}
-                    </div>
-                ))}
-            </nav>
-
-            <main class="ds-main" id="content">
-                <article class="ds-article" data-doc>
-                    {group && <div class="ds-eyebrow">{t.groups[group as keyof typeof t.groups]}</div>}
-                    <h1>{title}{code && <span class="ds-chip ds-code-id">{code}</span>}</h1>
-                    <p class="ds-summary">{summary}</p>
-                    <div class="ds-badges">
-                        <span class="ds-chip">{t.applies}: {applies ? applies.map((id) => versions.find((v) => v.id === id)?.moodle).join(', ') : t.allVersions}</span>
-                    </div>
-                    <slot />
-                </article>
-            </main>
-
-            <aside class="ds-rail" id="ds-rail" data-mode="toc" aria-label={t.onThisPage}>
-                <div class="ds-toc-wrap">
-                    <h2>{t.onThisPage}</h2>
-                    <ul class="ds-toc">
-                        {toc.map((h) => <li class={`l${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}
-                    </ul>
-                </div>
-                <div class="ds-insp" id="ds-insp">
-                    <h2>{t.inspector}</h2>
-                    <div id="ds-insp-body"><p class="ds-insp-empty">{t.inspectHint}</p></div>
-                </div>
-            </aside>
-        </div>
-
-        <script type="application/json" id="ds-icons-data" set:html={JSON.stringify(icons)} is:inline />
-        <script type="application/json" id="ds-config" set:html={JSON.stringify({versions: versionData, lang, ui: {copy: t.copy, copied: t.copied, noDarkMode: t.noDarkMode, unavailable: t.unavailable, inspectHint: t.inspectHint, sizes: t.sizesHeading}})} />
-        <script>
-            import '../scripts/site.js';
-        </script>
-    </body>
-</html>
+            <div class="ds-insp" id="ds-insp">
+                <h2>{t.inspector}</h2>
+                <div id="ds-insp-body"><p class="ds-insp-empty">{t.inspectHint}</p></div>
+            </div>
+        </aside>
+    </div>
+</Base>

@@ -1,0 +1,24 @@
+---
+import tokens from '../data/tokens.json';
+import {langFromPath, ui} from '../i18n/ui';
+
+/**
+ * Once per colour page: the switch of the colour format, a hidden element that carries the classes of the selected Moodle version (so
+ * colours are read from its real stylesheet), and the tokens of every version.
+ */
+const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/\/$/, ''));
+const t = ui[lang];
+---
+
+<div class="ds-formatbar">
+    <span>{t.lab.format}</span>
+    <div class="ds-seg" role="group" aria-label={t.lab.format}>
+        <button type="button" data-colour-format="hex" aria-pressed="true">HEX</button>
+        <button type="button" data-colour-format="rgb" aria-pressed="false">RGB</button>
+        <button type="button" data-colour-format="hsl" aria-pressed="false">HSL</button>
+    </div>
+    <small>{t.lab.clickCopy}</small>
+</div>
+<div class="ds-v-scope ds-hidden" data-colour-scope aria-hidden="true"></div>
+<script type="application/json" id="ds-tokens-data" set:html={JSON.stringify(tokens)} is:inline />
+<script type="application/json" id="ds-lab-text" set:html={JSON.stringify({only5: t.lab.only5, noScales: t.lab.noScales, noMds: t.lab.noMds})} is:inline />

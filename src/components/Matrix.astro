@@ -5,6 +5,9 @@ import Example from './Example.astro';
  * Every variant of a component against every state, in one grid. `template` is the markup of one cell with the placeholders
  * `{v}` (the variant), `{s}` (the state class, e.g. ds-is-hover) and `{label}`. The states other than rest come from the CSS of the
  * version itself, which gets a `.ds-is-hover`, `.ds-is-focus` and `.ds-is-active` twin of every rule for those pseudo-classes.
+ *
+ * On a wide container the variants are rows and the states columns; on a narrow one each variant is a block whose states wrap, each
+ * under its own name, so nothing scrolls sideways.
  */
 interface Props {
     title: string;
@@ -12,7 +15,6 @@ interface Props {
     /** Pairs of the column title and the state class ('' for rest, 'disabled' for the attribute). */
     states: [string, string][];
     template: string;
-    narrow?: boolean;
 }
 
 const {title, variants, states, template} = Astro.props;
@@ -21,9 +23,9 @@ const cell = (v: string, s: string) => template
     .replaceAll('{s}', s === 'disabled' ? '' : s)
     .replaceAll('{disabled}', s === 'disabled' ? ' disabled' : '')
     .replaceAll('{label}', v[0].toUpperCase() + v.slice(1));
-const columns = `grid-template-columns: 6rem repeat(${states.length}, minmax(6.5rem, max-content));`;
-const html = `<div class="ds-matrix" style="${columns}"><span></span>${states.map(([name]) => `<span class="h">${name}</span>`).join('')}${variants
-    .map((v) => `<span class="r">${v}</span>${states.map(([, s]) => `<span>${cell(v, s)}</span>`).join('')}`).join('')}</div>`;
+const html = `<div class="ds-matrix-wrap"><div class="ds-matrix" style="--cols:${states.length}"><div class="ds-matrix-head"><span></span>${states
+    .map(([name]) => `<span>${name}</span>`).join('')}</div>${variants.map((v) => `<div class="ds-matrix-row"><span class="r">${v}</span><div class="ds-cells">${states
+    .map(([name, s]) => `<div class="ds-cell" data-state="${name}">${cell(v, s)}</div>`).join('')}</div></div>`).join('')}</div></div>`;
 ---
 
 <Example title={title} html={html} />

@@ -1,0 +1,12 @@
+---
+import {icons, type IconName} from './icons';
+
+/** A glyph of the site's own chrome, inline, in the colour of its text. */
+interface Props {
+    name: IconName;
+    class?: string;
+}
+const {name, class: className} = Astro.props;
+---
+
+<span class:list={['ds-i', className]} aria-hidden="true" set:html={icons[name]} />
