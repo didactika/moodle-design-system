@@ -59,7 +59,7 @@ npm run data       # refresh icons.json and tokens.json after changing a version
 
 Copy `src/content/docs/en/bootstrap/buttons.mdx` and its Spanish twin: it is the template. Every component page has what it is for and
 when not to use it, anatomy, the matrix of variants and states, measured sizes, classes (with the Bootstrap 4 name), code, what changes
-by version, accessibility and where it is used, in both languages.
+by version and accessibility, in both languages. A page never says where a component is used: the documentation of each plugin does.
 
 ## Licence
 
