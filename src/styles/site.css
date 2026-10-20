@@ -612,3 +612,17 @@ h1 .ds-vbadges .ds-vb { font-size: .72rem; }
 .ds-chipx { padding: .05rem .45rem; border: 1px solid var(--line); border-radius: 999px; background: var(--panel-2); font: 600 .68rem/1.5 var(--mono); }
 .ds-chipx[data-pass="yes"], .ds-ratio[data-pass="yes"] { color: var(--ok); }
 .ds-chipx[data-pass="no"], .ds-ratio[data-pass="no"] { color: var(--no); }
+
+/* content that belongs to some versions only */
+.ds-only { display: none; }
+:root[data-version="v53"] .ds-only[data-only~="v53"], :root[data-version="v45"] .ds-only[data-only~="v45"], :root[data-version="v41"] .ds-only[data-only~="v41"] { display: block; }
+:root[data-version="v53"] span.ds-only[data-only~="v53"], :root[data-version="v45"] span.ds-only[data-only~="v45"], :root[data-version="v41"] span.ds-only[data-only~="v41"] { display: inline; }
+
+.ds-icon-cell.ds-v-scope { display: inline-flex; align-items: center; gap: .6rem; min-height: 0; margin: 0; padding: 0; background: transparent; color: var(--ink); font-size: 1.05rem; line-height: 1; }
+
+/* the tables written in the text of a page */
+.ds-article table { display: block; width: max-content; max-width: 100%; overflow-x: auto; margin: 1rem 0 1.5rem; border: 1px solid var(--line); border-radius: 10px; border-collapse: separate; border-spacing: 0; background: var(--panel); font-size: .86rem; }
+.ds-article thead th { background: var(--panel-2); color: var(--muted); font: 600 .68rem/1.2 var(--font); letter-spacing: .06em; text-align: left; text-transform: uppercase; white-space: nowrap; }
+.ds-article th, .ds-article td { padding: .55rem .8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.ds-article tbody tr:last-child td { border-bottom: 0; }
+.ds-article td code { white-space: nowrap; }

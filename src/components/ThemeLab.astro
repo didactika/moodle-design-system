@@ -1,5 +1,6 @@
 ---
 import {langFromPath, ui} from '../i18n/ui';
+import Only from './Only.astro';
 
 /**
  * A lab: change the colour of a theme role and see it on real components of the selected Moodle version, with the contrast of the text
@@ -75,11 +76,13 @@ const label = (role: string) => l.roles[role as keyof typeof l.roles];
             <p>{l.scssHelp}</p>
             <pre class="ds-source"><button class="ds-copy" type="button" data-lab-copy="[data-lab-scss]">{l.copy}</button><code data-lab-scss></code></pre>
         </section>
+        <Only of="v53">
         <section>
             <h3>{l.cssVars}</h3>
             <p>{l.cssHelp}</p>
             <pre class="ds-source"><button class="ds-copy" type="button" data-lab-copy="[data-lab-css]">{l.copy}</button><code data-lab-css></code></pre>
         </section>
+        </Only>
     </div>
     <script type="application/json" id="ds-lab-presets" set:html={JSON.stringify(presets)} is:inline />
 </div>

@@ -25,23 +25,49 @@ Switch on **Didactika colours** in the bar at the top and every example of the s
 
 ## Theme colours of this version
 
-The eight colours of Bootstrap's theme. On Bootstrap 5 (Moodle 5.x) they are `--bs-*` variables and follow the colour mode; on Bootstrap 4 (Moodle 4.x) they are the variables of the root (`--primary`, `--success`…).
+The eight colours of Bootstrap's theme.
+
+<Only of="v53">
+
+They are `--bs-*` variables and follow the colour mode of the page.
+
+</Only>
+
+<Only of="v45,v41">
+
+They are the variables of the root (`--primary`, `--success`…).
+
+</Only>
 
 <Colours kind="theme" />
 
-### Text, backgrounds and borders <Versions of="v53" />
+<Only of="v53">
+
+### Text, backgrounds and borders
 
 <Colours kind="surface" />
 
-### Subtle and emphasis tones <Versions of="v53" />
+</Only>
 
-Soft backgrounds, borders and strong text for each role, used by alerts and list items. They exist from Bootstrap 5.3.
+<Only of="v53">
+
+### Subtle and emphasis tones
+
+Soft backgrounds, borders and strong text for each role, used by alerts and list items.
 
 <Colours kind="subtle" />
 
+</Only>
+
 ## Bootstrap palette
 
-The ten hues of Bootstrap, black and white, and on Bootstrap 5 each hue's scale from 100 to 900, computed the way Bootstrap does: a tint mixes with white and a shade with black.
+The ten hues of Bootstrap, black and white.
+
+<Only of="v53">
+
+Each hue also has its scale from 100 to 900, computed the way Bootstrap does: a tint mixes with white and a shade with black.
+
+</Only>
 
 <Colours kind="palette" />
 
@@ -49,11 +75,15 @@ The ten hues of Bootstrap, black and white, and on Bootstrap 5 each hue's scale 
 
 <Colours kind="grays" />
 
-## Moodle 5.3 scales <Versions of="v53" />
+<Only of="v53">
 
-Moodle 5.3 adds a design token set of its own (`--mds-color-<hue>-<step>`). Use a scale colour only where a theme colour does not fit, for example the colour of a type of activity.
+## Moodle scales
+
+Moodle adds a design token set of its own (`--mds-color-<hue>-<step>`). Use a scale colour only where a theme colour does not fit, for example the colour of a type of activity.
 
 <Colours kind="scale" />
+
+</Only>
 
 ## What each colour means
 

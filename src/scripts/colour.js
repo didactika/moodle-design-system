@@ -69,12 +69,12 @@ if (tokens || labText) {
         brand: () => `<div class="ds-sws">${BRAND.map(([n, v]) => swatch(n, parse(v))).join('')}</div>`,
         theme: () => `<div class="ds-sws">${THEME.map((r) => token([`${pre()}${r}`])).filter(Boolean).map((t) => swatch(t.name, t.c)).join('')}</div>`,
         surface: () => {
-            if (!bs5()) { return `<p class="ds-nodark">${labText.only5}</p>`; }
+            if (!bs5()) { return ''; }
             const names = ['body-color', 'body-bg', 'emphasis-color', 'secondary-color', 'secondary-bg', 'tertiary-color', 'tertiary-bg', 'border-color', 'link-color', 'link-hover-color'].map((n) => `--bs-${n}`);
             return `<div class="ds-sws">${names.map((n) => token([n])).filter(Boolean).map((t) => swatch(t.name, t.c)).join('')}</div>`;
         },
         subtle: () => {
-            if (!bs5()) { return `<p class="ds-nodark">${labText.only5}</p>`; }
+            if (!bs5()) { return ''; }
             const names = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'].flatMap((r) => [`--bs-${r}-bg-subtle`, `--bs-${r}-border-subtle`, `--bs-${r}-text-emphasis`]);
             return `<div class="ds-sws">${names.map((n) => token([n])).filter(Boolean).map((t) => swatch(t.name, t.c)).join('')}</div>`;
         },
@@ -82,7 +82,7 @@ if (tokens || labText) {
             const bases = HUES.map((h) => token([`${pre()}${h}`])).filter(Boolean);
             const bw = ['black', 'white'].map((n) => token([`${pre()}${n}`])).filter(Boolean);
             const sws = `<div class="ds-sws">${[...bases, ...bw].map((t) => swatch(t.name, t.c)).join('')}</div>`;
-            return bs5() ? sws + bases.map((t) => scaleRow(t.name.replace('--bs-', ''), scaleOf(t.c))).join('') : sws + `<p class="ds-nodark">${labText.noScales}</p>`;
+            return bs5() ? sws + bases.map((t) => scaleRow(t.name.replace('--bs-', ''), scaleOf(t.c))).join('') : sws;
         },
         grays: () => {
             const list = Object.entries(GRAYS).map(([n, v]) => { const t = bs5() ? token([`--bs-gray-${n}`]) : null; return [`gray-${n}`, t ? t.c : parse(v)]; });
@@ -92,7 +92,7 @@ if (tokens || labText) {
         scale: () => {
             const set = tokens[state.version].light;
             const hues = [...new Set(Object.keys(set).filter((n) => /^--mds-color-[a-z]+-\d+$/.test(n)).map((n) => n.split('-')[3]))];
-            if (!hues.length) { return `<p class="ds-nodark">${labText.noMds}</p>`; }
+            if (!hues.length) { return ''; }
             return hues.map((hue) => {
                 const steps = Object.keys(set).filter((n) => new RegExp(`^--mds-color-${hue}-\\d+$`).test(n)).sort((a, b) => +a.split('-').pop() - +b.split('-').pop());
                 return scaleRow(hue, steps.map((n) => [n.split('-').pop(), resolve(`var(${n})`)]));

@@ -115,6 +115,10 @@ const apply = () => {
     if (node && !iconMap) { iconMap = JSON.parse(node.textContent); }
     drawIcons(document, version);
     applyBrand();
+    $$('.ds-toc a').forEach((a) => {
+        const heading = document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));
+        a.closest('li').hidden = !heading || heading.getClientRects().length === 0;
+    });
     // Everything that is read from the CSS waits until the stylesheet of the version is there.
     whenStyled(() => {
         renderMeasures();

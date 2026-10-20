@@ -25,23 +25,49 @@ Activa **Colores de Didactika** en la barra de arriba y todos los ejemplos del s
 
 ## Colores de tema de esta versión
 
-Los ocho colores del tema de Bootstrap. En Bootstrap 5 (Moodle 5.x) son variables `--bs-*` y siguen el modo de color; en Bootstrap 4 (Moodle 4.x) son las variables de la raíz (`--primary`, `--success`…).
+Los ocho colores del tema de Bootstrap.
+
+<Only of="v53">
+
+Son variables `--bs-*` y siguen el modo de color de la página.
+
+</Only>
+
+<Only of="v45,v41">
+
+Son las variables de la raíz (`--primary`, `--success`…).
+
+</Only>
 
 <Colours kind="theme" />
 
-### Texto, fondos y bordes <Versions of="v53" />
+<Only of="v53">
+
+### Texto, fondos y bordes
 
 <Colours kind="surface" />
 
-### Tonos suaves y de énfasis <Versions of="v53" />
+</Only>
 
-Fondos suaves, bordes y texto fuerte para cada rol, que usan las alertas y los elementos de lista. Existen desde Bootstrap 5.3.
+<Only of="v53">
+
+### Tonos suaves y de énfasis
+
+Fondos suaves, bordes y texto fuerte para cada rol, que usan las alertas y los elementos de lista.
 
 <Colours kind="subtle" />
 
+</Only>
+
 ## Paleta de Bootstrap
 
-Los diez tonos de Bootstrap, negro y blanco, y en Bootstrap 5 la escala de cada tono de 100 a 900, calculada como lo hace Bootstrap: un tinte mezcla con blanco y una sombra con negro.
+Los diez tonos de Bootstrap, negro y blanco.
+
+<Only of="v53">
+
+Cada tono tiene además su escala de 100 a 900, calculada como lo hace Bootstrap: un tinte mezcla con blanco y una sombra con negro.
+
+</Only>
 
 <Colours kind="palette" />
 
@@ -49,11 +75,15 @@ Los diez tonos de Bootstrap, negro y blanco, y en Bootstrap 5 la escala de cada 
 
 <Colours kind="grays" />
 
-## Escalas de Moodle 5.3 <Versions of="v53" />
+<Only of="v53">
 
-Moodle 5.3 añade un conjunto propio de tokens (`--mds-color-<tono>-<paso>`). Usa un color de escala solo donde un color del tema no sirva, por ejemplo el color de un tipo de actividad.
+## Escalas de Moodle
+
+Moodle añade un conjunto propio de tokens (`--mds-color-<tono>-<paso>`). Usa un color de escala solo donde un color del tema no sirva, por ejemplo el color de un tipo de actividad.
 
 <Colours kind="scale" />
+
+</Only>
 
 ## Qué significa cada color
 
