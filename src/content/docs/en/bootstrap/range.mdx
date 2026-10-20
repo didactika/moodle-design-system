@@ -1,0 +1,84 @@
+---
+title: Range
+summary: "A slider for a value on a scale where the exact number matters less than the position."
+group: bootstrap
+order: 5
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A range picks a value between a minimum and a maximum by dragging. Use it when the user compares positions (volume, opacity, a pass mark) and show the number beside it, because a slider is not precise.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Set `min`, `max` and `step` so the values make sense.
+- Show the current value next to the slider.
+- A label, linked with `for` and `id`.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it for a value the user must type exactly; use a number field.
+- Use it for a few named options; use radios.
+- Restyle the track or the thumb in a plugin.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A range has a **label**, a **track** and a **thumb**. The value is not drawn by the control: write it beside it.
+
+## Variants and states
+
+<Matrix
+  title="Range"
+  variants={['range']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
+  template='<input type="range" class="form-range {s}" min="0" max="10" value="4" aria-label="Range"{disabled}>'
+/>
+
+<Example title="Range with label" src="range/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| <Only of="v53" inline>`form-range`</Only><Only of="v45,v41" inline>`custom-range`</Only> | The slider |
+| `min`, `max`, `step` | Attributes of the scale |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 draws the focus as a soft ring and keeps every colour in CSS variables (`--bs-*`), so a theme recolours a control with one variable. The thumb and the track follow the theme colour.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet. The class is `custom-range`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet. The class is `custom-range`.
+
+</Only>
+
+## Accessibility
+
+- Arrows, Home, End and Page keys work on the native element.
+- The value is read by screen readers; if you also show it, mark it `aria-hidden` or link it with `aria-describedby`.
+- Do not rely on dragging only: allow a keyboard path.
+
+## Used in
+
+Settings that scale a value (sizes, opacity); not used in a list.

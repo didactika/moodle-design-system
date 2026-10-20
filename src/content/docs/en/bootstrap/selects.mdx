@@ -1,0 +1,93 @@
+---
+title: Selects
+summary: "The dropdown list of a form, single or multiple. The native control of the theme; a plugin never builds its own."
+group: bootstrap
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A select lets the user pick one option (or several) from a short, known list. It is the theme's own select: native behaviour, with the height, border and arrow of the other fields.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- A select for 4 to about 15 options that the user already knows.
+- A visible label, linked with `for` and `id`.
+- A first option that says what to do ("Choose…") when no value is the default.
+- `multiple` with `size` only when the user must see the options at once.
+- Moodle sizes a select to its content; add `w-100` where it has to fill the row.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use a select for two options; use [radio buttons](../checks/) or a switch.
+- Use it for a long or searchable list; Moodle's autocomplete is the component for that.
+- Style the options; the browser draws them.
+- Change the arrow or the height in a plugin.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A select has a **label**, the **control** with the chosen option and an **arrow**, and the **list** the browser opens. Same hint and message rules as a [text field](../form-controls/).
+
+## Variants and states
+
+<Matrix
+  title="Select"
+  variants={['select']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
+  template='<select class="form-select {s}" aria-label="Select"{disabled}><option>Teacher</option><option>Student</option></select>'
+/>
+
+<Example title="Single, small and multiple" src="selects/basic" />
+
+### Sizes
+
+<Example title="Small, default and large" src="selects/sizes" measure="Height,Padding,Font size,Line height,Radius,Border" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| <Only of="v53" inline>`form-select`</Only><Only of="v45,v41" inline>`custom-select`</Only> | The select |
+| <Only of="v53" inline>`form-select-sm`, `form-select-lg`</Only><Only of="v45,v41" inline>`custom-select-sm`, `custom-select-lg`</Only> | Smaller and larger |
+| `form-label` | Label above the select |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 draws the focus as a soft ring and keeps every colour in CSS variables (`--bs-*`), so a theme recolours a control with one variable. The arrow is a background image that the theme can swap.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet. The class is `custom-select`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet. The class is `custom-select`.
+
+</Only>
+
+## Accessibility
+
+- A label for every select.
+- Do not use `onchange` to navigate or submit; give a button.
+- Native keyboard behaviour (arrows, type to find) is free: keep the native element.
+- An error message is linked with `aria-describedby`.
+
+## Used in
+
+Every Moodle form; role and status pickers in servicemanager and FileBank.

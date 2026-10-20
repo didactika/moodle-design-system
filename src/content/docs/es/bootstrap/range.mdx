@@ -1,0 +1,84 @@
+---
+title: Deslizador
+summary: "Un deslizador para un valor en una escala donde importa más la posición que el número exacto."
+group: bootstrap
+order: 5
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un deslizador elige un valor entre un mínimo y un máximo arrastrando. Úsalo cuando el usuario compara posiciones (volumen, opacidad, una nota de corte) y muestra el número a su lado, porque un deslizador no es preciso.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Define `min`, `max` y `step` para que los valores tengan sentido.
+- Muestra el valor actual junto al deslizador.
+- Una etiqueta, enlazada con `for` e `id`.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlo para un valor que el usuario debe escribir exacto; usa un campo numérico.
+- Usarlo para unas pocas opciones con nombre; usa radios.
+- Redibujar el riel o el tirador en un plugin.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un deslizador tiene una **etiqueta**, un **riel** y un **tirador**. El valor no lo dibuja el control: escríbelo a su lado.
+
+## Variantes y estados
+
+<Matrix
+  title="Deslizador"
+  variants={['range']}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
+  template='<input type="range" class="form-range {s}" min="0" max="10" value="4" aria-label="Deslizador"{disabled}>'
+/>
+
+<Example title="Deslizador con etiqueta" src="range/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| <Only of="v53" inline>`form-range`</Only><Only of="v45,v41" inline>`custom-range`</Only> | El deslizador |
+| `min`, `max`, `step` | Atributos de la escala |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable. El tirador y el riel siguen el color del tema.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. La clase es `custom-range`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. La clase es `custom-range`.
+
+</Only>
+
+## Accesibilidad
+
+- Flechas, Inicio, Fin y Re Pág/Av Pág funcionan en el elemento nativo.
+- Los lectores de pantalla leen el valor; si además lo muestras, márcalo `aria-hidden` o enlázalo con `aria-describedby`.
+- No dependas solo de arrastrar: permite un camino con teclado.
+
+## Usado en
+
+Ajustes que escalan un valor (tamaños, opacidad); no se usa en una lista.

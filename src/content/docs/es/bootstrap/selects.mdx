@@ -1,0 +1,93 @@
+---
+title: Selectores
+summary: "La lista desplegable de un formulario, simple o múltiple. El control nativo del tema; un plugin nunca construye el suyo."
+group: bootstrap
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un selector deja elegir una opción (o varias) de una lista corta y conocida. Es el selector propio del tema: comportamiento nativo, con la altura, el borde y la flecha de los demás campos.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Un selector para de 4 a unas 15 opciones que el usuario ya conoce.
+- Una etiqueta visible, enlazada con `for` e `id`.
+- Una primera opción que diga qué hacer ("Elige…") cuando no hay un valor por defecto.
+- `multiple` con `size` solo cuando el usuario debe ver las opciones a la vez.
+- Moodle ajusta un selector a su contenido; añade `w-100` donde deba llenar la fila.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar un selector para dos opciones; usa [radios](../checks/) o un interruptor.
+- Usarlo para una lista larga o con búsqueda; el autocompletado de Moodle es el componente para eso.
+- Dar estilo a las opciones; las dibuja el navegador.
+- Cambiar la flecha o la altura en un plugin.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un selector tiene una **etiqueta**, el **control** con la opción elegida y una **flecha**, y la **lista** que abre el navegador. Las mismas reglas de pista y mensaje que un [campo de texto](../form-controls/).
+
+## Variantes y estados
+
+<Matrix
+  title="Selector"
+  variants={['select']}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
+  template='<select class="form-select {s}" aria-label="Selector"{disabled}><option>Profesor</option><option>Estudiante</option></select>'
+/>
+
+<Example title="Simple, pequeño y múltiple" src="selects/basic" />
+
+### Tamaños
+
+<Example title="Pequeño, normal y grande" src="selects/sizes" measure="Height,Padding,Font size,Line height,Radius,Border" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| <Only of="v53" inline>`form-select`</Only><Only of="v45,v41" inline>`custom-select`</Only> | El selector |
+| <Only of="v53" inline>`form-select-sm`, `form-select-lg`</Only><Only of="v45,v41" inline>`custom-select-sm`, `custom-select-lg`</Only> | Más pequeño y más grande |
+| `form-label` | Etiqueta sobre el selector |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable. La flecha es una imagen de fondo que el tema puede cambiar.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. La clase es `custom-select`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. La clase es `custom-select`.
+
+</Only>
+
+## Accesibilidad
+
+- Una etiqueta en cada selector.
+- No uses `onchange` para navegar o enviar; da un botón.
+- El comportamiento nativo del teclado (flechas, escribir para buscar) es gratis: conserva el elemento nativo.
+- Un mensaje de error se enlaza con `aria-describedby`.
+
+## Usado en
+
+Todo formulario de Moodle; los selectores de rol y estado de servicemanager y FileBank.

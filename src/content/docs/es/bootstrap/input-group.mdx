@@ -1,0 +1,83 @@
+---
+title: Grupo de entrada
+summary: "Un campo con algo acoplado: un prefijo, un sufijo, una unidad, un botón o un selector, dibujado como un solo control."
+group: bootstrap
+order: 6
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un grupo de entrada une un campo con un complemento para que se lean como uno. Así se construye el buscador de una barra de herramientas: un campo con su botón Buscar.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Un complemento de texto corto para una unidad o un prefijo (`@`, `%`, `€`).
+- Un botón para la acción del campo (Buscar, Aplicar).
+- Un grupo por campo; el grupo es el control, así que la etiqueta pertenece al campo.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Apilar tres o más complementos; divide el campo.
+- Poner un icono suelto como complemento para decorar; los iconos llevan un significado.
+- Usarlo para unir dos campos sin relación.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un grupo tiene el **campo** y uno o dos **complementos** (texto, botón o selector) a los lados. El complemento comparte el borde y la altura del campo.
+
+## Variantes y estados
+
+<Example title="Complementos: texto, botón y selector" src="input-group/basic" />
+
+### Tamaños
+
+<Example title="Pequeño, normal y grande" src="input-group/sizes" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `input-group` | Envuelve el campo y sus complementos |
+| `input-group-text` | Un complemento de texto |
+| <Only of="v45,v41" inline>`input-group-prepend`, `input-group-append`</Only><Only of="v53" inline>(sin envoltorio)</Only> | Dónde va un complemento |
+| `input-group-sm`, `input-group-lg` | Más pequeño y más grande |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable. Los complementos son hijos directos de `input-group`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. Los complementos van envueltos en `input-group-prepend` o `input-group-append`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. Los complementos van envueltos en `input-group-prepend` o `input-group-append`.
+
+</Only>
+
+## Accesibilidad
+
+- El campo conserva su etiqueta; un complemento visual no la sustituye.
+- Un botón solo con icono lleva `title` y `aria-label`.
+- El orden de tabulación es el visual: primero el campo, luego el botón.
+
+## Usado en
+
+El buscador de las barras de herramientas de las listas; las unidades de los formularios de ajustes.

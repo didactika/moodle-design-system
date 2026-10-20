@@ -1,0 +1,90 @@
+---
+title: Checkboxes, radios and switches
+summary: "Choose several, choose one, or turn something on and off. One meaning each, with their label always visible and clickable."
+group: bootstrap
+order: 4
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+These three controls answer different questions. A **checkbox** is a yes/no that is saved with the form. A **radio** picks one option of a group. A **switch** changes a setting now, and is a checkbox that looks like an on/off lever.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- A checkbox for options that can be combined, and for one yes/no inside a form.
+- Radios for 2 to 5 options where one must be chosen; the group has a `fieldset` and `legend`.
+- A switch only for a setting that applies the moment it changes.
+- The label is part of the click target: `label` with `for`.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use a switch in a form that has a Save button; use a checkbox.
+- Use a checkbox where only one choice is valid.
+- Hide the label or replace it with an icon.
+- Redraw the box, the dot or the track in a plugin.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A control has the **box** (square, round or a track with a knob), the **mark** inside it when it is on, and the **label** at its side. Rows of them stack with the spacing of the form, or sit side by side with `form-check-inline`.
+
+## Variants and states
+
+<Example title="Checkboxes and radios" src="checks/basic" />
+
+<Example title="States" src="checks/states" />
+
+<Example title="Switch" src="checks/switch" />
+
+<Example title="Inline" src="checks/inline" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `form-check` | Wraps a control and its label |
+| `form-check-input`, `form-check-label` | The control and its label |
+| `form-check-inline` | Puts options on one line |
+| <Only of="v53" inline>`form-switch`</Only><Only of="v45,v41" inline>`custom-switch`</Only> | Turns the checkbox into a switch |
+| `is-invalid` | The invalid state, with its message |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 draws the focus as a soft ring and keeps every colour in CSS variables (`--bs-*`), so a theme recolours a control with one variable. A switch is a `form-check` with `form-switch` and `role="switch"`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet. A switch is a `custom-control custom-switch` with a `custom-control-input` and a `custom-control-label`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet. A switch is a `custom-control custom-switch` with a `custom-control-input` and a `custom-control-label`.
+
+</Only>
+
+## Accessibility
+
+- The label is clickable and read by screen readers; never an `input` without one.
+- A group of radios or checkboxes sits in a `fieldset` with a `legend`.
+- A switch has `role="switch"` and keeps the state in `checked`.
+- Space toggles, arrows move inside a radio group: keep the native inputs.
+- Never signal the state with colour alone: the mark inside must change.
+
+## Used in
+
+Every Moodle form; the selection checkboxes of the lists of FileBank and servicemanager; the options of iconrestyle.

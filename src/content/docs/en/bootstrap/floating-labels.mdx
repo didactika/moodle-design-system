@@ -1,0 +1,66 @@
+---
+title: Floating labels
+summary: "A field whose label sits inside it and moves up when the user types. Only for compact forms."
+group: bootstrap
+order: 8
+versions: [v53]
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+import Versions from '../../../../components/Versions.astro';
+
+A floating label saves vertical space: the label is the placeholder until the field has a value, and then it shrinks above it. Prefer a normal label in Moodle forms; use this one for short, stand-alone forms such as a sign-in or a quick filter.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Short labels that fit inside the field.
+- The same `id` and `for` link as any label.
+- A placeholder (even a space) in the field: the effect depends on it.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it in long forms or next to fields with a normal label.
+- Use long labels; they are cut.
+- Use it with a field that has an add-on in an input group.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A floating field has the **control** and the **label** after it, both inside `form-floating`. The label is drawn over the control and moves when the control has focus or a value.
+
+## Variants and states
+
+<Example title="Text, textarea and select" src="floating-labels/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `form-floating` | Wraps the control and its label (the label comes after the control) |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 draws the focus as a soft ring and keeps every colour in CSS variables (`--bs-*`), so a theme recolours a control with one variable.
+
+</Only>
+
+## Accessibility
+
+- The label stays linked with `for`: a screen reader reads it as usual.
+- Contrast of the shrunken label is the same 4.5:1.
+- The placeholder is not the label.
+
+## Used in
+
+Not used yet; available for short stand-alone forms.

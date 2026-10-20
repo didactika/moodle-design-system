@@ -1,0 +1,105 @@
+---
+title: Text fields
+summary: "The text inputs of a form: text, email, number, password, textarea, read only and file. Always with a visible label, never redrawn by a plugin."
+group: bootstrap
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A text field collects typed or chosen text. It is the `form-control` of the theme: the same height, border and focus ring in every plugin. Moodle draws its forms with it; a plugin that needs a field uses the class and nothing else.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- A visible `label` for every field, linked with `for` and `id`.
+- A `form-text` line under the field for a hint that is needed before typing.
+- `readonly` for a value the user can copy but not change, `disabled` for a field that is not available now.
+- The right `type` (`email`, `number`, `password`, `search`) so the keyboard and the browser help.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use the placeholder as the label: it disappears when typing.
+- Redraw the border, radius, padding or focus ring in a plugin.
+- Set a fixed pixel width; use the grid or `max-width`.
+- Show an error with colour alone; add the text that says what is wrong ([validation](../validation/)).
+
+</Rule>
+</div>
+
+## Anatomy
+
+A field has a **label** above it, the **control** (text, with an optional placeholder), an optional **hint** (`form-text`) below, and, when something is wrong, a **message** (see [validation](../validation/)). A field never has an icon inside; use an [input group](../input-group/) for an add-on.
+
+## Variants and states
+
+<Matrix
+  title="Text field"
+  variants={['text']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
+  template='<input type="text" class="form-control {s}" value="Value" aria-label="Text field"{disabled}>'
+/>
+
+<Matrix
+  title="Textarea"
+  variants={['textarea']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
+  template='<textarea class="form-control {s}" rows="2" aria-label="Textarea"{disabled}>Value</textarea>'
+/>
+
+<Example title="Fields of a form" src="form-controls/fields" />
+
+### Sizes
+
+<Example title="Small, default and large" src="form-controls/sizes" measure="Height,Padding,Font size,Line height,Radius,Border" />
+
+Use the default size. Small belongs in dense places (a filter bar over a table); large only for a single main field on a page, such as a search.
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `form-control` | Base of every text field, textarea and file input |
+| `form-control-sm`, `form-control-lg` | Smaller and larger |
+| `form-label` | Label above a field |
+| `form-text` | Hint under a field |
+| `form-control-plaintext` | A read-only value shown as text, aligned with the other fields |
+| `readonly`, `disabled` | Attributes, not classes |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 draws the focus as a soft ring and keeps every colour in CSS variables (`--bs-*`), so a theme recolours a control with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 draws the focus as a coloured shadow and compiles the colours of every control, so a theme recolours it by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- Every field has a label; if the design has none, give it `aria-label`.
+- `aria-describedby` points to the hint and to the error message.
+- `autocomplete` with the right token on personal data.
+- The focus ring must stay visible; never `outline: none`.
+- Contrast of text against the field is 4.5:1, of the border against the page 3:1.
+
+## Used in
+
+Every Moodle form; the filters of FileBank and servicemanager; the settings forms of every plugin.

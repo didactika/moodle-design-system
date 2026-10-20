@@ -1,0 +1,66 @@
+---
+title: Etiquetas flotantes
+summary: "Un campo cuya etiqueta está dentro y sube cuando el usuario escribe. Solo para formularios compactos."
+group: bootstrap
+order: 8
+versions: [v53]
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+import Versions from '../../../../components/Versions.astro';
+
+Una etiqueta flotante ahorra espacio vertical: la etiqueta hace de placeholder hasta que el campo tiene valor, y entonces se encoge encima. En los formularios de Moodle prefiere una etiqueta normal; usa esta para formularios cortos e independientes, como un inicio de sesión o un filtro rápido.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Etiquetas cortas que quepan dentro del campo.
+- El mismo enlace `id` y `for` que cualquier etiqueta.
+- Un placeholder (aunque sea un espacio) en el campo: el efecto depende de él.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarla en formularios largos ni junto a campos con etiqueta normal.
+- Usar etiquetas largas; se cortan.
+- Usarla con un campo que tiene un complemento en un grupo de entrada.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un campo flotante tiene el **control** y la **etiqueta** detrás, ambos dentro de `form-floating`. La etiqueta se dibuja sobre el control y se mueve cuando el control tiene foco o valor.
+
+## Variantes y estados
+
+<Example title="Texto, área de texto y selector" src="floating-labels/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `form-floating` | Envuelve el control y su etiqueta (la etiqueta va después del control) |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable.
+
+</Only>
+
+## Accesibilidad
+
+- La etiqueta sigue enlazada con `for`: un lector de pantalla la lee como siempre.
+- El contraste de la etiqueta reducida es el mismo 4,5:1.
+- El placeholder no es la etiqueta.
+
+## Usado en
+
+Aún no se usa; disponible para formularios cortos e independientes.

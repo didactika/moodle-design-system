@@ -1,0 +1,90 @@
+---
+title: Casillas, radios e interruptores
+summary: "Elegir varias, elegir una, o activar y desactivar algo. Un significado cada uno, con la etiqueta siempre visible y clicable."
+group: bootstrap
+order: 4
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Estos tres controles responden a preguntas distintas. Una **casilla** es un sí/no que se guarda con el formulario. Un **radio** elige una opción de un grupo. Un **interruptor** cambia un ajuste en el momento, y es una casilla con aspecto de palanca.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Una casilla para opciones que se pueden combinar, y para un sí/no dentro de un formulario.
+- Radios para de 2 a 5 opciones donde hay que elegir una; el grupo lleva `fieldset` y `legend`.
+- Un interruptor solo para un ajuste que se aplica en cuanto cambia.
+- La etiqueta forma parte del área de clic: `label` con `for`.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar un interruptor en un formulario con botón Guardar; usa una casilla.
+- Usar una casilla donde solo una opción es válida.
+- Ocultar la etiqueta o sustituirla por un icono.
+- Redibujar la caja, el punto o el riel en un plugin.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un control tiene la **caja** (cuadrada, redonda o un riel con una bola), la **marca** dentro cuando está activo y la **etiqueta** a su lado. Las filas se apilan con el espaciado del formulario, o van en una línea con `form-check-inline`.
+
+## Variantes y estados
+
+<Example title="Casillas y radios" src="checks/basic" />
+
+<Example title="Estados" src="checks/states" />
+
+<Example title="Interruptor" src="checks/switch" />
+
+<Example title="En línea" src="checks/inline" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `form-check` | Envuelve un control y su etiqueta |
+| `form-check-input`, `form-check-label` | El control y su etiqueta |
+| `form-check-inline` | Pone las opciones en una línea |
+| <Only of="v53" inline>`form-switch`</Only><Only of="v45,v41" inline>`custom-switch`</Only> | Convierte la casilla en un interruptor |
+| `is-invalid` | El estado inválido, con su mensaje |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 dibuja el foco como un anillo suave y guarda cada color en variables CSS (`--bs-*`), así que un tema recolorea un control con una sola variable. Un interruptor es un `form-check` con `form-switch` y `role="switch"`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. Un interruptor es un `custom-control custom-switch` con un `custom-control-input` y un `custom-control-label`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 dibuja el foco como una sombra de color y compila los colores de cada control, así que un tema lo recolorea recompilando su hoja de estilos. Un interruptor es un `custom-control custom-switch` con un `custom-control-input` y un `custom-control-label`.
+
+</Only>
+
+## Accesibilidad
+
+- La etiqueta es clicable y la leen los lectores de pantalla; nunca un `input` sin ella.
+- Un grupo de radios o casillas va en un `fieldset` con `legend`.
+- Un interruptor lleva `role="switch"` y guarda el estado en `checked`.
+- Espacio activa, las flechas se mueven dentro de un grupo de radios: conserva los inputs nativos.
+- Nunca señales el estado solo con color: la marca interior debe cambiar.
+
+## Usado en
+
+Todo formulario de Moodle; las casillas de selección de las listas de FileBank y servicemanager; las opciones de iconrestyle.
