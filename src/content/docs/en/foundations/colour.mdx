@@ -1,0 +1,45 @@
+---
+title: Colour
+summary: Didactika has no palette of its own. Every colour is a variable of the theme, so a theme recolours every plugin at once.
+group: foundations
+order: 1
+code: DS-COLOUR
+---
+
+import Tokens from '../../../../components/Tokens.astro';
+import Example from '../../../../components/Example.astro';
+
+Plugins never write a colour. They use the classes and variables of Bootstrap and Moodle (`btn-primary`, `text-danger`, `--bs-primary`), and the theme of the site decides what they look like. The swatches below are read from the stylesheet of the selected Moodle version, so a site with another theme would show its own.
+
+## Theme colours
+
+<Tokens kind="theme" />
+
+On Bootstrap 5 (Moodle 5.x) these are `--bs-*` variables and follow the colour mode of the page; on Bootstrap 4 (Moodle 4.x) they are the variables of the root (`--primary`, `--success`…).
+
+## Colour scales of Moodle 5.3
+
+Moodle 5.3 adds a design token set of its own (`--mds-color-<hue>-<step>`), with ten steps per hue. Use a scale colour only where a theme colour does not fit, for example the colour of a type of activity.
+
+<Tokens kind="scale" />
+
+## What each colour means
+
+| Colour | Means | Examples |
+|---|---|---|
+| Primary | The main action, what is chosen or open | New profile, Save, the active page |
+| Secondary | A neutral action or state | Cancel, Import, Draft |
+| Success | Done, enabled, safe | Completed, Enabled |
+| Warning | Needs attention, overwrites, partial | Partial, Overwrite, Version history |
+| Danger | Removes, stops or failed | Delete, Stop, Failed |
+| Info | Neutral information that matters | Queued, Running |
+
+The meaning is the same in every plugin. Red is never decoration, and green is never "primary".
+
+## Contrast
+
+Text on a colour must reach 4.5:1 (3:1 from 24 px or 19 px bold), and the borders of controls and focus rings 3:1, in every colour mode. Moodle's own colours do; a theme that changes them has to keep that. Do not tell two states apart by hue alone: pair colour with an icon or a word, and use blue and orange before red and green.
+
+## Tints
+
+Where a plugin needs a soft background in a theme colour (a badge, a row action, a tile), it mixes the colour with the page background instead of choosing a new colour: `color-mix(in srgb, var(--bs-success) 14%, var(--bs-body-bg))`. The tint follows the theme and the colour mode, and nothing about it has to be configured.

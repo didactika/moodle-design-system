@@ -1,0 +1,30 @@
+---
+title: Introducción
+summary: Un solo aspecto para todos los plugins de Didactika, dibujado con el CSS real de cada versión de Moodle y gobernado por el tema.
+group: start
+order: 1
+---
+
+Esta es la referencia de cómo dibujan sus pantallas los plugins de Moodle de Didactika. Existe para que una lista, un formulario, un diálogo o una insignia se vean y se comporten igual en todos los plugins y en todas las versiones de Moodle que soportamos, y para que el tema de un sitio pueda cambiarlos todos a la vez.
+
+## Cómo funciona el sitio
+
+Cada ejemplo de estas páginas lo dibuja la hoja de estilos que el propio Moodle publica para la versión que elijas en la cabecera, no una copia mantenida a mano. Haz clic en cualquier elemento de un ejemplo para abrir el **inspector**: mide tamaño, relleno, radio, tipografía y colores a partir del CSS de esa versión, así que los números de la página no se pueden separar del código.
+
+- **Elige una versión de Moodle** en la cabecera. Las páginas muestran qué cambia entre versiones, y una clase, un icono o un componente que no existe en una versión aparece marcado como no disponible.
+- **Cambia el modo de color.** Moodle 5.3 tiene modo oscuro y sus ejemplos lo siguen; las versiones anteriores no lo tienen y se quedan en claro.
+- **Léelo en español o en inglés.** Cada página existe en los dos idiomas.
+
+## Tres reglas detrás de todo
+
+1. **Moodle dibuja, el tema decide.** Botones, campos, formularios, diálogos y alertas son componentes de Bootstrap y de Moodle con sus propias clases. Un plugin nunca los redibuja.
+2. **Los plugins añaden una capa fina** solo para lo que Moodle no tiene como componente: el marco de una lista (barra de herramientas, filtros, paginador, acciones de fila), insignias teñidas, pasos, tarjetas de elección y estados vacíos.
+3. **El mismo marcado en Bootstrap 4 y 5.** Moodle 4.x usa Bootstrap 4 y Moodle 5.x usa Bootstrap 5. Las páginas muestran dónde cambia el nombre de una clase.
+
+## Qué hay ahora
+
+Esta primera entrega contiene los fundamentos y una página de componente terminada, [Botones](../../bootstrap/buttons/), que es la plantilla que seguirán todos los demás. El resto de Bootstrap, los componentes de Moodle y los propios de los plugins se añaden sección a sección, y cada una se revisa antes de empezar la siguiente.
+
+## Revisión
+
+Cada página tiene un identificador como `DS-BTN`. Responde por identificador con **mantener**, **cambiar** (qué y por qué) o **quitar**. Vale un comentario en el pull request o una captura con una flecha.

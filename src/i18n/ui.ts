@@ -1,0 +1,88 @@
+/** The words of the interface of the site, in the two languages of the documentation. */
+export const languages = {en: 'English', es: 'Español'} as const;
+export type Lang = keyof typeof languages;
+
+export const ui = {
+    en: {
+        site: 'Didactika Moodle UI',
+        tagline: 'The design system of Didactika\'s Moodle plugins',
+        search: 'Find a page',
+        version: 'Moodle version',
+        language: 'Language',
+        theme: 'Colour mode',
+        light: 'Light',
+        dark: 'Dark',
+        menu: 'Menu',
+        onThisPage: 'On this page',
+        inspector: 'Inspector',
+        preview: 'Preview',
+        code: 'Code',
+        copy: 'Copy',
+        copied: 'Copied',
+        inspectHint: 'Click anything inside an example to measure it: size, padding, radius, type and colours, read from the CSS of the selected Moodle version.',
+        noDarkMode: 'This Moodle version has no dark mode: examples stay light.',
+        unavailable: 'Not in this version',
+        bootstrap: 'Bootstrap',
+        icons: 'Icons',
+        status: 'Support',
+        measured: 'Measured from the CSS of the selected version',
+        applies: 'Applies to',
+        allVersions: 'all versions',
+        translate: 'Also in',
+        groups: {
+            start: 'Start',
+            foundations: 'Foundations',
+            bootstrap: 'Bootstrap components',
+            moodle: 'Moodle components',
+            didactika: 'Didactika components',
+            patterns: 'Patterns',
+            guides: 'Guides',
+        },
+        skip: 'Skip to content',
+        sizesHeading: 'Sizes, measured',
+    },
+    es: {
+        site: 'Didactika Moodle UI',
+        tagline: 'El sistema de diseño de los plugins de Moodle de Didactika',
+        search: 'Buscar una página',
+        version: 'Versión de Moodle',
+        language: 'Idioma',
+        theme: 'Modo de color',
+        light: 'Claro',
+        dark: 'Oscuro',
+        menu: 'Menú',
+        onThisPage: 'En esta página',
+        inspector: 'Inspector',
+        preview: 'Vista previa',
+        code: 'Código',
+        copy: 'Copiar',
+        copied: 'Copiado',
+        inspectHint: 'Haz clic en cualquier elemento de un ejemplo para medirlo: tamaño, relleno, radio, tipografía y colores, leídos del CSS de la versión de Moodle elegida.',
+        noDarkMode: 'Esta versión de Moodle no tiene modo oscuro: los ejemplos se quedan en claro.',
+        unavailable: 'No existe en esta versión',
+        bootstrap: 'Bootstrap',
+        icons: 'Iconos',
+        status: 'Soporte',
+        measured: 'Medido en el CSS de la versión elegida',
+        applies: 'Aplica a',
+        allVersions: 'todas las versiones',
+        translate: 'También en',
+        groups: {
+            start: 'Inicio',
+            foundations: 'Fundamentos',
+            bootstrap: 'Componentes de Bootstrap',
+            moodle: 'Componentes de Moodle',
+            didactika: 'Componentes de Didactika',
+            patterns: 'Patrones',
+            guides: 'Guías',
+        },
+        skip: 'Saltar al contenido',
+        sizesHeading: 'Tamaños, medidos',
+    },
+} as const;
+
+/** The language of a page, read from its path: /<base>/<lang>/... */
+export const langFromPath = (pathname: string, base: string): Lang => {
+    const first = pathname.slice(base.length).split('/').filter(Boolean)[0];
+    return first === 'es' ? 'es' : 'en';
+};

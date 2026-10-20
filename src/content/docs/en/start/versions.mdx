@@ -1,0 +1,28 @@
+---
+title: Moodle versions
+summary: The versions the site covers, what each one brings, and how to read what changes between them.
+group: start
+order: 2
+code: DS-VERSIONS
+---
+
+The site covers the long-term support (LTS) releases of Moodle that Didactika's plugins run on. Choose one in the header; every example, size, colour and icon on every page is read from that version.
+
+| Version | Bootstrap | Icons | Colour modes | Support |
+|---|---|---|---|---|
+| **Moodle 5.3 LTS** | 5.3 | Font Awesome 6 | light and dark (`data-bs-theme`) | LTS, current |
+| **Moodle 4.5 LTS** | 4.6 | Font Awesome 6 | light | LTS, security fixes until October 2027 |
+| **Moodle 4.1 LTS** (legacy) | 4.6 | Font Awesome 4.7 | light | out of support since December 2025; the oldest Bootstrap 4 look we still cover |
+
+Moodle 5.0 to 5.2 are not separate choices: they run Bootstrap 5 like 5.3, and a page says so where one of them differs.
+
+## What changes between them
+
+- **Bootstrap.** Moodle 4.x runs Bootstrap 4; Moodle 5.x runs Bootstrap 5. Class names differ in a few places (`custom-select` and `form-select`, `sr-only` and `visually-hidden`, `ml-*` and `ms-*`). Moodle 5 flags the Bootstrap 4 names as deprecated, so a plugin that has to run on both uses the Bootstrap 5 names with a small layer that gives them the same look on Bootstrap 4. Each component page lists the pairs.
+- **Icons.** The same Moodle icon id is drawn with a different Font Awesome class in each version, and a few ids exist in one and not in another. The [icon table](../../foundations/icons/) shows every id in the selected version.
+- **Dark mode.** Only Moodle 5.x has it. Its examples follow the colour mode of the page; the others stay light.
+- **Design tokens.** Moodle 5.3 ships its own design tokens (`--mds-*`) next to Bootstrap's variables. The [colour page](../../foundations/colour/) lists them.
+
+## How to read a page
+
+A page applies to all versions unless its header says otherwise. Where a version differs, the page says what differs and what the plugin does about it. A page that is not available in a version shows that version's name in its header.

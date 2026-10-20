@@ -1,0 +1,27 @@
+{
+  "name": "moodle-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The design system of Didactika's Moodle plugins, as a static site.",
+  "license": "GPL-3.0-or-later",
+  "engines": {
+    "node": ">=20.3"
+  },
+  "scripts": {
+    "moodle": "node tools/build-moodle.mjs",
+    "data": "node tools/extract-data.mjs",
+    "dev": "node tools/build-moodle.mjs && astro dev",
+    "build": "node tools/build-moodle.mjs && astro build && node tools/check-content.mjs",
+    "preview": "astro preview",
+    "check": "node tools/check-content.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.1.0",
+    "astro": "^7.4.1"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "6.7.2",
+    "postcss": "^8.5.31"
+  }
+}

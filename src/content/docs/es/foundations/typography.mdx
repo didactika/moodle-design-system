@@ -1,0 +1,31 @@
+---
+title: Tipografía
+summary: Una sola familia, la del tema. Los plugins nunca fijan una fuente; usan los encabezados, el cuerpo y el texto pequeño de Moodle.
+group: foundations
+order: 2
+code: DS-TYPE
+---
+
+import Example from '../../../../components/Example.astro';
+
+Un plugin nunca fija `font-family`, un tamaño de letra en píxeles ni un tamaño de encabezado propio. Usa las clases de encabezado (`h1` a `h6`), el texto de cuerpo y `small` que define el tema, así que un tema que cambie la tipografía o la escala cambia todos los plugins. La tabla se lee del CSS de la versión elegida.
+
+<Example title="Escala" src="typography/scale" measure="Family,Font size,Line height,Weight" />
+
+## Funciones
+
+| Función | Clase | Uso |
+|---|---|---|
+| Título de página | `h2` en una página de plugin (el `h1` de la página es de Moodle) | El nombre de la pantalla, una vez |
+| Sección | `h3` | Un bloque de una página, un paso de un asistente |
+| Grupo | `h4` | Una tarjeta, un panel |
+| Título de diálogo | `h5` | El título de un modal de Moodle |
+| Cuerpo | ninguna | Texto, celdas de tabla, valores de formulario |
+| Pequeño | `small`, con `text-muted` para lo secundario | Pistas, detalles bajo un nombre, recuentos |
+
+## Reglas
+
+- Los encabezados mantienen su orden: ningún `h4` bajo un `h2`, y una clase (`h4`) cambia el aspecto sin cambiar el nivel del elemento.
+- El peso es para la jerarquía, no para decorar. Los nombres de las filas van en seminegrita; todo lo demás en normal.
+- Los números que se alinean en columnas usan cifras tabulares (`font-variant-numeric: tabular-nums`).
+- Los identificadores, expresiones regulares y código usan la monoespaciada del tema (`.font-monospace`), nunca otro tamaño.

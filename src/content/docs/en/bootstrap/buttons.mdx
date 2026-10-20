@@ -1,0 +1,108 @@
+---
+title: Buttons
+summary: The buttons of the theme, untouched. One main action per area, danger for what removes, an icon only where the icon table has one.
+group: bootstrap
+order: 1
+code: DS-BTN
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A button starts an action. It is the same component in every plugin: the one of the theme, with its own classes, never redrawn by a plugin. Only the chrome of a list (the toolbar over a table) rounds its buttons, and it does so with a layer class, not by restyling `.btn`.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- `btn-primary` for the main action of a page, a form or a dialog. One per area.
+- `btn-secondary` or `btn-outline-secondary` for the others: Cancel, Import, Export.
+- `btn-danger` for what deletes or stops, also on the confirm button of its dialog.
+- An icon before the text when the action has one in the [icon table](../../foundations/icons/); an icon-only button always has a title and a hidden label.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Redraw buttons in a plugin: colours, radius, padding or weight.
+- Put two primary buttons side by side.
+- Use a link styled as a button to submit a form, or a button to navigate.
+- Use red for anything that does not remove or stop.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A button has a **label** (text, or an icon with a hidden label), an optional **icon** before the label, and a **colour** that says what it does. There is no trailing icon.
+
+## Variants and states
+
+Every colour against every state. Hover, focus and pressed are forced from the version's own CSS, so what you see is what a user sees.
+
+<Matrix
+  title="Solid"
+  variants={['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Pressed', 'ds-is-active'], ['Disabled', 'disabled']]}
+  template='<button type="button" class="btn btn-{v} {s}"{disabled}>{label}</button>'
+/>
+
+<Matrix
+  title="Outline"
+  variants={['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Pressed', 'ds-is-active'], ['Disabled', 'disabled']]}
+  template='<button type="button" class="btn btn-outline-{v} {s}"{disabled}>{label}</button>'
+/>
+
+<Matrix
+  title="Link"
+  variants={['link']}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Pressed', 'ds-is-active'], ['Disabled', 'disabled']]}
+  template='<button type="button" class="btn btn-{v} {s}"{disabled}>{label}</button>'
+/>
+
+## Sizes
+
+<Example title="Small, default and large" src="buttons/sizes" measure="Height,Padding,Font size,Line height,Weight,Radius,Border" />
+
+Use the default size almost everywhere. Small belongs in dense places (a floating bar, a row of a table); large only for a call to action on an empty page.
+
+## With icons and in groups
+
+<Example title="Icons come from Moodle" src="buttons/icons" />
+
+Icons are written with the Moodle icon id (`{{#pix}}t/add, core{{/pix}}` in a template, `pix_icon('t/add', ...)` in PHP), never with a Font Awesome class: each Moodle version draws the same id with its own font. Switch the version above and the icons change.
+
+<Example title="Group" src="buttons/group" />
+
+<Example title="Full width" src="buttons/block" narrow />
+
+## Classes
+
+| Class | What it does | Moodle with Bootstrap 4 |
+|---|---|---|
+| `btn` | Base of every button | same |
+| `btn-primary`, `btn-secondary`, `btn-success`, `btn-danger`, `btn-warning`, `btn-info`, `btn-light`, `btn-dark` | Colour by meaning | same |
+| `btn-outline-*` | Outlined variant for secondary actions | same |
+| `btn-link` | Looks like a link, acts like a button | same |
+| `btn-sm`, `btn-lg` | Smaller and larger | same |
+| `btn-group` | Joins related buttons | same |
+| `d-grid gap-2` | Full-width stack | `btn-block` |
+| `btn-close` | Close button inside alerts and modals, written by Moodle | `close` |
+
+## Versions
+
+The sizes table above is read from the CSS of the selected version, so it shows the differences directly. In short: Bootstrap 5 (Moodle 5.x) draws the focus ring as a soft shadow around the button and sets the colours through CSS variables (`--bs-btn-*`), which is what lets a theme recolour a button with one variable; Bootstrap 4 (Moodle 4.1 and 4.5) uses fixed colours and a different focus shadow. Moodle 4.1 draws icons with Font Awesome 4.7; 4.5 and later with Font Awesome 6.
+
+## Accessibility
+
+- A `button` for an action and an `a` for navigation; never the other way round.
+- An icon-only button has `title` and `aria-label` (or a hidden text).
+- `disabled` removes it from the tab order; use `aria-disabled` only when the reason must stay readable by keyboard users.
+- Pressed state of a toggle: `aria-pressed`.
+- Contrast of the label against the colour meets 4.5:1 in every theme colour of Moodle; a theme that changes the colours has to keep that.
+
+## Used in
+
+FileBank (toolbars, wizard foot, dialogs), servicemanager (page header, row menus), iconrestyle (designer toolbar), report_autograder (report toolbar), every Moodle form.

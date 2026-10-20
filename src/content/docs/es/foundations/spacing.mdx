@@ -1,0 +1,29 @@
+---
+title: Espaciado, radio y elevación
+summary: Los espaciados, radios de esquina y sombras de Bootstrap, tal como los fija el tema. Las filas de componentes usan gap, no márgenes.
+group: foundations
+order: 3
+code: DS-SPACE
+---
+
+import Example from '../../../../components/Example.astro';
+
+Las distancias salen de la escala de espaciado de Bootstrap (`p-1` a `p-5`, `m-*`, `gap-*`), las esquinas de sus clases de radio y la profundidad de sus sombras. Un plugin no añade valores propios a ninguna. Las tablas se leen del CSS de la versión elegida.
+
+## Espaciado
+
+<Example title="Escala de relleno" src="spacing/padding" measure="Padding" />
+
+Coloca una fila o una cuadrícula de hermanos con `gap` en el contenedor (`d-flex gap-2`), no con márgenes en cada hijo: los márgenes se colapsan y se duplican sin avisar, y `gap` no hace ninguna de las dos cosas.
+
+## Radio
+
+<Example title="Radio de esquina" src="spacing/radius" measure="Radius" />
+
+Los formularios, los diálogos y el interior de los paneles conservan el radio del tema. Solo el marco de una lista (el buscador y los botones de una barra de herramientas, las acciones de una fila, las insignias y el select de tamaño de un paginador) va redondeado como píldora (`rounded-pill`).
+
+## Elevación
+
+<Example title="Sombras" src="spacing/shadow" measure="Shadow" />
+
+Usa la elevación para decir que algo flota sobre la página (un desplegable, una barra flotante, un diálogo), no para decorar una tarjeta. Una tarjeta dentro de la página lleva borde y no sombra, o `shadow-sm` cuando debe destacar, como las cifras de la parte superior de un panel.

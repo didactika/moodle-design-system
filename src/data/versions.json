@@ -1,0 +1,44 @@
+[
+  {
+    "id": "v53",
+    "moodle": "5.3",
+    "label": "Moodle 5.3 LTS",
+    "branch": "MOODLE_503_STABLE",
+    "public": true,
+    "bootstrap": "5.3",
+    "icons": "fa6",
+    "fontsFrom": "npm",
+    "noto": true,
+    "darkMode": true,
+    "support": {
+      "en": "LTS, current",
+      "es": "LTS, vigente"
+    }
+  },
+  {
+    "id": "v45",
+    "moodle": "4.5",
+    "label": "Moodle 4.5 LTS",
+    "branch": "MOODLE_405_STABLE",
+    "bootstrap": "4.6",
+    "icons": "fa6",
+    "darkMode": false,
+    "support": {
+      "en": "LTS, security fixes until October 2027",
+      "es": "LTS, correcciones de seguridad hasta octubre de 2027"
+    }
+  },
+  {
+    "id": "v41",
+    "moodle": "4.1",
+    "label": "Moodle 4.1 LTS (legacy)",
+    "branch": "MOODLE_401_STABLE",
+    "bootstrap": "4.6",
+    "icons": "fa4",
+    "darkMode": false,
+    "support": {
+      "en": "LTS, out of support since December 2025; the last Bootstrap 4 look",
+      "es": "LTS, sin soporte desde diciembre de 2025; el último aspecto con Bootstrap 4"
+    }
+  }
+]

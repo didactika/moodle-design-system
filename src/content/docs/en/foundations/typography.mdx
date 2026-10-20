@@ -1,0 +1,31 @@
+---
+title: Typography
+summary: One family, the theme's. Plugins never set a font; they use the headings, body and small text of Moodle.
+group: foundations
+order: 2
+code: DS-TYPE
+---
+
+import Example from '../../../../components/Example.astro';
+
+A plugin never sets `font-family`, a font size in pixels or a heading size of its own. It uses the heading classes (`h1` to `h6`), the body text and `small` that the theme defines, so a theme that changes the typeface or the scale changes every plugin. The table is read from the CSS of the selected version.
+
+<Example title="Scale" src="typography/scale" measure="Family,Font size,Line height,Weight" />
+
+## Roles
+
+| Role | Class | Use |
+|---|---|---|
+| Page title | `h2` in a plugin page (the page's own `h1` is Moodle's) | The name of the screen, once |
+| Section | `h3` | A block of a page, a step of a wizard |
+| Group | `h4` | A card, a panel |
+| Dialog title | `h5` | The title of a Moodle modal |
+| Body | none | Text, table cells, form values |
+| Small | `small`, with `text-muted` for what is secondary | Hints, details under a name, counts |
+
+## Rules
+
+- Headings keep their order: no `h4` under an `h2`, and a class (`h4`) changes the look without changing the level of the element.
+- Weight is for hierarchy, not decoration. Names of rows are semibold; everything else is regular.
+- Numbers that line up in columns use tabular figures (`font-variant-numeric: tabular-nums`).
+- Identifiers, regular expressions and code use the monospace of the theme (`.font-monospace`), never a different size.

@@ -1,0 +1,44 @@
+---
+title: Color
+summary: Didactika no tiene paleta propia. Todo color es una variable del tema, así que un tema recolorea todos los plugins a la vez.
+group: foundations
+order: 1
+code: DS-COLOUR
+---
+
+import Tokens from '../../../../components/Tokens.astro';
+
+Los plugins nunca escriben un color. Usan las clases y variables de Bootstrap y de Moodle (`btn-primary`, `text-danger`, `--bs-primary`), y el tema del sitio decide cómo se ven. Las muestras de abajo se leen de la hoja de estilos de la versión de Moodle elegida, así que un sitio con otro tema mostraría los suyos.
+
+## Colores del tema
+
+<Tokens kind="theme" />
+
+En Bootstrap 5 (Moodle 5.x) son variables `--bs-*` y siguen el modo de color de la página; en Bootstrap 4 (Moodle 4.x) son las variables de la raíz (`--primary`, `--success`…).
+
+## Escalas de color de Moodle 5.3
+
+Moodle 5.3 añade un conjunto propio de tokens (`--mds-color-<tono>-<paso>`), con diez pasos por tono. Usa un color de escala solo donde un color del tema no sirva, por ejemplo el color de un tipo de actividad.
+
+<Tokens kind="scale" />
+
+## Qué significa cada color
+
+| Color | Significa | Ejemplos |
+|---|---|---|
+| Primario | La acción principal, lo elegido o abierto | Nuevo perfil, Guardar, la página activa |
+| Secundario | Una acción o estado neutro | Cancelar, Importar, Borrador |
+| Éxito | Hecho, activado, seguro | Completada, Activado |
+| Advertencia | Pide atención, sobrescribe, parcial | Parcial, Sobrescribir, Historial de versiones |
+| Peligro | Elimina, detiene o ha fallado | Eliminar, Detener, Fallida |
+| Información | Información neutra que importa | En cola, En curso |
+
+El significado es el mismo en todos los plugins. El rojo nunca es decoración, y el verde nunca es "primario".
+
+## Contraste
+
+El texto sobre un color debe llegar a 4,5:1 (3:1 desde 24 px o 19 px en negrita), y los bordes de los controles y los anillos de foco a 3:1, en todos los modos de color. Los colores de Moodle lo cumplen; un tema que los cambie tiene que mantenerlo. No distingas dos estados solo por el tono: acompaña el color con un icono o una palabra, y usa azul y naranja antes que rojo y verde.
+
+## Tintes
+
+Cuando un plugin necesita un fondo suave en un color del tema (una insignia, una acción de fila, un tile), mezcla el color con el fondo de la página en lugar de elegir un color nuevo: `color-mix(in srgb, var(--bs-success) 14%, var(--bs-body-bg))`. El tinte sigue al tema y al modo de color, y no hay nada que configurar.

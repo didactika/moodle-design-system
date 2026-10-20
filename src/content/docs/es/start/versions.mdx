@@ -1,0 +1,28 @@
+---
+title: Versiones de Moodle
+summary: Las versiones que cubre el sitio, qué aporta cada una y cómo leer lo que cambia entre ellas.
+group: start
+order: 2
+code: DS-VERSIONS
+---
+
+El sitio cubre las versiones de soporte a largo plazo (LTS) de Moodle en las que corren los plugins de Didactika. Elige una en la cabecera: cada ejemplo, tamaño, color e icono de cada página se lee de esa versión.
+
+| Versión | Bootstrap | Iconos | Modos de color | Soporte |
+|---|---|---|---|---|
+| **Moodle 5.3 LTS** | 5.3 | Font Awesome 6 | claro y oscuro (`data-bs-theme`) | LTS, vigente |
+| **Moodle 4.5 LTS** | 4.6 | Font Awesome 6 | claro | LTS, correcciones de seguridad hasta octubre de 2027 |
+| **Moodle 4.1 LTS** (legacy) | 4.6 | Font Awesome 4.7 | claro | sin soporte desde diciembre de 2025; el aspecto Bootstrap 4 más antiguo que todavía cubrimos |
+
+Moodle 5.0 a 5.2 no son opciones aparte: usan Bootstrap 5 como la 5.3, y una página lo indica cuando una de ellas difiere.
+
+## Qué cambia entre ellas
+
+- **Bootstrap.** Moodle 4.x usa Bootstrap 4; Moodle 5.x usa Bootstrap 5. Los nombres de clase cambian en unos pocos sitios (`custom-select` y `form-select`, `sr-only` y `visually-hidden`, `ml-*` y `ms-*`). Moodle 5 marca como obsoletos los nombres de Bootstrap 4, así que un plugin que corre en ambos usa los nombres de Bootstrap 5 con una capa pequeña que les da el mismo aspecto en Bootstrap 4. Cada página de componente lista los pares.
+- **Iconos.** El mismo identificador de icono de Moodle se dibuja con una clase de Font Awesome distinta en cada versión, y unos pocos existen en una y no en otra. La [tabla de iconos](../../foundations/icons/) muestra cada identificador en la versión elegida.
+- **Modo oscuro.** Solo lo tiene Moodle 5.x. Sus ejemplos siguen el modo de color de la página; las demás se quedan en claro.
+- **Tokens de diseño.** Moodle 5.3 incluye sus propios tokens (`--mds-*`) junto a las variables de Bootstrap. La [página de color](../../foundations/colour/) los lista.
+
+## Cómo leer una página
+
+Una página aplica a todas las versiones salvo que su cabecera diga otra cosa. Donde una versión difiere, la página dice qué cambia y qué hace el plugin al respecto. Una página que no existe en una versión muestra el nombre de esa versión en su cabecera.
