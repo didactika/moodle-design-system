@@ -1,0 +1,29 @@
+{
+  "sponsor": {
+    "platform": "Ko-fi",
+    "url": "https://ko-fi.com/didactika"
+  },
+  "website": "https://didactika.org",
+  "cofounders": [
+    {
+      "name": "Eduardo Estrada",
+      "github": "E2RD0",
+      "avatar": "team/E2RD0.jpg",
+      "web": "https://eduardoestrada.com",
+      "linkedin": "https://www.linkedin.com/in/estradaeduardo/"
+    },
+    {
+      "name": "Hector Arrechea",
+      "github": "hector-ae21",
+      "avatar": "team/hector-ae21.jpg",
+      "linkedin": "https://www.linkedin.com/in/hector-arrechea/"
+    }
+  ],
+  "collaborators": [
+    {
+      "name": "Gerson Alexander Borja Pérez",
+      "github": "alex-borja",
+      "avatar": "team/alex-borja.png"
+    }
+  ]
+}

@@ -9,7 +9,6 @@ const lang = langFromPath(Astro.url.pathname, import.meta.env.BASE_URL.replace(/
 const l = ui[lang].lab;
 const roles = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'] as const;
 const presets = {
-    didactika: {primary: '#0f766e', secondary: '#475569', success: '#15803d', info: '#0e7490', warning: '#b45309', danger: '#b91c1c'},
     ocean: {primary: '#0369a1', secondary: '#64748b', success: '#15803d', info: '#0891b2', warning: '#d97706', danger: '#dc2626'},
     grape: {primary: '#7c3aed', secondary: '#6b7280', success: '#16a34a', info: '#0ea5e9', warning: '#f59e0b', danger: '#e11d48'},
     sunset: {primary: '#c2410c', secondary: '#78716c', success: '#4d7c0f', info: '#0e7490', warning: '#ca8a04', danger: '#b91c1c'},
@@ -21,7 +20,6 @@ const label = (role: string) => l.roles[role as keyof typeof l.roles];
     <div class="ds-lab-controls">
         <div class="ds-lab-presets" role="group" aria-label={l.presets}>
             <button type="button" data-lab-preset="stock" aria-pressed="true">{l.stock}</button>
-            <button type="button" data-lab-preset="didactika" aria-pressed="false">{l.didactika}</button>
             <button type="button" data-lab-preset="ocean" aria-pressed="false">Ocean</button>
             <button type="button" data-lab-preset="grape" aria-pressed="false">Grape</button>
             <button type="button" data-lab-preset="sunset" aria-pressed="false">Sunset</button>

@@ -1,0 +1,79 @@
+---
+import team from '../data/team.json';
+import {ui, type Lang} from '../i18n/ui';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+/** The foot of every page: how to support Didactika, who builds it, where the data is, and the licences. */
+interface Props {
+    lang: Lang;
+}
+const {lang} = Astro.props;
+const t = ui[lang];
+const f = t.foot;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const api = `${base}/api/index.json`;
+---
+
+<footer class="ds-footer">
+    <div class="ds-footer-in">
+        <section class="ds-support" aria-labelledby="ds-support-title">
+            <span class="ds-support-i"><Icon name="heart" /></span>
+            <div>
+                <h2 id="ds-support-title">{f.supportTitle}</h2>
+                <p>{f.supportText}</p>
+            </div>
+            <a class="ds-support-cta" href={team.sponsor.url} rel="noopener"><Icon name="mug" />{f.supportCta} · {team.sponsor.platform}</a>
+        </section>
+
+        <div class="ds-footer-grid">
+            <section class="ds-foot-brand">
+                <a class="ds-brand" href={`${base}/${lang}/`}><Logo size="lg" /><span class="ds-wordmark">Didactika<b>Moodle UI</b></span></a>
+                <p>{f.about}</p>
+            </section>
+
+            <section>
+                <h3>{f.team}</h3>
+                <ul class="ds-people">
+                    {team.cofounders.map((p) => (
+                        <li>
+                            <img src={`${base}/${p.avatar}`} alt="" width="44" height="44" loading="lazy" />
+                            <div><b>{p.name}</b><span>{f.cofounder}</span></div>
+                            <div class="ds-people-links">
+                                <a href={`https://github.com/${p.github}`} title="GitHub" aria-label={`GitHub · ${p.name}`}><Icon name="github" /></a>
+                                {p.linkedin && <a href={p.linkedin} title="LinkedIn" aria-label={`LinkedIn · ${p.name}`}><Icon name="linkedin" /></a>}
+                                {p.web && <a href={p.web} title="Web" aria-label={`Web · ${p.name}`}><Icon name="external" /></a>}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                <h3 class="ds-sub">{f.collaborators}</h3>
+                <ul class="ds-people ds-people-small">
+                    {team.collaborators.map((p) => (
+                        <li>
+                            <img src={`${base}/${p.avatar}`} alt="" width="32" height="32" loading="lazy" />
+                            <div><b>{p.name}</b><span>@{p.github}</span></div>
+                            <div class="ds-people-links"><a href={`https://github.com/${p.github}`} title="GitHub" aria-label={`GitHub · ${p.name}`}><Icon name="github" /></a></div>
+                        </li>
+                    ))}
+                </ul>
+                <a class="ds-join" href="https://github.com/didactika/moodle-design-system/issues"><Icon name="users" />{f.join}</a>
+            </section>
+
+            <section>
+                <h3>{f.resources}</h3>
+                <ul class="ds-foot-links">
+                    <li><a href={team.website}>didactika.org<Icon name="external" /></a></li>
+                    <li><a href={api}><Icon name="plug" />{f.api}</a></li>
+                    <li><a href={`${base}/${lang}/guides/connect-docs/`}><Icon name="code" />{f.connect}</a></li>
+                    <li><a href="https://github.com/didactika/moodle-design-system/issues"><Icon name="star" />{f.feedback}</a></li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="ds-footer-bar">
+            <span>© Didactika · GPL-3.0-or-later</span>
+            <span>{f.credits}</span>
+        </div>
+    </div>
+</footer>
