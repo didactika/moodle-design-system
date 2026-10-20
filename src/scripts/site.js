@@ -93,7 +93,7 @@ const apply = () => {
     $$('#ds-version [data-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.version === state.version)));
     $$('[data-pick-version]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pickVersion === state.version)));
     $$('[data-set-mode]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.setMode === (state.mode ?? 'system'))));
-    $$('.ds-vb').forEach((b) => b.classList.toggle('is-current', b.dataset.v === state.version));
+    $$('.ds-vb').forEach((b) => b.classList.toggle('is-current', b.dataset.v.split(' ').includes(state.version)));
     if (state.mode) { root.dataset.theme = state.mode; } else { delete root.dataset.theme; }
 
     $$('.ds-v-scope').forEach((el) => {

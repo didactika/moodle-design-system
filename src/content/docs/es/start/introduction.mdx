@@ -11,8 +11,8 @@ Esta referencia describe cómo se dibujan los plugins de Moodle de Didactika. Su
 
 Cada ejemplo lo dibuja la hoja de estilos que el propio Moodle publica para la versión elegida en la cabecera, no una copia mantenida a mano. Haz clic en cualquier elemento de un ejemplo para abrir el **inspector**. Su pestaña Diseño mide tamaño, relleno, radio, tipografía y colores a partir del CSS de esa versión; su pestaña Código muestra el HTML del elemento tal como lo escribiría un plugin, cada clase con el número de reglas que aporta y el CSS que se aplica. Los números no se pueden separar del código.
 
-- **Versión de Moodle.** Las páginas muestran qué cambia entre versiones. Una clase, un icono o un componente que no existe en una versión no se muestra en ella.
-- **Modo de color.** Moodle 5.x tiene modo oscuro y sus ejemplos lo siguen; las versiones anteriores no lo tienen y se quedan en claro.
+- **Versión de Moodle.** Cada página está escrita para la versión elegida en la cabecera. Una clase, un icono o un componente que no existe en una versión no se muestra en ella, y lo que apareció después lleva una insignia como "5.3+".
+- **Modo de color.** Donde la versión elegida tiene modo oscuro, los ejemplos lo siguen.
 - **Colores de Didactika.** Un interruptor en la cabecera dibuja todos los ejemplos con la paleta de Didactika.
 - **Idioma.** Cada página existe en español y en inglés.
 
@@ -20,7 +20,7 @@ Cada ejemplo lo dibuja la hoja de estilos que el propio Moodle publica para la v
 
 1. **Moodle dibuja, el tema decide.** Botones, campos, formularios, diálogos y alertas son componentes de Bootstrap y de Moodle con sus propias clases. Un plugin nunca los redibuja.
 2. **Una capa fina encima.** Los plugins añaden solo lo que Moodle no tiene como componente: el marco de una lista (barra de herramientas, filtros, paginador, acciones de fila), insignias teñidas, pasos, tarjetas de elección y estados vacíos.
-3. **Un marcado para todas las versiones.** Moodle 4.x usa Bootstrap 4 y Moodle 5.x usa Bootstrap 5. Las mismas clases funcionan en ambos, y cada página muestra dónde cambia un nombre.
+3. **Un marcado para todas las versiones.** Las mismas clases funcionan en todas las versiones compatibles, y cada página da los nombres de la versión que elijas.
 4. **Medido, no descrito.** Tamaños, espaciado, radio, tipografía y colores se leen del CSS real.
 5. **Accesible por defecto.** Contraste, foco, teclado y etiquetas forman parte de cada componente.
 6. **Un solo significado para cada elemento.** El mismo icono, color o acción significa lo mismo en toda la plataforma, y lo que elimina o detiene es siempre peligro.

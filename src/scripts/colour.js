@@ -9,8 +9,7 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const readJson = (id) => { const node = document.getElementById(id); return node ? JSON.parse(node.textContent) : null; };
 
 const tokens = readJson('ds-tokens-data');
-const labText = readJson('ds-lab-text');
-if (tokens || labText) {
+if (tokens) {
     const state = {format: 'hex', version: document.documentElement.dataset.version, lab: null, preset: 'stock'};
 
     // ---------------------------------------------------------------- formats

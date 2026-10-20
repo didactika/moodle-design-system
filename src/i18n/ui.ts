@@ -31,6 +31,7 @@ export const ui = {
         status: 'Support',
         measured: 'Measured from the CSS of the selected version',
         applies: 'Applies to',
+        since: 'Since',
         allVersions: 'all versions',
         translate: 'Also in',
         groups: {
@@ -108,7 +109,6 @@ export const ui = {
             cssVars: 'CSS variables', cssHelp: 'For Moodle 5.x and its extra CSS. The buttons need the SCSS above, because Bootstrap compiles their colours.',
             alertPrimary: 'A primary message that says what is happening.', alertSuccess: 'Saved: the profile was enabled.', alertWarning: 'Careful: 12 files will overwrite others.', alertDanger: 'The migration could not start.',
             textLink: 'A sentence with a', link: 'link', focusMe: 'Focus this field', active: 'Active item', item: 'Another item',
-            only5: 'Subtle and emphasis tones exist from Bootstrap 5.3 (Moodle 5.x).', noScales: 'Bootstrap 4 has no colour scales: only the base colours.', noMds: 'Moodle 4.x has no design tokens of its own; they arrive in Moodle 5.3.',
         },
     },
     es: {
@@ -139,6 +139,7 @@ export const ui = {
         status: 'Soporte',
         measured: 'Medido en el CSS de la versión elegida',
         applies: 'Aplica a',
+        since: 'Desde',
         allVersions: 'todas las versiones',
         translate: 'También en',
         groups: {
@@ -216,7 +217,6 @@ export const ui = {
             cssVars: 'Variables CSS', cssHelp: 'Para Moodle 5.x y su CSS adicional. Los botones necesitan el SCSS de arriba, porque Bootstrap compila sus colores.',
             alertPrimary: 'Un mensaje primario que dice qué está pasando.', alertSuccess: 'Guardado: el perfil se activó.', alertWarning: 'Ojo: 12 archivos sobrescribirán a otros.', alertDanger: 'La migración no pudo empezar.',
             textLink: 'Una frase con un', link: 'enlace', focusMe: 'Enfoca este campo', active: 'Elemento activo', item: 'Otro elemento',
-            only5: 'Los tonos suaves y de énfasis existen desde Bootstrap 5.3 (Moodle 5.x).', noScales: 'Bootstrap 4 no tiene escalas de color: solo los colores base.', noMds: 'Moodle 4.x no tiene tokens de diseño propios; llegan con Moodle 5.3.',
         },
     },
 } as const;

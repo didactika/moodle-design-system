@@ -11,8 +11,8 @@ This reference describes how the Moodle plugins of Didactika are drawn. Its aim 
 
 Every example is drawn by the stylesheet that Moodle itself ships for the version selected in the header, not by a copy kept by hand. Click anything inside an example to open the **inspector**. Its Design tab measures size, padding, radius, type and colours from that version's CSS; its Code tab shows the HTML of the element as a plugin would write it, every class with the number of rules it brings, and the CSS that applies. The numbers cannot drift from the code.
 
-- **Moodle version.** Pages show what changes between versions. A class, an icon or a component that does not exist in a version is not shown in it.
-- **Colour mode.** Moodle 5.x has a dark mode and its examples follow it; earlier versions have none and stay light.
+- **Moodle version.** Every page is written for the version selected in the header. A class, an icon or a component that does not exist in a version is not shown in it, and what appeared later carries a badge such as "5.3+".
+- **Colour mode.** Where the selected version has a dark mode, the examples follow it.
 - **Didactika colours.** One switch in the header draws every example with Didactika's palette.
 - **Language.** Every page exists in English and Spanish.
 
@@ -20,7 +20,7 @@ Every example is drawn by the stylesheet that Moodle itself ships for the versio
 
 1. **Moodle draws, the theme decides.** Buttons, fields, forms, dialogs and alerts are Bootstrap and Moodle components with their own classes. A plugin never redraws them.
 2. **A thin layer on top.** Plugins add only what Moodle has no component for: the chrome of a list (toolbar, filters, pager, row actions), tinted badges, steps, choice cards and empty states.
-3. **One markup for every version.** Moodle 4.x runs Bootstrap 4 and Moodle 5.x runs Bootstrap 5. The same classes work on both, and each page shows where a name differs.
+3. **One markup for every version.** The same classes work on every supported version, and each page gives the names of the version you selected.
 4. **Measured, not described.** Sizes, spacing, radius, type and colours are read from the real CSS.
 5. **Accessible by default.** Contrast, focus, keyboard and labels are part of every component.
 6. **One meaning for each element.** The same icon, colour or action means the same thing everywhere in the platform, and what removes or stops is always danger.
