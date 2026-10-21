@@ -338,7 +338,7 @@ a.ds-cta-alt { display: inline-flex; align-items: center; gap: .55rem; height: 2
 .ds-art-card .ds-logo { width: clamp(5.5rem, 11vw, 8.25rem); height: clamp(5.5rem, 11vw, 8.25rem); border-radius: clamp(1.2rem, 2.4vw, 1.9rem); box-shadow: none; margin-bottom: .6rem; }
 .ds-art-card .ds-logo .h { width: .55rem; height: .55rem; border-width: 1.6px; }
 .ds-art-card .ds-logo .h1 { left: -3px; top: -3px; } .ds-art-card .ds-logo .h2 { right: -3px; top: -3px; } .ds-art-card .ds-logo .h3 { left: -3px; bottom: -3px; }
-.ds-art-card .ds-logo-ui { font-size: clamp(.7rem, 1.5vw, 1.05rem); right: -.9rem; bottom: -.7rem; padding: .22rem .6rem; border-radius: 10px; box-shadow: 0 0 0 3px #fff; }
+.ds-art-card .ds-logo.is-lg .ds-logo-ui { width: clamp(1.9rem, 4vw, 2.8rem); height: clamp(1.9rem, 4vw, 2.8rem); right: -.9rem; bottom: -.9rem; box-shadow: 0 0 0 3px #0f766e, 0 0 0 6px #fff; }
 .ds-art-card b { font: 700 1.25rem/1.1 var(--display); letter-spacing: -.01em; }
 .ds-art-card span { font: 500 .78rem var(--font); color: #5b7f82; }
 .ds-art-item { position: absolute; }
@@ -698,14 +698,14 @@ html[data-designer="1"] .ds-canvas { box-shadow: inset 0 0 0 1px color-mix(in sr
   .ds-search { justify-self: end; }
   .ds-tools-btn { display: inline-grid; }
   .ds-tools-btn[aria-expanded="true"] { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: var(--accent-soft); color: var(--accent); }
-  .ds-head .ds-head-tools { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-wrap: wrap; align-items: center; gap: .6rem; max-height: calc(100vh - var(--head-h)); overflow-y: auto; padding: 1rem max(1rem, env(safe-area-inset-right, 0px)) 1.25rem max(1rem, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); background: var(--panel); box-shadow: 0 18px 40px rgb(15 23 42 / 18%); }
+  .ds-head .ds-head-tools { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-wrap: wrap; align-items: center; gap: .5rem; max-height: calc(100vh - var(--head-h)); overflow-y: auto; padding: .75rem max(.75rem, env(safe-area-inset-right, 0px)) .875rem max(.75rem, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--line); background: var(--panel); box-shadow: 0 18px 40px rgb(15 23 42 / 18%); }
   .ds-head.is-tools-open .ds-head-tools { display: flex; }
   .ds-head-tools > #ds-version { flex: 1 1 100%; }
   .ds-head-tools > #ds-version > summary { width: 100%; justify-content: flex-start; }
   .ds-head-tools > #ds-version > summary::after { margin-inline-start: auto; }
   .ds-head-tools .ds-dd-list { position: static; width: auto; max-width: none; margin-top: .4rem; box-shadow: none; }
   .ds-head-tools #ds-version-label, .ds-head-tools .ds-vl, .ds-head-tools .ds-brandsw-label { display: inline; }
-  .ds-head-tools .ds-brandsw { flex: 1 1 12rem; padding: 0 .75rem; }
+  .ds-head-tools .ds-brandsw { flex: none; padding: 0 .7rem 0 .6rem; }
   .ds-head-tools .ds-head-sep { display: none; }
   .ds-head-tools .ds-site-link, .ds-head-tools .ds-github { display: inline-grid; }
 }
@@ -743,10 +743,11 @@ html[data-designer="1"] .ds-canvas { box-shadow: inset 0 0 0 1px color-mix(in sr
 .ds-wordmark { display: inline-flex; flex-direction: column; align-items: flex-start; gap: .15rem; font: 700 1rem/1 var(--display); letter-spacing: -.01em; }
 .ds-wordmark strong { font: inherit; }
 .ds-wordmark small { color: var(--accent); font: 600 .6875rem/1 var(--font); letter-spacing: .02em; }
-.ds-logo-ui { padding: .14rem .36rem; letter-spacing: 0; }
+.ds-logo-ui { display: grid; place-items: center; right: -.5rem; bottom: -.5rem; width: 1.2rem; height: 1.2rem; padding: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px #0f766e, 0 0 0 4px var(--panel); }
+.ds-logo-ui img { width: 66%; height: auto; display: block; }
+.ds-logo.is-lg .ds-logo-ui { width: 1.7rem; height: 1.7rem; right: -.6rem; bottom: -.6rem; }
 @media (max-width: 760px) {
   .ds-wordmark { display: inline-flex; }
-  .ds-wordmark small { display: none; }
   .ds-wordmark { font-size: .92rem; }
 }
 @media (max-width: 560px) {
@@ -768,6 +769,5 @@ html[data-brand="1"] .ds-theme-note { display: block; }
 html[data-brand="1"] [data-system-only] { display: none; }
 html:not([data-brand="1"]) [data-theme-only]:not(.ds-theme-note) { display: none; }
 @media (max-width: 980px) {
-  .ds-head-tools .ds-theme { flex: 1 1 12rem; }
-  .ds-head-tools .ds-theme .ds-brandsw { flex: 1 1 auto; }
+  .ds-head-tools .ds-theme { flex: none; }
 }
