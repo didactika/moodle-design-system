@@ -9,5 +9,5 @@ declare module 'sharp' {
         toBuffer(): Promise<Buffer>;
         toBuffer(options: {resolveWithObject: true}): Promise<{data: Buffer; info: {width: number; height: number; channels: number}}>;
     }
-    export default function sharp(input: Buffer, options?: {density?: number}): Sharp;
+    export default function sharp(input: Buffer | string, options?: {density?: number; raw?: {width: number; height: number; channels: number}}): Sharp;
 }
