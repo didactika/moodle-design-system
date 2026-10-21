@@ -112,7 +112,7 @@
 .ds-v-scope .dd-select-menu .dropdown-item[aria-selected="true"]:focus, .ds-v-scope .dd-select-menu .dropdown-item[aria-selected="true"].is-active { background-color: var(--dd-primary-soft-2); }
 /* Moodle draws its own check before the chosen item; the menu of a select has one at the end, so the first goes. */
 .ds-v-scope .dd-select-menu .dropdown-item[aria-selected="true"]::before { content: none; display: none; }
-.ds-v-scope .form-select[aria-expanded="true"], .ds-v-scope .custom-select[aria-expanded="true"] { border-color: var(--dd-primary); box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .form-select[aria-expanded="true"], .ds-v-scope .custom-select[aria-expanded="true"] { border-color: var(--dd-primary); box-shadow: none; }
 
 /* ------------------------------------------------------------------ checkboxes, radios and switches */
 .ds-v-scope .form-check-input {
@@ -231,7 +231,8 @@
  */
 .ds-v-scope .dd-tags { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; min-height: var(--dd-h); padding: .25rem 2.5rem .25rem .5rem; border: 1px solid var(--dd-line); border-radius: var(--dd-radius-sm); background-color: var(--dd-surface); color: var(--dd-ink); font-size: .9375rem; line-height: 1.4; cursor: text; transition: border-color var(--dd-ease), box-shadow var(--dd-ease); }
 .ds-v-scope .dd-tags:hover { border-color: var(--dd-line-hover); }
-.ds-v-scope .dd-tags:focus-within, .ds-v-scope .dd-tags[aria-expanded="true"] { border-color: var(--dd-primary); box-shadow: 0 0 0 3px var(--dd-ring); outline: 0; }
+.ds-v-scope .dd-tags[aria-expanded="true"], .ds-v-scope .dd-tags:focus-within { border-color: var(--dd-primary); box-shadow: none; outline: 0; }
+.ds-v-scope .dd-tags:focus-visible { box-shadow: 0 0 0 3px var(--dd-ring); }
 .ds-v-scope .dd-tags::after { content: ""; position: absolute; right: 1rem; top: 50%; width: .5rem; height: .5rem; border-right: 2px solid var(--dd-muted); border-bottom: 2px solid var(--dd-muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .ds-v-scope .dd-tags[aria-expanded="true"]::after { transform: translateY(-30%) rotate(225deg); }
 .ds-v-scope .dd-tags-placeholder { padding: 0 .25rem; color: var(--dd-muted); }
@@ -250,3 +251,11 @@
 .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item { justify-content: flex-start; }
 .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item::before, .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item[aria-selected="true"]::before { content: ""; display: block; }
 .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item::before, .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item[aria-selected="true"]::before { position: static; inset: auto; margin: 0; transform: none; width: 1.125rem; height: 1.125rem; }
+
+/* a group of controls (a search: icon, field and button) has one ring around the whole group, not one around the field */
+.ds-v-scope .input-group { border-radius: var(--dd-radius-sm); transition: box-shadow var(--dd-ease); }
+.ds-v-scope .input-group:focus-within { box-shadow: 0 0 0 1px var(--dd-primary), 0 0 0 4px var(--dd-ring); }
+.ds-v-scope .input-group > .form-control:focus, .ds-v-scope .input-group > .form-select:focus { border-color: var(--dd-line); }
+.ds-v-scope .input-group > .form-control:focus, .ds-v-scope .input-group > .form-select:focus, .ds-v-scope .input-group > .form-control.ds-is-focus { box-shadow: none; }
+/* the chosen row of a menu is shown by its tint: it needs no ring of focus as well */
+.ds-v-scope .dd-select-menu .dropdown-item:focus, .ds-v-scope .dd-select-menu .dropdown-item:focus-visible { outline: 0; box-shadow: none; }

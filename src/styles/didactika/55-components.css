@@ -147,3 +147,20 @@
 .ds-v-scope .dd-skeleton { display: block; height: .875rem; border-radius: .375rem; background: linear-gradient(90deg, var(--dd-hairline) 0%, var(--dd-surface-3) 50%, var(--dd-hairline) 100%); background-size: 200% 100%; animation: dd-shimmer 1.4s linear infinite; }
 @keyframes dd-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 @media (prefers-reduced-motion: reduce) { .ds-v-scope .dd-skeleton { animation: none; } }
+
+/* ------------------------------------------------------------------ floating bar (dd-floatbar)
+ * What follows the person at the bottom of the window while they have a selection: how many are chosen, what to do with them and a button
+ * that clears the choice. It is the bar of the plugins of Didactika (Service manager, Icon restyle): a card over the page, centred, with the
+ * actions as tonal buttons. The examples show it in the flow (dd-floatbar-static); on a page it is fixed.
+ */
+.ds-v-scope .dd-floatbar { position: fixed; bottom: 1.5rem; left: 50%; z-index: 1040; display: flex; align-items: center; gap: 1rem; max-width: calc(100vw - 2rem); padding: .5rem .6rem .5rem 1.25rem; border: 1px solid var(--dd-hairline); border-radius: 1rem; background-color: var(--dd-surface); box-shadow: var(--dd-shadow-lg); transform: translateX(-50%); }
+.ds-v-scope .dd-floatbar-static { position: static; width: fit-content; max-width: 100%; margin-inline: auto; transform: none; }
+.ds-v-scope .dd-floatbar-count { color: var(--dd-ink); font-weight: 600; white-space: nowrap; }
+.ds-v-scope .dd-floatbar-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.ds-v-scope .dd-floatbar-clear { display: inline-grid; place-items: center; flex: none; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: .5rem; background: transparent; color: var(--dd-muted); transition: background-color var(--dd-ease), color var(--dd-ease); }
+.ds-v-scope .dd-floatbar-clear { position: relative; }
+.ds-v-scope .dd-floatbar-clear::before, .ds-v-scope .dd-floatbar-clear::after { content: ""; position: absolute; top: 50%; left: 50%; width: .75rem; height: 2px; border-radius: 2px; background: currentColor; }
+.ds-v-scope .dd-floatbar-clear::before { transform: translate(-50%, -50%) rotate(45deg); }
+.ds-v-scope .dd-floatbar-clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.ds-v-scope .dd-floatbar-clear:hover, .ds-v-scope .dd-floatbar-clear:focus-visible { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); outline: 0; }
+@media (max-width: 576px) { .ds-v-scope .dd-floatbar { flex-wrap: wrap; justify-content: center; border-radius: var(--dd-radius-lg); } }

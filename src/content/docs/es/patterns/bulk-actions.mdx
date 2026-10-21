@@ -1,13 +1,13 @@
 ---
 title: Selección y acciones en bloque
-summary: "Actuar sobre varias filas a la vez: cómo se hace la selección, cómo se muestra y cómo se actúa sobre ella."
+summary: "Actuar sobre varias filas a la vez: la barra flotante de nuestros plugins y la barra dentro de la tabla donde una flotante no cabe."
 group: patterns
 order: 2
 ---
 
 import Example from '../../../../components/Example.astro';
 
-Cuando hace falta la misma acción sobre muchas filas (ocultar veinte cursos, quitar quince participantes), hacerlo una a una es un castigo. El patrón de selección deja elegir filas y actuar sobre todas desde una barra.
+Cuando hace falta la misma acción sobre muchas filas (ocultar veinte cursos, quitar quince participantes), hacerlo una a una es un castigo. El patrón de selección deja elegir filas y actuar sobre todas desde una barra. En nuestros plugins esa barra es **flotante**: sigue a la persona al fondo de la ventana, así que está siempre a mano por larga que sea la lista.
 
 ## Cuándo usarlo
 
@@ -17,28 +17,44 @@ Cuando hace falta la misma acción sobre muchas filas (ocultar veinte cursos, qu
 ## Anatomía
 
 1. **Columna de casillas** (`table-select`): una casilla por fila y una en la cabecera que selecciona las filas de la página.
-2. **Las filas seleccionadas** conservan un tinte (`table-active`) para que la selección se vea de un vistazo.
-3. **Barra de selección**: ocupa el lugar de la barra de herramientas mientras hay selección (`table-toolbar-selection`), con la cuenta, "Seleccionar las N" y las acciones.
-4. **Quitar la selección** como botón de icono al final de la barra.
+2. **Las filas seleccionadas** conservan un tinte (`table-active`) para que la selección se vea de un vistazo. El tinte es el único cambio: una fila seleccionada no reacciona al puntero de otra manera que las demás.
+3. **Barra flotante** (`dd-floatbar`): centrada al fondo de la ventana, una tarjeta con la **cuenta** en negrita, las **acciones** como botones tonales y un botón de **quitar** al final.
 
-<Example title="Filas seleccionadas, con la barra de acciones" src="patterns/bulk-actions" />
+<Example title="La barra flotante de los plugins" src="patterns/bulk-actions" />
+
+El ejemplo dibuja la barra en el flujo de la página (`dd-floatbar-static`); en una página real va fija a 1,5 rem del borde inferior.
 
 ## Comportamiento
 
-1. Marcar una fila cambia la barra de herramientas por la de selección, con la cuenta; desmarcar la última devuelve la barra de herramientas.
-2. La casilla de la cabecera selecciona las filas de la **página actual**. Muestra un estado mixto cuando solo algunas están seleccionadas.
-3. Cuando la página está seleccionada y la lista tiene más, la barra ofrece **"Seleccionar las 48"**. Elegirlo hace que la acción se aplique a toda la lista, y la barra lo dice ("Las 48 seleccionadas").
-4. Las acciones son los mismos botones que las acciones de fila, en el mismo orden, con su etiqueta: en una barra hay sitio para palabras.
-5. Una acción destructiva pide confirmación con la cantidad ("¿Eliminar 3 cursos?") y, si se puede deshacer, ofrece "Deshacer" después.
-6. Tras una acción se quita la selección y se anuncia el resultado.
-7. Cambiar el filtro, la búsqueda o la página quita la selección, salvo que se haya elegido "todas" a propósito.
+1. La barra **aparece con la primera fila seleccionada** y se va cuando se desmarca la última o la persona quita la selección. Entra deslizándose; nunca mueve la tabla.
+2. La casilla de la cabecera selecciona las filas de la **página actual** y muestra un estado mixto cuando solo algunas están seleccionadas. Cuando la página está seleccionada y la lista tiene más, la barra ofrece **"Seleccionar las 48"** junto a la cuenta.
+3. Las acciones son las mismas que las acciones de fila, en el mismo orden, con su etiqueta: en una barra hay sitio para palabras. La destructiva va la última, en el tono de peligro.
+4. Una acción destructiva confirma con la cantidad ("¿Eliminar 3 cursos?") y, donde se puede deshacer, ofrece "Deshacer" después (mira "Confirmar, hacer y deshacer").
+5. Tras una acción se quita la selección y se anuncia el resultado.
+6. Cambiar el filtro, la búsqueda o la página quita la selección, salvo que se haya elegido "todas" a propósito.
+7. La barra nunca tapa el paginador: la página deja sitio al pie mientras la barra se muestra.
+
+## La barra dentro de la tabla
+
+Donde una barra flotante no cabe (un diálogo, un panel lateral, una tarjeta pequeña), la barra ocupa el **lugar de la barra de herramientas** de la tabla mientras hay selección (`table-toolbar-selection`), con la misma cuenta y las mismas acciones.
+
+<Example title="La barra en el lugar de la barra de herramientas" src="patterns/bulk-inline" />
+
+| | Barra flotante | En la barra de herramientas |
+|---|---|---|
+| Úsala | Por defecto, en páginas con una lista (Moodle 5.3 y posteriores) | Dentro de diálogos, paneles y contenedores pequeños; donde la lista tiene pocas filas |
+| Posición | Fija al fondo, centrada | En la tarjeta de la tabla, en lugar de la barra de herramientas |
+| Alcance | Siempre visible al desplazarse | Solo mientras la barra de herramientas es visible |
+
+En Moodle 4.5 y 4.1 la barra flotante se dibuja igual; donde el tema del sitio le da una sombra más pesada u otro radio es aceptable, mientras mantenga su posición y su contenido.
 
 ## Disposición y espacios
 
 | Pieza | Regla |
 |---|---|
-| Barra de selección | Misma altura que la barra de herramientas (sin salto); teñida del color primario; cuenta en negrita |
-| Acciones | Botones pequeños (`btn-sm`), a 0,5 rem; la destructiva en contorno de peligro, la última |
+| Barra flotante | A 1,5 rem del borde inferior; 1 rem entre cuenta, acciones y quitar; relleno de 0,5 rem y 1,25 rem a la izquierda; `max-width: calc(100vw - 2rem)` |
+| Acciones | Botones tonales pequeños (`btn-sm btn-tonal`), a 0,4 rem; la destructiva en el tono de peligro, la última |
+| Quitar | 2 rem cuadrados, radio de 8 px, teñido al pasar el puntero |
 | Columna de casillas | 2,75 rem de ancho, sin relleno a la derecha |
 
 ## Estados
@@ -48,13 +64,13 @@ Cuando hace falta la misma acción sobre muchas filas (ocultar veinte cursos, qu
 
 ## Pantallas estrechas
 
-La barra se reparte en dos líneas: cuenta y quitar en la primera, las acciones en la segunda. Las acciones que no caben van a un desplegable "Más", con la destructiva siempre la última.
+La barra se reparte en líneas y se centra: cuenta y quitar en la primera, las acciones debajo, con un radio como el de una tarjeta. Las acciones que no caben van a un desplegable "Más", con la destructiva siempre la última.
 
 ## Accesibilidad
 
+- La barra es una `region` con una etiqueta que dice sobre qué actúa; la cuenta es un `role="status"` para que cada cambio se anuncie ("3 seleccionados").
 - La casilla de cada fila tiene una etiqueta que nombra la fila; la de la cabecera nombra el alcance ("Seleccionar todas las de esta página").
-- La cuenta está en una región viva: "3 seleccionadas".
-- La barra aparece sin mover el foco; el teclado llega a ella con Tab tras la tabla.
+- La barra va después de la tabla en el orden del tabulador y aparece sin mover el foco.
 
 ## Antes de publicar
 
@@ -62,3 +78,4 @@ La barra se reparte en dos líneas: cuenta y quitar en la primera, las acciones 
 - [ ] "Seleccionar las N" dice el número real.
 - [ ] La acción destructiva confirma con la cantidad.
 - [ ] Un fallo parcial se informa y se puede reintentar.
+- [ ] La barra no tapa el paginador ni la última fila.
