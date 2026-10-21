@@ -29,11 +29,12 @@ const named = (style: CSSStyleDeclaration): Record<string, string> => style as u
 const config = readJson<Config>('ds-config') as Config;
 const text = config.ui;
 const root = document.documentElement;
-const state: {version: string; mode: Mode | null; brand: boolean; themeVersion: string; designer: boolean; itab: InspectorTab} = {
+const state: {version: string; mode: Mode | null; brand: boolean; themeVersion: string; systemVersion: string; designer: boolean; itab: InspectorTab} = {
     version: root.dataset.version ?? (config.versions[0] as VersionInfo).id,
     mode: (root.dataset.theme as Mode | undefined) || null,
     brand: root.dataset.brand === '1',
     themeVersion: root.dataset.themeVersion ?? '0.1',
+    systemVersion: root.dataset.systemVersion ?? '0.1',
     designer: root.dataset.designer === '1',
     itab: 'design',
 };
@@ -116,7 +117,8 @@ const applyBrand = (): void => {
     const themeLabel = $('#ds-themever-label');
     if (themeLabel) { themeLabel.textContent = `v${state.themeVersion}`; }
     $$('#ds-themever [data-theme-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.themeVersion === state.themeVersion)));
-    $$('[data-theme-banner-version]').forEach((b) => { b.textContent = `v${state.themeVersion}`; });
+    $('#ds-sysver [data-system-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.systemVersion === state.systemVersion)));
+    $('[data-theme-banner-version]').forEach((b) => { b.textContent = `v${state.themeVersion}`; });
 };
 
 const apply = (): void => {
@@ -569,6 +571,16 @@ document.addEventListener('click', (event) => {
         return;
     }
 
+    const systemPick = target.closest<HTMLElement>('#ds-sysver [data-system-version]');
+    if (systemPick) {
+        state.systemVersion = systemPick.dataset.systemVersion ?? state.systemVersion;
+        store('ds-system-version', state.systemVersion);
+        root.dataset.systemVersion = state.systemVersion;
+        const label = $('#ds-sysver-label');
+        if (label) { label.textContent = `v${state.systemVersion}`; }
+        $$('#ds-sysver [data-system-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.systemVersion === state.systemVersion)));
+        return;
+    }
     const themePick = target.closest<HTMLElement>('#ds-themever [data-theme-version]');
     if (themePick) {
         state.themeVersion = themePick.dataset.themeVersion ?? state.themeVersion;
@@ -663,7 +675,40 @@ toolsBtn?.addEventListener('click', () => setTools(!head?.classList.contains('is
 menu?.addEventListener('click', () => { if (nav?.classList.contains('is-open')) { setTools(false); } });
 document.addEventListener('click', (event) => { if (event.target instanceof Element && head?.classList.contains('is-tools-open') && !event.target.closest('.ds-head')) { setTools(false); } });
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setTools(false); } });
-matchMedia('(min-width: 981px)').addEventListener('change', () => setTools(false));
+// On narrow screens the versions move into the panel with the other tools.
+const versions = $('#ds-versions');
+const brandLeft = $('.ds-head-left');
+const tools = $('#ds-tools');
+const small = matchMedia('(max-width: 980px)');
+const placeVersions = (): void => {
+    if (!versions || !tools || !brandLeft) { return; }
+    if (small.matches) { tools.prepend(versions); } else { brandLeft.after(versions); }
+};
+placeVersions();
+small.addEventListener('change', () => { placeVersions(); setTools(false); });
+
+// Code in a page: wrap each block in a card with its language and a button that copies it.
+const LANGS: Record<string, string> = {js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', json: 'JSON', html: 'HTML', css: 'CSS', scss: 'SCSS', php: 'PHP', bash: 'Shell', sh: 'Shell', http: 'HTTP', mustache: 'Mustache', plaintext: 'Text', text: 'Text'};
+$$<HTMLElement>('.ds-article pre.astro-code').forEach((pre) => {
+    const language = pre.dataset.language ?? 'text';
+    const card = document.createElement('div');
+    card.className = 'ds-code';
+    const bar = document.createElement('div');
+    bar.className = 'ds-code-bar';
+    const label = document.createElement('span');
+    label.className = 'ds-code-lang';
+    label.textContent = LANGS[language] ?? language;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'ds-code-copy';
+    button.textContent = text.copy as string;
+    button.addEventListener('click', () => {
+        copy(pre.textContent ?? '', button).then((ok) => { if (ok) { button.textContent = text.copied as string; setTimeout(() => { button.textContent = text.copy as string; }, 1200); } });
+    });
+    bar.append(label, button);
+    pre.replaceWith(card);
+    card.append(bar, pre);
+});
 
 // The navigation remembers what is open and where it is scrolled, so a click (or a reload) does not send the reader back to the top.
 const navIn = $<HTMLElement>('.ds-nav-in');

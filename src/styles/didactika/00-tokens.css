@@ -19,7 +19,7 @@
 
 .ds-v-scope {
   --dd-primary: var(--bs-primary, var(--primary, #0f766e));
-  --dd-secondary: var(--bs-secondary, var(--secondary, #4f46e5));
+  --dd-secondary: var(--bs-secondary, var(--secondary, #475569));
   --dd-success: var(--bs-success, var(--success, #15803d));
   --dd-info: var(--bs-info, var(--info, #0e7490));
   --dd-warning: var(--bs-warning, var(--warning, #b45309));
@@ -42,9 +42,10 @@
   --dd-radius-sm: .5rem;
   --dd-radius-lg: .875rem;
   --dd-radius-xl: 1.25rem;
-  --dd-h: 2.5rem;
-  --dd-h-sm: 2rem;
-  --dd-h-lg: 3rem;
+  --dd-radius-btn: .375rem;
+  --dd-h: 2.25rem;
+  --dd-h-sm: 1.75rem;
+  --dd-h-lg: 2.75rem;
   --dd-ease: 140ms cubic-bezier(.2, 0, 0, 1);
 
   --dd-shadow-sm: 0 1px 2px rgb(15 23 42 / 6%), 0 1px 3px rgb(15 23 42 / 8%);

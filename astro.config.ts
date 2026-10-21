@@ -12,6 +12,8 @@ export default defineConfig({
     trailingSlash: 'always',
     integrations: [mdx()],
     build: {format: 'directory'},
+    // Code in the pages: one theme for each colour mode, picked by the CSS of the site (src/styles/site.css).
+    markdown: {shikiConfig: {themes: {light: 'github-light', dark: 'github-dark'}, defaultColor: false}},
     // The preview is also opened from containers (Selenium) through host.docker.internal.
     vite: {preview: {allowedHosts: true}},
 });

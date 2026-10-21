@@ -37,7 +37,7 @@
 .ds-v-scope .breadcrumb-item { color: var(--dd-muted); }
 .ds-v-scope .breadcrumb-item + .breadcrumb-item { padding-left: 0; }
 .ds-v-scope .breadcrumb-item + .breadcrumb-item::before { padding: 0 .5rem; color: var(--dd-line); content: "\203A"; font-size: 1.15em; line-height: 1.2; }
-.ds-v-scope .breadcrumb-item a { padding: .125rem .5rem; border-radius: 999px; color: var(--dd-muted); text-decoration: none; transition: color var(--dd-ease), background-color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .breadcrumb-item a { padding: .125rem .5rem; border-radius: var(--dd-radius-btn); color: var(--dd-muted); text-decoration: none; transition: color var(--dd-ease), background-color var(--dd-ease), box-shadow var(--dd-ease); }
 .ds-v-scope .breadcrumb-item a:hover, .ds-v-scope .breadcrumb-item a.ds-is-hover { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); text-decoration: none; }
 .ds-v-scope .breadcrumb-item a:active, .ds-v-scope .breadcrumb-item a.ds-is-active { background-color: var(--dd-primary-soft-2); color: var(--dd-primary-ink); }
 /* a link that was clicked and keeps focus looks like a link at rest; only the keyboard gets the ring */
@@ -127,7 +127,7 @@
 .ds-v-scope .navbar-brand { display: inline-flex; align-items: center; gap: .5rem; margin-right: 1rem; padding: 0; color: var(--bs-navbar-brand-color, var(--dd-ink)); font-size: 1.0625rem; font-weight: 700; letter-spacing: -.011em; }
 .ds-v-scope .navbar-dark .navbar-brand, .ds-v-scope .navbar-dark .navbar-brand:hover, .ds-v-scope .navbar-dark .navbar-text, .ds-v-scope .navbar-dark .navbar-nav .nav-link.active { color: #fff; }
 .ds-v-scope .navbar-nav { gap: .125rem; }
-.ds-v-scope .navbar-nav:not(.more-nav) .nav-link { padding: .5rem .75rem; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.ds-v-scope .navbar-nav:not(.more-nav) .nav-link { padding: .5rem .75rem; border-radius: var(--dd-radius-sm); font-weight: 500; white-space: nowrap; }
 .ds-v-scope .navbar-nav:not(.more-nav) .nav-link:hover, .ds-v-scope .navbar-nav:not(.more-nav) .nav-link.ds-is-hover { background-color: color-mix(in srgb, currentColor 9%, transparent); }
 .ds-v-scope .navbar-nav:not(.more-nav) .nav-link.active, .ds-v-scope .navbar-nav:not(.more-nav) .show > .nav-link { background-color: color-mix(in srgb, currentColor 11%, transparent); font-weight: 600; }
 .ds-v-scope .navbar-toggler { padding: .375rem .625rem; border: 1px solid color-mix(in srgb, currentColor 30%, transparent); border-radius: var(--dd-radius-sm); transition: box-shadow var(--dd-ease); }
@@ -147,7 +147,7 @@
  * The magnifier of a bar is an icon, not a field: it opens a search component under the bar (field, filters, results and the keys). The field
  * has room for a long query and the results say what each one is, so a bar never has to fit a text box.
  */
-.ds-v-scope .nav-search-toggle { width: 2.5rem; height: 2.5rem; min-height: 0; padding: 0; border-radius: 999px; color: var(--dd-ink); font-size: 1.125rem; }
+.ds-v-scope .nav-search-toggle { width: 2.5rem; height: 2.5rem; min-height: 0; padding: 0; border-radius: var(--dd-radius-sm); color: var(--dd-ink); font-size: 1.125rem; }
 .ds-v-scope .nav-search-toggle:hover, .ds-v-scope .nav-search-toggle.ds-is-hover, .ds-v-scope .nav-search-toggle[aria-expanded="true"] { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink, var(--dd-primary)); }
 .ds-v-scope .dd-search { padding: .5rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); }
 .ds-v-scope .dd-search-field { position: relative; display: flex; align-items: center; gap: .75rem; margin: 0; padding: .25rem .75rem; border-radius: var(--dd-radius); background-color: var(--dd-surface-2, var(--dd-primary-soft)); color: var(--dd-muted); font-size: 1.125rem; }

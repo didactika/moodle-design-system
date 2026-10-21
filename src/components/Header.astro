@@ -2,6 +2,7 @@
 import project from '../data/project.generated.json';
 import versions from '../data/versions.json';
 import theme from '../data/theme.json';
+import system from '../data/system.json';
 import {languages, ui, type Lang} from '../i18n/ui';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
@@ -30,6 +31,37 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
             <span class="ds-wordmark"><strong>Moodle Design System</strong><small>by Didactika</small></span>
         </a>
     </div>
+    <div class="ds-head-versions" id="ds-versions">
+    <details class="ds-dd" id="ds-version">
+        <summary aria-label={t.version} title={t.version}>
+            <Icon name="layers" /><span id="ds-version-label"><span class="ds-vl">Moodle </span>{versions[0].label.replace(/^Moodle /, '')}</span>
+        </summary>
+        <ul class="ds-dd-list" role="menu" aria-label={t.version}>
+            {versions.map((v) => (
+                <li role="none">
+                    <button type="button" role="menuitemradio" aria-checked="false" data-version={v.id}>
+                        <b>{v.label}</b>
+                        <span class="ds-check"><Icon name="check" /></span>
+                        <small>{t.bootstrap} {v.bootstrap} · {v.icons === 'fa4' ? 'Font Awesome 4.7' : 'Font Awesome 6'} · {v.support[lang]}</small>
+                    </button>
+                </li>
+            ))}
+        </ul>
+    </details>
+    <details class="ds-dd ds-dd-icon ds-sysver" id="ds-sysver">
+        <summary aria-label={t.systemVersion} title={t.systemVersion}><Icon name="cubes" /><span id="ds-sysver-label">v{system.default}</span></summary>
+        <ul class="ds-dd-list ds-dd-narrow" role="menu" aria-label={t.systemVersion}>
+            {system.versions.map((v) => (
+                <li role="none">
+                    <button type="button" role="menuitemradio" aria-checked="false" data-system-version={v.id}>
+                        <b>{v.label}</b><span class="ds-check"><Icon name="check" /></span>
+                        <small>{v.status[lang]}</small>
+                    </button>
+                </li>
+            ))}
+        </ul>
+    </details>
+    </div>
     <div class="ds-search" id="ds-search" data-open="false">
         <div class="ds-search-bar">
             <button type="button" class="ds-search-open" id="ds-search-open" aria-label={t.searchOpen} title={`${t.searchOpen} (Ctrl K)`}><Icon name="search" /><span class="ds-search-label">{t.search}</span><kbd>Ctrl K</kbd></button>
@@ -44,23 +76,6 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
     </div>
     <button type="button" class="ds-iconbtn ds-tools-btn" id="ds-tools-btn" aria-controls="ds-tools" aria-expanded="false" aria-label={t.tools} title={t.tools}><Icon name="sliders" /></button>
     <div class="ds-head-tools" id="ds-tools">
-        <details class="ds-dd" id="ds-version">
-            <summary aria-label={t.version} title={t.version}>
-                <Icon name="layers" /><span id="ds-version-label"><span class="ds-vl">Moodle </span>{versions[0].label.replace(/^Moodle /, '')}</span>
-            </summary>
-            <ul class="ds-dd-list" role="menu" aria-label={t.version}>
-                {versions.map((v) => (
-                    <li role="none">
-                        <button type="button" role="menuitemradio" aria-checked="false" data-version={v.id}>
-                            <b>{v.label}</b>
-                            <span class="ds-check"><Icon name="check" /></span>
-                            <small>{t.bootstrap} {v.bootstrap} · {v.icons === 'fa4' ? 'Font Awesome 4.7' : 'Font Awesome 6'} · {v.support[lang]}</small>
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </details>
-
         <details class="ds-dd ds-dd-icon" id="ds-lang">
             <summary aria-label={t.language} title={t.language}><Icon name="globe" /><span class="ds-code2">{lang.toUpperCase()}</span></summary>
             <ul class="ds-dd-list ds-dd-narrow" role="menu" aria-label={t.language}>

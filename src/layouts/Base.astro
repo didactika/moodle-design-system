@@ -1,6 +1,7 @@
 ---
 import {getCollection} from 'astro:content';
 import themeData from '../data/theme.json';
+import systemData from '../data/system.json';
 import versions from '../data/versions.json';
 import icons from '../data/icons.json';
 const layerFiles = import.meta.glob('../styles/didactika/*.css', {query: '?raw', import: 'default', eager: true}) as Record<string, string>;
@@ -61,7 +62,7 @@ const versionData = versions.map((v) => ({id: v.id, moodle: v.moodle, label: v.l
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
         {versions.map((v) => <link rel="stylesheet" data-version-css={v.id} href={`${base}/moodle/${v.id}/boost.css`} media="not all" />)}
         <style id="ds-didactika" set:html={didactikaCss} is:inline></style>
-        <script is:inline define:vars={{versionIds: versions.map((v) => v.id), themeIds: themeData.versions.map((v) => v.id), themeDefault: themeData.default}}>
+        <script is:inline define:vars={{versionIds: versions.map((v) => v.id), themeIds: themeData.versions.map((v) => v.id), themeDefault: themeData.default, systemDefault: systemData.default}}>
             // Before the first paint: the version, the colour mode and the Didactika theme, and the Moodle stylesheet that goes with them.
             // A link can carry them (?version=v45&mode=dark&brand=1), so another site can open a page in the state it wants to show.
             const root = document.documentElement;
@@ -78,6 +79,7 @@ const versionData = versions.map((v) => ({id: v.id, moodle: v.moodle, label: v.l
             // The examples show the design system alone, as a plugin gets it; the switch puts the Didactika theme on top.
             root.dataset.brand = brand === '1' ? '1' : '0';
             root.dataset.themeVersion = themeIds.includes(themeVersion) ? themeVersion : themeDefault;
+            root.dataset.systemVersion = systemDefault;
             root.dataset.designer = designer === '1' ? '1' : '0';
             document.querySelectorAll('[data-version-css]').forEach((l) => { l.media = l.dataset.versionCss === document.documentElement.dataset.version ? 'all' : 'not all'; });
         </script>
