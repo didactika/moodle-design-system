@@ -40,7 +40,35 @@ A `nav` with an ordered list (`breadcrumb`) of **items** (`breadcrumb-item`) sep
 
 <Example title="Breadcrumb" src="breadcrumb/basic" />
 
+<Only of="v53">
+
+### Moodle 5.3's own breadcrumb
+
+Moodle 5.3 draws its breadcrumb with its own component (`mds-breadcrumb`), which shortens a long path with a menu. Where a page shows the breadcrumb of Moodle, it is this one.
+
+<Example title="Breadcrumb of Moodle 5.3" src="breadcrumb/moodle" />
+
+</Only>
+
+### States
+
 <Example title="States" src="breadcrumb/states" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Breadcrumb × length | Up to four levels shown in full; beyond that, shorten the middle ones (Moodle 5.3 does it with a menu). |
+| Breadcrumb + icon | An icon only on the first level (Home), never on every level. |
+| Breadcrumb × title | Above the title of the page, which repeats the last level. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The links are quiet and take a tint on hover | The path is orientation, not the page; it must not compete with the title. |
+| The current page is dark and semi-bold | It is the one thing that is not a link, and the difference is visible without colour. |
+| A link that was clicked looks like a link at rest | Only the keyboard gets the ring, so a click never leaves a box stuck around a level. |
 
 ## Classes
 

@@ -56,6 +56,23 @@ Un campo con error tiene su **control** con la clase de estado y, debajo, el **m
   template='<input type="text" class="form-control is-{v} {s}" value="MATH101" aria-label="Válido"{disabled}>'
 />
 
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Campo × inválido | El borde y el mensaje pasan a peligro; el campo conserva lo que escribió el usuario. |
+| Campo × válido | Solo donde confirmar ayuda (un nombre corto libre, un código que existe). |
+| Casilla × inválida | El mensaje va bajo la etiqueta de la casilla, y la etiqueta toma el color de peligro. |
+| Formulario × resumen | En un formulario largo, lista los errores arriba con enlaces a los campos y mueve el foco al primero. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| El mensaje es pequeño, de peso medio y del color del estado | Se lee como parte del campo, del mismo color que el borde, y no parece texto de cuerpo. |
+| El borde cambia y el anillo sigue al estado | Incluso en un formulario lleno de texto, el campo con error es el que destaca, y el foco conserva el color del error. |
+| Los mensajes quedan pegados bajo el campo | El mensaje pertenece a un campo; lejos se convierte en un aviso general. |
+
 ## Clases
 
 | Clase | Qué hace |

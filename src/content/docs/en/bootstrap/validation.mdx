@@ -56,6 +56,23 @@ A field in error has its **control** with the state class, and under it the **me
   template='<input type="text" class="form-control is-{v} {s}" value="MATH101" aria-label="Valid"{disabled}>'
 />
 
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Field × invalid | The border and the message turn to danger; the field keeps what the user typed. |
+| Field × valid | Only where confirming helps (a free short name, a code that exists). |
+| Checkbox × invalid | The message goes under the label of the checkbox, and the label takes the danger colour. |
+| Form × summary | On a long form, list the errors at the top with links to the fields, and move the focus to the first. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The message is small, medium weight and in the colour of the state | It is read as part of the field, in the same colour as the border, and it does not look like body text. |
+| The border changes and the ring follows the state | Even in a form full of text the field in error is the one that stands out, and focus keeps the same colour as the error. |
+| Messages sit tight under the field | The message belongs to one field; far away it becomes a general notice. |
+
 ## Classes
 
 | Class | What it does |

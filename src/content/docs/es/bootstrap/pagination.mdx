@@ -40,7 +40,43 @@ Un `nav` con una lista (`pagination`) de **elementos** (`page-item`), cada uno c
 
 <Example title="Paginación, tamaños" src="pagination/basic" />
 
+### Estados
+
 <Example title="Estados" src="pagination/states" />
+
+### La paginación de una lista
+
+La paginación que Didactika usa en sus listas y tablas dice cuántas filas hay en una página, cuáles se muestran y adónde llevan las flechas. Es la misma en todas las listas, así que quien la ha aprendido una vez la conoce en todas partes.
+
+<Example title="Paginación de una lista" src="pagination/list" />
+
+<Only of="v53">
+
+### La paginación propia de Moodle 5.3
+
+Moodle 5.3 tiene su propio componente de paginación (`mds-pagination`) para los sitios donde pagina el propio Moodle.
+
+<Example title="Paginación de Moodle 5.3" src="pagination/moodle" />
+
+</Only>
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Páginas numeradas × pocas páginas | Hasta unas nueve páginas: muéstralas todas, con anterior y siguiente. |
+| Paginador de lista × muchas filas | Filas por página, el rango («21–40 de 312») y las cuatro flechas. Bajo una tabla, dentro de la tarjeta que la contiene. |
+| Anterior / Siguiente × asistente | Dos botones y «Página 3 de 16» para un flujo donde solo importa la página siguiente. |
+| Tamaño | Pequeña bajo una tabla densa, normal en el resto. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| El paginador dice «21–40 de 312» en vez de solo numerar páginas | La gente quiere saber cuánto hay, no en qué número de página está. |
+| Las filas por página son un selector junto al recuento | El usuario puede mostrar más filas sin salir de la lista, y la elección está donde está el recuento. |
+| Las flechas son un grupo de botones con icono | Se alinean con el resto de botones y son fáciles de pulsar. |
+| La página actual va rellena y las demás son simples | Hay un «estás aquí» claro. |
 
 ## Clases
 
@@ -50,6 +86,7 @@ Un `nav` con una lista (`pagination`) de **elementos** (`page-item`), cada uno c
 | `pagination-sm`, `pagination-lg` | Más pequeña y más grande |
 | `page-item`, `page-link` | Un elemento y su enlace |
 | `active`, `disabled` | Estado de un elemento |
+| `dd-pager`, `dd-pager-size`, `dd-pager-end`, `dd-pager-range` | La paginación de una lista: filas por página, rango y flechas (Didactika) |
 
 ## En esta versión
 

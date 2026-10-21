@@ -5,10 +5,10 @@ import brand from '../data/brand.json';
 
 /** A colour as the maths of this file handles it: channels from 0 to 255 and an alpha from 0 to 1. */
 export interface Rgba { r: number; g: number; b: number; a: number }
-export type Role = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger';
+export type Role = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'light' | 'dark';
 export type Colours = Record<Role, string>;
 
-export const ROLES: Role[] = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'];
+export const ROLES: Role[] = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'];
 
 /** Didactika's roles (src/data/brand.json). Each reaches AA (4.5:1) with white text. */
 export const DIDACTIKA: Colours = brand.roles as Colours;
@@ -76,7 +76,7 @@ export const themeCss = (colours: Partial<Colours>, sel: string, five: boolean):
             out.push(`${sel}{--${role}:${hex(c)}}`);
             out.push(`${sel} .btn-${role}{color:${text};background-color:${hex(c)};border-color:${hex(c)}}${sel} .btn-${role}:hover,${sel} .btn-${role}.ds-is-hover{color:${ink(hover)};background-color:${hex(hover)};border-color:${hex(border)}}${sel} .btn-${role}:focus,${sel} .btn-${role}.ds-is-focus{box-shadow:0 0 0 .2rem rgba(${rgbList(mix(c, textRgba, 0.85))},.5)}${sel} .btn-${role}:active,${sel} .btn-${role}.ds-is-active{color:${ink(active)};background-color:${hex(active)};border-color:${hex(shade(c, 25))}}${sel} .btn-${role}:disabled,${sel} .btn-${role}.disabled{color:${text};background-color:${hex(c)};border-color:${hex(c)}}`);
             out.push(`${sel} .btn-outline-${role}{color:${hex(c)};border-color:${hex(c)}}${sel} .btn-outline-${role}:hover,${sel} .btn-outline-${role}.ds-is-hover{color:${text};background-color:${hex(c)};border-color:${hex(c)}}${sel} .btn-outline-${role}:focus,${sel} .btn-outline-${role}.ds-is-focus{box-shadow:0 0 0 .2rem rgba(${rgbList(c)},.5)}${sel} .btn-outline-${role}:active,${sel} .btn-outline-${role}.ds-is-active{color:${text};background-color:${hex(c)};border-color:${hex(c)}}${sel} .btn-outline-${role}:disabled{color:${hex(c)};background-color:transparent}`);
-            out.push(`${sel} .alert-${role}{color:${hex(shade(c, 60))};background-color:${hex(tint(c, 80))};border-color:${hex(tint(c, 60))}}${sel} .text-${role}{color:${hex(c)}!important}${sel} .bg-${role}{background-color:${hex(c)}!important;color:${text}}${sel} .border-${role}{border-color:${hex(c)}!important}${sel} .badge-${role}{color:${text};background-color:${hex(c)}}`);
+            out.push(`${sel} .text-${role}{color:${hex(c)}!important}${sel} .bg-${role}{background-color:${hex(c)}!important;color:${text}}${sel} .border-${role}{border-color:${hex(c)}!important}`);
         }
         if (role === 'primary') {
             if (five) {

@@ -1,0 +1,136 @@
+/* ================================================================== content: cards, list group, tables, accordion, carousel, offcanvas, placeholders, images */
+
+/* ------------------------------------------------------------------ cards
+ * A bordered surface with a soft shadow. Didactika adds a lift for cards that are links (card-hover) and the pieces a card is usually made of:
+ * an icon tile (dd-tile) and a figure with a label (dd-stat).
+ */
+.ds-v-scope .card { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-sm); color: var(--dd-ink); overflow: hidden; }
+.ds-v-scope .card-body { padding: 1.25rem 1.5rem; }
+.ds-v-scope .card-title { margin-bottom: .5rem; font-size: 1.125rem; font-weight: 700; letter-spacing: -.011em; }
+.ds-v-scope .card-subtitle { color: var(--dd-muted); font-size: .875rem; }
+.ds-v-scope .card-text:last-child { margin-bottom: 0; }
+.ds-v-scope .card-header, .ds-v-scope .card-footer { padding: .875rem 1.5rem; border-color: var(--dd-hairline); background-color: transparent; font-size: .875rem; font-weight: 600; }
+.ds-v-scope .card-footer { color: var(--dd-muted); font-weight: 400; }
+.ds-v-scope .card-img-top { border-radius: 0; }
+.ds-v-scope .card-link + .card-link { margin-left: 1rem; }
+.ds-v-scope .card-hover { transition: transform var(--dd-ease), box-shadow var(--dd-ease), border-color var(--dd-ease); }
+.ds-v-scope .card-hover:hover { border-color: var(--dd-line); box-shadow: var(--dd-shadow-md); transform: translateY(-2px); }
+.ds-v-scope .card-hover:focus-within { box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .card-flat { box-shadow: none; }
+.ds-v-scope .dd-stat { display: grid; gap: .125rem; }
+.ds-v-scope .dd-stat-value { font-size: 1.75rem; font-weight: 700; line-height: 1.1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.ds-v-scope .dd-stat-label { color: var(--dd-muted); font-size: .8125rem; }
+.ds-v-scope .dd-stat-trend { font-size: .8125rem; font-weight: 600; }
+
+/* ------------------------------------------------------------------ list group */
+.ds-v-scope .list-group { border-radius: var(--dd-radius-lg); }
+.ds-v-scope .list-group-item { padding: .75rem 1rem; border-color: var(--dd-hairline); background-color: var(--dd-surface); color: var(--dd-ink); font-size: .9375rem; line-height: 1.5; transition: background-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .list-group:not(.list-group-flush) > .list-group-item:first-child { border-top-left-radius: var(--dd-radius-lg); border-top-right-radius: var(--dd-radius-lg); }
+.ds-v-scope .list-group:not(.list-group-flush) > .list-group-item:last-child { border-bottom-left-radius: var(--dd-radius-lg); border-bottom-right-radius: var(--dd-radius-lg); }
+.ds-v-scope .list-group-item-action:hover, .ds-v-scope .list-group-item-action.ds-is-hover { background-color: var(--dd-surface-2); color: var(--dd-ink); }
+.ds-v-scope .list-group-item-action:focus-visible, .ds-v-scope .list-group-item-action.ds-is-focus { z-index: 2; outline: 0; background-color: var(--dd-surface-2); box-shadow: inset 0 0 0 2px var(--dd-primary); color: var(--dd-ink); }
+.ds-v-scope .list-group-item-action:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; }
+.ds-v-scope .list-group-item.active { border-color: var(--dd-primary); background-color: var(--dd-primary); color: #fff; font-weight: 600; }
+.ds-v-scope .list-group-item.disabled, .ds-v-scope .list-group-item:disabled { background-color: var(--dd-surface-2); color: var(--dd-muted); }
+
+/* ------------------------------------------------------------------ tables
+ * Full width, quiet lines, a small capital header, and room to breathe. Didactika adds the parts of its own tables: a toolbar over them
+ * (table-toolbar), a narrow column for the checkbox (table-select), the actions of a row (table-actions) and a sortable header (table-sort).
+ */
+.ds-v-scope .table {
+  --bs-table-bg: transparent;
+  --bs-table-hover-bg: var(--dd-surface-2);
+  --bs-table-striped-bg: var(--dd-surface-2);
+  --bs-table-active-bg: var(--dd-primary-soft);
+  --bs-table-hover-color: var(--dd-ink);
+  --bs-table-border-color: var(--dd-hairline);
+  width: 100%;
+  margin-bottom: 0;
+  border-color: var(--dd-hairline);
+  color: var(--dd-ink);
+  font-size: .9375rem;
+}
+.ds-v-scope .table th, .ds-v-scope .table td { padding: .8125rem 1rem; border-color: var(--dd-hairline); vertical-align: middle; }
+.ds-v-scope .table-sm th, .ds-v-scope .table-sm td { padding: .5rem .75rem; }
+.ds-v-scope .table thead th { border-top: 0; border-bottom: 1px solid var(--dd-line); color: var(--dd-muted); font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.ds-v-scope .table tbody th { font-weight: 600; }
+.ds-v-scope .table-hover tbody tr:hover, .ds-v-scope .table-striped tbody tr:nth-of-type(odd), .ds-v-scope .table tbody tr.table-active { background-color: transparent; color: var(--dd-ink); }
+.ds-v-scope .table-hover tbody tr:hover > * { background-color: var(--dd-surface-2); }
+.ds-v-scope .table-striped tbody tr:nth-of-type(odd) > * { background-color: var(--dd-surface-2); }
+.ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); }
+.ds-v-scope .table-responsive { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); }
+.ds-v-scope .table-responsive .table tbody tr:last-child > * { border-bottom-width: 0; }
+.ds-v-scope caption { color: var(--dd-muted); }
+.ds-v-scope .table .table-select { width: 2.75rem; padding-right: 0; }
+.ds-v-scope .table .table-select .form-check { min-height: 0; margin: 0; padding-left: 0; }
+.ds-v-scope .table .table-select .form-check:not(.form-check-inline):not(.form-switch) .form-check-input { position: static; margin: 0; float: none; }
+.ds-v-scope .table .table-actions { width: 1%; text-align: right; white-space: nowrap; }
+.ds-v-scope .table .table-actions .btn + .btn { margin-left: .125rem; }
+.ds-v-scope .table-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1rem; padding: .75rem 1rem; border-bottom: 1px solid var(--dd-hairline); }
+.ds-v-scope .table-toolbar-start, .ds-v-scope .table-toolbar-end { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.ds-v-scope .table-toolbar .form-control, .ds-v-scope .table-toolbar .input-group { max-width: 18rem; }
+.ds-v-scope .table-toolbar-selection { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-size: .875rem; font-weight: 600; }
+.ds-v-scope .table-foot { padding: .75rem 1rem; border-top: 1px solid var(--dd-hairline); }
+.ds-v-scope .table-sort { display: inline-flex; align-items: center; gap: .375rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
+.ds-v-scope .table-sort:hover, .ds-v-scope .table-sort.ds-is-hover { color: var(--dd-ink); }
+.ds-v-scope .table-sort i { opacity: .45; transition: opacity .15s, color .15s; }
+.ds-v-scope .table-sort:hover i, .ds-v-scope .table-sort.ds-is-hover i, .ds-v-scope .table-sort:focus-visible i, .ds-v-scope .table-sort.ds-is-focus i { opacity: .85; }
+.ds-v-scope th[aria-sort="ascending"] .table-sort i, .ds-v-scope th[aria-sort="descending"] .table-sort i { color: var(--dd-primary); opacity: 1; }
+.ds-v-scope .table-sort:focus-visible, .ds-v-scope .table-sort.ds-is-focus { outline: 0; border-radius: .25rem; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope th[aria-sort] { color: var(--dd-ink); }
+
+/* ------------------------------------------------------------------ accordion and collapse */
+.ds-v-scope .accordion {
+  --bs-accordion-border-color: var(--dd-hairline);
+  --bs-accordion-border-radius: var(--dd-radius-lg);
+  --bs-accordion-inner-border-radius: calc(var(--dd-radius-lg) - 1px);
+  --bs-accordion-btn-padding-x: 1.25rem;
+  --bs-accordion-btn-padding-y: 1rem;
+  --bs-accordion-body-padding-x: 1.25rem;
+  --bs-accordion-body-padding-y: 1rem;
+  --bs-accordion-active-bg: var(--dd-primary-soft);
+  --bs-accordion-active-color: var(--dd-primary-ink);
+  --bs-accordion-btn-focus-border-color: var(--dd-primary);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 3px var(--dd-ring);
+  --bs-accordion-bg: var(--dd-surface);
+  --bs-accordion-color: var(--dd-ink);
+}
+.ds-v-scope .accordion-header { margin: 0; font-size: inherit; font-weight: inherit; letter-spacing: normal; line-height: inherit; }
+.ds-v-scope .accordion-button { gap: .75rem; font-size: .9375rem; font-weight: 600; line-height: 1.5; }
+.ds-v-scope .accordion-button:not(.collapsed) { box-shadow: none; }
+.ds-v-scope .accordion-body { font-size: .9375rem; line-height: 1.6; }
+.ds-v-scope .accordion > .card { border-radius: 0; box-shadow: none; }
+.ds-v-scope .accordion > .card:first-of-type { border-radius: var(--dd-radius-lg) var(--dd-radius-lg) 0 0; }
+.ds-v-scope .accordion > .card:last-of-type { border-radius: 0 0 var(--dd-radius-lg) var(--dd-radius-lg); }
+.ds-v-scope .accordion > .card .card-header { padding: 0; border-bottom: 0; }
+.ds-v-scope .accordion .card-header .btn-link { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 1rem 1.25rem; border-radius: 0; color: var(--dd-ink); font-size: .9375rem; font-weight: 600; text-decoration: none; }
+.ds-v-scope .accordion .card-header .btn-link:not(.collapsed) { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); }
+.ds-v-scope .accordion .card-header .btn-link::after { content: "\203A"; font-size: 1.5em; line-height: 1; transform: rotate(-90deg); transition: transform var(--dd-ease); }
+.ds-v-scope .accordion .card-header .btn-link.collapsed::after { transform: rotate(90deg); }
+.ds-v-scope .collapse:not(.show) { display: none; }
+
+/* ------------------------------------------------------------------ carousel */
+.ds-v-scope .carousel { border-radius: var(--dd-radius-lg); overflow: hidden; }
+.ds-v-scope .carousel-control-prev, .ds-v-scope .carousel-control-next { top: 50%; bottom: auto; width: 2.5rem; height: 2.5rem; margin: 0 .75rem; border-radius: 50%; background-color: rgb(15 23 42 / 55%); opacity: 1; transform: translateY(-50%); transition: background-color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .carousel-control-prev:hover, .ds-v-scope .carousel-control-next:hover { background-color: rgb(15 23 42 / 75%); }
+.ds-v-scope .carousel-control-prev:focus-visible, .ds-v-scope .carousel-control-next:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .carousel-control-prev-icon, .ds-v-scope .carousel-control-next-icon { width: 1rem; height: 1rem; }
+.ds-v-scope .carousel-indicators { margin-bottom: .75rem; }
+.ds-v-scope .carousel-indicators [data-bs-target], .ds-v-scope .carousel-indicators [data-target], .ds-v-scope .carousel-indicators li { box-sizing: border-box; width: .5rem; height: .5rem; margin: 0 .25rem; padding: 0; border: 0; border-radius: 999px; box-shadow: 0 0 0 1px rgb(15 23 42 / 30%); opacity: .7; transition: width var(--dd-ease), opacity var(--dd-ease); }
+.ds-v-scope .carousel-indicators .active { width: 1.5rem; opacity: 1; }
+.ds-v-scope .carousel-caption { padding-bottom: 2.5rem; }
+
+/* ------------------------------------------------------------------ offcanvas and placeholders */
+.ds-v-scope .offcanvas { border: 1px solid var(--dd-hairline); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-lg); color: var(--dd-ink); }
+.ds-v-scope .offcanvas-header { padding: 1.25rem 1.25rem .5rem 1.5rem; }
+.ds-v-scope .offcanvas-title { font-size: 1.125rem; font-weight: 700; }
+.ds-v-scope .offcanvas-body { padding: .5rem 1.5rem 1.5rem; }
+.ds-v-scope .placeholder { border-radius: .375rem; }
+
+/* ------------------------------------------------------------------ images, figures and the grid */
+.ds-v-scope .img-thumbnail { padding: .25rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius); background-color: var(--dd-surface); }
+.ds-v-scope .figure-caption { color: var(--dd-muted); font-size: .8125rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-v-scope .list-group-item, .ds-v-scope .card-hover { transition: none; }
+}

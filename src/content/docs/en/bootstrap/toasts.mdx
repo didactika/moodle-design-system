@@ -3,7 +3,7 @@ title: Toasts
 summary: "A short message that appears over the page and goes away by itself: it confirms something that already happened."
 group: bootstrap
 section: feedback
-order: 18
+order: 15
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -40,6 +40,35 @@ A box (`toast`) with an optional **header** (`toast-header`: title, time, close)
 
 <Example title="Toasts" src="toasts/basic" />
 
+### Colours and icons
+
+A role colours the accent bar (`toast-success`, `toast-info`, `toast-warning`, `toast-danger`) and a tile holds the icon, as in an alert. Use a button inside the toast only for what follows the message (Undo, Retry, Stay).
+
+<Example title="Colours and icons" src="toasts/roles" />
+
+### Solid and with a timer
+
+A solid toast is for the confirmation that has to be seen from across the screen. A thin bar at the bottom shows how long it stays.
+
+<Example title="Solid and with a timer" src="toasts/solid" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Toast × result | A confirmation in the past tense ("Saved"). If the user has to act, it is an alert or a dialog. |
+| Toast + action | One quiet action after the message (Undo); never more than one. |
+| Colour × urgency | Success and info are polite (`role="status"`); warning and danger interrupt (`role="alert"`). |
+| Toast + timer | A thin bar shows the time left; pause it on hover and focus. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| A card with a shadow, not a coloured box | It floats above the page as a temporary thing and does not look like part of the content. |
+| The accent bar and the tile carry the colour | The kind of message is clear at a glance, and the text stays dark and readable. |
+| Solid is kept for the strongest case | If every toast were filled, none would stand out. |
+
 ## Classes
 
 | Class | What it does |
@@ -48,6 +77,8 @@ A box (`toast`) with an optional **header** (`toast-header`: title, time, close)
 | `toast-header`, `toast-body` | Its two parts |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Close button |
 | `toast-container` | Positions a stack of toasts |
+| `toast-success`, `toast-info`, `toast-warning`, `toast-danger` | Accent colour of the toast (Didactika) |
+| `toast-solid` | A filled toast (Didactika) |
 
 ## In this version
 

@@ -1,0 +1,103 @@
+/*
+ * The Didactika layer.
+ *
+ * Every example of the site is a Bootstrap component as Didactika draws it: the stylesheet of the Moodle version with this layer on top. The
+ * layer keeps the markup untouched, so it works the same on Bootstrap 5 (Moodle 5.x) and on Bootstrap 4 (Moodle 4.x), and the inspector lists
+ * it as one more source ("Didactika"). It is split in files that are joined in order: tokens, base, forms, navigation, feedback, content.
+ *
+ * Rules of the layer:
+ *  - Colour only comes from the variables of the theme (`--bs-primary` on Bootstrap 5, `--primary` on Bootstrap 4), so the colours of Moodle, the
+ *    colours of Didactika and a theme of the colour lab all reach every component the same way.
+ *  - A component never paints with the raw colour of a role alone: it uses tones derived from it (strong, deep, soft, line, ink), so a hover, a
+ *    selected item or a message keeps its contrast whatever the colour is.
+ *  - The border of a control has 3:1 contrast against the page; decoration uses the hairline.
+ *  - One focus ring for everything that takes focus: 3px of the primary colour at 30%.
+ *  - Every state a user can reach also exists as a class (`ds-is-hover`, `ds-is-focus`, `ds-is-active`) so a page can draw it at rest.
+ *  - What Didactika adds to Bootstrap is named with a `dd-` prefix or as a modifier (`btn-icon`, `badge-soft`, `alert-icon`, `card-icon`...)
+ *    and is explained in the page of the component.
+ */
+
+.ds-v-scope {
+  --dd-primary: var(--bs-primary, var(--primary, #0f766e));
+  --dd-secondary: var(--bs-secondary, var(--secondary, #4f46e5));
+  --dd-success: var(--bs-success, var(--success, #15803d));
+  --dd-info: var(--bs-info, var(--info, #0e7490));
+  --dd-warning: var(--bs-warning, var(--warning, #b45309));
+  --dd-danger: var(--bs-danger, var(--danger, #b91c1c));
+  --dd-light: var(--bs-light, var(--light, #f1f5f9));
+  --dd-dark: var(--bs-dark, var(--dark, #0f172a));
+
+  --dd-ink: #0f172a;
+  --dd-muted: #566579;
+  --dd-line: #7f8da3;
+  --dd-line-hover: #5a6980;
+  --dd-hairline: #d3dae5;
+  --dd-surface: #fff;
+  --dd-surface-2: #f1f4f8;
+  --dd-surface-3: #e6ebf2;
+
+  --dd-ring: color-mix(in srgb, var(--dd-primary) 30%, transparent);
+  --dd-ring-danger: color-mix(in srgb, var(--dd-danger) 28%, transparent);
+  --dd-radius: .625rem;
+  --dd-radius-sm: .5rem;
+  --dd-radius-lg: .875rem;
+  --dd-radius-xl: 1.25rem;
+  --dd-h: 2.5rem;
+  --dd-h-sm: 2rem;
+  --dd-h-lg: 3rem;
+  --dd-ease: 140ms cubic-bezier(.2, 0, 0, 1);
+
+  --dd-shadow-sm: 0 1px 2px rgb(15 23 42 / 6%), 0 1px 3px rgb(15 23 42 / 8%);
+  --dd-shadow-md: 0 14px 34px -12px rgb(15 23 42 / 30%), 0 2px 6px rgb(15 23 42 / 8%);
+  --dd-shadow-lg: 0 28px 64px -18px rgb(15 23 42 / 40%), 0 4px 12px rgb(15 23 42 / 10%);
+
+  /* The primary colour in its derived tones (the same ones every role gets below as --dd-c-*). */
+  --dd-primary-strong: color-mix(in srgb, var(--dd-primary) 82%, #000);
+  --dd-primary-soft: color-mix(in srgb, var(--dd-primary) 10%, var(--dd-surface));
+  --dd-primary-soft-2: color-mix(in srgb, var(--dd-primary) 18%, var(--dd-surface));
+  --dd-primary-ink: color-mix(in srgb, var(--dd-primary) 78%, var(--dd-ink));
+  --dd-tint: var(--dd-primary-soft);
+
+  --dd-check: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+  --dd-dot: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+  line-height: 1.6;
+}
+.ds-v-scope[data-bs-theme="dark"] {
+  --dd-ink: #e6eaf0;
+  --dd-muted: #9aa7b8;
+  --dd-line: #6f7c8f;
+  --dd-line-hover: #9aa7b8;
+  --dd-hairline: #3a424d;
+  --dd-surface: #1e2125;
+  --dd-surface-2: #2a2f36;
+  --dd-surface-3: #343a43;
+  --dd-shadow-md: 0 14px 34px -12px rgb(0 0 0 / 70%), 0 2px 6px rgb(0 0 0 / 40%);
+  --dd-shadow-lg: 0 28px 64px -18px rgb(0 0 0 / 80%);
+  --dd-primary-ink: color-mix(in srgb, var(--dd-primary) 55%, var(--dd-ink));
+}
+
+/*
+ * The role of a component. A class that names a role (btn-primary, alert-danger, badge-soft-success, text-bg-warning...) sets --dd-c, and the
+ * tones every component reads are derived from it on the same element:
+ *   --dd-c-strong  hover of a filled component            --dd-c-soft    the quiet background of a message or a selected item
+ *   --dd-c-deep    pressed state of a filled component    --dd-c-soft-2  the same, one step stronger (pressed, icon tile)
+ *   --dd-c-line    a border that belongs to the colour    --dd-c-ink     text that reads on --dd-c-soft
+ */
+.ds-v-scope .btn, .ds-v-scope .badge, .ds-v-scope .alert, .ds-v-scope .toast, .ds-v-scope .progress-bar { --dd-c: var(--dd-primary); }
+.ds-v-scope [class*="-primary"] { --dd-c: var(--dd-primary); }
+.ds-v-scope [class*="-secondary"] { --dd-c: var(--dd-secondary); }
+.ds-v-scope [class*="-success"] { --dd-c: var(--dd-success); }
+.ds-v-scope [class*="-info"] { --dd-c: var(--dd-info); }
+.ds-v-scope [class*="-warning"] { --dd-c: var(--dd-warning); }
+.ds-v-scope [class*="-danger"] { --dd-c: var(--dd-danger); }
+.ds-v-scope [class*="-light"] { --dd-c: var(--dd-line); }
+.ds-v-scope [class*="-dark"] { --dd-c: var(--dd-ink); }
+.ds-v-scope .btn, .ds-v-scope .badge, .ds-v-scope .alert, .ds-v-scope .toast, .ds-v-scope .progress-bar,
+.ds-v-scope :is([class*="-primary"], [class*="-secondary"], [class*="-success"], [class*="-info"], [class*="-warning"], [class*="-danger"], [class*="-light"], [class*="-dark"]) {
+  --dd-c-strong: color-mix(in srgb, var(--dd-c) 82%, #000);
+  --dd-c-deep: color-mix(in srgb, var(--dd-c) 66%, #000);
+  --dd-c-soft: color-mix(in srgb, var(--dd-c) 10%, var(--dd-surface));
+  --dd-c-soft-2: color-mix(in srgb, var(--dd-c) 18%, var(--dd-surface));
+  --dd-c-line: color-mix(in srgb, var(--dd-c) 32%, var(--dd-surface));
+  --dd-c-ink: color-mix(in srgb, var(--dd-c) 55%, var(--dd-ink));
+}

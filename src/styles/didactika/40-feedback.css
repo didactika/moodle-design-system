@@ -1,0 +1,127 @@
+/* ================================================================== feedback: alerts, badges, progress, spinners, toasts, tooltips, popovers, modals */
+
+/* ------------------------------------------------------------------ icon tile (dd-tile)
+ * A rounded square that holds an icon and takes the colour of what it sits in (an alert, a toast, a card) or of its own role class
+ * (dd-tile-danger). The same piece is used everywhere an icon needs a place of its own, so a message, a card and a dialog read alike.
+ */
+.ds-v-scope .dd-tile { display: inline-grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: .75rem; background-color: var(--dd-c-soft-2, var(--dd-primary-soft-2)); color: var(--dd-c-ink, var(--dd-primary-ink)); font-size: 1.0625rem; line-height: 1; }
+.ds-v-scope .dd-tile-sm { width: 1.75rem; height: 1.75rem; border-radius: .5rem; font-size: .9375rem; }
+.ds-v-scope .dd-tile-lg { width: 3rem; height: 3rem; border-radius: 1rem; font-size: 1.375rem; }
+.ds-v-scope .dd-tile-round { border-radius: 50%; }
+.ds-v-scope .dd-tile-solid { background-color: var(--dd-c, var(--dd-primary)); color: #fff; }
+.ds-v-scope .dd-tile .icon { color: inherit !important; }
+
+/* ------------------------------------------------------------------ alerts
+ * A soft tint of the colour, an accent bar on the left and a text colour derived from the role, so every role reads at 4.5:1. Light is the
+ * quietest, secondary is a step above it and dark is the strongest.
+ */
+.ds-v-scope .alert {
+  position: relative;
+  margin-bottom: 0;
+  padding: 1rem 1.25rem 1rem 1.5rem;
+  border: 1px solid var(--dd-c-line);
+  border-radius: var(--dd-radius-lg);
+  background-color: var(--dd-c-soft);
+  box-shadow: inset 4px 0 0 var(--dd-c);
+  color: var(--dd-c-ink);
+  font-size: .9375rem;
+  line-height: 1.55;
+}
+.ds-v-scope .alert-light { border-color: var(--dd-hairline); background-color: var(--dd-surface-2); box-shadow: inset 4px 0 0 var(--dd-line); color: var(--dd-ink); }
+.ds-v-scope .alert-secondary { background-color: color-mix(in srgb, var(--dd-c) 13%, var(--dd-surface)); }
+.ds-v-scope .alert-dark { border-color: var(--dd-ink); background-color: var(--dd-ink); box-shadow: inset 4px 0 0 var(--dd-primary); color: var(--dd-surface); }
+.ds-v-scope .alert-dark .alert-link, .ds-v-scope .alert-dark .alert-heading { color: var(--dd-surface); }
+.ds-v-scope .alert-solid { border-color: var(--dd-c); background-color: var(--dd-c); box-shadow: none; color: #fff; }
+.ds-v-scope .alert-solid .alert-link, .ds-v-scope .alert-solid .alert-heading { color: #fff; }
+.ds-v-scope .alert-outline { background-color: transparent; border-color: var(--dd-c); box-shadow: none; }
+.ds-v-scope .alert-flat { box-shadow: none; }
+.ds-v-scope .alert-heading { margin-bottom: .25rem; color: inherit; font-size: 1rem; font-weight: 700; }
+.ds-v-scope .alert .alert-link { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
+.ds-v-scope .alert .icon { color: inherit !important; }
+.ds-v-scope .alert-dismissible { padding-right: 3.5rem; }
+.ds-v-scope .alert-dismissible .btn-close, .ds-v-scope .alert-dismissible .close { position: absolute; top: .75rem; right: .75rem; z-index: 2; padding: 0; color: inherit; }
+.ds-v-scope .alert-dark .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+.ds-v-scope[data-bs-theme="dark"] .alert { color: color-mix(in srgb, var(--dd-c) 28%, var(--dd-ink)); }
+.ds-v-scope[data-bs-theme="dark"] .alert-light { color: var(--dd-ink); }
+.ds-v-scope[data-bs-theme="dark"] .alert-dark { color: var(--dd-surface); }
+
+/* ------------------------------------------------------------------ badges
+ * Filled by default (text-bg-*). Didactika adds a soft tint (badge-soft), an outline (badge-outline), a status dot (badge-dot), two more sizes
+ * (badge-sm, badge-lg) and a counter that sits on the corner of its parent (badge-float).
+ */
+.ds-v-scope .badge { display: inline-flex; align-items: center; gap: .3rem; padding: .35em .7em; border-radius: .5rem; font-size: .75rem; font-weight: 600; line-height: 1.2; letter-spacing: .01em; vertical-align: middle; }
+.ds-v-scope .badge.rounded-pill, .ds-v-scope .badge-pill { padding: .35em .8em; border-radius: 999px; }
+.ds-v-scope .badge .icon { font-size: .85em; }
+.ds-v-scope .badge-sm { padding: .22em .55em; font-size: .6875rem; }
+.ds-v-scope .badge-lg { padding: .5em 1em; font-size: .875rem; }
+.ds-v-scope .badge-soft { background-color: var(--dd-c-soft-2) !important; color: var(--dd-c-ink) !important; }
+.ds-v-scope .badge-outline { background-color: transparent !important; box-shadow: inset 0 0 0 1px var(--dd-c); color: var(--dd-c-ink) !important; }
+.ds-v-scope .badge-dot::before { content: ""; flex: none; width: .5rem; height: .5rem; border-radius: 50%; background-color: var(--dd-c); }
+.ds-v-scope .badge-soft.badge-dot::before, .ds-v-scope .badge-outline.badge-dot::before { background-color: var(--dd-c); }
+.ds-v-scope .badge-float { position: absolute; top: -.35rem; right: -.35rem; min-width: 1.25rem; justify-content: center; border: 2px solid var(--dd-surface); }
+.ds-v-scope .badge-float.rounded-pill { padding: .25em .45em; }
+
+/* ------------------------------------------------------------------ progress
+ * One track with the bars inside it: the ends of the track are round and the bars join without a gap, so several colours read as one bar.
+ */
+.ds-v-scope .progress { height: .625rem; border-radius: 999px; background-color: var(--dd-hairline); box-shadow: none; font-size: .6875rem; overflow: hidden; }
+.ds-v-scope .progress-bar { border-radius: 0; background-color: var(--dd-c); font-weight: 600; transition: width .6s cubic-bezier(.2, 0, 0, 1), background-color var(--dd-ease); }
+.ds-v-scope .progress-bar:last-child { border-radius: 0 999px 999px 0; }
+.ds-v-scope .dd-progress { display: grid; gap: .5rem; }
+.ds-v-scope .dd-progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; font-size: .875rem; }
+.ds-v-scope .dd-progress-head b { font-weight: 600; }
+.ds-v-scope .dd-progress-value { color: var(--dd-muted); font-variant-numeric: tabular-nums; }
+.ds-v-scope .dd-progress-inline { display: flex; align-items: center; gap: .75rem; }
+.ds-v-scope .dd-progress-inline .progress { flex: 1; }
+.ds-v-scope .dd-progress-steps { display: flex; gap: .25rem; }
+.ds-v-scope .dd-progress-steps .progress { flex: 1; height: .375rem; }
+
+/* ------------------------------------------------------------------ spinners */
+.ds-v-scope .spinner-border { border-width: .18em; }
+
+/* ------------------------------------------------------------------ toasts
+ * A card with a shadow. A role colours the accent bar (toast-success, toast-danger...) and a tile holds the icon; toast-solid fills the card.
+ */
+.ds-v-scope .toast { max-width: 100%; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); color: var(--dd-ink); font-size: .9375rem; backdrop-filter: none; overflow: hidden; }
+.ds-v-scope .toast[class*="toast-"]:not(.toast-header):not(.toast-body):not(.toast-container) { box-shadow: var(--dd-shadow-md), inset 4px 0 0 var(--dd-c); }
+.ds-v-scope .toast-solid { border-color: var(--dd-c); background-color: var(--dd-c); box-shadow: var(--dd-shadow-md); color: #fff; }
+.ds-v-scope .toast-solid .toast-header, .ds-v-scope .toast-solid .btn-link { color: #fff; }
+.ds-v-scope .toast-solid .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+/* Moodle draws its own icon before the body of a role toast; the tile already holds the icon, so that one goes. */
+.ds-v-scope .toast[class*="toast-"] .toast-body::before { content: none; display: none; }
+.ds-v-scope .toast-header { display: flex; align-items: center; gap: .5rem; padding: .75rem .75rem .25rem 1rem; border-bottom: 0; background-color: transparent; color: var(--dd-ink); }
+.ds-v-scope .toast-header strong { font-weight: 700; }
+.ds-v-scope .toast-body { padding: .5rem 1rem .875rem; line-height: 1.5; }
+.ds-v-scope .toast .progress { height: .25rem; border-radius: 0; background-color: transparent; }
+.ds-v-scope .toast .progress .progress-bar { border-radius: 0; background-color: var(--dd-c); }
+
+/* ------------------------------------------------------------------ tooltips and popovers */
+.ds-v-scope .tooltip { --bs-tooltip-bg: var(--dd-ink); --bs-tooltip-color: var(--dd-surface); --bs-tooltip-opacity: 1; opacity: 1; }
+.ds-v-scope .tooltip-inner { padding: .4rem .75rem; border-radius: .5rem; background-color: var(--dd-ink); box-shadow: var(--dd-shadow-sm); color: var(--dd-surface); font-size: .8125rem; font-weight: 500; line-height: 1.4; }
+.ds-v-scope .bs-tooltip-top .arrow::before, .ds-v-scope .bs-tooltip-top .tooltip-arrow::before { border-top-color: var(--dd-ink); }
+.ds-v-scope .bs-tooltip-bottom .arrow::before, .ds-v-scope .bs-tooltip-bottom .tooltip-arrow::before { border-bottom-color: var(--dd-ink); }
+.ds-v-scope .bs-tooltip-left .arrow::before, .ds-v-scope .bs-tooltip-start .tooltip-arrow::before { border-left-color: var(--dd-ink); }
+.ds-v-scope .bs-tooltip-right .arrow::before, .ds-v-scope .bs-tooltip-end .tooltip-arrow::before { border-right-color: var(--dd-ink); }
+.ds-v-scope .popover { --bs-popover-bg: var(--dd-surface); --bs-popover-border-color: var(--dd-hairline); max-width: 18rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); font-size: .9375rem; }
+.ds-v-scope .popover-header { padding: .875rem 1rem .25rem; border-bottom: 0; background-color: transparent; color: var(--dd-ink); font-size: 1rem; font-weight: 700; }
+.ds-v-scope .popover-body { padding: .25rem 1rem .875rem; color: var(--dd-ink); line-height: 1.5; }
+
+/* ------------------------------------------------------------------ modal */
+.ds-v-scope .modal-content { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-xl); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-lg); color: var(--dd-ink); }
+.ds-v-scope .modal-header { align-items: flex-start; gap: .75rem; padding: 1.25rem 1.25rem .5rem 1.5rem; border-bottom: 0; }
+.ds-v-scope .modal-title { font-size: 1.25rem; font-weight: 700; line-height: 1.3; letter-spacing: -.011em; }
+.ds-v-scope .modal-header .dd-tile + .modal-title { align-self: center; }
+.ds-v-scope .modal-body { padding: .5rem 1.5rem 1rem; line-height: 1.55; }
+.ds-v-scope .modal-footer { gap: .5rem; padding: .75rem 1.5rem 1.25rem; border-top: 0; }
+.ds-v-scope .modal-footer-split { justify-content: space-between; }
+.ds-v-scope .modal-dialog-scrollable .modal-body { border-block: 1px solid var(--dd-hairline); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-v-scope .progress-bar { transition: none; }
+}
+
+/* A modal shown in the page (the examples) instead of over it. */
+.ds-v-scope .modal.dd-modal-static { position: relative; display: block; height: auto; overflow: visible; }
+.ds-v-scope .dd-modal-static .modal-dialog { margin: 0 auto; }
+.ds-v-scope .dd-modal-static .modal-dialog-scrollable { height: auto; }
+.ds-v-scope .dd-modal-static .modal-dialog-scrollable .modal-content { max-height: none; }

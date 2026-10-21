@@ -3,7 +3,7 @@ title: Progress
 summary: "A bar that shows how far something has got: a course, an upload, a quiz."
 group: bootstrap
 section: feedback
-order: 16
+order: 17
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -40,7 +40,46 @@ A **track** (`progress`) and one or more **bars** (`progress-bar`) whose width i
 
 <Example title="Progress" src="progress/basic" />
 
+### Several parts in one bar
+
+The parts of one total share a track and join without a gap, so they read as one bar. A legend with dots names each colour.
+
+<Example title="Stacked and connected" src="progress/stacked" />
+
+### With a label
+
+A title and a value above, or the value at the side. The text carries the number so the colour does not have to.
+
+<Example title="Labelled" src="progress/labelled" />
+
+### Steps
+
+For a flow in steps or a list of lessons, one small bar per step.
+
+<Example title="Steps" src="progress/steps" />
+
+### Heights
+
 <Example title="Heights" src="progress/sizes" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Single bar × value | One bar, the number at the side or above ("64%", "4 of 6 activities"). |
+| Stacked × total | Parts of one total in one bar, joined, with a legend of dots. |
+| Steps × flow | One small bar per step, the finished ones filled; with "Step 3 of 5" above. |
+| Colour × meaning | Primary for progress, success for completion, warning and danger when a limit is close (storage). |
+| Striped × waiting | Striped and animated only while something is really working. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The bars of one total join with no gap | Gaps look like separate quantities; a joined bar shows one total split in parts. |
+| The ends of the track are round, the joints are straight | The bar reads as one object and the parts are told by colour, not by shape. |
+| The number is always written | Progress must not depend on guessing a width: people with low vision or colour blindness read the number. |
+| Steps are separate small bars | A person counting steps counts blocks; one long bar hides how many remain. |
 
 ## Classes
 
@@ -50,6 +89,9 @@ A **track** (`progress`) and one or more **bars** (`progress-bar`) whose width i
 | `progress-bar` | The filled part; width in `style` |
 | `progress-bar-striped`, `progress-bar-animated` | Stripes and movement |
 | `bg-success`… | Colour of a bar |
+| `dd-progress`, `dd-progress-head`, `dd-progress-value` | A progress bar with its title and value (Didactika) |
+| `dd-progress-inline` | The value at the side of the bar (Didactika) |
+| `dd-progress-steps` | One small bar per step (Didactika) |
 
 ## In this version
 

@@ -3,7 +3,7 @@ title: Avisos emergentes
 summary: "Un mensaje corto que aparece sobre la página y se va solo: confirma algo que ya ha pasado."
 group: bootstrap
 section: feedback
-order: 18
+order: 15
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -40,6 +40,35 @@ Una caja (`toast`) con un **encabezado** opcional (`toast-header`: título, hora
 
 <Example title="Avisos emergentes" src="toasts/basic" />
 
+### Colores e iconos
+
+Un rol colorea la barra de acento (`toast-success`, `toast-info`, `toast-warning`, `toast-danger`) y una baldosa contiene el icono, como en una alerta. Usa un botón dentro del aviso solo para lo que sigue al mensaje (Deshacer, Reintentar, Seguir).
+
+<Example title="Colores e iconos" src="toasts/roles" />
+
+### Sólido y con temporizador
+
+Un aviso sólido es para la confirmación que debe verse desde el otro lado de la pantalla. Una barra fina abajo muestra cuánto tiempo se queda.
+
+<Example title="Sólido y con temporizador" src="toasts/solid" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Aviso × resultado | Una confirmación en pasado («Guardado»). Si el usuario debe actuar, es una alerta o un diálogo. |
+| Aviso + acción | Una acción discreta tras el mensaje (Deshacer); nunca más de una. |
+| Color × urgencia | Éxito e información son corteses (`role="status"`); aviso y peligro interrumpen (`role="alert"`). |
+| Aviso + temporizador | Una barra fina muestra el tiempo restante; páusalo al pasar el ratón y al enfocar. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Una tarjeta con sombra, no una caja de color | Flota sobre la página como algo temporal y no parece parte del contenido. |
+| La barra de acento y la baldosa llevan el color | El tipo de mensaje se ve de un vistazo, y el texto sigue oscuro y legible. |
+| Lo sólido se reserva para el caso más fuerte | Si todos los avisos fueran rellenos, ninguno destacaría. |
+
 ## Clases
 
 | Clase | Qué hace |
@@ -48,6 +77,8 @@ Una caja (`toast`) con un **encabezado** opcional (`toast-header`: título, hora
 | `toast-header`, `toast-body` | Sus dos partes |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cierre |
 | `toast-container` | Coloca una pila de avisos |
+| `toast-success`, `toast-info`, `toast-warning`, `toast-danger` | Color de acento del aviso (Didactika) |
+| `toast-solid` | Un aviso relleno (Didactika) |
 
 ## En esta versión
 

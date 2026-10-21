@@ -39,9 +39,54 @@ Un **diálogo** (`modal-dialog`) sobre una página atenuada, con un **encabezado
 
 ## Variantes y estados
 
+### Formulario
+
+Un título que dice qué se pide, los campos y las acciones al pie: la principal a la derecha, cancelar como enlace a su lado.
+
 <Example title="Formulario" src="modals/basic" />
 
+### Confirmación
+
+Para lo que elimina o no se puede deshacer. Una baldosa con el icono de peligro, un título que es una pregunta y un botón con el nombre de su acción.
+
 <Example title="Confirmación" src="modals/confirm" />
+
+### Resultado
+
+Cuando algo terminó, un diálogo que lo dice y ofrece el siguiente paso.
+
+<Example title="Resultado" src="modals/success" />
+
+### Con desplazamiento
+
+Cuando el contenido es más largo que el diálogo, el cuerpo se desplaza y el encabezado y el pie se quedan en su sitio.
+
+<Example title="Con desplazamiento" src="modals/scrollable" />
+
+### Por pasos
+
+Un asistente en un diálogo: el progreso de los pasos arriba, las opciones, y Atrás a la izquierda con Cancelar y Siguiente a la derecha.
+
+<Example title="Por pasos" src="modals/steps" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Tamaño × contenido | Pequeño (`modal-sm`) para una pregunta, normal para un formulario, grande (`modal-lg`) para una lista o una vista previa, extra grande (`modal-xl`) para una tabla. |
+| Baldosa de icono × significado | Peligro para lo que elimina, éxito para un resultado, información para un aviso; sin baldosa para un formulario simple. |
+| Con desplazamiento × contenido largo | Para términos y listas; nunca para un formulario largo, que es una página. |
+| Pasos × flujo | Una barra de progreso de pasos y Atrás / Cancelar / Siguiente en el pie; no más de tres pasos. |
+| Centrado × corto | Centrado verticalmente (`modal-dialog-centered`) para una pregunta corta; arriba para un formulario que puede crecer. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Radio grande, una sombra suave y profunda, sin líneas entre encabezado, cuerpo y pie | El diálogo es una superficie que flota; las líneas lo partirían en tres cajas. |
+| Cancelar es un enlace y la acción principal va rellena | Hay una sola cosa que pulsar; salir es fácil pero nunca compite con ella. |
+| El título es una pregunta o un verbo y el botón lo repite | «¿Eliminar el curso?» / «Eliminar»: el usuario sabe qué va a pasar sin leer el cuerpo. |
+| La baldosa de icono marca el tono antes del texto | Una baldosa roja pide cuidado antes de leer una palabra. |
 
 ## Clases
 
@@ -51,6 +96,8 @@ Un **diálogo** (`modal-dialog`) sobre una página atenuada, con un **encabezado
 | `modal-header`, `modal-title`, `modal-body`, `modal-footer` | Sus partes |
 | `modal-sm`, `modal-lg`, `modal-xl` | Tamaños |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cierre |
+| `dd-modal-static` | Muestra un diálogo en la página en vez de sobre ella, para los ejemplos (Didactika) |
+| `modal-footer-split` | Atrás a la izquierda, las acciones a la derecha (Didactika) |
 
 ## En esta versión
 

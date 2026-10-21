@@ -48,6 +48,24 @@ Un control tiene la **caja** (cuadrada, redonda o un riel con una bola), la **ma
 
 <Example title="En línea" src="checks/inline" />
 
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Casilla × grupo | Varias que se pueden combinar. En un `fieldset` con `legend`, una bajo otra o en una línea (`form-check-inline`). |
+| Radio × grupo | De 2 a 5 opciones donde hay que elegir exactamente una. Siempre con una marcada por defecto cuando hay un valor razonable. |
+| Interruptor × inmediato | Un ajuste que se aplica en cuanto cambia, con la etiqueta diciendo qué activa («Notificaciones»). |
+| Casilla × validación | `is-invalid` con su mensaje bajo la etiqueta; la etiqueta también pasa al color de peligro. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Cajas de 18 px con un borde de 1,5 px y contraste 3:1 | Las cajas de Bootstrap son pequeñas y pálidas. Estas son fáciles de pulsar y siempre visibles, vacías o no. |
+| La marca es blanca sobre el color primario | Una casilla marcada es lo más saturado del formulario, así que el estado se lee de un vistazo y no por la forma de una marca. |
+| El interruptor tiene un hueco hasta su etiqueta y una bola sin color propio | La etiqueta nunca toca el riel, y la bola funciona con cualquier color del tema. |
+| Los controles desactivados atenúan también su etiqueta | Toda la fila se lee como no disponible, no solo la caja. |
+
 ## Clases
 
 | Clase | Qué hace |

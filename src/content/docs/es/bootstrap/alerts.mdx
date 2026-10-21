@@ -42,9 +42,39 @@ Una caja (`alert` y un color) con **icono**, **título** (`alert-heading`), **te
 
 <Example title="Colores" src="alerts/variants" />
 
+### Estilos
+
+Por defecto es un tinte suave del color con una barra de acento a la izquierda. Didactika añade tres más para otras necesidades: plana (sin barra, para sitios densos), contorno (la más ligera) y sólida (la más fuerte, para el único mensaje que no se debe perder).
+
+<Example title="Estilos" src="alerts/styles" />
+
+### Icono, título y acciones
+
+Un icono va en una baldosa (`dd-tile`), que toma el color de la alerta. Un título nombra el mensaje, el texto dice qué hacer y las acciones son botones del mismo color.
+
 <Example title="Icono, título y acciones" src="alerts/rich" />
 
+### Descartable
+
 <Example title="Descartable" src="alerts/dismissible" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Color × significado | Éxito para lo que terminó, información para lo que conviene saber, aviso para lo que hay que revisar, peligro para lo que falló. Primario, secundario, claro y oscuro son avisos neutros. |
+| Estilo × peso | Suave por defecto; plana en sitios densos; contorno cuando no debe pesar en la página; sólida para el único mensaje que no se puede perder. |
+| Icono + título + acciones | Una baldosa con un icono, un título, una o dos frases y el siguiente paso como botón o enlace. |
+| Alerta × descartable | Solo si el mensaje no vuelve con la página; botón de cierre a la derecha. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Un tinte, una línea y un color de texto derivados del rol | Cada rol se lee a 4,5:1 o más, y el mensaje lo cuentan las palabras, el icono y la barra, no solo el color. |
+| Claro, secundario y oscuro son tres escalones claros | El claro es el más discreto, el oscuro el más fuerte, el secundario queda en medio: nunca se intercambian. |
+| El icono vive en una baldosa del color de la alerta | El ojo cae primero en la baldosa y conoce el tipo de mensaje antes de leerlo. |
+| La barra de acento a la izquierda | Marca el mensaje sin un borde pesado, y es la parte de la alerta que se conserva cuando el tinte se pierde en un tema oscuro. |
 
 ## Clases
 
@@ -55,6 +85,8 @@ Una caja (`alert` y un color) con **icono**, **título** (`alert-heading`), **te
 | `alert-heading`, `alert-link` | Título y enlace que combinan con el color |
 | `alert-dismissible`, <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Deja que el usuario la cierre |
 | `fade show` | Anima al aparecer y al cerrarse |
+| `alert-flat`, `alert-outline`, `alert-solid` | Estilos de la alerta: sin barra, solo contorno y rellena (Didactika) |
+| `dd-tile` | La baldosa que contiene un icono; toma el color de la alerta que la rodea (Didactika) |
 
 ## En esta versión
 

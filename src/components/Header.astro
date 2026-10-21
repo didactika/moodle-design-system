@@ -1,6 +1,7 @@
 ---
 import project from '../data/project.generated.json';
 import versions from '../data/versions.json';
+import theme from '../data/theme.json';
 import {languages, ui, type Lang} from '../i18n/ui';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
@@ -26,7 +27,7 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
         {menu && <button class="ds-iconbtn ds-menu-btn" id="ds-menu" type="button" aria-controls="ds-nav" aria-expanded="false" aria-label={t.menu}><Icon name="bars" /></button>}
         <a class="ds-brand" href={href(lang, '')} aria-label={t.site}>
             <Logo />
-            <span class="ds-wordmark">Didactika<b>Moodle UI</b></span>
+            <span class="ds-wordmark"><strong>Moodle Design System</strong><small>by Didactika</small></span>
         </a>
     </div>
     <div class="ds-search" id="ds-search" data-open="false">
@@ -41,7 +42,8 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
             <p class="ds-search-keys">{t.searchKeys}</p>
         </div>
     </div>
-    <div class="ds-head-tools">
+    <button type="button" class="ds-iconbtn ds-tools-btn" id="ds-tools-btn" aria-controls="ds-tools" aria-expanded="false" aria-label={t.tools} title={t.tools}><Icon name="sliders" /></button>
+    <div class="ds-head-tools" id="ds-tools">
         <details class="ds-dd" id="ds-version">
             <summary aria-label={t.version} title={t.version}>
                 <Icon name="layers" /><span id="ds-version-label"><span class="ds-vl">Moodle </span>{versions[0].label.replace(/^Moodle /, '')}</span>
@@ -89,11 +91,26 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
 
         <button type="button" class="ds-iconbtn ds-designer-btn" data-designer-toggle aria-pressed="false" title={`${t.designerMode}: ${t.designerHelp}`} aria-label={t.designerMode}><Icon name="designer" /></button>
 
-        <button type="button" class="ds-brandsw" data-brand-toggle aria-pressed="false" title={t.brandThemeHelp}>
-            <span class="ds-brandsw-mark"><Icon name="swatch" /></span>
-            <span class="ds-brandsw-label">{t.brandTheme}</span>
-            <span class="ds-switch" aria-hidden="true"><i></i></span>
-        </button>
+        <div class="ds-theme">
+            <button type="button" class="ds-brandsw" data-brand-toggle aria-pressed="false" title={t.brandThemeHelp}>
+                <span class="ds-brandsw-mark"><Icon name="swatch" /></span>
+                <span class="ds-brandsw-label">{t.brandTheme}</span>
+                <span class="ds-switch" aria-hidden="true"><i></i></span>
+            </button>
+            <details class="ds-dd ds-themever" id="ds-themever">
+                <summary aria-label={t.themeVersion} title={t.themeVersion}><span id="ds-themever-label">v{theme.default}</span></summary>
+                <ul class="ds-dd-list ds-dd-narrow" role="menu" aria-label={t.themeVersion}>
+                    {theme.versions.map((v) => (
+                        <li role="none">
+                            <button type="button" role="menuitemradio" aria-checked="false" data-theme-version={v.id}>
+                                <b>{v.label}</b><span class="ds-check"><Icon name="check" /></span>
+                                <small>{v.status[lang]}</small>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </details>
+        </div>
 
         <span class="ds-head-sep" aria-hidden="true"></span>
         {organisation.website && <a class="ds-iconbtn ds-site-link" href={organisation.website} title={t.linkWebsite} aria-label={t.linkWebsite}><img src={`${base}/brand/didactika-logo.png`} alt="" width="20" height="20" /></a>}

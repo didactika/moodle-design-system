@@ -1,0 +1,44 @@
+---
+title: "API: tokens y versiones de Moodle"
+summary: Las variables CSS de cada versión de Moodle, en claro y oscuro, y la hoja de estilos de la que salen.
+group: guides
+order: 3
+---
+
+Un token es una variable CSS que define el tema de una versión de Moodle: `--bs-primary`, `--bs-body-bg`, los `--mds-*` de Moodle 5.3. Leerlos de aquí mantiene la documentación de un plugin, un kit de Figma o un script de build al paso de la hoja de estilos real.
+
+## Qué se publica
+
+| Dirección | Qué guarda |
+|---|---|
+| `/api/index.json` → `versions[]` | Cada versión con su generación de Bootstrap, familia de iconos, soporte y los enlaces a su `tokens` y `stylesheet` |
+| `/api/tokens/<version>.json` | `tokens.light` y `tokens.dark`, cada uno un mapa de nombre de variable a valor |
+| `/moodle/<version>/boost.css` | La hoja de esa versión, acotada bajo `.ds-<version>` para que varias convivan en una página |
+
+El modo oscuro existe desde Moodle 5.x; los archivos de 4.x tienen `dark` vacío.
+
+## Leer un token
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const v53 = await (await fetch(root + '/api/tokens/v53.json')).json();
+
+console.log(v53.version.label);           // "Moodle 5.3 LTS"
+console.log(v53.tokens.light['--bs-primary']);
+console.log(v53.tokens.dark['--bs-body-bg']);
+```
+
+## Generar SCSS para una herramienta
+
+```js
+const entries = Object.entries(v53.tokens.light).filter(([name]) => name.startsWith('--bs-'));
+const scss = entries.map(([name, value]) => `$${name.slice(2)}: ${value};`).join('\n');
+```
+
+## Los colores del tema de Didactika no son tokens de Moodle
+
+La paleta del tema de Didactika (`/api/brand.json`) se aplica sobre las variables de Moodle. Un plugin nunca fija un hex de ella: usa la variable de Bootstrap (`var(--bs-primary)`) y la paleta llega con el tema. Mira la página "Tema de Didactika".
+
+## Comprueba una versión antes de apoyarte en ella
+
+El campo `support` de cada versión dice si es vigente, LTS o heredada, en los dos idiomas. Léelo cuando una guía diga qué versiones probar.

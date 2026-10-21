@@ -46,7 +46,33 @@ A **list** of entries (`nav` with `nav-tabs` or `nav-pills`), each a **link or b
 
 <Example title="Vertical pills" src="tabs/vertical" />
 
+### Moodle's own navigation
+
+The next example is not drawn with Bootstrap's classes: it is the secondary navigation Moodle gives a course in the selected version (the pill with a dot for the selected item in Moodle 5.3, the underlined tab in 4.x). A plugin never redraws it; it only sits next to it.
+
+<Example title="Secondary navigation of Moodle" src="tabs/moodle" />
+
+### States
+
 <Example title="States" src="tabs/states" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Tabs × panels | Views of the same subject, one visible at a time. The first tab is the one most people need. |
+| Pills × filter | A choice that changes what a list shows (All, In progress, Completed). Add a count in a badge only when it helps. |
+| Vertical pills × settings | Sections of a settings screen: the list on the left, the panel on the right. |
+| Tabs inside a card | Put the tabs in the header of the card and the panels in its body. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The selected tab has a line and a tint, the rest are quiet | Where you are is clear from the line, the tint and the weight at once, so it never depends on colour alone. |
+| Pills are fully rounded | They read as a choice, not as sections, which is the difference between pills and tabs. |
+| Hover tints and focus rings follow one rule | The control under the pointer or under the keyboard always answers the same way. |
+| Moodle's own navigation is left as Moodle draws it | The user meets the same navigation in every course and in every plugin; plugins should not teach a second one. |
 
 ## Classes
 

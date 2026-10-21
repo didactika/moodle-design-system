@@ -78,6 +78,26 @@ Icons are written with the Moodle icon id (`{{#pix}}t/add, core{{/pix}}` in a te
 
 <Example title="Full width" src="buttons/block" narrow />
 
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Size × colour | Small in toolbars and table rows, default everywhere else, large for one call to action. The size never changes the colour or the label. |
+| Filled × outline × link | Filled for the main action, outline for the secondary ones, link for the quietest. One filled button per area. |
+| Icon + label | The icon goes before the label, for actions that have one in the icon table. In dense places use an icon-only button (`btn-icon`), always with a title and an `aria-label`. |
+| Group | A choice between views (grid, list, map) or a split button (Save with its menu). The ends are round and the joins square. |
+| Button + badge | A count inside the button ("Messages 4"). Never a sentence. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| A pill, 40 px tall, with more padding at the sides than above and below | A wide pill reads as clickable and keeps the label centred. The proportions are the ones people know from Material, so nobody has to learn them. |
+| Outline and link buttons answer with a tint of their own colour | Bootstrap floods them with solid colour on hover and the label turns white on a light page. A tint keeps the label readable and shows the pressed state without shouting. |
+| Icon-only buttons are square (`btn-icon`) | The target has the same height and width, so a row of icon actions lines up and is easy to hit. |
+| One focus ring of 3 px for every button | A keyboard user always sees where they are, with the same cue they get in fields and links. |
+| A group is one pill and the toggle of a split button closes it | The group reads as one control instead of two buttons that happen to touch. |
+
 ## Classes
 
 | Class | What it does |
@@ -90,6 +110,7 @@ Icons are written with the Moodle icon id (`{{#pix}}t/add, core{{/pix}}` in a te
 | `btn-group` | Joins related buttons |
 | <Only of="v53" inline>`d-grid gap-2`</Only><Only of="v45,v41" inline>`btn-block`</Only> | Full-width stack |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Close button inside alerts and modals, written by Moodle |
+| `btn-icon` | Square button that holds only an icon. Add `btn-sm` or `btn-lg` for the other sizes (Didactika) |
 
 ## In this version
 

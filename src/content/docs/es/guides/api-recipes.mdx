@@ -1,0 +1,54 @@
+---
+title: "API: recetas"
+summary: Tres scripts pequeños que ponen los datos de este sitio a trabajar en la documentación y las pruebas de un plugin.
+group: guides
+order: 5
+---
+
+Todas las recetas leen el JSON del sitio; ninguna necesita una clave ni compilar este repositorio.
+
+## Enlazar cada componente que usa un plugin
+
+El README o la wiki de un plugin puede nombrar los componentes que usa y enlazar cada uno a su página, en el idioma del lector.
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const index = await (await fetch(root + '/api/index.json')).json();
+
+const used = ['bootstrap/buttons', 'bootstrap/tables', 'bootstrap/modal'];
+const lines = used.map((id) => {
+    const page = index.pages.find((p) => p.id === id);
+    return `- [${page.title.es}](${page.url.es}?version=v53): ${page.summary.es}`;
+});
+console.log(lines.join('\n'));
+```
+
+## Comprobar que una plantilla usa lo que publica el sistema
+
+Compara las clases de la plantilla de un plugin con las del ejemplo, para que un rediseño se detecte en una revisión.
+
+```js
+const buttons = await (await fetch(root + '/api/components/buttons.json')).json();
+const classes = (html) => new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1].split(/\s+/)));
+
+const expected = classes(buttons.examples.find((e) => e.id === 'buttons/group').bootstrap5.html);
+const actual = classes(await readFile('templates/toolbar.mustache', 'utf8'));
+const missing = [...expected].filter((c) => !actual.has(c));
+console.log(missing.length ? `No está en la plantilla: ${missing.join(', ')}` : 'Mismas clases');
+```
+
+## Abrir la página en el estado de una incidencia
+
+Un error de un componente en Moodle 4.5 es un enlace, no una captura que describir:
+
+```
+https://didactika.github.io/moodle-design-system/es/bootstrap/tables/?version=v45#cabeceras-ordenables
+```
+
+Cada sección de una página tiene ancla (el `id` de su encabezado), así que el enlace cae sobre el ejemplo.
+
+## Que siga funcionando
+
+- Comprueba `schema === 1` antes de leer; el número cambia solo cuando se quita un campo o cambia su significado.
+- Los identificadores de páginas y ejemplos no cambian una vez publicados; títulos y resúmenes sí pueden.
+- Los datos se regeneran con el sitio: guárdalos en caché un día, no para siempre.

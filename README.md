@@ -1,4 +1,4 @@
-# Didactika Moodle UI
+# Moodle Design System · Didactika
 
 The design system of Didactika's Moodle plugins, as a static site in English and Spanish: Bootstrap, Moodle and plugin components with
 every variant, drawn with the real stylesheet of each supported Moodle version and measured from it.

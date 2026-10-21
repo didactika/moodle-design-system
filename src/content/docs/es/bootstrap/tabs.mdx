@@ -20,7 +20,7 @@ Las pestañas dividen un tema en vistas paralelas y enseñan una a la vez. Las *
 
 - De dos a seis pestañas con nombres cortos y paralelos.
 - Pestañas para vistas de lo mismo (resumen, participantes, calificaciones); píldoras para filtros y para un menú vertical de ajustes.
-- Mostrar un número con una insignia solo cuando ayude a decidir adónde ir.
+- Mostrar un número con un badge solo cuando ayude a decidir adónde ir.
 - Que la primera pestaña sea la que más gente necesita.
 
 </Rule>
@@ -46,7 +46,33 @@ Una **lista** de entradas (`nav` con `nav-tabs` o `nav-pills`), cada una un **en
 
 <Example title="Píldoras verticales" src="tabs/vertical" />
 
+### La navegación propia de Moodle
+
+El siguiente ejemplo no se dibuja con las clases de Bootstrap: es la navegación secundaria que Moodle da a un curso en la versión elegida (la píldora con un punto para el elemento seleccionado en Moodle 5.3, la pestaña subrayada en 4.x). Un plugin nunca la redibuja; solo se coloca a su lado.
+
+<Example title="Navegación secundaria de Moodle" src="tabs/moodle" />
+
+### Estados
+
 <Example title="Estados" src="tabs/states" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Pestañas × paneles | Vistas del mismo tema, una visible a la vez. La primera pestaña es la que más gente necesita. |
+| Píldoras × filtro | Una elección que cambia lo que muestra una lista (Todos, En curso, Completados). Añade un recuento en un badge solo cuando ayude. |
+| Píldoras verticales × ajustes | Secciones de una pantalla de ajustes: la lista a la izquierda, el panel a la derecha. |
+| Pestañas dentro de una tarjeta | Pon las pestañas en el encabezado de la tarjeta y los paneles en su cuerpo. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| La pestaña seleccionada lleva una línea y un tinte, las demás son discretas | Dónde estás se ve a la vez por la línea, el tinte y el peso, así que nunca depende solo del color. |
+| Las píldoras son totalmente redondas | Se leen como una elección y no como secciones, que es la diferencia entre píldoras y pestañas. |
+| Los tintes al pasar y los anillos de foco siguen una regla | El control bajo el puntero o bajo el teclado responde siempre igual. |
+| La navegación propia de Moodle se deja como la dibuja Moodle | El usuario encuentra la misma navegación en cada curso y en cada plugin; los plugins no deben enseñar una segunda. |
 
 ## Clases
 

@@ -39,9 +39,36 @@ A **brand** (`navbar-brand`), a **toggler** for small screens (`navbar-toggler`)
 
 ## Variants and states
 
+### Moodle's navigation bar
+
+The bar of Moodle is the one every user knows, and each version draws it its own way: Moodle 5.3 with the pill and the dot of its design system, Moodle 4.x with the underlined link. The bar below is what Moodle renders in the selected version; a plugin does not draw its own.
+
+<Example title="Navigation bar of Moodle" src="navbar/moodle" />
+
+### Bootstrap's navbar
+
+For a screen of a plugin that needs a bar of its own (a standalone tool, a dashboard), Bootstrap's navbar is the component to start from.
+
 <Example title="Navbar" src="navbar/basic" />
 
 <Example title="On the primary colour" src="navbar/primary" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Brand × links × tools | Brand on the left, the main links next to it, the tools (search, notifications, account) on the right. |
+| Links × dropdown | The less used links go inside a dropdown ("More") so the bar never wraps. |
+| Light × primary | A light bar for working screens, a bar in the primary colour for a tool with its own identity. |
+| Icons × badges | Tool icons with a counter on the corner (`badge-float`); the account as initials or a photo. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| Moodle's bar keeps its design in each version | The user must find the same navigation in every course; the design system documents it, it does not replace it. |
+| Links are pills with a tint, the current one is stronger | It is clear where you are from the weight and the tint, not only from the colour. |
+| A thin border and rounded corners on the standalone navbar | It separates the bar from the page without a heavy shadow. |
 
 ## Classes
 

@@ -1,9 +1,9 @@
 ---
-title: Insignias
+title: Badges
 summary: "Una etiqueta pequeña que cuenta algo o nombra un estado, junto a lo que describe."
 group: bootstrap
 section: feedback
-order: 15
+order: 16
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -11,7 +11,7 @@ import Matrix from '../../../../components/Matrix.astro';
 import Rule from '../../../../components/Rule.astro';
 import Only from '../../../../components/Only.astro';
 
-Una insignia es una etiqueta corta: un recuento (4 mensajes) o un estado (Completado, Oculto). Va junto a un título, un botón o una fila, y se lee con ello.
+Un badge es una etiqueta corta: un recuento (4 mensajes) o un estado (Completado, Oculto). Va junto a un título, un botón o una fila, y se lee con ello.
 
 ## Cuándo usarlo
 
@@ -25,8 +25,8 @@ Una insignia es una etiqueta corta: un recuento (4 mensajes) o un estado (Comple
 </Rule>
 <Rule kind="dont" title="No">
 
-- Escribir frases en una insignia.
-- Usar insignias como botones.
+- Escribir frases en un badge.
+- Usar badges como botones.
 - Usar muchos colores en una lista: deja de significar algo.
 
 </Rule>
@@ -38,9 +38,42 @@ Una `badge` con un **color de fondo** y un texto que contrasta con él. Dentro d
 
 ## Variantes y estados
 
+### Rellenos
+
 <Example title="Colores y píldoras" src="badges/basic" />
 
+### Suaves, de contorno y con punto
+
+Didactika añade las variantes que necesitan la mayoría de los estados. La suave (`badge-soft`) es el tinte del color y es la que se usa en listas; la de contorno (`badge-outline`) es la más discreta; un punto (`badge-dot`) convierte un badge en un estado.
+
+<Example title="Suaves, de contorno y con punto" src="badges/soft" />
+
+### Tamaños
+
+<Example title="Tamaños" src="badges/sizes" />
+
+### En contexto
+
 <Example title="En contexto" src="badges/context" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Suave × lista | Estados en una tabla o una lista: suave con punto y en píldora («Activo», «Pendiente de revisión»). |
+| Relleno × recuento | Contadores en botones e iconos: relleno, en píldora, en peligro cuando pide atención. |
+| Contorno × secundario | Una etiqueta que describe sin alertar (una categoría, una versión). |
+| Badge + icono | Un icono antes del texto para un estado que lo tiene (Completado con una marca). No un icono y un punto a la vez. |
+| Badge × esquina | Un contador en la esquina de un botón de icono o un avatar (`badge-float` dentro de `position-relative`). |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Lo suave es lo predeterminado para estados | Una página llena de badges rellenos grita; los tintes dejan que el ojo lea las filas y vea cuál es «Pendiente». |
+| El color del texto se deriva del rol | Un badge suave mantiene 4,5:1 sea cual sea el color del tema, algo que un pastel fijo no puede. |
+| El punto repite el color en una forma | El estado no es solo un color: el punto más la palabra lo dicen dos veces. |
+| Los contadores de esquina llevan un aro del color de la página | El número se lee sobre cualquier icono. |
 
 ## Clases
 
@@ -49,6 +82,10 @@ Una `badge` con un **color de fondo** y un texto que contrasta con él. Dentro d
 | `badge` | Base |
 | <Only of="v53" inline>`text-bg-primary`, `text-bg-success`…</Only><Only of="v45,v41" inline>`badge-primary`, `badge-success`…</Only> | Color y color del texto a la vez |
 | `rounded-pill` | Totalmente redondeada |
+| `badge-soft`, `badge-outline` | Badge teñido y de contorno, con el color del rol (Didactika) |
+| `badge-dot` | Un punto de estado antes del texto (Didactika) |
+| `badge-sm`, `badge-lg` | Badge más pequeño y más grande (Didactika) |
+| `badge-float` | Un contador en la esquina de su elemento padre (Didactika) |
 
 ## En esta versión
 

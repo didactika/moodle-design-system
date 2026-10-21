@@ -1,0 +1,48 @@
+---
+title: "API: icons and brand"
+summary: The Moodle icon ids with the Font Awesome name each version draws them with, and the colours and logo of the Didactika theme.
+group: guides
+order: 4
+---
+
+## Icons
+
+`/api/icons.json` maps every icon id Moodle knows to the Font Awesome name each version draws it with. Moodle 5.x and 4.5 use Font Awesome 6; 4.1 uses Font Awesome 4.7, so the same id can have a different name (`circle-plus` or `file-o`).
+
+```json
+{
+  "versions": [{"id": "v53", "family": "fa6"}, {"id": "v45", "family": "fa6"}, {"id": "v41", "family": "fa4"}],
+  "icons": {
+    "a/add_file": {"v53": "circle-plus", "v45": "circle-plus", "v41": "file-o"}
+  }
+}
+```
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const {versions, icons} = await (await fetch(root + '/api/icons.json')).json();
+
+const family = Object.fromEntries(versions.map((v) => [v.id, v.family]));
+const name = icons['t/edit'].v41;                       // a name of Font Awesome 4.7
+const html = family.v41 === 'fa4' ? `<i class="fa fa-${name}"></i>` : `<i class="fa-solid fa-${name}"></i>`;
+```
+
+A name that starts with `regular ` or `brands ` already carries its family. An id with no entry for a version has no icon there: do not draw one by hand. The rule is the same everywhere in this system: icons come from Moodle, never drawn for a plugin.
+
+## Brand
+
+`/api/brand.json` holds the palette of the Didactika theme and its assets:
+
+| Field | Meaning |
+|---|---|
+| `teal` | The 50 to 950 scale of the brand colour |
+| `extra` | The few neutrals and accents used besides it |
+| `roles` | The colour of each Bootstrap role (`primary`, `secondary`, `success`...) with the Didactika theme on |
+| `assets.logo`, `assets.icon`, `assets.share` | The logo, the icon and the image used when a page is shared |
+
+```js
+const brand = await (await fetch(root + '/api/brand.json')).json();
+console.log(brand.roles.primary, brand.assets.logo);
+```
+
+The roles are what the "Didactika theme" switch of the header applies; to recolour with something else, change the Bootstrap variables, never the components.

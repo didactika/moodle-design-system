@@ -1,0 +1,54 @@
+---
+title: "API: recipes"
+summary: Three small scripts that put the data of this site to work in the documentation and the tests of a plugin.
+group: guides
+order: 5
+---
+
+Every recipe reads the JSON of the site; none of them needs a key or a build of this repository.
+
+## Link every component a plugin uses
+
+A plugin's README or wiki can name the components it uses and link each one to its page, in the language of the reader.
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const index = await (await fetch(root + '/api/index.json')).json();
+
+const used = ['bootstrap/buttons', 'bootstrap/tables', 'bootstrap/modal'];
+const lines = used.map((id) => {
+    const page = index.pages.find((p) => p.id === id);
+    return `- [${page.title.en}](${page.url.en}?version=v53): ${page.summary.en}`;
+});
+console.log(lines.join('\n'));
+```
+
+## Check that a template uses what the system publishes
+
+Compare the classes of a plugin's template with those of the example, so a redraw is caught in a review.
+
+```js
+const buttons = await (await fetch(root + '/api/components/buttons.json')).json();
+const classes = (html) => new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1].split(/\s+/)));
+
+const expected = classes(buttons.examples.find((e) => e.id === 'buttons/group').bootstrap5.html);
+const actual = classes(await readFile('templates/toolbar.mustache', 'utf8'));
+const missing = [...expected].filter((c) => !actual.has(c));
+console.log(missing.length ? `Not in the template: ${missing.join(', ')}` : 'Same classes');
+```
+
+## Open the page in the state of a ticket
+
+A bug report about a component on Moodle 4.5 is a link, not a screenshot to describe:
+
+```
+https://didactika.github.io/moodle-design-system/en/bootstrap/tables/?version=v45#sortable-headers
+```
+
+Every section of a page has an anchor (the `id` of its heading), so the link lands on the example.
+
+## Keep it working
+
+- Check `schema === 1` before reading; the number changes only when a field is removed or changes meaning.
+- Identifiers of pages and examples do not change once published; titles and summaries may.
+- The data is rebuilt with the site: cache it for a day, not forever.

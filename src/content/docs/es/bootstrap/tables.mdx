@@ -41,7 +41,46 @@ Una `table` con una **leyenda** (`caption`), un **encabezado** (`thead`, `th sco
 
 <Example title="Una tabla de datos" src="tables/basic" />
 
-<Example title="Variantes" src="tables/variants" />
+### Barra de herramientas, selección, acciones y paginador
+
+Cómo construye Didactika una tabla con la que la gente trabaja: una barra de herramientas encima (búsqueda, filtros y la acción principal), una barra que aparece al seleccionar filas, una columna de casillas, cabeceras ordenables, las acciones de una fila al final y siempre visibles, y el paginador de una lista debajo. Todo vive en una tarjeta.
+
+<Example title="Barra de herramientas, selección y acciones" src="tables/selectable" />
+
+### Compacta, con personas y progreso
+
+<Example title="Compacta" src="tables/compact" />
+
+### Cabeceras ordenables
+
+Una cabecera ordenable es un botón dentro del `th`. Solo una columna está ordenada a la vez y el `aria-sort` de su `th` (`ascending`, `descending` o `none`) dice cuál: el icono de la columna ordenada va en el color primario y opaco; los demás se atenúan hasta que el puntero o el teclado llegan a ellos. La segunda tabla muestra cada estado junto a los demás.
+
+<Example title="Cabeceras ordenables y sus estados" src="tables/sortable" />
+
+### Estilos de fila
+
+<Example title="Estilos de fila" src="tables/states" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Tabla × barra de herramientas | Búsqueda y filtros a la izquierda, la acción principal a la derecha; la barra va dentro de la misma tarjeta que la tabla. |
+| Tabla × selección | Una columna de casillas; al seleccionar filas una barra muestra cuántas y las acciones que se les aplican. |
+| Tabla × acciones de fila | Botones de icono al final de la fila (editar, ocultar, eliminar), siempre visibles, nunca ocultos hasta pasar el ratón. |
+| Tabla × paginador | El paginador de una lista en el pie: filas por página, rango y flechas. |
+| Tabla × estado | Un badge suave con un punto para el estado de cada fila. |
+| Compacta × personas | Poco relleno, un avatar con un nombre, un rol en un badge y una barra de progreso fina. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Ancho completo, una cabecera pequeña en mayúsculas y líneas discretas | La cabecera es una etiqueta, no un título; el ojo va a los datos. |
+| Las acciones de una fila están siempre visibles | Esconderlas hasta pasar el ratón las hace invisibles en pantallas táctiles y para quien usa el teclado, y mueve el diseño. |
+| La fila seleccionada va teñida | Se ve a qué se aplicará una acción antes de pulsarla. |
+| La barra de herramientas, la tabla y el paginador son una tarjeta | Son un solo objeto; el usuario ve una sola cosa con la que trabajar. |
+| Las cabeceras ordenables son botones con un icono | Anuncian el orden y se alcanzan con el teclado. |
 
 ## Clases
 
@@ -53,6 +92,12 @@ Una `table` con una **leyenda** (`caption`), un **encabezado** (`thead`, `th sco
 | `table-active`, `table-success`… | Color de una fila o celda |
 | `table-responsive` | Se desplaza dentro de su caja en pantallas pequeñas |
 | `align-middle` | Alineación vertical |
+| `table-toolbar`, `table-toolbar-start`, `table-toolbar-end` | La barra sobre una tabla (Didactika) |
+| `table-toolbar-selection` | La barra que aparece al seleccionar filas (Didactika) |
+| `table-select` | La columna estrecha de la casilla (Didactika) |
+| `table-actions` | La celda con las acciones de una fila (Didactika) |
+| `table-sort` | Una cabecera ordenable (Didactika) |
+| `table-foot` | El pie de una tabla, para el paginador (Didactika) |
 
 ## En esta versión
 

@@ -1,0 +1,13 @@
+{
+  "default": "0.1",
+  "versions": [
+    {
+      "id": "0.1",
+      "label": "v0.1",
+      "status": {
+        "en": "Current",
+        "es": "Actual"
+      }
+    }
+  ]
+}

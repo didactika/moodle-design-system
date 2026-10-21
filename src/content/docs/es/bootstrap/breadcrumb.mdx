@@ -40,7 +40,35 @@ Un `nav` con una lista ordenada (`breadcrumb`) de **elementos** (`breadcrumb-ite
 
 <Example title="Migas de pan" src="breadcrumb/basic" />
 
+<Only of="v53">
+
+### Las migas propias de Moodle 5.3
+
+Moodle 5.3 dibuja sus migas con un componente propio (`mds-breadcrumb`), que acorta un camino largo con un menú. Donde una página muestra las migas de Moodle, son estas.
+
+<Example title="Migas de Moodle 5.3" src="breadcrumb/moodle" />
+
+</Only>
+
+### Estados
+
 <Example title="Estados" src="breadcrumb/states" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Migas × longitud | Hasta cuatro niveles completos; más allá, acorta los intermedios (Moodle 5.3 lo hace con un menú). |
+| Migas + icono | Un icono solo en el primer nivel (Inicio), nunca en todos. |
+| Migas × título | Sobre el título de la página, que repite el último nivel. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Los enlaces son discretos y toman un tinte al pasar | El camino es orientación, no la página; no debe competir con el título. |
+| La página actual es oscura y en seminegrita | Es lo único que no es un enlace, y la diferencia se ve sin color. |
+| Un enlace en el que se hizo clic se ve como un enlace en reposo | Solo el teclado recibe el anillo, así que un clic nunca deja una caja pegada a un nivel. |
 
 ## Clases
 

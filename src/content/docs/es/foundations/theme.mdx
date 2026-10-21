@@ -1,0 +1,39 @@
+---
+title: Tema de Didactika
+summary: El sistema de diseño es lo que aplica cada plugin; el tema de Didactika es lo que añade encima un sitio de Didactika, y tiene su propia versión.
+group: foundations
+order: 5
+---
+
+Este sitio documenta dos cosas y las mantiene separadas a propósito.
+
+- **El sistema de diseño** es lo que aplican los plugins de Didactika: componentes, formas, tamaños, estados, layout y la manera en que se dibuja cada versión de Moodle. Un plugin usa solo esto, así que se ve bien en cualquier sitio Moodle, sea cual sea su tema.
+- **El tema de Didactika** es lo que añade encima un sitio de Didactika: la paleta, la tipografía, el gradiente, la elevación y algunos detalles en la documentación. Un plugin nunca fija nada de esto.
+
+El interruptor **Tema de Didactika** de la cabecera dibuja cada ejemplo con el tema sobre el sistema de diseño. Apagado, ves el sistema de diseño solo, como lo recibe un plugin en un sitio sin personalizar.
+
+## Versiones del tema
+
+El selector junto al interruptor elige qué versión del tema se dibuja. La actual es **v0.1**. Una versión nueva del tema cambia lo que añade el tema y nunca el sistema de diseño, así que un plugin no tiene que cambiar cuando cambia el tema.
+
+Enlaza una página con el tema activo: `?brand=1&theme=0.1`.
+
+## Qué cambia la v0.1
+
+| Área | Sistema de diseño (plugins) | Tema de Didactika v0.1 |
+|---|---|---|
+| Color | Los colores del sitio Moodle, con los tonos derivados de ellos | La paleta de Didactika sobre los roles de Bootstrap: primary `#0f766e`, secondary `#4f46e5`, success `#15803d`, info `#0369a1`, warning `#b45309`, danger `#b91c1c`; cada uno llega a 4,5:1 con texto blanco |
+| Tipografía | La fuente del tema de Moodle | IBM Plex Sans para el texto y Space Grotesk para los títulos, los de tarjetas y diálogos y los nombres de marca |
+| Gradiente | Ninguno: colores sólidos | Un gradiente diagonal desde el color primario en los botones primarios, en el relleno de las barras de progreso, en una navbar primaria y, suave, al pasar el puntero por una tarjeta |
+| Elevación | Sombras neutras | Sombras teñidas del color primario y mayor radio en tarjetas y diálogos |
+| Documentación | Las páginas tal cual | Una nota al inicio de cada página que dice que el tema está activo, y las secciones que solo valen para el tema |
+
+## Qué no cambia
+
+El tema cambia valores, no estructura: tamaños, espaciado, estados, anillo de foco, iconos y comportamiento son los del sistema de diseño. Eso es lo que permite que un plugin se vea igual con o sin tema, y lo que evita que un tema rompa una pantalla.
+
+## Reglas para los plugins
+
+- Usa las variables de Bootstrap y las clases de los componentes (`var(--bs-primary)`, `btn-primary`), nunca un hex de la paleta. El tema llega al plugin por esas variables.
+- No fijes una familia tipográfica, un gradiente ni una sombra propia en un plugin. Si una pantalla necesita uno, va en el tema.
+- Prueba una pantalla con el tema apagado y con él encendido: las dos tienen que verse bien.

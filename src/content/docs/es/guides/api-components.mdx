@@ -1,0 +1,51 @@
+---
+title: "API: componentes y ejemplos"
+summary: Cada ejemplo de un componente, como marcado que se pega en una plantilla, para Bootstrap 5 y para Bootstrap 4.
+group: guides
+order: 2
+---
+
+La documentación de un plugin (o sus pruebas) no debería guardar su propia copia de "cómo es un botón de Didactika". Lee el ejemplo de aquí y lo usa.
+
+## Qué se publica
+
+`/api/components/index.json` lista los componentes que tienen ejemplos. `/api/components/<componente>.json` guarda todos los ejemplos de uno:
+
+| Campo | Significado |
+|---|---|
+| `id` | El componente, como `buttons` |
+| `page` | La página del sitio que lo explica, como `bootstrap/buttons` |
+| `examples[].id` | El ejemplo, como `buttons/icons`. Estable una vez publicado |
+| `examples[].title` | Su nombre en `en` y `es` |
+| `examples[].icons` | Los ids de iconos de Moodle que usa (`t/add`, `i/import`...) |
+| `examples[].bootstrap5` | `html` y `mustache` para Moodle 5.x |
+| `examples[].bootstrap4` | `html` y `mustache` para Moodle 4.x |
+
+## HTML o Mustache
+
+- **`html`** es el ejemplo como lo dibuja la página, con los iconos como marcadores `data-pix`. Úsalo en un documento, una prueba de capturas o una vista previa estática.
+- **`mustache`** cambia cada icono por la llamada que hace una plantilla de Moodle (`{{#pix}}t/add, core{{/pix}}`), así que se puede dejar en `templates/*.mustache` tal cual.
+
+Las dos generaciones se diferencian donde se diferencian Bootstrap 4 y 5 (`ms-2` o `ml-2`, `data-bs-toggle` o `data-toggle`, `text-bg-*` o `badge-*`), así que se elige por la versión de Moodle del plugin, no por gusto.
+
+## Úsalo
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const list = await (await fetch(root + '/api/components/index.json')).json();
+console.log(list.components.map((c) => c.id));
+
+const tables = await (await fetch(root + '/api/components/tables.json')).json();
+const sortable = tables.examples.find((e) => e.id === 'tables/sortable');
+console.log(sortable.title.es);
+console.log(sortable.bootstrap5.mustache);
+console.log(sortable.icons);
+```
+
+## ¿Qué iconos necesita?
+
+`examples[].icons` lista los ids de Moodle. Para dibujarlos en una página de documentación, lee la tabla de iconos (mira "API: iconos y marca") y usa el nombre de la versión de Font Awesome del Moodle de destino.
+
+## Lo que un componente no es
+
+Un ejemplo es un **punto de partida con sus clases**: la capa de Didactika es el CSS que hace que se vea así (clases `dd-*` y los modificadores que lista la página de cada componente), y un plugin nunca la redibuja. Si un plugin necesita algo que el ejemplo no tiene, la página del componente dice qué combinación usar o qué clase pedir.

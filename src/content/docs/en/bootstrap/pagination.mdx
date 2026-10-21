@@ -40,7 +40,43 @@ A `nav` with a list (`pagination`) of **items** (`page-item`), each with a **lin
 
 <Example title="Pagination, sizes" src="pagination/basic" />
 
+### States
+
 <Example title="States" src="pagination/states" />
+
+### The pagination of a list
+
+The pagination Didactika uses on its lists and tables says how many rows there are on a page, which ones are shown and where the arrows lead. It is the same in every list, so a user who has learnt it once knows it everywhere.
+
+<Example title="Pagination of a list" src="pagination/list" />
+
+<Only of="v53">
+
+### Moodle 5.3's own pagination
+
+Moodle 5.3 has its own pagination component (`mds-pagination`) for the places where Moodle itself paginates.
+
+<Example title="Pagination of Moodle 5.3" src="pagination/moodle" />
+
+</Only>
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Numbered pages × few pages | Up to about nine pages: show them all, with previous and next. |
+| Pager of a list × many rows | Rows per page, the range ("21–40 of 312") and the four arrows. Under a table, inside the card that holds it. |
+| Previous / Next × stepper | Two buttons and "Page 3 of 16" for a flow where only the next page matters. |
+| Size | Small under a dense table, default elsewhere. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The pager says "21–40 of 312" instead of only numbering pages | People want to know how much there is, not which page number they are on. |
+| Rows per page is a select next to the count | The user can show more rows without leaving the list, and the choice sits where the count is. |
+| The arrows are a group of icon buttons | They line up with the rest of the buttons and are easy to hit. |
+| The current page is filled, the others are plain | There is one clear "you are here". |
 
 ## Classes
 
@@ -50,6 +86,7 @@ A `nav` with a list (`pagination`) of **items** (`page-item`), each with a **lin
 | `pagination-sm`, `pagination-lg` | Smaller and larger |
 | `page-item`, `page-link` | An item and its link |
 | `active`, `disabled` | State of an item |
+| `dd-pager`, `dd-pager-size`, `dd-pager-end`, `dd-pager-range` | The pagination of a list: rows per page, range and arrows (Didactika) |
 
 ## In this version
 

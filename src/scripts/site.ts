@@ -2,6 +2,7 @@
 // version, the icons of each version, and an inspector that measures anything inside an example and shows its code.
 import './colour';
 import {installBehaviours} from './behaviours';
+import {installSelectMenus} from './select-menu';
 import {$, $$, readJson} from './dom';
 import {DIDACTIKA, contrast, grade, hex, parse, styleElements, themeCss, toHex} from './theme';
 import type {Rgba} from './theme';
@@ -28,10 +29,11 @@ const named = (style: CSSStyleDeclaration): Record<string, string> => style as u
 const config = readJson<Config>('ds-config') as Config;
 const text = config.ui;
 const root = document.documentElement;
-const state: {version: string; mode: Mode | null; brand: boolean; designer: boolean; itab: InspectorTab} = {
+const state: {version: string; mode: Mode | null; brand: boolean; themeVersion: string; designer: boolean; itab: InspectorTab} = {
     version: root.dataset.version ?? (config.versions[0] as VersionInfo).id,
     mode: (root.dataset.theme as Mode | undefined) || null,
     brand: root.dataset.brand === '1',
+    themeVersion: root.dataset.themeVersion ?? '0.1',
     designer: root.dataset.designer === '1',
     itab: 'design',
 };
@@ -110,6 +112,11 @@ const applyBrand = (): void => {
     $$('.ds-v-scope').forEach((el) => el.classList.toggle('ds-themed', state.brand));
     $$('[data-brand-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(state.brand)));
     root.dataset.brand = state.brand ? '1' : '0';
+    root.dataset.themeVersion = state.themeVersion;
+    const themeLabel = $('#ds-themever-label');
+    if (themeLabel) { themeLabel.textContent = `v${state.themeVersion}`; }
+    $$('#ds-themever [data-theme-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.themeVersion === state.themeVersion)));
+    $$('[data-theme-banner-version]').forEach((b) => { b.textContent = `v${state.themeVersion}`; });
 };
 
 const apply = (): void => {
@@ -211,6 +218,9 @@ const body = $('#ds-insp-body') ?? document.createElement('div');
 const layer = document.body.appendChild(document.createElement('div'));
 layer.className = 'ds-layer';
 let hoverBox: HTMLElement | null = null;
+/** The inspector needs a pointer and room beside the page: on a phone it is off, whatever was chosen. */
+const phone = matchMedia('(max-width: 860px)');
+const designerOn = (): boolean => state.designer && !phone.matches;
 let selected: Editable | null = null;
 let path: Editable[] = [];
 
@@ -220,13 +230,13 @@ const clearSelection = (): void => {
     selected = null;
     path = [];
     layer.innerHTML = '';
-    rail.dataset.rail = state.designer ? 'idle' : 'toc';
+    rail.dataset.rail = designerOn() ? 'idle' : 'toc';
     body.innerHTML = `<p class="ds-insp-empty">${text.inspectHint}</p>`;
 };
 /** Turns the inspector on or off for the whole site. Off, the components of the examples can be used like any other. */
 const applyDesigner = (): void => {
-    root.dataset.designer = state.designer ? '1' : '0';
-    $$('[data-designer-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(state.designer)));
+    root.dataset.designer = designerOn() ? '1' : '0';
+    $$('[data-designer-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(designerOn())));
     if (hoverBox) { hoverBox.hidden = true; }
     clearSelection();
 };
@@ -497,7 +507,7 @@ const copy = async(value: string, el: Element): Promise<boolean> => {
 };
 
 document.addEventListener('mousemove', (event) => {
-    const el = state.designer && event.target instanceof Element ? event.target.closest('.ds-frame *') : null;
+    const el = designerOn() && event.target instanceof Element ? event.target.closest('.ds-frame *') : null;
     if (!hoverBox) { hoverBox = document.body.appendChild(document.createElement('div')); hoverBox.className = 'ds-hover-box'; }
     if (!el) { hoverBox.hidden = true; return; }
     const r = el.getBoundingClientRect();
@@ -517,7 +527,7 @@ document.addEventListener('click', (event) => {
     // An element of an example is selected; everything else on a click is about the page.
     const frame = target.closest('.ds-frame');
     if (frame && target !== frame) {
-        if (state.designer) { event.preventDefault(); inspect(target as Editable); } else if (target.closest('a[href]')) { event.preventDefault(); }
+        if (designerOn()) { event.preventDefault(); inspect(target as Editable); } else if (target.closest('a[href]')) { event.preventDefault(); }
         return;
     }
     if (target.closest('[data-designer-toggle]')) {
@@ -559,6 +569,13 @@ document.addEventListener('click', (event) => {
         return;
     }
 
+    const themePick = target.closest<HTMLElement>('#ds-themever [data-theme-version]');
+    if (themePick) {
+        state.themeVersion = themePick.dataset.themeVersion ?? state.themeVersion;
+        store('ds-theme-version', state.themeVersion);
+        applyBrand();
+        return;
+    }
     const pick = target.closest<HTMLElement>('#ds-version [data-version], [data-pick-version]');
     if (pick) {
         state.version = pick.dataset.version ?? pick.dataset.pickVersion ?? state.version;
@@ -635,6 +652,53 @@ menu?.addEventListener('click', () => {
 });
 nav?.addEventListener('click', (event) => { if (event.target instanceof Element && event.target.closest('a')) { nav.classList.remove('is-open'); menu?.setAttribute('aria-expanded', 'false'); } });
 
+const head = $('.ds-head');
+const toolsBtn = $('#ds-tools-btn');
+const setTools = (open: boolean): void => {
+    head?.classList.toggle('is-tools-open', open);
+    toolsBtn?.setAttribute('aria-expanded', String(open));
+    if (open && nav) { nav.classList.remove('is-open'); menu?.setAttribute('aria-expanded', 'false'); }
+};
+toolsBtn?.addEventListener('click', () => setTools(!head?.classList.contains('is-tools-open')));
+menu?.addEventListener('click', () => { if (nav?.classList.contains('is-open')) { setTools(false); } });
+document.addEventListener('click', (event) => { if (event.target instanceof Element && head?.classList.contains('is-tools-open') && !event.target.closest('.ds-head')) { setTools(false); } });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setTools(false); } });
+matchMedia('(min-width: 981px)').addEventListener('change', () => setTools(false));
+
+// The navigation remembers what is open and where it is scrolled, so a click (or a reload) does not send the reader back to the top.
+const navIn = $<HTMLElement>('.ds-nav-in');
+const saveNav = (): void => {
+    if (!navIn) { return; }
+    const open: Record<string, boolean> = {};
+    $$<HTMLDetailsElement>('details[data-nav-key]', navIn).forEach((d) => { open[d.dataset.navKey as string] = d.open; });
+    store('ds-nav', JSON.stringify({open, top: navIn.scrollTop}));
+};
+if (navIn) {
+    navIn.addEventListener('toggle', saveNav, true);
+    let pending = 0;
+    navIn.addEventListener('scroll', () => { window.clearTimeout(pending); pending = window.setTimeout(saveNav, 150); }, {passive: true});
+    window.addEventListener('pagehide', saveNav);
+    // Without a saved position, the page you are on is brought into view.
+    const here = navIn.querySelector<HTMLElement>('[aria-current="page"]');
+    let known = false;
+    try { known = Boolean(localStorage.getItem('ds-nav')); } catch (error) { known = false; }
+    if (here && !known) { here.scrollIntoView({block: 'center'}); }
+}
+// The footer goes over the side columns; they shrink by what it covers so their last items stay reachable.
+const footer = $('.ds-footer');
+const shell = $('.ds-shell');
+if (footer && shell) {
+    let frame = 0;
+    const fit = (): void => {
+        frame = 0;
+        shell.style.setProperty('--ds-foot-overlap', `${Math.max(0, Math.ceil(innerHeight - footer.getBoundingClientRect().top))}px`);
+    };
+    const queue = (): void => { if (!frame) { frame = requestAnimationFrame(fit); } };
+    addEventListener('scroll', queue, {passive: true});
+    addEventListener('resize', queue);
+    fit();
+}
+
 const headings = $$('.ds-article h2[id], .ds-article h3[id]');
 if (headings.length) {
     const spy = new IntersectionObserver((entries) => {
@@ -645,6 +709,9 @@ if (headings.length) {
     headings.forEach((h) => spy.observe(h));
 }
 
-installBehaviours({bs5, enabled: () => !state.designer});
+installBehaviours({bs5, enabled: () => !designerOn()});
+installSelectMenus({enabled: () => !designerOn()});
+phone.addEventListener('change', applyDesigner);
+applyDesigner();
 applyDesigner();
 apply();

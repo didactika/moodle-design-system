@@ -40,9 +40,58 @@ A box (`card`) with an optional **image** (`card-img-top`), **header**, **body**
 
 <Example title="Cards" src="cards/basic" />
 
+### With icons
+
+An icon tile (`dd-tile`) at the top gives a card its identity. Use it for features, sections and entry points.
+
+<Example title="With icons" src="cards/icons" />
+
+### Figures
+
+A figure, its label and its trend, next to a tile. For dashboards and summaries.
+
+<Example title="Figures" src="cards/stats" />
+
+### Cards that are links
+
+A card that leads somewhere (`card-hover`) lifts a little under the pointer and draws the focus ring around the whole card.
+
+<Example title="Action cards" src="cards/actions" />
+
+### Mixing the parts
+
+Badges, a progress bar, icons and a footer with actions in the same card: a course card and a card with a list.
+
+<Example title="Course cards" src="cards/course" />
+
+### Structure with a list
+
 <Example title="Structure with a list" src="cards/structure" />
 
+### Horizontal
+
 <Example title="Horizontal" src="cards/horizontal" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Image × body × action | The classic card: image on top, title, two lines of text and one main action. |
+| Icon tile × title × text | A feature or an entry point; no image needed. |
+| Figure × trend | A number, what it counts and how it moves; the trend in success or danger colour. |
+| Card + badges + progress | A course or a task: status as soft badges, progress as a bar, actions in the footer. |
+| Card × link | The whole card is a link (`card-hover`), with no other links inside it. |
+| Card + list | A card with a flush list group for a summary or a short list. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| A hairline border and a very soft shadow | The card separates from the page without the heavy outline that makes a page of cards look like a form. |
+| A larger radius and more padding | It reads as a surface you can put things on; content never touches the edge. |
+| The header and footer have no fill | They are metadata, so they do not compete with the title in the body. |
+| Cards that are links lift and show one ring around the whole card | The user knows the whole card is the target and sees where the keyboard is. |
+| Icons sit in a tile | The same piece is used in alerts, toasts, dialogs and cards, so an icon always means the same kind of thing. |
 
 ## Classes
 
@@ -54,6 +103,10 @@ A box (`card`) with an optional **image** (`card-img-top`), **header**, **body**
 | `card-img-top` | Image at the top |
 | `card-link` | Links in a row |
 | `row g-0`, `col-md-*` | Horizontal layout |
+| `card-hover` | A card that is a link: it lifts on hover and shows the focus ring (Didactika) |
+| `card-flat` | A card without a shadow (Didactika) |
+| `dd-tile`, `dd-tile-lg`, `dd-tile-round` | The icon tile, in other sizes and shapes (Didactika) |
+| `dd-stat`, `dd-stat-value`, `dd-stat-label`, `dd-stat-trend` | A figure with its label and trend (Didactika) |
 
 ## In this version
 
