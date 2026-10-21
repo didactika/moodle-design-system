@@ -1,0 +1,34 @@
+---
+title: Movimiento
+summary: Cómo se mueven las cosas, cuánto tardan y qué no se mueve nunca. El sistema deja el movimiento al mínimo; el tema de Didactika añade más.
+group: foundations
+order: 6
+---
+
+El movimiento explica qué cambió: un menú que se abre desde su botón, una fila que aparece, una pulsación que se registra. Nunca es decoración, nunca retrasa a la persona usuaria y siempre cede ante el ajuste "reducir movimiento".
+
+## Duraciones y curva
+
+| Uso | Duración | Dónde se usa |
+|---|---|---|
+| Respuesta | 120–140 ms | Hover, foco, color de un botón, un chip o un enlace |
+| Cambio de estado | 200 ms | Un menú o un tooltip que aparece, un interruptor que se mueve, una barra que se llena |
+| Entrada | 300 ms | Un diálogo, un panel lateral, un toast |
+| Onda (tema) | 600 ms | El círculo que crece desde el punto de un clic y se desvanece |
+
+Todas usan una sola curva: `cubic-bezier(.2, 0, 0, 1)`, que arranca rápido y termina despacio, de modo que lo que hizo la persona se responde al instante.
+
+## Qué hace el sistema de diseño
+
+El sistema de diseño, que los plugins publican para toda la comunidad, solo funde colores (140 ms) y muestra el anillo de foco. No eleva, escala ni lanza ondas: un plugin no debe hacer que un sitio Moodle se sienta distinto del resto del sitio.
+
+## Qué añade el tema de Didactika
+
+Con el tema activo, los botones, chips, enlaces de página y la lupa de una barra responden a un clic con una **onda** que nace donde estaba el puntero. Los botones rellenos se **elevan** un píxel y toman una sombra teñida al pasar el puntero. Los botones de icono crecen un poco al pasar el puntero. El estado pulsado de un botón no se dibuja: la onda es la respuesta.
+
+## Reglas
+
+- No animes propiedades de layout (`width`, `height`, `top`) salvo en una barra o un panel: usa `transform` y `opacity`.
+- Un movimiento de más de 300 ms tiene que significar algo (un diálogo que entra); si no, acórtalo.
+- Con `prefers-reduced-motion: reduce`, las transiciones y la onda se apagan y nada se desliza: los estados siguen cambiando, al instante.
+- Nunca uses el movimiento como única señal: un botón que se pulsó también cambia su estado en texto o color.

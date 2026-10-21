@@ -1,0 +1,29 @@
+---
+title: Confirmar, hacer y deshacer
+summary: Cómo se confirma una acción destructiva, cómo se anuncia su resultado y cómo se deshace.
+group: patterns
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+
+Una acción destructiva tiene tres momentos: la pregunta, la acción y el camino de vuelta. Cada uno tiene su componente y los tres se usan siempre juntos.
+
+## El flujo
+
+1. **Pregunta**: un diálogo con la pastilla de peligro, un título que es una pregunta con la cantidad ("¿Eliminar 3 cursos?"), una línea que dice qué se pierde y qué aún se puede recuperar, y un botón con el nombre de la acción.
+2. **Acción**: el diálogo se cierra al instante; la lista se actualiza sin recargar.
+3. **Camino de vuelta**: un toast que dice qué pasó y ofrece "Deshacer" mientras sea posible (unos segundos, o lo que permita la papelera).
+
+<Example title="Confirmación y resultado" src="patterns/confirm-flow" />
+
+## Reglas
+
+- Pregunta solo por lo que no se puede deshacer. Si la acción se puede deshacer, salta el diálogo y ofrece "Deshacer".
+- El botón de peligro es el que hace la acción, a la derecha; Cancelar es un botón discreto a su izquierda.
+- El diálogo se abre con el foco en Cancelar, para que pulsar Intro por error no elimine.
+- Un toast con una acción dura lo bastante para leerlo y usarlo; nunca es el único registro de algo importante.
+
+## Construida con
+
+Diálogos, botones, pastillas de icono, toasts y, para el anuncio, una región de estado.

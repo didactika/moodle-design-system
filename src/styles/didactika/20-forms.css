@@ -2,7 +2,7 @@
 
 /* ------------------------------------------------------------------ buttons
  * Shaped like the buttons of Moodle but flatter: a small radius, less padding above and below and more at the sides, the label in a medium
- * weight. The pill is kept where the design asks for it: the buttons of a dialog. Filled buttons keep the colours of the theme; outline and link buttons answer with a tint of their own colour instead of
+ * weight. The shape comes from --dd-radius-btn, so a theme can change it in one place (the Didactika theme makes them pills). Filled buttons keep the colours of the theme; outline and link buttons answer with a tint of their own colour instead of
  * flooding with it, so a hover or a pressed state never hides the label.
  */
 .ds-v-scope .btn {
@@ -22,13 +22,12 @@
 }
 .ds-v-scope .btn-sm { min-height: var(--dd-h-sm); padding: .1875rem .75rem; border-radius: var(--dd-radius-btn); font-size: .8125rem; }
 .ds-v-scope .btn-lg { min-height: var(--dd-h-lg); padding: .375rem 1.5rem; border-radius: var(--dd-radius-btn); font-size: 1.0625rem; }
-.ds-v-scope .modal-footer .btn, .ds-v-scope .modal-footer .btn-sm, .ds-v-scope .modal-footer .btn-lg { border-radius: 999px; }
-.ds-v-scope .btn-icon { flex: none; width: var(--dd-h); padding: 0; }
-.ds-v-scope .btn-icon.btn-sm { width: var(--dd-h-sm); }
-.ds-v-scope .btn-icon.btn-lg { width: var(--dd-h-lg); }
+/* a button that holds only an icon is always round, a circle as wide as it is tall; a counter (badge-float) can sit on its corner */
+.ds-v-scope .btn-icon { position: relative; flex: none; width: var(--dd-h); height: var(--dd-h); padding: 0; border-radius: 50%; }
+.ds-v-scope .btn-icon.btn-sm { width: var(--dd-h-sm); height: var(--dd-h-sm); }
+.ds-v-scope .btn-icon.btn-lg { width: var(--dd-h-lg); height: var(--dd-h-lg); }
 .ds-v-scope .btn-primary, .ds-v-scope .btn-secondary, .ds-v-scope .btn-success, .ds-v-scope .btn-danger,
 .ds-v-scope .btn-warning, .ds-v-scope .btn-info, .ds-v-scope .btn-light, .ds-v-scope .btn-dark { box-shadow: 0 1px 2px rgb(15 23 42 / 14%); }
-.ds-v-scope .btn:active, .ds-v-scope .btn.active, .ds-v-scope .btn.ds-is-active { box-shadow: none; }
 /* the ring of a button is its own colour, lighter: a danger button is ringed in red, not in the primary colour */
 .ds-v-scope .btn { --dd-ring-c: color-mix(in srgb, var(--dd-c) 38%, transparent); }
 .ds-v-scope .btn:focus, .ds-v-scope .btn:focus-visible, .ds-v-scope .btn.ds-is-focus,
@@ -41,8 +40,6 @@
 .ds-v-scope .btn.btn[class*="btn-outline-"] { background-color: transparent; border-color: var(--dd-c); color: var(--dd-c-ink); }
 .ds-v-scope .btn.btn[class*="btn-outline-"]:hover, .ds-v-scope .btn.btn[class*="btn-outline-"].ds-is-hover,
 .ds-v-scope .btn.btn-link:hover, .ds-v-scope .btn.btn-link.ds-is-hover { background-color: var(--dd-c-soft); border-color: var(--dd-c); color: var(--dd-c-ink); text-decoration: none; }
-.ds-v-scope .btn.btn[class*="btn-outline-"]:active, .ds-v-scope .btn.btn[class*="btn-outline-"].active, .ds-v-scope .btn.btn[class*="btn-outline-"].ds-is-active,
-.ds-v-scope .btn.btn-link:active, .ds-v-scope .btn.btn-link.ds-is-active { background-color: var(--dd-c-soft-2); border-color: var(--dd-c); color: var(--dd-c-ink); }
 .ds-v-scope .btn.btn[class*="btn-outline-"]:focus, .ds-v-scope .btn.btn[class*="btn-outline-"].ds-is-focus { color: var(--dd-c-ink); }
 .ds-v-scope .btn[class*="btn-outline-"]:disabled, .ds-v-scope .btn-link:disabled { background-color: transparent; color: var(--dd-c-ink); }
 
@@ -73,7 +70,7 @@
   border: 1px solid var(--dd-line);
   border-radius: var(--dd-radius-sm);
   background-color: var(--dd-surface);
-  box-shadow: inset 0 1px 2px rgb(15 23 42 / 6%);
+  box-shadow: none;
   color: var(--dd-ink);
   font-size: .9375rem;
   line-height: 1.5;
@@ -92,10 +89,9 @@
 .ds-v-scope .form-control:hover:not(:disabled):not([readonly]), .ds-v-scope .form-control.ds-is-hover,
 .ds-v-scope .form-select:hover:not(:disabled), .ds-v-scope .form-select.ds-is-hover,
 .ds-v-scope .custom-select:hover:not(:disabled), .ds-v-scope .custom-select.ds-is-hover { border-color: var(--dd-line-hover); }
-.ds-v-scope .form-control:hover:not(:disabled):not([readonly]):not(:focus), .ds-v-scope .form-select:hover:not(:disabled):not(:focus) { background-color: color-mix(in srgb, var(--dd-primary) 3%, var(--dd-surface)); }
 .ds-v-scope .form-control:focus, .ds-v-scope .form-control.ds-is-focus,
 .ds-v-scope .form-select:focus, .ds-v-scope .form-select.ds-is-focus,
-.ds-v-scope .custom-select:focus, .ds-v-scope .custom-select.ds-is-focus { border-color: var(--dd-primary); outline: 0; background-color: var(--dd-surface); box-shadow: inset 0 1px 2px rgb(15 23 42 / 4%), 0 0 0 3px var(--dd-ring); color: var(--dd-ink); }
+.ds-v-scope .custom-select:focus, .ds-v-scope .custom-select.ds-is-focus { border-color: var(--dd-primary); outline: 0; background-color: var(--dd-surface); box-shadow: 0 0 0 3px var(--dd-ring); color: var(--dd-ink); }
 .ds-v-scope .form-control:disabled, .ds-v-scope .form-control[readonly], .ds-v-scope .form-select:disabled, .ds-v-scope .custom-select:disabled {
   border-color: var(--dd-hairline);
   background-color: var(--dd-surface-2);
@@ -220,3 +216,10 @@
 @media (prefers-reduced-motion: reduce) {
   .ds-v-scope .btn, .ds-v-scope .form-control, .ds-v-scope .form-select, .ds-v-scope .custom-select, .ds-v-scope .form-check-input { transition: none; }
 }
+
+/* a tonal button: a soft tint of its colour behind the label, between the filled button and the outline; the plain icon button is btn-link btn-icon */
+.ds-v-scope .btn.btn-tonal { border-color: transparent; background-color: var(--dd-c-soft); box-shadow: none; color: var(--dd-c-ink); }
+.ds-v-scope .btn.btn-tonal:hover, .ds-v-scope .btn.btn-tonal.ds-is-hover { background-color: var(--dd-c-soft-2); color: var(--dd-c-ink); }
+.ds-v-scope .btn.btn-tonal:disabled, .ds-v-scope .btn.btn-tonal.disabled { background-color: var(--dd-c-soft); color: var(--dd-c-ink); }
+.ds-v-scope .btn.btn-link.btn-icon { color: var(--dd-muted); }
+.ds-v-scope .btn.btn-link.btn-icon:hover, .ds-v-scope .btn.btn-link.btn-icon.ds-is-hover { background-color: var(--dd-surface-3); color: var(--dd-ink); }

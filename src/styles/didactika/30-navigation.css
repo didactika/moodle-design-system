@@ -147,7 +147,7 @@
  * The magnifier of a bar is an icon, not a field: it opens a search component under the bar (field, filters, results and the keys). The field
  * has room for a long query and the results say what each one is, so a bar never has to fit a text box.
  */
-.ds-v-scope .nav-search-toggle { width: 2.5rem; height: 2.5rem; min-height: 0; padding: 0; border-radius: var(--dd-radius-sm); color: var(--dd-ink); font-size: 1.125rem; }
+.ds-v-scope .nav-search-toggle { width: 2.5rem; height: 2.5rem; min-height: 0; padding: 0; border-radius: 50%; color: var(--dd-ink); font-size: 1.125rem; }
 .ds-v-scope .nav-search-toggle:hover, .ds-v-scope .nav-search-toggle.ds-is-hover, .ds-v-scope .nav-search-toggle[aria-expanded="true"] { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink, var(--dd-primary)); }
 .ds-v-scope .dd-search { padding: .5rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); }
 .ds-v-scope .dd-search-field { position: relative; display: flex; align-items: center; gap: .75rem; margin: 0; padding: .25rem .75rem; border-radius: var(--dd-radius); background-color: var(--dd-surface-2, var(--dd-primary-soft)); color: var(--dd-muted); font-size: 1.125rem; }

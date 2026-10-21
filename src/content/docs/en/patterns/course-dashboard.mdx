@@ -1,0 +1,32 @@
+---
+title: A dashboard
+summary: Figures, what needs attention and progress, in a page that can be read at a glance.
+group: patterns
+order: 4
+---
+
+import Example from '../../../../components/Example.astro';
+
+A dashboard answers three questions in this order: how are things, what needs me, and where are we going. It does not replace the lists: every figure leads to the list behind it.
+
+## The pieces
+
+| Piece | Answers | Built with |
+|---|---|---|
+| Figures (2–4) | How are things | Cards with a tile, a value and a label; a trend only when it means something |
+| A list of what needs attention | What needs me | A list group with a tile, a line and a badge that says why (days left, overdue) |
+| Progress | Where are we going | Progress bars with the value beside them, colour by meaning |
+
+<Example title="A course overview" src="patterns/dashboard" />
+
+## Rules
+
+- No more than four figures; if there are more, they are in a table below.
+- A figure that is bad news says so with colour and an icon, never with colour alone.
+- The order of "what needs me" is the order of urgency, not alphabetical.
+- Every card has an action or a link that leads to the detail; a dead figure is decoration.
+- On a narrow screen the pieces stack in the same order.
+
+## States
+
+A new course with no data shows empty states in each card instead of zeroes: "No activity yet".

@@ -1,0 +1,34 @@
+---
+title: Motion
+summary: How things move, how long it takes, and what never moves. The system keeps motion to a minimum; the Didactika theme adds more.
+group: foundations
+order: 6
+---
+
+Motion explains what changed: a menu that opens from its button, a row that appears, a press that registers. It is never decoration, it never delays the user, and it always yields to the setting "reduce motion".
+
+## Durations and easing
+
+| Use | Duration | Where it is used |
+|---|---|---|
+| Feedback | 120–140 ms | Hover, focus, colour of a button, a chip or a link |
+| Change of state | 200 ms | A menu or a tooltip appearing, a switch moving, a bar filling |
+| Entrance | 300 ms | A dialog, an offcanvas panel, a toast |
+| Ripple (theme) | 600 ms | The circle that grows from the point of a click and fades |
+
+All of them use one curve: `cubic-bezier(.2, 0, 0, 1)`, which starts fast and settles slowly, so what the user did is answered at once.
+
+## What the design system does
+
+The design system, which plugins publish for the whole community, only fades colours (140 ms) and shows the focus ring. It does not lift, scale or ripple anything: a plugin must not make a Moodle site feel different from the rest of the site.
+
+## What the Didactika theme adds
+
+With the theme on, buttons, chips, page links and the magnifier of a bar answer a click with a **ripple** that starts where the pointer was. Filled buttons **lift** one pixel and get a tinted shadow on hover. Icon buttons grow slightly on hover. The pressed state of a button is not drawn: the ripple is the answer.
+
+## Rules
+
+- Never animate layout properties (`width`, `height`, `top`) for something that is not a bar or a panel: use `transform` and `opacity`.
+- A movement of more than 300 ms has to mean something (a dialog entering); otherwise shorten it.
+- Under `prefers-reduced-motion: reduce`, transitions and the ripple are off and nothing slides: states still change, instantly.
+- Never use motion as the only signal: a button that was pressed also changes its state in text or colour.

@@ -1,29 +1,67 @@
 /* ================================================================== Didactika theme
- * What the Didactika theme adds on top of the design system: typography, the gradient and softer elevation. Plugins never set any of it:
- * a site that uses the theme gets it from the theme, any other site keeps its own. Everything is scoped to the theme being on and to its
- * version, so the version selector of the header can offer other versions later without touching the design system.
+ * What the Didactika theme adds on top of the design system. The design system is what the plugins we publish for the community apply, so it
+ * stays close to Moodle: sober shapes, the colours and the font of the site. Everything that would not fit a Moodle site lives here and is
+ * only drawn while the theme is on: a new typeface (Inter), pill buttons, softer and larger surfaces, a gradient, tinted elevation and
+ * motion in the manner of Material. It is scoped to the theme and to its version, so another version can be offered later.
  */
+
+/* ---- tokens: the design system draws its shapes from these, so changing them here changes every component at once */
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope {
-  --dd-theme-font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --dd-theme-display: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --dd-theme-font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dd-theme-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --dd-gradient: linear-gradient(135deg, var(--dd-primary) 0%, color-mix(in srgb, var(--dd-primary) 62%, var(--dd-info)) 100%);
   --dd-gradient-soft: linear-gradient(135deg, var(--dd-primary-soft) 0%, color-mix(in srgb, var(--dd-info) 12%, var(--dd-surface)) 100%);
+  --dd-radius-btn: 999px;
+  --dd-radius-sm: .625rem;
+  --dd-radius: .875rem;
   --dd-radius-lg: 1.25rem;
+  --dd-radius-xl: 1.75rem;
+  --dd-shadow-sm: 0 1px 2px rgb(15 23 42 / 6%), 0 4px 12px -4px color-mix(in srgb, var(--dd-primary) 14%, transparent);
   --dd-shadow-md: 0 10px 28px color-mix(in srgb, var(--dd-primary) 16%, transparent), 0 2px 6px rgb(15 23 42 / 6%);
+  --dd-shadow-lg: 0 24px 56px -12px color-mix(in srgb, var(--dd-primary) 30%, transparent), 0 4px 12px rgb(15 23 42 / 8%);
   --bs-body-font-family: var(--dd-theme-font);
   font-family: var(--dd-theme-font);
-  font-feature-settings: "ss01", "cv11";
+  font-feature-settings: "calt", "cv11", "ss03";
+  font-optical-sizing: auto;
 }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .display-1, .display-2, .display-3, .display-4, .card-title, .modal-title, .navbar-brand, .offcanvas-title, .accordion-button) {
+
+/* ---- typography */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .display-1, .display-2, .display-3, .display-4, .card-title, .modal-title, .navbar-brand, .offcanvas-title, .accordion-button, .dd-page-title, .dd-empty-title) {
   font-family: var(--dd-theme-display);
-  letter-spacing: -.012em;
+  font-weight: 700;
+  letter-spacing: -.02em;
 }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(input, select, textarea, .badge, .nav-link, .form-label, .form-control, .form-select, .dropdown-item, .alert, .toast, .table, .list-group-item, .popover, .tooltip, .page-link) { font-family: var(--dd-theme-font); }
-/* buttons take the display face: it is what makes the theme recognisable at a glance */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn { --bs-btn-font-family: var(--dd-theme-display); font-family: var(--dd-theme-display); letter-spacing: .01em; }
-/* the primary actions and the fill of a progress bar carry the gradient */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-primary:not(:disabled):not(.disabled) { border-color: transparent; background-image: var(--dd-gradient); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-primary:not(:disabled):not(.disabled):hover { filter: brightness(.94); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(input, select, textarea, .badge, .nav-link, .form-label, .form-control, .form-select, .dropdown-item, .alert, .toast, .table, .list-group-item, .popover, .tooltip, .page-link, .dd-chip) { font-family: var(--dd-theme-font); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn { --bs-btn-font-family: var(--dd-theme-font); font-family: var(--dd-theme-font); font-weight: 600; letter-spacing: -.005em; }
+
+/* ---- the primary actions and the fill of a progress bar carry the gradient */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-primary:not(.btn-tonal):not(:disabled):not(.disabled) { border-color: transparent; background-image: var(--dd-gradient); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-primary:not(.btn-tonal):not(:disabled):not(.disabled):hover { filter: brightness(.94); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .progress-bar:not([class*="bg-"]):not(.progress-bar-striped) { background-image: var(--dd-gradient); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .card-hover:hover { background-image: var(--dd-gradient-soft); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .navbar.bg-primary, html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .navbar-dark.bg-primary { background-image: var(--dd-gradient); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.navbar.bg-primary, .navbar-dark.bg-primary) { background-image: var(--dd-gradient); }
+
+/* ---- fields: a soft inner shadow, a tint on hover and a 2 px border with a halo on focus */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select) { box-shadow: inset 0 1px 2px rgb(15 23 42 / 6%); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select):hover:not(:disabled):not([readonly]):not(:focus) { background-color: color-mix(in srgb, var(--dd-primary) 3%, var(--dd-surface)); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select):focus { box-shadow: 0 0 0 1px var(--dd-primary), 0 0 0 5px var(--dd-ring); }
+
+/* ---- surfaces: cards and dialogs float, with no hard outline */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .card { border-color: color-mix(in srgb, var(--dd-hairline) 70%, transparent); box-shadow: var(--dd-shadow-sm); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .modal-content { border: 0; box-shadow: var(--dd-shadow-lg); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .modal-footer { padding-top: 1rem; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dropdown-menu { border-color: transparent; box-shadow: var(--dd-shadow-md); }
+
+/* ---- motion: a ripple from the point of the click (src/scripts/ripple.ts) and a small lift on hover */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .dd-chip, .page-link, .nav-search-toggle) { position: relative; transition: background-color var(--dd-ease), border-color var(--dd-ease), color var(--dd-ease), box-shadow .2s cubic-bezier(.2, 0, 0, 1), transform .12s cubic-bezier(.2, 0, 0, 1); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn:is(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark):not(.btn-tonal):not(:disabled):not(.disabled):hover { transform: translateY(-1px); box-shadow: 0 6px 16px -4px color-mix(in srgb, var(--dd-c) 55%, transparent); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-ripple-host { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: .26; transform: scale(0); animation: dd-ripple .6s cubic-bezier(.2, 0, 0, 1) forwards; pointer-events: none; }
+@keyframes dd-ripple { to { transform: scale(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .dd-chip, .page-link) { transition: none; transform: none !important; }
+}
+
+/* icon buttons grow a little when the pointer is over them, and the plain one shows its tinted circle */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-icon:not(:disabled):not(.disabled):hover { transform: scale(1.08); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn.btn-link.btn-icon:hover { background-color: color-mix(in srgb, var(--dd-primary) 12%, transparent); color: var(--dd-primary-ink); }
