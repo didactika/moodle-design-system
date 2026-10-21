@@ -178,7 +178,56 @@ const hideAllPopovers = (except?: HTMLElement | null): void => {
     document.querySelectorAll<HTMLElement>('[data-bs-toggle="popover"], [data-toggle="popover"]').forEach((trigger) => { if (trigger !== except) { hideTip(trigger); } });
 };
 
+/** One choice among the buttons of a group: the pressed one is the clicked one. */
+const choose = (button: HTMLElement): void => {
+    const group = button.parentElement;
+    if (!group) { return; }
+    [...group.children].forEach((other) => {
+        if (!(other instanceof HTMLElement) || !other.hasAttribute('aria-pressed')) { return; }
+        const on = other === button;
+        other.setAttribute('aria-pressed', String(on));
+        other.classList.toggle('active', on);
+    });
+};
+
+/** The choices of the examples that are not Bootstrap's: groups of buttons, segmented controls, chips and tags. */
+const installChoices = (env: Environment): void => {
+    document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        if (!env.enabled() || !target || !target.closest('.ds-frame')) { return; }
+        const button = target.closest<HTMLElement>('.btn-group > .btn[aria-pressed], .dd-segmented > button[aria-pressed]');
+        if (button && !(button as HTMLButtonElement).disabled) { choose(button); return; }
+        const chip = target.closest<HTMLElement>('.dd-chip[aria-pressed]');
+        if (chip && !(chip as HTMLButtonElement).disabled) { chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')); return; }
+        const remove = target.closest<HTMLElement>('.dd-chip-remove, .dd-tag-remove');
+        const piece = remove?.closest<HTMLElement>('.dd-chip, .dd-tag');
+        const field = piece?.closest('.dd-tags');
+        if (piece && !(field && field.previousElementSibling instanceof HTMLSelectElement)) { piece.remove(); }
+    });
+    document.addEventListener('keydown', (event) => {
+        const input = event.target instanceof HTMLInputElement && event.target.matches('.dd-tags-input') ? event.target : null;
+        if (!env.enabled() || !input) { return; }
+        if (event.key === 'Enter' && input.value.trim()) {
+            event.preventDefault();
+            const tag = document.createElement('span');
+            tag.className = 'dd-tag';
+            tag.append(input.value.trim());
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'dd-tag-remove';
+            remove.setAttribute('aria-label', `Remove ${input.value.trim()}`);
+            tag.append(remove);
+            input.before(tag);
+            input.value = '';
+        } else if (event.key === 'Backspace' && !input.value) {
+            const last = input.previousElementSibling;
+            if (last instanceof HTMLElement && last.classList.contains('dd-tag')) { last.remove(); }
+        }
+    });
+};
+
 export const installBehaviours = (env: Environment): void => {
+    installChoices(env);
     document.addEventListener('click', (event) => {
         const target = event.target instanceof Element ? event.target : null;
         if (!env.enabled() || !target) { return; }

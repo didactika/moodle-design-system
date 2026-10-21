@@ -112,19 +112,6 @@ const modes = [['light', 'sun', t.light], ['system', 'auto', t.system], ['dark',
                 <span class="ds-brandsw-label">{t.brandTheme}</span>
                 <span class="ds-switch" aria-hidden="true"><i></i></span>
             </button>
-            <details class="ds-dd ds-themever" id="ds-themever">
-                <summary aria-label={t.themeVersion} title={t.themeVersion}><span id="ds-themever-label">v{theme.default}</span></summary>
-                <ul class="ds-dd-list ds-dd-narrow" role="menu" aria-label={t.themeVersion}>
-                    {theme.versions.map((v) => (
-                        <li role="none">
-                            <button type="button" role="menuitemradio" aria-checked="false" data-theme-version={v.id}>
-                                <b>{v.label}</b><span class="ds-check"><Icon name="check" /></span>
-                                <small>{v.status[lang]}</small>
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </details>
         </div>
 
         <span class="ds-head-sep" aria-hidden="true"></span>

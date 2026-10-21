@@ -814,7 +814,7 @@ html[data-brand="1"] .ds-theme-chip { visibility: visible; }
 .ds-navs { margin: .1rem 0 .35rem .6rem; padding-inline-start: .5rem; border-inline-start: 1px solid var(--line); }
 .ds-nav .ds-navs > summary h3 { margin: 0; padding: .2rem .25rem; color: var(--muted); font-size: .75rem; font-weight: 600; }
 .ds-nav .ds-navs[open] > summary h3, .ds-nav .ds-navs:has([aria-current="page"]) > summary h3 { color: var(--ink); }
-.ds-nav a { position: relative; padding: .32rem .6rem; border-radius: 8px; color: color-mix(in srgb, var(--ink) 82%, var(--muted)); transition: background-color .12s, color .12s; }
+.ds-nav a { align-items: center; position: relative; padding: .32rem .6rem; border-radius: 8px; color: color-mix(in srgb, var(--ink) 82%, var(--muted)); transition: background-color .12s, color .12s; }
 .ds-nav a:hover { background: var(--panel-2); color: var(--ink); }
 .ds-nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
 .ds-nav a[aria-current="page"]::before { content: ""; position: absolute; inset-block: .4rem; left: -.5rem; width: 3px; border-radius: 3px; background: var(--accent); }
@@ -901,7 +901,10 @@ details.ds-pgroup .ds-prop:hover { background: var(--panel-2); }
 .ds-theme { display: inline-flex; align-items: stretch; height: 2.25rem; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
 html[data-brand="1"] .ds-theme { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: var(--accent-soft); }
 .ds-theme .ds-brandsw, html[data-brand="1"] .ds-theme .ds-brandsw { height: auto; border: 0; border-radius: 11px; background: transparent; }
-html[data-brand="1"] .ds-theme .ds-brandsw { border-start-end-radius: 0; border-end-end-radius: 0; }
 .ds-theme .ds-brandsw:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
 .ds-theme .ds-themever > summary { height: 100%; padding: 0 .6rem; border: 0; border-inline-start: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line)); border-radius: 0 11px 11px 0; background: transparent; }
 .ds-theme .ds-themever > summary:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+/* the badge of the versions of a page in the navigation keeps its own height, centred, even when the name takes two lines */
+.ds-nav a .ds-vbadges { align-self: center; flex: none; }
+.ds-vb { white-space: nowrap; }
