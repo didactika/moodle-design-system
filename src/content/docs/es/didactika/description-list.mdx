@@ -1,0 +1,65 @@
+---
+title: Lista de descripción
+summary: "Los datos de una cosa como una etiqueta y un valor en cada línea: un curso, un usuario, una regla."
+group: didactika
+order: 7
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Cuando una pantalla muestra los atributos de una cosa (no una lista de cosas), una tabla con cabecera es la forma equivocada. Una lista de descripción pone cada etiqueta en una columna y cada valor a su lado, así el ojo recorre los valores.
+
+## Cuándo usarla
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsala">
+
+- Para los detalles de un objeto: un curso, un usuario, una regla.
+- Etiquetas cortas, en el mismo orden que el formulario que crea el objeto.
+- Pon una insignia para un estado y un enlace para lo que tiene su propia página.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarla para varios objetos: eso es una tabla.
+- Mezclar etiquetas y valores en un párrafo.
+- Dejar una etiqueta sin valor: escribe "Ninguno".
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un `dl` (`dd-dl`) con pares de **término** (`dt`, en un color atenuado) y **descripción** (`dd`, en el color del texto), separados por una línea fina. En una pantalla estrecha, o con `dd-dl-stacked`, la etiqueta va sobre su valor.
+
+## Variantes y estados
+
+<Example title="Dos disposiciones de una lista de descripción" src="description-list/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Lista de descripción × tarjeta | Los detalles de un objeto dentro de una tarjeta, junto a las acciones que le corresponden. |
+| Lista de descripción × insignia | Un estado en el valor. |
+| Apilada × panel lateral | Una columna estrecha de detalles junto al contenido principal. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Etiquetas en una columna compartida | Los valores empiezan en el mismo punto, así se comparan sin esfuerzo. |
+| Disposición apilada en pantalla estrecha | Nada se corta ni se aprieta en un teléfono. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-dl` | La lista, en dos columnas |
+| `dd-dl-stacked` | La etiqueta sobre su valor |
+
+## Accesibilidad
+
+- Es una lista de descripción de verdad (`dl`, `dt`, `dd`), que las tecnologías de apoyo anuncian por pares.
+- No pongas contenido de bloque dentro de un `dt`.

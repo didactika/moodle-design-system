@@ -1,0 +1,65 @@
+---
+title: Description list
+summary: "The facts of one thing as a label and a value on each line: a course, a user, a rule."
+group: didactika
+order: 7
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+When a screen shows the attributes of one thing (not a list of things), a table with a header is the wrong shape. A description list puts each label in a column and each value beside it, so the eye runs down the values.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- For the details of one object: a course, a user, a rule.
+- Short labels, in the same order as in the form that creates the object.
+- Put a badge for a status and a link for something that has its own page.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it for several objects: that is a table.
+- Mix labels and values in a paragraph.
+- Leave a label without a value: write "None".
+
+</Rule>
+</div>
+
+## Anatomy
+
+A `dl` (`dd-dl`) with pairs of **term** (`dt`, in a muted colour) and **description** (`dd`, in the ink colour), separated by a hairline. On a narrow screen, or with `dd-dl-stacked`, the label goes above its value.
+
+## Variants and states
+
+<Example title="Two layouts of a description list" src="description-list/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Description list × card | The details of an object inside a card, beside the actions that apply to it. |
+| Description list × badge | A status in the value. |
+| Stacked × side panel | A narrow column of details next to the main content. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| Labels in a shared column | Values start at the same point, so they are compared without effort. |
+| Stacked layout on a narrow screen | Nothing is cut or squeezed on a phone. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-dl` | The list, in two columns |
+| `dd-dl-stacked` | The label above its value |
+
+## Accessibility
+
+- It is a real description list (`dl`, `dt`, `dd`), which assistive technology announces as pairs.
+- Do not put block content in a `dt`.

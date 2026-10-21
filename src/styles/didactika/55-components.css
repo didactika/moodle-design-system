@@ -66,3 +66,66 @@
 .ds-v-scope .dd-avatars .userinitials { box-sizing: content-box; margin-right: 0; border: 2px solid var(--dd-surface); }
 .ds-v-scope .dd-avatars .userinitials + .userinitials { margin-left: -.5rem; }
 .ds-v-scope .dd-avatars-more { background-color: var(--dd-primary-soft) !important; color: var(--dd-primary-ink) !important; font-size: .75rem; font-weight: 600; }
+
+/* ------------------------------------------------------------------ tip (dd-tip)
+ * The label that appears over a button, a link or an icon that has a title. The browser draws its own for the title attribute and a page
+ * cannot style it, so the examples show this one (src/scripts/tooltips.ts): a dark bubble with an arrow, fast, that follows the keyboard too.
+ * It is not inside .ds-v-scope because it hangs from the body; the colours have a fallback for that.
+ */
+.dd-tip { position: fixed; z-index: 2000; max-width: 18rem; padding: .375rem .625rem; border-radius: .5rem; background: var(--dd-tip-bg, #1e293b); color: #fff; font: 500 .8125rem/1.35 system-ui, -apple-system, "Segoe UI", sans-serif; box-shadow: 0 8px 20px -6px rgb(15 23 42 / 45%); pointer-events: none; opacity: 0; transform: translateY(2px); transition: opacity .12s ease, transform .12s ease; }
+.dd-tip.is-visible { opacity: 1; transform: none; }
+.dd-tip::after { content: ""; position: absolute; left: var(--dd-tip-arrow, 50%); width: .5rem; height: .5rem; background: inherit; transform: translateX(-50%) rotate(45deg); }
+.dd-tip[data-place="top"]::after { bottom: -.25rem; }
+.dd-tip[data-place="bottom"]::after { top: -.25rem; }
+@media (prefers-reduced-motion: reduce) { .dd-tip { transition: none; } }
+
+/* ------------------------------------------------------------------ segmented control (dd-segmented)
+ * One choice among a few options that change the view of the same content (day, week, month): a track with the chosen option raised.
+ */
+.ds-v-scope .dd-segmented { display: inline-flex; gap: .125rem; padding: .1875rem; border-radius: var(--dd-radius-sm); background-color: var(--dd-surface-3); }
+.ds-v-scope .dd-segmented button { display: inline-flex; align-items: center; gap: .4375rem; min-height: 2rem; padding: .25rem .875rem; border: 0; border-radius: calc(var(--dd-radius-sm) - 2px); background: none; color: var(--dd-muted); font-size: .875rem; font-weight: 600; cursor: pointer; transition: background-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .dd-segmented button:hover { color: var(--dd-ink); }
+.ds-v-scope .dd-segmented button[aria-pressed="true"], .ds-v-scope .dd-segmented button.active { background-color: var(--dd-surface); box-shadow: var(--dd-shadow-sm); color: var(--dd-ink); }
+.ds-v-scope .dd-segmented button:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .dd-segmented button:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ------------------------------------------------------------------ description list (dd-dl)
+ * The facts of one thing as a label and a value on each line: a course, a user, a rule. The labels share a column so the eye runs down the
+ * values.
+ */
+.ds-v-scope .dd-dl { display: grid; grid-template-columns: minmax(7rem, 11rem) 1fr; margin: 0; }
+.ds-v-scope .dd-dl dt, .ds-v-scope .dd-dl dd { margin: 0; padding: .625rem 0; border-bottom: 1px solid var(--dd-hairline); }
+.ds-v-scope .dd-dl dt { padding-right: 1rem; color: var(--dd-muted); font-size: .875rem; font-weight: 500; }
+.ds-v-scope .dd-dl dd { color: var(--dd-ink); font-size: .9375rem; overflow-wrap: anywhere; }
+.ds-v-scope .dd-dl dt:last-of-type, .ds-v-scope .dd-dl dd:last-of-type { border-bottom: 0; }
+.ds-v-scope .dd-dl-stacked { grid-template-columns: 1fr; }
+.ds-v-scope .dd-dl-stacked dt { padding-bottom: 0; border-bottom: 0; }
+@media (max-width: 480px) { .ds-v-scope .dd-dl { grid-template-columns: 1fr; } .ds-v-scope .dd-dl dt { padding-bottom: 0; border-bottom: 0; } }
+
+/* ------------------------------------------------------------------ timeline (dd-timeline)
+ * What happened to something, newest first: a dot on a line, what happened, who did it and when.
+ */
+.ds-v-scope .dd-timeline { position: relative; margin: 0; padding: 0; list-style: none; }
+.ds-v-scope .dd-timeline-item { position: relative; display: grid; gap: .125rem; padding: 0 0 1.25rem 1.75rem; }
+.ds-v-scope .dd-timeline-item::before { content: ""; position: absolute; top: .3125rem; left: .1875rem; width: .75rem; height: .75rem; border: 2px solid var(--dd-primary); border-radius: 50%; background: var(--dd-surface); }
+.ds-v-scope .dd-timeline-item::after { content: ""; position: absolute; top: 1.25rem; bottom: .25rem; left: .5rem; width: 2px; border-radius: 2px; background: var(--dd-hairline); }
+.ds-v-scope .dd-timeline-item:last-child { padding-bottom: 0; }
+.ds-v-scope .dd-timeline-item:last-child::after { display: none; }
+.ds-v-scope .dd-timeline-item.is-success::before { border-color: var(--dd-success); background: var(--dd-success); }
+.ds-v-scope .dd-timeline-item.is-danger::before { border-color: var(--dd-danger); background: var(--dd-danger); }
+.ds-v-scope .dd-timeline-item.is-warning::before { border-color: var(--dd-warning); background: var(--dd-warning); }
+.ds-v-scope .dd-timeline-title { color: var(--dd-ink); font-size: .9375rem; font-weight: 600; }
+.ds-v-scope .dd-timeline-meta { color: var(--dd-muted); font-size: .8125rem; }
+
+/* ------------------------------------------------------------------ drop zone (dd-dropzone)
+ * Where files are dropped or chosen: a dashed area with an icon tile, what to do, what is accepted and the button that opens the picker.
+ */
+.ds-v-scope .dd-dropzone { display: grid; justify-items: center; gap: .375rem; padding: 2rem 1.5rem; border: 1.5px dashed var(--dd-line); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); text-align: center; transition: border-color var(--dd-ease), background-color var(--dd-ease); }
+.ds-v-scope .dd-dropzone:hover, .ds-v-scope .dd-dropzone.is-over { border-color: var(--dd-primary); background-color: var(--dd-primary-soft); }
+.ds-v-scope .dd-dropzone .dd-tile { margin-bottom: .375rem; }
+.ds-v-scope .dd-dropzone-title { margin: 0; color: var(--dd-ink); font-size: 1rem; font-weight: 600; }
+.ds-v-scope .dd-dropzone-hint { margin: 0; color: var(--dd-muted); font-size: .875rem; }
+.ds-v-scope .dd-dropzone .btn { margin-top: .5rem; }
+.ds-v-scope .dd-file { display: flex; align-items: center; gap: .75rem; padding: .625rem .75rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius); background: var(--dd-surface); }
+.ds-v-scope .dd-file-name { flex: 1; min-width: 0; overflow: hidden; color: var(--dd-ink); font-size: .9375rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.ds-v-scope .dd-file-size { color: var(--dd-muted); font-size: .8125rem; }

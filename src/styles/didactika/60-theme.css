@@ -1,8 +1,8 @@
 /* ================================================================== Didactika theme
  * What the Didactika theme adds on top of the design system. The design system is what the plugins we publish for the community apply, so it
  * stays close to Moodle: sober shapes, the colours and the font of the site. Everything that would not fit a Moodle site lives here and is
- * only drawn while the theme is on: a new typeface (Inter), pill buttons, softer and larger surfaces, a gradient, tinted elevation and
- * motion in the manner of Material. It is scoped to the theme and to its version, so another version can be offered later.
+ * only drawn while the theme is on: a new typeface (Inter), pill buttons in the chrome of tables and toolbars, softer and larger surfaces, a
+ * gradient, tinted elevation and motion in the manner of Material. It is scoped to the theme and to its version, so another version can be offered later.
  */
 
 /* ---- tokens: the design system draws its shapes from these, so changing them here changes every component at once */
@@ -11,9 +11,6 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope {
   --dd-theme-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --dd-gradient: linear-gradient(135deg, var(--dd-primary) 0%, color-mix(in srgb, var(--dd-primary) 62%, var(--dd-info)) 100%);
   --dd-gradient-soft: linear-gradient(135deg, var(--dd-primary-soft) 0%, color-mix(in srgb, var(--dd-info) 12%, var(--dd-surface)) 100%);
-  --dd-radius-btn: 999px;
-  --dd-radius-sm: .625rem;
-  --dd-radius: .875rem;
   --dd-radius-lg: 1.25rem;
   --dd-radius-xl: 1.75rem;
   --dd-shadow-sm: 0 1px 2px rgb(15 23 42 / 6%), 0 4px 12px -4px color-mix(in srgb, var(--dd-primary) 14%, transparent);
@@ -65,3 +62,11 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-ripple { position
 /* icon buttons grow a little when the pointer is over them, and the plain one shows its tinted circle */
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-icon:not(:disabled):not(.disabled):hover { transform: scale(1.08); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn.btn-link.btn-icon:hover { background-color: color-mix(in srgb, var(--dd-primary) 12%, transparent); color: var(--dd-primary-ink); }
+
+/* ---- pills only where the design asks for them: the buttons of a table, a toolbar, a pager and the filters of a component. Forms, dialogs and
+ * the rest keep the 8 px radius of the system. */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.table-actions, .table-toolbar, .table-foot, .dd-pager, .dd-page-actions, .dd-search-filters) .btn { border-radius: 999px; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-group > .btn-primary:not(.btn-tonal):not(:disabled):not(.disabled) { background-image: none; }
+
+/* ---- the tip: a little rounder, with a tinted shadow and a short entrance */
+html[data-brand="1"] .dd-tip { --dd-tip-bg: #0f2b2f; padding: .4375rem .75rem; border-radius: .75rem; font-family: "Inter", system-ui, sans-serif; box-shadow: 0 10px 24px -8px rgb(0 85 90 / 55%); }

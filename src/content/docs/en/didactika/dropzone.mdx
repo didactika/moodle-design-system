@@ -1,0 +1,68 @@
+---
+title: Drop zone
+summary: "Where files are dropped or chosen, with what is accepted and the files already added."
+group: didactika
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A drop zone is the place to add files: it says what to do, what is accepted and offers the button that opens the picker. The files already added are listed under it, each with its size and a way to remove it.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Say the accepted types and the maximum size inside the zone.
+- Always offer the button: dragging is a shortcut, not the only way.
+- Show a file that cannot be added with the reason, in text and with the danger tile.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Make dragging the only way to add a file.
+- Hide the error of a file behind a colour.
+- Add the file silently: show it in the list at once.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **zone** (`dd-dropzone`) with an icon tile, a **title** (`dd-dropzone-title`), a **hint** (`dd-dropzone-hint`) and a button. Each file is a **row** (`dd-file`) with its tile, **name** (`dd-file-name`), **size** (`dd-file-size`) and a remove button. While a file is over the zone it takes the class `is-over`.
+
+## Variants and states
+
+<Example title="A drop zone and its files" src="dropzone/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Drop zone × progress | A bar inside the row of a file that is uploading. |
+| Drop zone × form | The attachment field of a form, with the help under it. |
+| Rows × alert | A summary of the files that failed above the list. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| The zone changes tint when a file is over it | The user knows that dropping will work. |
+| One row per file with its size and the reason for an error | Nothing needs a click to be understood. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-dropzone`, `is-over` | The zone, and its state with a file over it |
+| `dd-dropzone-title`, `dd-dropzone-hint` | Its texts |
+| `dd-file` | A file row |
+| `dd-file-name`, `dd-file-size` | The name and the size |
+
+## Accessibility
+
+- The button opens the picker with the keyboard; the zone does not need to be focusable.
+- A live region announces each file that is added or rejected.
+- The remove button names its file.

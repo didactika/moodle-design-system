@@ -223,3 +223,30 @@
 .ds-v-scope .btn.btn-tonal:disabled, .ds-v-scope .btn.btn-tonal.disabled { background-color: var(--dd-c-soft); color: var(--dd-c-ink); }
 .ds-v-scope .btn.btn-link.btn-icon { color: var(--dd-muted); }
 .ds-v-scope .btn.btn-link.btn-icon:hover, .ds-v-scope .btn.btn-link.btn-icon.ds-is-hover { background-color: var(--dd-surface-3); color: var(--dd-ink); }
+
+/* ------------------------------------------------------------------ tags (dd-tags)
+ * A field that holds several values as removable tags, the way Moodle's own tag and autocomplete fields do. A select with the attribute
+ * multiple becomes one (src/scripts/multi-select.ts): the select stays underneath and keeps its values and events; the menu lists the options
+ * with a check and stays open while the user picks.
+ */
+.ds-v-scope .dd-tags { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; min-height: var(--dd-h); padding: .25rem 2.5rem .25rem .5rem; border: 1px solid var(--dd-line); border-radius: var(--dd-radius-sm); background-color: var(--dd-surface); color: var(--dd-ink); font-size: .9375rem; line-height: 1.4; cursor: text; transition: border-color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .dd-tags:hover { border-color: var(--dd-line-hover); }
+.ds-v-scope .dd-tags:focus-within, .ds-v-scope .dd-tags[aria-expanded="true"] { border-color: var(--dd-primary); box-shadow: 0 0 0 3px var(--dd-ring); outline: 0; }
+.ds-v-scope .dd-tags::after { content: ""; position: absolute; right: 1rem; top: 50%; width: .5rem; height: .5rem; border-right: 2px solid var(--dd-muted); border-bottom: 2px solid var(--dd-muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.ds-v-scope .dd-tags[aria-expanded="true"]::after { transform: translateY(-30%) rotate(225deg); }
+.ds-v-scope .dd-tags-placeholder { padding: 0 .25rem; color: var(--dd-muted); }
+.ds-v-scope .dd-tags-input { flex: 1 1 6rem; min-width: 4rem; padding: .125rem .25rem; border: 0; outline: 0; background: none; color: inherit; font: inherit; }
+.ds-v-scope .dd-tag { display: inline-flex; align-items: center; gap: .25rem; max-width: 100%; padding: .125rem .25rem .125rem .625rem; border-radius: 999px; background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-size: .8125rem; font-weight: 600; line-height: 1.5; }
+.ds-v-scope .dd-tag-remove { position: relative; flex: none; width: 1.25rem; height: 1.25rem; padding: 0; border: 0; border-radius: 50%; background: none; color: inherit; cursor: pointer; opacity: .75; transition: background-color var(--dd-ease), opacity var(--dd-ease); }
+.ds-v-scope .dd-tag-remove::before, .ds-v-scope .dd-tag-remove::after { content: ""; position: absolute; top: 50%; left: 50%; width: .5625rem; height: 2px; border-radius: 2px; background: currentColor; }
+.ds-v-scope .dd-tag-remove::before { transform: translate(-50%, -50%) rotate(45deg); }
+.ds-v-scope .dd-tag-remove::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.ds-v-scope .dd-tag-remove:hover, .ds-v-scope .dd-tag-remove:focus-visible { background-color: color-mix(in srgb, currentColor 16%, transparent); opacity: 1; outline: 0; }
+.ds-v-scope .dd-tag-solid { background-color: var(--dd-primary); color: #fff; }
+.ds-v-scope .dd-tags-native { position: absolute !important; width: 1px !important; height: 1px !important; margin: -1px !important; padding: 0 !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; border: 0 !important; opacity: 0 !important; pointer-events: none !important; }
+.ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item::before { content: ""; flex: none; order: -1; width: 1.125rem; height: 1.125rem; border: 1.5px solid var(--dd-line); border-radius: .3rem; background-color: var(--dd-surface); background-position: center; background-repeat: no-repeat; background-size: contain; transition: background-color var(--dd-ease), border-color var(--dd-ease); }
+.ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item[aria-selected="true"]::before { border-color: var(--dd-primary); background-color: var(--dd-primary); background-image: var(--dd-check); }
+.ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item[aria-selected="true"]::after { display: none; }
+.ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item { justify-content: flex-start; }
+.ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item::before, .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item[aria-selected="true"]::before { content: ""; display: block; }
+.ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item::before, .ds-v-scope .dd-select-menu[aria-multiselectable="true"] .dropdown-item[aria-selected="true"]::before { position: static; inset: auto; margin: 0; transform: none; width: 1.125rem; height: 1.125rem; }

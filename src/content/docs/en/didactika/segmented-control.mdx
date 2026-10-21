@@ -1,0 +1,66 @@
+---
+title: Segmented control
+summary: "One choice among a few options that change the view of the same content: day, week, month."
+group: didactika
+order: 6
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A segmented control switches between views of the same content, without leaving the page. It is a group of buttons on a track, with the chosen one raised.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Two to four options with short labels (and an icon if it helps).
+- To change how the same data is shown: grid or list, day or week.
+- `aria-pressed` on each button and a label on the group.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it to move between pages: those are tabs.
+- Use it for a setting that applies on saving: use radio buttons.
+- Put more than four options in it.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A track (`dd-segmented`) that holds the **buttons**. The chosen one has `aria-pressed="true"` and is raised over the track.
+
+## Variants and states
+
+<Example title="Segmented controls" src="segmented/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Segmented × list | Cards or list: the same items, another shape. |
+| Segmented × chart | Day, week or month: the same series, another range. |
+| With icons | When the options are views and the icon says it faster than the word. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| A raised chosen option on a track | It reads as one control with one selection, unlike a row of separate buttons. |
+| Immediate effect | The content changes on pressing, so there is no "Apply". |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-segmented` | The track with its buttons |
+| `aria-pressed="true"` or `active` | The chosen button |
+
+## Accessibility
+
+- A `group` with a label; each button states its pressed state with `aria-pressed`.
+- Arrows may move between the options; Enter and Space choose.
+- A disabled option is dimmed and skipped.

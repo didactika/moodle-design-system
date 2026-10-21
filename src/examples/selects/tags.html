@@ -1,0 +1,30 @@
+<form style="display:grid;gap:1.25rem;max-width:30rem">
+  <div>
+    <label class="form-label" for="tg-sel">Subjects (a select with several values)</label>
+    <select class="form-select" id="tg-sel" multiple data-placeholder="Choose subjects">
+      <option selected>Mathematics</option>
+      <option>Physics</option>
+      <option selected>Chemistry</option>
+      <option>Biology</option>
+      <option>History</option>
+      <option>Literature</option>
+    </select>
+  </div>
+  <div>
+    <label class="form-label" for="tg-free">Tags (free text)</label>
+    <div class="dd-tags">
+      <span class="dd-tag">algebra<button type="button" class="dd-tag-remove" aria-label="Remove algebra"></button></span>
+      <span class="dd-tag">unit 3<button type="button" class="dd-tag-remove" aria-label="Remove unit 3"></button></span>
+      <input class="dd-tags-input" id="tg-free" type="text" placeholder="Add a tag">
+    </div>
+    <div class="form-text">Press Enter to add a tag.</div>
+  </div>
+  <div>
+    <label class="form-label" for="tg-empty">Nothing chosen yet</label>
+    <select class="form-select" id="tg-empty" multiple data-placeholder="Choose roles">
+      <option>Student</option>
+      <option>Teacher</option>
+      <option>Manager</option>
+    </select>
+  </div>
+</form>

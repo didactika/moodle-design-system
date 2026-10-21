@@ -3,6 +3,8 @@
 import './colour';
 import {installBehaviours} from './behaviours';
 import {installRipple} from './ripple';
+import {installMultiSelects} from './multi-select';
+import {installTips} from './tooltips';
 import {installSelectMenus} from './select-menu';
 import {$, $$, readJson} from './dom';
 import {DIDACTIKA, contrast, grade, hex, parse, styleElements, themeCss, toHex} from './theme';
@@ -284,6 +286,9 @@ const cleanHtml = (el: HTMLElement): string => {
     if (clone.matches('[data-pix]')) { return `{{#pix}}${clone.dataset.pix}, core{{/pix}}`; }
     $$('[data-pix]', clone).forEach((node) => node.replaceWith(document.createTextNode(`{{#pix}}${node.dataset.pix}, core{{/pix}}`)));
     [clone, ...$$('*', clone)].forEach((node) => {
+        if (node.dataset?.ddTitle !== undefined) { node.setAttribute('title', node.dataset.ddTitle); }
+        node.removeAttribute('data-dd-title');
+        node.removeAttribute('aria-describedby');
         [...node.attributes].forEach((a) => { if (/^data-(measure|example|source|pix|copy|lab|colour|bs-theme)/.test(a.name)) { node.removeAttribute(a.name); } });
         const kept = (node.getAttribute('class') ?? '').split(/\s+/).filter((c) => c && !c.startsWith('ds-'));
         if (kept.length) { node.setAttribute('class', kept.join(' ')); } else { node.removeAttribute('class'); }
@@ -853,6 +858,8 @@ if (headings.length) {
 installBehaviours({bs5, enabled: () => !designerOn()});
 installSelectMenus({enabled: () => !designerOn()});
 installRipple({enabled: () => !designerOn()});
+installMultiSelects({enabled: () => !designerOn()});
+installTips({enabled: () => !designerOn()});
 phone.addEventListener('change', applyDesigner);
 applyDesigner();
 applyDesigner();
