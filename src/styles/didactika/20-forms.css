@@ -259,3 +259,14 @@
 .ds-v-scope .input-group > .form-control:focus, .ds-v-scope .input-group > .form-select:focus, .ds-v-scope .input-group > .form-control.ds-is-focus { box-shadow: none; }
 /* the chosen row of a menu is shown by its tint: it needs no ring of focus as well */
 .ds-v-scope .dd-select-menu .dropdown-item:focus, .ds-v-scope .dd-select-menu .dropdown-item:focus-visible { outline: 0; box-shadow: none; }
+
+/* Pressed. A button on a light background (outline, tonal, plain, light) deepens its own tint while it is held; it never goes dark. A filled
+ * button keeps its colour of the hover (Bootstrap 5; in Bootstrap 4 Moodle darkens it a little). */
+.ds-v-scope .btn.btn:is([class*="btn-outline-"], .btn-tonal, .btn-link):is(:active, .ds-is-active):not(:disabled):not(.disabled) { border-color: var(--dd-c); background-color: var(--dd-c-soft-2); box-shadow: none; color: var(--dd-c-ink); }
+.ds-v-scope .btn.btn:is(.btn-tonal, .btn-link):is(:active, .ds-is-active):not(:disabled):not(.disabled) { border-color: transparent; }
+.ds-v-scope .btn.btn-light:is(:active, .ds-is-active):not(:disabled):not(.disabled) { border-color: var(--dd-line-hover); background-color: var(--dd-surface-3); box-shadow: none; color: var(--dd-ink); }
+.ds-v-scope .btn.btn-link.btn-icon:is(:active, .ds-is-active):not(:disabled):not(.disabled) { background-color: var(--dd-primary-soft-2); color: var(--dd-primary-ink); }
+.ds-v-scope :is(.nav-link, .page-link, .dropdown-item, .list-group-item-action):is(:active, .ds-is-active):not(.active):not(.disabled) { background-color: var(--dd-primary-soft-2); color: var(--dd-primary-ink); }
+
+/* the chosen button of a group (aria-pressed, active or checked) is the tint of its colour with a border of it and a heavier label */
+.ds-v-scope .btn.btn:is([class*="btn-outline-"]):is(.active, [aria-pressed="true"]), .ds-v-scope .btn-check:checked + .btn[class*="btn-outline-"] { border-color: var(--dd-c); background-color: var(--dd-c-soft-2); box-shadow: none; color: var(--dd-c-ink); font-weight: 700; }

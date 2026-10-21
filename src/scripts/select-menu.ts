@@ -96,7 +96,7 @@ const open = (select: HTMLSelectElement): void => {
     menu.style.minWidth = `${s.width}px`;
     const height = menu.offsetHeight;
     const below = window.innerHeight - s.bottom;
-    const top = below < height + 12 && s.top > height + 12 ? s.top - f.top - height - 3 : s.bottom - f.top + 3;
+    const top = below < height + 12 && s.top > height + 12 ? s.top - f.top - height - 2 : s.bottom - f.top + 2;
     menu.style.left = `${Math.max(0, Math.min(s.left - f.left, f.width - menu.offsetWidth))}px`;
     menu.style.top = `${top}px`;
     select.setAttribute('aria-expanded', 'true');

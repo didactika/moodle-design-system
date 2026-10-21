@@ -27,7 +27,7 @@
 .ds-v-scope .list-group-item { padding: .75rem 1rem; border-color: var(--dd-hairline); background-color: var(--dd-surface); color: var(--dd-ink); font-size: .9375rem; line-height: 1.5; transition: background-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease); }
 .ds-v-scope .list-group:not(.list-group-flush) > .list-group-item:first-child { border-top-left-radius: var(--dd-radius-lg); border-top-right-radius: var(--dd-radius-lg); }
 .ds-v-scope .list-group:not(.list-group-flush) > .list-group-item:last-child { border-bottom-left-radius: var(--dd-radius-lg); border-bottom-right-radius: var(--dd-radius-lg); }
-.ds-v-scope .list-group-item-action:hover, .ds-v-scope .list-group-item-action.ds-is-hover { background-color: var(--dd-surface-2); color: var(--dd-ink); }
+.ds-v-scope .list-group-item-action:hover, .ds-v-scope .list-group-item-action.ds-is-hover { background-color: var(--dd-primary-soft); color: var(--dd-ink); }
 .ds-v-scope .list-group-item-action:focus-visible, .ds-v-scope .list-group-item-action.ds-is-focus { z-index: 2; outline: 0; background-color: var(--dd-surface-2); box-shadow: inset 0 0 0 2px var(--dd-primary); color: var(--dd-ink); }
 .ds-v-scope .list-group-item-action:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; }
 .ds-v-scope .list-group-item.active { border-color: var(--dd-primary); background-color: var(--dd-primary); color: #fff; font-weight: 600; }
@@ -55,7 +55,7 @@
 .ds-v-scope .table thead th { border-top: 0; border-bottom: 1px solid var(--dd-line); color: var(--dd-muted); font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
 .ds-v-scope .table tbody th { font-weight: 600; }
 .ds-v-scope .table-hover tbody tr:hover, .ds-v-scope .table-striped tbody tr:nth-of-type(odd), .ds-v-scope .table tbody tr.table-active { background-color: transparent; color: var(--dd-ink); }
-.ds-v-scope .table-hover tbody tr:hover > * { background-color: var(--dd-surface-2); }
+.ds-v-scope .table-hover tbody tr:hover > * { background-color: color-mix(in srgb, var(--dd-primary) 5%, var(--dd-surface)); }
 .ds-v-scope .table-striped tbody tr:nth-of-type(odd) > * { background-color: var(--dd-surface-2); }
 .ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); }
 .ds-v-scope .table-responsive { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); }
