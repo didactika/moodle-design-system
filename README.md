@@ -37,7 +37,7 @@ file carries `"schema": 1`. Any page opens in a given state with `?version=v45&m
 src/content/docs/<lang>/<section>/<page>.mdx   one page per language; same group, order and versions in both
 src/examples/<component>/<name>.html           the markup of a live example (and <name>.bs4.html where it differs)
 src/components/                                Header, Footer, Logo, Icon, Example, Matrix, Rule, Colours, ThemeLab, IconGrid
-src/data/                                      versions.json, brand.json and team.json (hand-kept), icons.json and tokens.json (generated)
+src/data/                                      versions.json and brand.json (hand-kept), icons.json, tokens.json and project.generated.json (generated)
 src/pages/api/                                 the JSON API
 src/scripts/site.ts                            version, colour mode, examples, inspector, icon grid
 tools/                                         build-moodle, extract-data, check-content, build-brand (icon and share image; needs sharp)
