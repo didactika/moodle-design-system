@@ -826,11 +826,6 @@ html[data-brand="1"] .ds-theme-chip { visibility: visible; }
 .ds-mini-row { display: inline-flex; gap: .35rem; margin-inline-start: auto; }
 .ds-insp h3 { display: flex; align-items: center; gap: .5rem; }
 
-/* the logo: one image, the tile with the mark of Didactika and the cap of Moodle */
-.ds-logo { display: block; flex: none; width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 2px 6px rgb(0 85 90 / 28%)); }
-.ds-logo img { display: block; width: 100%; height: 100%; }
-.ds-logo.is-lg { width: 3.25rem; height: 3.25rem; }
-.ds-art-card .ds-logo { width: clamp(5.5rem, 11vw, 8.25rem); height: clamp(5.5rem, 11vw, 8.25rem); margin-bottom: .6rem; }
 
 /* the tables of the text fill the width of the column and keep their rounded corners; on a phone they scroll */
 .ds-article > table thead tr:first-child th:first-child { border-top-left-radius: 9px; }
@@ -888,3 +883,16 @@ details.ds-pgroup .ds-prop:hover { background: var(--panel-2); }
 .ds-insp-idle ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
 .ds-mini[disabled] { opacity: .4; cursor: default; }
 .ds-custom-css { border-radius: 12px; }
+
+/* the logo: the mark on a white tile, the handles of a selection and a "UI" badge */
+.ds-logo { position: relative; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 11px; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 85 90 / 18%); flex: none; }
+.ds-logo img { width: 74%; height: 74%; display: block; }
+.ds-logo .h { position: absolute; width: .3rem; height: .3rem; border-radius: 1.5px; background: #fff; border: 1.2px solid #0f766e; }
+.ds-logo .h1 { left: -2px; top: -2px; } .ds-logo .h2 { right: -2px; top: -2px; } .ds-logo .h3 { left: -2px; bottom: -2px; }
+.ds-logo-ui { position: absolute; right: -.45rem; bottom: -.4rem; padding: .14rem .32rem; border-radius: 6px; background: #0f766e; color: #fff; font: 700 .5rem/1 var(--display); letter-spacing: .02em; box-shadow: 0 0 0 2px var(--panel); }
+.ds-logo.is-lg { width: 2.9rem; height: 2.9rem; border-radius: 13px; }
+.ds-logo.is-lg .ds-logo-ui { font-size: .58rem; right: -.5rem; bottom: -.45rem; }
+.ds-art-card .ds-logo { width: clamp(5.5rem, 11vw, 8.25rem); height: clamp(5.5rem, 11vw, 8.25rem); border-radius: clamp(1.2rem, 2.4vw, 1.9rem); box-shadow: none; margin-bottom: .6rem; }
+.ds-art-card .ds-logo .h { width: .55rem; height: .55rem; border-width: 1.6px; }
+.ds-art-card .ds-logo .h1 { left: -3px; top: -3px; } .ds-art-card .ds-logo .h2 { right: -3px; top: -3px; } .ds-art-card .ds-logo .h3 { left: -3px; bottom: -3px; }
+.ds-art-card .ds-logo-ui { font-size: clamp(.7rem, 1.5vw, 1.05rem); right: -.9rem; bottom: -.7rem; padding: .22rem .6rem; border-radius: 10px; box-shadow: 0 0 0 3px #fff; }

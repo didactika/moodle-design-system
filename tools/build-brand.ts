@@ -2,106 +2,41 @@
 // Licensed under the GNU General Public License, version 3 or later.
 
 /**
- * Draws the icons of the site (the logo as a window, and a small version for the tab): the Didactika logo (the organisation's, from public/brand/didactika-logo.png) on a white tile with the
- * handles of a selection and the graduation cap of Moodle in a badge on the corner, so it reads as "Didactika" and "Moodle" at once, in the
- * favicon too. The cap is not drawn here: it is the one in Moodle's own logo (.github/moodlelogo.svg in the Moodle repository), cut out of
- * it and painted with the orange of that same file. It writes moodle-cap.svg, favicon.svg, the PNG sizes, favicon.ico, the apple touch icon
- * and the image used when a link is shared.
+ * Draws the icon of the site: the Didactika logo (the organisation's, from public/brand/didactika-logo.png) on a white tile with the
+ * handles of a selection and a "UI" badge, so it reads as "Didactika" and "design system" at once. It writes favicon.svg, the PNG sizes,
+ * favicon.ico, the apple touch icon and the image used when a link is shared.
  *
  * The output is committed; run it only when the icon changes. It needs sharp, which the site itself does not:
  *   npm i --no-save sharp && tsx tools/build-brand.ts
  */
-import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import sharp from 'sharp';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const pub = join(root, 'public');
-/** The cap of Moodle's logo, as an SVG that fits it exactly. */
-const MOODLE_LOGO = 'https://raw.githubusercontent.com/moodle/moodle/MOODLE_503_STABLE/.github/moodlelogo.svg';
-const cached = join(root, 'vendor/moodle/moodlelogo.svg');
-if (!existsSync(cached)) {
-    const response = await fetch(MOODLE_LOGO);
-    if (!response.ok) { throw new Error(`${response.status} ${MOODLE_LOGO}`); }
-    mkdirSync(dirname(cached), {recursive: true});
-    writeFileSync(cached, Buffer.from(await response.arrayBuffer()));
-}
-const source = readFileSync(cached, 'utf8');
-const ORANGE = (source.match(/\.cls-1\{fill:(#[0-9a-f]{6})/i) as RegExpMatchArray)[1] as string;
-const capPaths = [...source.matchAll(/<path class="cls-4" d="([^"]+)"\/>/g)].map((m) => `<path d="${m[1]}"/>`).join('');
-const probe = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1231.24 314.44" width="1231" height="314"><g fill="${ORANGE}">${capPaths}</g></svg>`;
-const {data, info} = await sharp(Buffer.from(probe), {density: 288}).ensureAlpha().raw().toBuffer({resolveWithObject: true});
-const scale = info.width / 1231.24;
-let [x0, y0, x1, y1] = [info.width, info.height, 0, 0];
-for (let y = 0; y < info.height; y += 1) {
-    for (let x = 0; x < info.width; x += 1) {
-        if ((data[(y * info.width + x) * info.channels + 3] as number) > 8) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
-    }
-}
-const box = {x: x0 / scale, y: y0 / scale, w: (x1 - x0 + 1) / scale, h: (y1 - y0 + 1) / scale};
-const CAP = { w: box.w, h: box.h, view: `${box.x.toFixed(2)} ${box.y.toFixed(2)} ${box.w.toFixed(2)} ${box.h.toFixed(2)}` };
-const cap = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${CAP.view}" width="${Math.round(CAP.w)}" height="${Math.round(CAP.h)}"><g fill="${ORANGE}">${capPaths}</g></svg>
-`;
-writeFileSync(join(pub, 'brand/moodle-cap.svg'), cap);
+const logo = readFileSync(join(pub, 'brand/didactika-logo.png')).toString('base64');
 const TEAL = '#0f766e';
 const DEEP = '#00555a';
 
-/** The "m" of Moodle's logo with its cap, both cut out of the same file as the cap alone: that is how Moodle draws its mark. */
-const mPath = (source.match(/<path class="cls-1" d="(M288\.89,309\.11[^"]+)"\/>/) as RegExpMatchArray)[1] as string;
-const MARK = {view: '-4 70 354 244', w: 354, h: 244};
-const markInner = (halo: boolean): string => (halo
-    ? `<g fill="#fff" stroke="#fff" stroke-width="34" stroke-linejoin="round"><path d="${mPath}"/>${capPaths}</g>`
-    : `<path d="${mPath}" fill="${ORANGE}"/><g fill="#3b3b3d">${capPaths}</g>`);
-const pointer = (readFileSync(join(root, 'node_modules/@fortawesome/fontawesome-free/svgs/solid/arrow-pointer.svg'), 'utf8').match(/<path d="([^"]+)"/) as RegExpMatchArray)[1] as string;
-const book = readFileSync(join(pub, 'brand/didactika-logo.png')).toString('base64');
+const handle = (x: number, y: number): string => `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="6" fill="#fff" stroke="${TEAL}" stroke-width="9"/>`;
 
-/**
- * The icon as an SVG of 512 by 512: a browser window (the interface), the book of Didactika inside it, a few pieces of interface around the
- * book (pills, a selection, a pointer) and the "m" of Moodle with its cap rising from the lower edge of the window, so the three ideas read
- * as one: Didactika's interface for Moodle.
- */
+/** The icon as an SVG of 512 by 512. */
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${DEEP}"/><stop offset="1" stop-color="#0f6b66"/></linearGradient>
-    <clipPath id="win"><rect x="30" y="52" width="452" height="342" rx="34"/></clipPath>
-  </defs>
-  <rect x="30" y="52" width="452" height="342" rx="34" fill="#fff"/>
-  <g clip-path="url(#win)">
-    <rect x="30" y="52" width="452" height="62" fill="url(#bar)"/>
-    <g stroke="${TEAL}" stroke-opacity=".12" stroke-width="3"><path d="M158 114v280M256 114v280M354 114v280M30 214h452M30 304h452"/></g>
-  </g>
-  <rect x="30" y="52" width="452" height="342" rx="34" fill="none" stroke="${DEEP}" stroke-width="12"/>
-  <g fill="#fff"><circle cx="66" cy="83" r="8.5"/><circle cx="94" cy="83" r="8.5"/><circle cx="122" cy="83" r="8.5"/></g>
-  <image href="data:image/png;base64,${book}" x="108" y="98" width="296" height="296"/>
-  <rect x="60" y="334" width="76" height="24" rx="12" fill="#7cbd9f" stroke="${DEEP}" stroke-width="5"/>
-  <circle cx="158" cy="346" r="12" fill="#7cbd9f" stroke="${DEEP}" stroke-width="5"/>
-  <rect x="50" y="318" width="120" height="56" rx="4" fill="none" stroke="${ORANGE}" stroke-width="4" stroke-dasharray="9 7"/>
-  <rect x="372" y="318" width="66" height="22" rx="11" fill="#f9c593" stroke="${ORANGE}" stroke-width="5"/>
-  <rect x="354" y="350" width="86" height="24" rx="12" fill="#7cbd9f" stroke="${DEEP}" stroke-width="5"/>
-  <svg x="326" y="296" width="34" height="54" viewBox="0 0 320 512"><path d="${pointer}" fill="#7cbd9f" stroke="${DEEP}" stroke-width="26" stroke-linejoin="round"/></svg>
-  <svg x="146" y="344" width="220" height="${220 * MARK.h / MARK.w}" viewBox="${MARK.view}">${markInner(true)}${markInner(false)}</svg>
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="#fff"/>
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="none" stroke="${DEEP}" stroke-opacity=".14" stroke-width="8"/>
+  <image href="data:image/png;base64,${logo}" x="62" y="52" width="388" height="388"/>
+  <rect x="64" y="64" width="384" height="384" rx="26" fill="none" stroke="${TEAL}" stroke-width="9" stroke-dasharray="1 0"/>
+  ${handle(64, 64)}${handle(448, 64)}${handle(64, 448)}
+  <rect x="268" y="338" width="214" height="142" rx="54" fill="${TEAL}" stroke="#fff" stroke-width="14"/>
+  <text x="375" y="436" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="104" letter-spacing="-2" fill="#fff">UI</text>
 </svg>
 `;
-/**
- * The small version, for the tab, the touch icon and the installed app: only the book of Didactika with the cap of Moodle on it, in the same
- * place the cap has in Moodle's logo (leaning on the upper left, with its tassel hanging at the left), on a white tile. The window, the pills
- * and the "m" are gone: at 16 pixels the book and the cap are what still reads.
- */
-const CAP_VIEW = '0.75 74.01 228.79 189.54';
-const capDark = `<svg x="44" y="82" width="240" height="${240 * 189.54 / 228.79}" viewBox="${CAP_VIEW}"><g fill="#fff" stroke="#fff" stroke-width="16" stroke-linejoin="round">${capPaths}</g><g fill="#3b3b3d">${capPaths}</g></svg>`;
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect x="16" y="16" width="480" height="480" rx="116" fill="#fff"/>
-  <rect x="16" y="16" width="480" height="480" rx="116" fill="none" stroke="${DEEP}" stroke-opacity=".18" stroke-width="8"/>
-  <image href="data:image/png;base64,${book}" x="60" y="92" width="416" height="416"/>
-  ${capDark}
-</svg>
-`;
-writeFileSync(join(pub, 'favicon.svg'), favicon);
-writeFileSync(join(pub, 'brand/favicon.svg'), favicon);
-writeFileSync(join(pub, 'brand/logo.svg'), icon);
+writeFileSync(join(pub, 'favicon.svg'), icon);
+writeFileSync(join(pub, 'brand/favicon.svg'), icon);
 
-const png = (size: number): Promise<Buffer> => sharp(Buffer.from(favicon), {density: 384}).resize(size, size).png().toBuffer();
+const png = (size: number): Promise<Buffer> => sharp(Buffer.from(icon), {density: 384}).resize(size, size).png().toBuffer();
 const sizes: Record<number, string> = {16: 'favicon-16x16.png', 32: 'favicon-32x32.png', 180: 'apple-touch-icon.png', 192: 'brand/android-chrome-192x192.png', 512: 'brand/android-chrome-512x512.png'};
 const buffers: Record<number, Buffer> = {};
 for (const [size, name] of Object.entries(sizes)) {
