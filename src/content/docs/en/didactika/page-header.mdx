@@ -1,0 +1,73 @@
+---
+title: Page header
+summary: "The top of a screen of a plugin: where you are, what this is, and what you can do here."
+group: didactika
+order: 4
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Every screen of a plugin starts the same way: the breadcrumb, the title with its context and the actions of the page. Users learn where to look, and the main action is always in the same place.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- The breadcrumb above, the title and a line of context (who, how many, until when), the actions on the right.
+- One primary action; the rest as secondary buttons or icon buttons with a title.
+- An icon tile before the title when the screen is about one object (a course, a user).
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Put two titles or repeat the breadcrumb in the title.
+- Bury the main action in a menu.
+- Add tabs or filters inside the header: they go right below it.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A header (`dd-page-header`) with the **breadcrumb**, a row (`dd-page-header-row`) holding the **main block** (`dd-page-header-main`: tile, `dd-page-title` and `dd-page-subtitle`) and the **actions** (`dd-page-actions`), and a hairline under it that separates it from the content.
+
+## Variants and states
+
+On a narrow screen the actions go below the title and wrap; the icon buttons keep their size.
+
+<Example title="Page header" src="page-header/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Header × tabs | The tabs of the screen sit right under the hairline, as part of the same block. |
+| Header × chips | The filter chips open the content, under the header. |
+| Tile × object | The tile carries the icon of the object type, so the screen is recognised before the title is read. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| A fixed order: path, title, actions | The eye learns it once and finds the same things in every plugin. |
+| The context under the title | It answers "which one is this?" without opening anything. |
+| The actions on the right, the main one last | It follows the direction of reading: you finish at the action that moves forward. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-page-header` | The block with its bottom line |
+| `dd-page-header-row` | The row of title and actions |
+| `dd-page-header-main` | Tile and texts |
+| `dd-page-title` | The title |
+| `dd-page-subtitle` | The line of context |
+| `dd-page-actions` | The buttons of the page |
+
+## Accessibility
+
+- The title is the `h1` of the page; there is only one.
+- The breadcrumb is a `nav` with a label and `aria-current="page"` on the last item.
+- Icon-only actions have a `title` and an `aria-label`.

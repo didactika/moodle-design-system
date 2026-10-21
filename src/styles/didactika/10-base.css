@@ -57,3 +57,21 @@
 }
 .ds-v-scope .btn-close:hover, .ds-v-scope .btn-close.ds-is-hover, .ds-v-scope .close:hover, .ds-v-scope .close.ds-is-hover { background-color: var(--dd-surface-2); opacity: 1; }
 .ds-v-scope .btn-close:focus, .ds-v-scope .btn-close:focus-visible, .ds-v-scope .btn-close.ds-is-focus, .ds-v-scope .close:focus, .ds-v-scope .close.ds-is-focus { outline: 0; opacity: 1; box-shadow: 0 0 0 3px var(--dd-ring); }
+
+/* An icon that sits alone in a box (a tile, an icon button, the magnifier of a bar) is centred: Moodle gives every icon a right margin and a fixed
+ * size meant for an icon before a text, which pushes a lone icon off the middle. */
+.ds-v-scope :is(.dd-tile, .btn-icon, .nav-search-toggle, .table-actions .btn, .dd-search-field, .navbar .nav-link:has(> .icon:only-child)) > .icon {
+  width: 1em; height: 1em; margin: 0 !important; line-height: 1; text-align: center; vertical-align: 0;
+}
+.ds-v-scope :is(.dd-tile, .btn-icon, .nav-search-toggle) > .icon::before { display: block; line-height: 1; }
+.ds-v-scope .dd-search-field > .icon { flex: none; }
+
+/* An icon next to a text, inside a flex box that already has a gap (a button, a menu item, a badge, a sortable header, a tab): the margin and
+ * the fixed width Moodle gives the icon would add to the gap, leaving a wide space between the icon and the text and an uneven end to the
+ * button. The box owns the space; the icon is as wide as its glyph. */
+.ds-v-scope :is(.btn, .dropdown-item, .badge, .table-sort, .page-link, .nav-link, .dd-search-results a) > .icon {
+  width: 1em; height: 1em; margin: 0 !important; flex: none; line-height: 1; text-align: center;
+}
+.ds-v-scope :is(.btn, .page-link, .nav-link, .table-sort) { gap: .4375rem; }
+.ds-v-scope .btn > .icon:first-child:not(:only-child) { margin-inline-start: -.125rem !important; }
+.ds-v-scope .btn > .icon:last-child:not(:only-child) { margin-inline-end: -.125rem !important; }

@@ -18,7 +18,9 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(h1, h2, h3, h4, h
   font-family: var(--dd-theme-display);
   letter-spacing: -.012em;
 }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .badge, .nav-link, .form-label, .dropdown-item) { font-family: var(--dd-theme-font); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(input, select, textarea, .badge, .nav-link, .form-label, .form-control, .form-select, .dropdown-item, .alert, .toast, .table, .list-group-item, .popover, .tooltip, .page-link) { font-family: var(--dd-theme-font); }
+/* buttons take the display face: it is what makes the theme recognisable at a glance */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn { --bs-btn-font-family: var(--dd-theme-display); font-family: var(--dd-theme-display); letter-spacing: .01em; }
 /* the primary actions and the fill of a progress bar carry the gradient */
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-primary:not(:disabled):not(.disabled) { border-color: transparent; background-image: var(--dd-gradient); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-primary:not(:disabled):not(.disabled):hover { filter: brightness(.94); }

@@ -75,6 +75,7 @@
 .ds-v-scope .table-sort:hover, .ds-v-scope .table-sort.ds-is-hover { color: var(--dd-ink); }
 .ds-v-scope .table-sort i { opacity: .45; transition: opacity .15s, color .15s; }
 .ds-v-scope .table-sort:hover i, .ds-v-scope .table-sort.ds-is-hover i, .ds-v-scope .table-sort:focus-visible i, .ds-v-scope .table-sort.ds-is-focus i { opacity: .85; }
+.ds-v-scope th[aria-sort="ascending"] .table-sort, .ds-v-scope th[aria-sort="descending"] .table-sort { color: var(--dd-primary-ink, var(--dd-primary)); }
 .ds-v-scope th[aria-sort="ascending"] .table-sort i, .ds-v-scope th[aria-sort="descending"] .table-sort i { color: var(--dd-primary); opacity: 1; }
 .ds-v-scope .table-sort:focus-visible, .ds-v-scope .table-sort.ds-is-focus { outline: 0; border-radius: .25rem; box-shadow: 0 0 0 3px var(--dd-ring); }
 .ds-v-scope th[aria-sort] { color: var(--dd-ink); }

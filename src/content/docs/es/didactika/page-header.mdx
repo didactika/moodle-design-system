@@ -1,0 +1,73 @@
+---
+title: Cabecera de página
+summary: "La parte alta de una pantalla de un plugin: dónde estás, qué es y qué puedes hacer aquí."
+group: didactika
+order: 4
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Cada pantalla de un plugin empieza igual: la ruta, el título con su contexto y las acciones de la página. El usuario aprende dónde mirar y la acción principal está siempre en el mismo sitio.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- La ruta arriba, el título y una línea de contexto (quién, cuántos, hasta cuándo), las acciones a la derecha.
+- Una acción primaria; el resto como botones secundarios o de icono con título.
+- Una pastilla con icono antes del título cuando la pantalla trata de un objeto (un curso, un usuario).
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Poner dos títulos o repetir la ruta en el título.
+- Esconder la acción principal en un menú.
+- Añadir pestañas o filtros dentro de la cabecera: van justo debajo.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una cabecera (`dd-page-header`) con la **ruta de navegación**, una fila (`dd-page-header-row`) con el **bloque principal** (`dd-page-header-main`: pastilla, `dd-page-title` y `dd-page-subtitle`) y las **acciones** (`dd-page-actions`), y una línea fina debajo que la separa del contenido.
+
+## Variantes y estados
+
+En una pantalla estrecha las acciones pasan bajo el título y se reparten en líneas; los botones de icono mantienen su tamaño.
+
+<Example title="Cabecera de página" src="page-header/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Cabecera × pestañas | Las pestañas de la pantalla van justo bajo la línea, como parte del mismo bloque. |
+| Cabecera × chips | Los chips de filtro abren el contenido, bajo la cabecera. |
+| Pastilla × objeto | La pastilla lleva el icono del tipo de objeto, así que la pantalla se reconoce antes de leer el título. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Un orden fijo: ruta, título, acciones | El ojo lo aprende una vez y encuentra lo mismo en todos los plugins. |
+| El contexto bajo el título | Responde a "¿cuál es este?" sin abrir nada. |
+| Las acciones a la derecha, la principal al final | Sigue el sentido de la lectura: acabas en la acción que avanza. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-page-header` | El bloque con su línea inferior |
+| `dd-page-header-row` | La fila de título y acciones |
+| `dd-page-header-main` | Pastilla y textos |
+| `dd-page-title` | El título |
+| `dd-page-subtitle` | La línea de contexto |
+| `dd-page-actions` | Los botones de la página |
+
+## Accesibilidad
+
+- El título es el `h1` de la página; solo hay uno.
+- La ruta es un `nav` con etiqueta y `aria-current="page"` en el último elemento.
+- Las acciones solo de icono tienen `title` y `aria-label`.

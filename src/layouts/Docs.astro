@@ -45,7 +45,7 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
                 <a class="ds-nav-home" href={href(lang, '')}>{t.home}</a>
                 {groups.map((g) => (
                     <details class="ds-navg" data-nav-key={g.key} open={g.pages.some((p) => p.slug === slug) || g.key === 'start' || undefined}>
-                        <summary><h2>{g.label}</h2></summary>
+                        <summary><h2>{g.label}</h2><span class="ds-nav-count">{g.pages.length}</span></summary>
                         {runs(g.pages).map((run) => {
                             const links = run.pages.map((p) => (
                                 <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined}>
@@ -54,7 +54,7 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
                             ));
                             return run.section ? (
                                 <details class="ds-navs" data-nav-key={`${g.key}/${run.section}`} open={run.pages.some((p) => p.slug === slug) || undefined}>
-                                    <summary><h3>{t.sections[run.section]}</h3></summary>
+                                    <summary><h3>{t.sections[run.section]}</h3><span class="ds-nav-count">{run.pages.length}</span></summary>
                                     {links}
                                 </details>
                             ) : links;
@@ -84,13 +84,12 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
         <main class="ds-main" id="content">
             <article class="ds-article" data-doc>
-                {group && <div class="ds-eyebrow">{t.groups[group as keyof typeof t.groups]}</div>}
+                <div class="ds-eyebrow-row">
+                    <div class="ds-eyebrow">{group ? t.groups[group as keyof typeof t.groups] : ''}</div>
+                    <a class="ds-theme-chip" href={href(lang, 'foundations/theme')} title={t.themeBanner.replace('{v}', 'v0.1') + ' ' + t.themeBannerOff}>{t.themeChip} <span data-theme-banner-version>v0.1</span></a>
+                </div>
                 <h1>{title}{appliesTo && appliesTo.length > 0 && <Versions of={appliesTo.join(',')} />}</h1>
                 <p class="ds-summary">{summary}</p>
-                <aside class="ds-theme-note" data-theme-only role="note">
-                    <b>{t.themeBanner.split('{v}')[0]}<span data-theme-banner-version>v0.1</span>{t.themeBanner.split('{v}')[1]}</b>
-                    <span>{t.themeBannerOff}</span>
-                </aside>
                 <slot />
             </article>
         </main>

@@ -1,0 +1,72 @@
+---
+title: Chips de filtro
+summary: "Pequeños interruptores que acotan una lista, con su cuenta, y los chips quitables de los filtros ya aplicados."
+group: didactika
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Un chip de filtro acota una lista con una pulsación. Un grupo de chips es una barra de filtros; un filtro aplicado es un chip con un botón para quitarlo. Úsalos para los pocos filtros que se usan siempre, y un formulario para el resto.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Entre tres y seis chips, cada uno con una etiqueta corta y, si ayuda, una cuenta.
+- `aria-pressed` en un chip que se alterna; el grupo lleva una etiqueta.
+- Muestra los filtros aplicados como chips con botón de quitar y un enlace "Quitar todos".
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar chips para navegar entre páginas: eso son pestañas.
+- Poner una lista larga de opciones en chips: usa un select o un menú.
+- Dejar que el estado elegido dependa solo del color: cambian el tinte, el peso y la cuenta.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un botón (`dd-chip`) con una **etiqueta**, una **cuenta** opcional (`dd-chip-count`) y, al elegirlo (`aria-pressed="true"`), un tinte del color primario. Un filtro aplicado (`dd-chip-applied`) lleva un **botón de quitar** (`dd-chip-remove`). El grupo es `dd-chips`.
+
+## Variantes y estados
+
+La barra de filtros, los filtros aplicados con sus botones de quitar y los estados de un chip uno junto a otro.
+
+<Example title="Chips de filtro" src="chips/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Chips × lista | Los chips van sobre la lista y la lista responde al instante, con un paginador debajo. |
+| Aplicados × estado vacío | Un filtro sin resultados muestra el estado vacío de una búsqueda y una forma de quitar los chips. |
+| Chips × campo de búsqueda | El campo filtra por texto, los chips por tipo; ambos se muestran como filtros aplicados. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Una píldora con cuenta | Es el único sitio del sistema donde la forma de píldora encaja mejor: se lee como un interruptor y la cuenta dice qué quedará antes de pulsar. |
+| El chip elegido cambia tinte, peso y cuenta | Tres señales, para que quede claro sin depender del color. |
+| Los filtros aplicados se quitan uno a uno | El usuario deshace una decisión en vez de empezar de cero. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-chips` | Un grupo de chips |
+| `dd-chip` | Un chip; `aria-pressed` o `active` si está elegido |
+| `dd-chip-count` | El número de resultados |
+| `dd-chip-applied` | Un filtro aplicado |
+| `dd-chip-remove` | El botón que lo quita |
+
+## Accesibilidad
+
+- `aria-pressed` en los chips que se alternan, con el grupo etiquetado con `aria-label` o un encabezado.
+- El botón de quitar tiene una etiqueta que nombra el filtro ("Quitar Matemáticas").
+- Anuncia el nuevo número de resultados tras un cambio.

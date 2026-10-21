@@ -125,3 +125,6 @@
 .ds-v-scope .dd-modal-static .modal-dialog { margin: 0 auto; }
 .ds-v-scope .dd-modal-static .modal-dialog-scrollable { height: auto; }
 .ds-v-scope .dd-modal-static .modal-dialog-scrollable .modal-content { max-height: none; }
+
+/* Alerts that follow each other keep a space between them, so each message reads as its own. */
+.ds-v-scope .alert + .alert, .ds-v-scope .alert + .progress { margin-top: .75rem; }
