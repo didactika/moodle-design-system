@@ -1,13 +1,13 @@
 ---
 title: Selection and bulk actions
-summary: "Act on several rows at once: how the selection is made, shown and acted on."
+summary: "Act on several rows at once: the floating bar of our plugins, and the bar inside the table where a floating one does not fit."
 group: patterns
 order: 2
 ---
 
 import Example from '../../../../components/Example.astro';
 
-When the same action is needed on many rows (hide twenty courses, remove fifteen participants), doing it one by one is a punishment. The selection pattern lets the user pick rows and act on all of them from one bar.
+When the same action is needed on many rows (hide twenty courses, remove fifteen participants), doing it one by one is a punishment. The selection pattern lets the user pick rows and act on all of them from one bar. In our plugins that bar is **floating**: it follows the user at the bottom of the window, so it is always at hand however long the list is.
 
 ## When to use it
 
@@ -17,28 +17,44 @@ When the same action is needed on many rows (hide twenty courses, remove fifteen
 ## Anatomy
 
 1. **Checkbox column** (`table-select`): a checkbox per row and one in the header that selects the rows of the page.
-2. **Selected rows** keep a tint (`table-active`) so the selection is visible at a glance.
-3. **Selection bar**: it takes the place of the toolbar while there is a selection (`table-toolbar-selection`), with the count, "Select all N" and the actions.
-4. **Clear selection** as an icon button at the end of the bar.
+2. **Selected rows** keep a tint (`table-active`) so the selection is visible at a glance. The tint is the only change: a selected row does not react to the pointer any differently from the others.
+3. **Floating bar** (`dd-floatbar`): centred at the bottom of the window, a card with the **count** in bold, the **actions** as tonal buttons and a **clear** button at the end.
 
-<Example title="Rows selected, with the bar of actions" src="patterns/bulk-actions" />
+<Example title="The floating bar of the plugins" src="patterns/bulk-actions" />
+
+The example draws the bar in the flow of the page (`dd-floatbar-static`); on a real page it is fixed 1.5 rem above the bottom edge.
 
 ## Behaviour
 
-1. Checking a row changes the toolbar into the selection bar, with the count; unchecking the last one brings the toolbar back.
-2. The checkbox of the header selects the rows of the **current page**. It shows a mixed state when only some are selected.
-3. When the page is selected and the list has more, the bar offers **"Select all 48"**. Choosing it makes the action apply to the whole list, and the bar says so ("All 48 selected").
-4. The actions are the same buttons as the row actions, in the same order, with their label: in a bar there is room for words.
-5. A destructive action asks for confirmation with the quantity ("Delete 3 courses?") and, if it can be undone, offers "Undo" afterwards.
-6. After an action the selection is cleared and the result is announced.
-7. Changing the filter, the search or the page clears the selection, unless "all" was chosen deliberately.
+1. The bar **appears with the first selected row** and goes away when the last one is unchecked or when the user clears the selection. It slides in; it never moves the table.
+2. The checkbox of the header selects the rows of the **current page** and shows a mixed state when only some are selected. When the page is selected and the list has more, the bar offers **"Select all 48"** next to the count.
+3. The actions are the same as the row actions, in the same order, with their label: in a bar there is room for words. The destructive one is last, in the danger tone.
+4. A destructive action confirms with the quantity ("Delete 3 courses?") and, where it can be undone, offers "Undo" afterwards (see "Confirm, do and undo").
+5. After an action the selection is cleared and the result is announced.
+6. Changing the filter, the search or the page clears the selection, unless "all" was chosen deliberately.
+7. The bar never covers the pager: the page leaves room at its foot while the bar is shown.
+
+## The bar inside the table
+
+Where a floating bar does not fit (a dialog, a side panel, a small card), the bar takes the **place of the toolbar** of the table while there is a selection (`table-toolbar-selection`), with the same count and actions.
+
+<Example title="The bar in the place of the toolbar" src="patterns/bulk-inline" />
+
+| | Floating bar | In the toolbar |
+|---|---|---|
+| Use it | By default, on pages with a list (Moodle 5.3 and later) | Inside dialogs, panels and small containers; where the list has few rows |
+| Position | Fixed at the bottom, centred | In the table card, in place of the toolbar |
+| Reach | Always visible while scrolling | Only while the toolbar is visible |
+
+On Moodle 4.5 and 4.1 the floating bar is drawn the same way; where the theme of the site gives it a heavier shadow or other radius it is acceptable, as long as it keeps its position and its content.
 
 ## Layout and spacing
 
 | Piece | Rule |
 |---|---|
-| Selection bar | Same height as the toolbar (no jump); tinted with the primary colour; count in bold |
-| Actions | Small buttons (`btn-sm`), 0.5 rem apart; the destructive one in the danger outline, last |
+| Floating bar | 1.5 rem above the bottom edge; 1 rem between count, actions and clear; padding .5 rem and 1.25 rem at the left; `max-width: calc(100vw - 2rem)` |
+| Actions | Small tonal buttons (`btn-sm btn-tonal`), .4 rem apart; the destructive one in the danger tone, last |
+| Clear | 2 rem square, 8 px radius, tinted on hover |
 | Checkbox column | 2.75 rem wide, no padding on the right |
 
 ## States
@@ -48,13 +64,13 @@ When the same action is needed on many rows (hide twenty courses, remove fifteen
 
 ## Narrow screens
 
-The bar wraps in two lines: count and clear on the first, the actions on the second. Actions that do not fit go into a "More" dropdown, with the destructive one always last.
+The bar wraps and is centred: count and clear on the first line, the actions below, with a radius like a card. Actions that do not fit go into a "More" dropdown, with the destructive one always last.
 
 ## Accessibility
 
+- The bar is a `region` with a label that says what it acts on; the count is a `role="status"` so each change is announced ("3 selected").
 - Each row's checkbox has a label that names the row; the header's names the scope ("Select all on this page").
-- The count is in a live region: "3 selected".
-- The bar appears without moving the focus; the keyboard reaches it with Tab after the table.
+- The bar comes after the table in the tab order and appears without moving the focus.
 
 ## Before shipping
 
@@ -62,3 +78,4 @@ The bar wraps in two lines: count and clear on the first, the actions on the sec
 - [ ] "Select all N" says the real number.
 - [ ] The destructive action confirms with the quantity.
 - [ ] A partial failure is reported and can be retried.
+- [ ] The bar does not cover the pager or the last row.

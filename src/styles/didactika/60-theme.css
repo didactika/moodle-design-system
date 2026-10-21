@@ -38,10 +38,11 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .progress-bar:not([cl
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .card-hover:hover { background-image: var(--dd-gradient-soft); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.navbar.bg-primary, .navbar-dark.bg-primary) { background-image: var(--dd-gradient); }
 
-/* ---- fields: a soft inner shadow, a tint on hover and a 2 px border with a halo on focus */
+/* ---- fields: a soft inner shadow, a tint on hover and a halo on focus */
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select) { box-shadow: inset 0 1px 2px rgb(15 23 42 / 6%); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select):hover:not(:disabled):not([readonly]):not(:focus) { background-color: color-mix(in srgb, var(--dd-primary) 3%, var(--dd-surface)); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select):focus { box-shadow: 0 0 0 1px var(--dd-primary), 0 0 0 5px var(--dd-ring); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-control, .form-select, .custom-select):focus { box-shadow: 0 0 0 3px var(--dd-ring); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .input-group > :is(.form-control, .form-select):focus { box-shadow: none; }
 
 /* ---- surfaces: cards and dialogs float, with no hard outline */
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .card { border-color: color-mix(in srgb, var(--dd-hairline) 70%, transparent); box-shadow: var(--dd-shadow-sm); }
@@ -65,7 +66,7 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn.btn-link.btn-ico
 
 /* ---- pills only where the design asks for them: the buttons of a table, a toolbar, a pager and the filters of a component. Forms, dialogs and
  * the rest keep the 8 px radius of the system. */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.table-actions, .table-toolbar, .table-foot, .dd-pager, .dd-page-actions, .dd-search-filters) .btn { border-radius: 999px; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.table-actions, .table-toolbar, .table-foot, .dd-pager, .dd-page-actions, .dd-search-filters, .dd-floatbar) .btn:not(.btn-icon) { border-radius: 999px; }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-group > .btn-primary:not(.btn-tonal):not(:disabled):not(.disabled) { background-image: none; }
 
 /* ---- the tip: a little rounder, with a tinted shadow and a short entrance */
@@ -73,7 +74,6 @@ html[data-brand="1"] .dd-tip { --dd-tip-bg: #0f2b2f; padding: .4375rem .75rem; b
 
 /* ---- touches for a learning platform: what is selected, done or in progress is easy to see and a little rewarding */
 /* a row under the pointer gets a bar of the primary colour; a selected tab an underline that slides in */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .table-hover > tbody > tr:hover > :first-child { box-shadow: inset 3px 0 0 var(--dd-primary); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .table > tbody > tr > * { transition: background-color var(--dd-ease), box-shadow var(--dd-ease); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .nav-tabs .nav-link { transition: color var(--dd-ease), box-shadow .25s cubic-bezier(.2, 0, 0, 1), background-color var(--dd-ease); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .nav-tabs .nav-link.active { box-shadow: inset 0 -3px 0 var(--dd-primary); }
@@ -96,3 +96,5 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-dropzone { backgr
 @media (prefers-reduced-motion: reduce) {
   html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-check-input, .modal-dialog, .toast) { animation: none !important; }
 }
+
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .input-group > :is(.form-control, .form-select):focus { border-color: var(--dd-line); }

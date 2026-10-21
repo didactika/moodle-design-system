@@ -12,24 +12,24 @@
 .ds-v-scope .dd-tile .icon { color: inherit !important; }
 
 /* ------------------------------------------------------------------ alerts
- * A soft tint of the colour, an accent bar on the left and a text colour derived from the role, so every role reads at 4.5:1. Light is the
+ * A soft tint of the colour with a thin line of it around, and a text colour derived from the role, so every role reads at 4.5:1. Light is the
  * quietest, secondary is a step above it and dark is the strongest.
  */
 .ds-v-scope .alert {
   position: relative;
   margin-bottom: 0;
-  padding: 1rem 1.25rem 1rem 1.5rem;
+  padding: 1rem 1.25rem;
   border: 1px solid var(--dd-c-line);
   border-radius: var(--dd-radius-lg);
   background-color: var(--dd-c-soft);
-  box-shadow: inset 4px 0 0 var(--dd-c);
+  box-shadow: none;
   color: var(--dd-c-ink);
   font-size: .9375rem;
   line-height: 1.55;
 }
-.ds-v-scope .alert-light { border-color: var(--dd-hairline); background-color: var(--dd-surface-2); box-shadow: inset 4px 0 0 var(--dd-line); color: var(--dd-ink); }
+.ds-v-scope .alert-light { border-color: var(--dd-hairline); background-color: var(--dd-surface-2); box-shadow: none; color: var(--dd-ink); }
 .ds-v-scope .alert-secondary { background-color: color-mix(in srgb, var(--dd-c) 13%, var(--dd-surface)); }
-.ds-v-scope .alert-dark { border-color: var(--dd-ink); background-color: var(--dd-ink); box-shadow: inset 4px 0 0 var(--dd-primary); color: var(--dd-surface); }
+.ds-v-scope .alert-dark { border-color: var(--dd-ink); background-color: var(--dd-ink); box-shadow: none; color: var(--dd-surface); }
 .ds-v-scope .alert-dark .alert-link, .ds-v-scope .alert-dark .alert-heading { color: var(--dd-surface); }
 .ds-v-scope .alert-solid { border-color: var(--dd-c); background-color: var(--dd-c); box-shadow: none; color: #fff; }
 .ds-v-scope .alert-solid .alert-link, .ds-v-scope .alert-solid .alert-heading { color: #fff; }
@@ -86,10 +86,10 @@
 .ds-v-scope .spinner-border { border-width: .18em; }
 
 /* ------------------------------------------------------------------ toasts
- * A card with a shadow. A role colours the accent bar (toast-success, toast-danger...) and a tile holds the icon; toast-solid fills the card.
+ * A card with a shadow. A role colours its outline (toast-success, toast-danger...) and a tile holds the icon; toast-solid fills the card.
  */
 .ds-v-scope .toast { max-width: 100%; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); color: var(--dd-ink); font-size: .9375rem; backdrop-filter: none; overflow: hidden; }
-.ds-v-scope .toast[class*="toast-"]:not(.toast-header):not(.toast-body):not(.toast-container) { box-shadow: var(--dd-shadow-md), inset 4px 0 0 var(--dd-c); }
+.ds-v-scope .toast[class*="toast-"]:not(.toast-header):not(.toast-body):not(.toast-container) { border-color: var(--dd-c-line); box-shadow: var(--dd-shadow-md); }
 .ds-v-scope .toast-solid { border-color: var(--dd-c); background-color: var(--dd-c); box-shadow: var(--dd-shadow-md); color: #fff; }
 .ds-v-scope .toast-solid .toast-header, .ds-v-scope .toast-solid .btn-link { color: #fff; }
 .ds-v-scope .toast-solid .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }

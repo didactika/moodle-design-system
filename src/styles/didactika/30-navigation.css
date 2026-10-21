@@ -164,9 +164,14 @@
 .ds-v-scope .dd-search-foot kbd + kbd { margin-left: .125rem; }
 
 /* the buttons of a pager are one group of small icon buttons: square-ish, joined, the ends rounded (the pager of Filebank) */
-.ds-v-scope .btn-group > .btn.btn-icon { border-radius: 0; }
-.ds-v-scope .btn-group > .btn.btn-icon:first-of-type { border-top-left-radius: var(--dd-radius-btn); border-bottom-left-radius: var(--dd-radius-btn); }
-.ds-v-scope .btn-group > .btn.btn-icon:last-of-type { border-top-right-radius: var(--dd-radius-btn); border-bottom-right-radius: var(--dd-radius-btn); }
-.ds-v-scope .btn-group > .btn.btn-icon:only-of-type { border-radius: 50%; }
-.ds-v-scope .dd-pager .btn-group > .btn-icon { width: var(--dd-h-sm); }
 .ds-v-scope .dd-pager-range small, .ds-v-scope .dd-pager-page { color: var(--dd-muted); }
+
+/* Buttons that have a border are never stuck together: a group of icon buttons (the arrows of a pager) keeps a gap between its buttons, each
+ * with the shape of an icon button. Only borderless buttons (plain icon buttons, a segmented control) may touch. */
+.ds-v-scope .btn-group:has(> .btn-icon) { gap: .25rem; }
+.ds-v-scope .btn-group:has(> .btn-icon) > .btn.btn-icon { margin-left: 0; border-radius: 50%; }
+.ds-v-scope .btn-group:has(> .btn-icon.btn-link) { gap: 0; }
+.ds-v-scope .dd-pager .btn-group > .btn-icon { width: var(--dd-h-sm); }
+/* no underline in a pagination: the current page is the blue one */
+.ds-v-scope :is(.page-link, .pagination a, .dd-pager a, .dd-pager .btn):is(:hover, :focus, :active) { text-decoration: none; }
+.ds-v-scope .pagination .page-item .page-link { border-radius: var(--dd-radius-btn); }
