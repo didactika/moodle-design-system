@@ -1,0 +1,66 @@
+---
+title: Control segmentado
+summary: "Una opción entre unas pocas que cambian la vista del mismo contenido: día, semana, mes."
+group: didactika
+order: 6
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Un control segmentado cambia entre vistas del mismo contenido, sin salir de la página. Es un grupo de botones sobre una pista, con el elegido elevado.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- De dos a cuatro opciones con etiquetas cortas (y un icono si ayuda).
+- Para cambiar cómo se muestran los mismos datos: cuadrícula o lista, día o semana.
+- `aria-pressed` en cada botón y una etiqueta en el grupo.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlo para moverse entre páginas: eso son pestañas.
+- Usarlo para un ajuste que se aplica al guardar: usa botones de radio.
+- Poner más de cuatro opciones.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una pista (`dd-segmented`) que guarda los **botones**. El elegido tiene `aria-pressed="true"` y se eleva sobre la pista.
+
+## Variantes y estados
+
+<Example title="Controles segmentados" src="segmented/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Segmentado × lista | Tarjetas o lista: los mismos elementos, otra forma. |
+| Segmentado × gráfico | Día, semana o mes: la misma serie, otro rango. |
+| Con iconos | Cuando las opciones son vistas y el icono lo dice más rápido que la palabra. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Una opción elegida elevada sobre una pista | Se lee como un solo control con una sola elección, a diferencia de una fila de botones sueltos. |
+| Efecto inmediato | El contenido cambia al pulsar, así que no hay "Aplicar". |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-segmented` | La pista con sus botones |
+| `aria-pressed="true"` o `active` | El botón elegido |
+
+## Accesibilidad
+
+- Un `group` con etiqueta; cada botón indica su estado pulsado con `aria-pressed`.
+- Las flechas pueden moverse entre opciones; Intro y Espacio eligen.
+- Una opción desactivada se atenúa y se salta.

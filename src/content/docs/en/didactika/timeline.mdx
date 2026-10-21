@@ -1,0 +1,67 @@
+---
+title: Timeline
+summary: "What happened to something, newest first: what, who and when."
+group: didactika
+order: 8
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A timeline tells the history of one thing: a course, a submission, an import. Each event is a dot on a line, with what happened and who did it and when.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Newest first, one line for what happened and one for who and when.
+- Colour the dot only for what matters: a success, a warning or a failure.
+- Link the title when the event has a page.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it for the steps of a task: those are steps.
+- Write a paragraph per event.
+- Colour every dot.
+
+</Rule>
+</div>
+
+## Anatomy
+
+An ordered list (`dd-timeline`) of **events** (`dd-timeline-item`) with a **title** (`dd-timeline-title`) and a **meta** line (`dd-timeline-meta`). A line joins the dots; `is-success`, `is-warning` and `is-danger` fill a dot.
+
+## Variants and states
+
+<Example title="A timeline" src="timeline/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Timeline × card | The history of an object in a side panel or below its details. |
+| Timeline × avatars | The person who did it, beside the line of who and when. |
+| Timeline × empty state | An object with no history yet. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| A dot on a line | The order of events is read without reading the dates. |
+| Colour only for what matters | The failure in a long history is found at once. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-timeline` | The list |
+| `dd-timeline-item` | An event; `is-success`, `is-warning`, `is-danger` |
+| `dd-timeline-title`, `dd-timeline-meta` | What happened, and who and when |
+
+## Accessibility
+
+- An ordered list: the order is part of the meaning.
+- Never rely on the colour of the dot: the title says what happened.
+- Dates are written in full in the meta line or in a `time` element.

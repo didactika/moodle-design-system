@@ -55,6 +55,12 @@ The browser draws the list of a select on its own and a page cannot style it. In
 
 Use the default size. Small belongs in dense places (a filter bar over a table, the rows per page of a pager); large only for a single main field on a page.
 
+## Several values as tags
+
+A select with the attribute `multiple` is drawn as a field of tags: what is chosen shows as pieces that are removed one by one, and the options open in the menu of the design system, with a check, which stays open while the user picks. The select underneath keeps its values and its events, so the markup of a plugin does not change. The same field also takes free text (tags that do not exist yet); see the page "Tags".
+
+<Example title="A select with several values, free tags and an empty field" src="selects/tags" />
+
 ## Combinations
 
 | Combination | Use it for |

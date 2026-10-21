@@ -1,0 +1,71 @@
+---
+title: Tags
+summary: "A field that holds several values as removable tags: a select with several values, and free tags typed by the user."
+group: didactika
+order: 5
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+When a field takes several values, the list box of the browser is hard to read and harder to use: the chosen ones are only a tint among the others. The tags field shows what is chosen as pieces that can be removed one by one, in the field itself, and keeps the choices in a menu.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- For a field that takes several values out of a list (subjects, roles, groups), with a `select multiple`.
+- For free labels the user types (tags of a resource), with the text field inside the tags.
+- Say in the placeholder what to choose ("Choose subjects").
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it for a choice of two or three that fit as checkboxes.
+- Hide a long list behind tags without a way to search it.
+- Use tags for state: a state is a badge.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A field (`dd-tags`) that holds the **tags** (`dd-tag`), each with a **remove button** (`dd-tag-remove`), a **placeholder** when it is empty and, for free text, an **input** (`dd-tags-input`). A `select` with `multiple` is drawn as this field and opens a **menu** of the options with a check; the select underneath keeps its values and its events.
+
+## Variants and states
+
+<Example title="Several values as tags" src="selects/tags" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Select × tags | A closed list of options: the user picks and the tags show the choice. |
+| Free text × tags | Labels that do not exist yet: Enter adds a tag, Backspace removes the last one. |
+| Tags × validation | A minimum or maximum number of tags, with the message under the field. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| The choices are tags inside the field | The user sees at once what is chosen and removes one without opening anything. |
+| The menu stays open while picking | Choosing four options takes four clicks, not eight. |
+| The same field for a select and for free text | One thing to learn for two needs. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-tags` | The field |
+| `dd-tag` | A tag; `dd-tag-solid` for a filled one |
+| `dd-tag-remove` | The button that removes it |
+| `dd-tags-input` | The text input of a free-text field |
+| `dd-tags-placeholder` | The text of an empty field |
+
+## Accessibility
+
+- The field is a `combobox` with the label of the select, and the menu a `listbox` with `aria-multiselectable`.
+- Each remove button names its tag ("Remove Physics"); Backspace in the field removes the last one.
+- Enter, Space and the arrows open the menu and move through it; Escape closes it.
+- The chosen options are also in the select underneath, so a form sends them as always.

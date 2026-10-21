@@ -1,0 +1,67 @@
+---
+title: Línea de tiempo
+summary: "Qué le pasó a algo, lo más reciente primero: qué, quién y cuándo."
+group: didactika
+order: 8
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Una línea de tiempo cuenta la historia de una cosa: un curso, una entrega, una importación. Cada suceso es un punto sobre una línea, con lo que pasó y quién lo hizo y cuándo.
+
+## Cuándo usarla
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsala">
+
+- Lo más reciente primero, una línea para lo que pasó y otra para quién y cuándo.
+- Colorea el punto solo para lo que importa: un éxito, un aviso o un fallo.
+- Enlaza el título cuando el suceso tiene una página.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarla para los pasos de una tarea: eso son pasos.
+- Escribir un párrafo por suceso.
+- Colorear todos los puntos.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una lista ordenada (`dd-timeline`) de **sucesos** (`dd-timeline-item`) con un **título** (`dd-timeline-title`) y una línea de **datos** (`dd-timeline-meta`). Una línea une los puntos; `is-success`, `is-warning` e `is-danger` rellenan un punto.
+
+## Variantes y estados
+
+<Example title="Una línea de tiempo" src="timeline/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Línea de tiempo × tarjeta | La historia de un objeto en un panel lateral o bajo sus detalles. |
+| Línea de tiempo × avatares | La persona que lo hizo, junto a la línea de quién y cuándo. |
+| Línea de tiempo × estado vacío | Un objeto sin historia todavía. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Un punto sobre una línea | El orden de los sucesos se lee sin leer las fechas. |
+| Color solo para lo que importa | El fallo de una historia larga se encuentra de golpe. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-timeline` | La lista |
+| `dd-timeline-item` | Un suceso; `is-success`, `is-warning`, `is-danger` |
+| `dd-timeline-title`, `dd-timeline-meta` | Qué pasó, y quién y cuándo |
+
+## Accesibilidad
+
+- Una lista ordenada: el orden es parte del significado.
+- Nunca dependas del color del punto: el título dice qué pasó.
+- Las fechas se escriben completas en la línea de datos o en un elemento `time`.

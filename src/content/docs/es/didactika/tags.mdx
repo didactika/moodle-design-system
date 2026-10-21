@@ -1,0 +1,71 @@
+---
+title: Etiquetas
+summary: "Un campo que guarda varios valores como etiquetas que se pueden quitar: un select con varios valores y etiquetas libres que escribe la persona."
+group: didactika
+order: 5
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Cuando un campo admite varios valores, la caja de lista del navegador es difícil de leer y más de usar: lo elegido es solo un tinte entre los demás. El campo de etiquetas muestra lo elegido como piezas que se quitan una a una, en el propio campo, y deja las opciones en un menú.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Para un campo que admite varios valores de una lista (asignaturas, roles, grupos), con un `select multiple`.
+- Para etiquetas libres que escribe la persona (etiquetas de un recurso), con el campo de texto dentro de las etiquetas.
+- Di en el marcador qué elegir ("Elige asignaturas").
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlo para una opción entre dos o tres que caben como casillas.
+- Esconder una lista larga tras etiquetas sin una forma de buscar en ella.
+- Usar etiquetas para un estado: un estado es una insignia.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un campo (`dd-tags`) que guarda las **etiquetas** (`dd-tag`), cada una con su **botón de quitar** (`dd-tag-remove`), un **marcador** cuando está vacío y, para texto libre, una **entrada** (`dd-tags-input`). Un `select` con `multiple` se dibuja como este campo y abre un **menú** de opciones con una marca; el select de debajo conserva sus valores y sus eventos.
+
+## Variantes y estados
+
+<Example title="Varios valores como etiquetas" src="selects/tags" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Select × etiquetas | Una lista cerrada de opciones: la persona elige y las etiquetas muestran la elección. |
+| Texto libre × etiquetas | Etiquetas que aún no existen: Intro añade una, Retroceso quita la última. |
+| Etiquetas × validación | Un mínimo o un máximo de etiquetas, con el mensaje bajo el campo. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Las elecciones son etiquetas dentro del campo | La persona ve de golpe qué está elegido y quita una sin abrir nada. |
+| El menú sigue abierto mientras se elige | Elegir cuatro opciones cuesta cuatro clics, no ocho. |
+| El mismo campo para un select y para texto libre | Una sola cosa que aprender para dos necesidades. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-tags` | El campo |
+| `dd-tag` | Una etiqueta; `dd-tag-solid` para una rellena |
+| `dd-tag-remove` | El botón que la quita |
+| `dd-tags-input` | La entrada de texto de un campo de texto libre |
+| `dd-tags-placeholder` | El texto de un campo vacío |
+
+## Accesibilidad
+
+- El campo es un `combobox` con la etiqueta del select, y el menú un `listbox` con `aria-multiselectable`.
+- Cada botón de quitar nombra su etiqueta ("Quitar Física"); Retroceso en el campo quita la última.
+- Intro, Espacio y las flechas abren el menú y se mueven por él; Escape lo cierra.
+- Las opciones elegidas también están en el select de debajo, así que un formulario las envía como siempre.

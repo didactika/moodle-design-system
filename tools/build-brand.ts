@@ -2,7 +2,7 @@
 // Licensed under the GNU General Public License, version 3 or later.
 
 /**
- * Draws the icon of the site: the Didactika logo (the organisation's, from public/brand/didactika-logo.png) on a white tile with the
+ * Draws the icons of the site (the logo as a window, and a small version for the tab): the Didactika logo (the organisation's, from public/brand/didactika-logo.png) on a white tile with the
  * handles of a selection and the graduation cap of Moodle in a badge on the corner, so it reads as "Didactika" and "Moodle" at once, in the
  * favicon too. The cap is not drawn here: it is the one in Moodle's own logo (.github/moodlelogo.svg in the Moodle repository), cut out of
  * it and painted with the orange of that same file. It writes moodle-cap.svg, favicon.svg, the PNG sizes, favicon.ico, the apple touch icon
@@ -83,11 +83,22 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" widt
   <svg x="146" y="344" width="220" height="${220 * MARK.h / MARK.w}" viewBox="${MARK.view}">${markInner(true)}${markInner(false)}</svg>
 </svg>
 `;
-writeFileSync(join(pub, 'favicon.svg'), icon);
-writeFileSync(join(pub, 'brand/favicon.svg'), icon);
+/**
+ * The small version, for the tab, the touch icon and the installed app: what still reads at 16 pixels. The window, the pills and the pointer
+ * are gone; what is left is the book on a white tile and the "m" of Moodle with its cap on the corner.
+ */
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="#fff"/>
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="none" stroke="${DEEP}" stroke-opacity=".18" stroke-width="8"/>
+  <image href="data:image/png;base64,${book}" x="44" y="40" width="340" height="340"/>
+  <svg x="212" y="250" width="240" height="${240 * MARK.h / MARK.w}" viewBox="${MARK.view}">${markInner(true)}${markInner(false)}</svg>
+</svg>
+`;
+writeFileSync(join(pub, 'favicon.svg'), favicon);
+writeFileSync(join(pub, 'brand/favicon.svg'), favicon);
 writeFileSync(join(pub, 'brand/logo.svg'), icon);
 
-const png = (size: number): Promise<Buffer> => sharp(Buffer.from(icon), {density: 384}).resize(size, size).png().toBuffer();
+const png = (size: number): Promise<Buffer> => sharp(Buffer.from(favicon), {density: 384}).resize(size, size).png().toBuffer();
 const sizes: Record<number, string> = {16: 'favicon-16x16.png', 32: 'favicon-32x32.png', 180: 'apple-touch-icon.png', 192: 'brand/android-chrome-192x192.png', 512: 'brand/android-chrome-512x512.png'};
 const buffers: Record<number, Buffer> = {};
 for (const [size, name] of Object.entries(sizes)) {

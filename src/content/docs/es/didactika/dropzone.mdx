@@ -1,0 +1,68 @@
+---
+title: Zona de archivos
+summary: "Donde se sueltan o eligen archivos, con lo que se acepta y los archivos ya añadidos."
+group: didactika
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Una zona de archivos es el lugar para añadir archivos: dice qué hacer, qué se acepta y ofrece el botón que abre el selector. Los archivos ya añadidos se listan debajo, cada uno con su tamaño y una forma de quitarlo.
+
+## Cuándo usarla
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsala">
+
+- Di los tipos aceptados y el tamaño máximo dentro de la zona.
+- Ofrece siempre el botón: arrastrar es un atajo, no la única vía.
+- Muestra un archivo que no se puede añadir con la razón, en texto y con la pastilla de peligro.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Hacer que arrastrar sea la única forma de añadir un archivo.
+- Esconder el error de un archivo tras un color.
+- Añadir el archivo en silencio: muéstralo en la lista al instante.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una **zona** (`dd-dropzone`) con una pastilla de icono, un **título** (`dd-dropzone-title`), una **pista** (`dd-dropzone-hint`) y un botón. Cada archivo es una **fila** (`dd-file`) con su pastilla, **nombre** (`dd-file-name`), **tamaño** (`dd-file-size`) y un botón de quitar. Mientras un archivo está sobre la zona toma la clase `is-over`.
+
+## Variantes y estados
+
+<Example title="Una zona de archivos y sus archivos" src="dropzone/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Zona × progreso | Una barra dentro de la fila de un archivo que se está subiendo. |
+| Zona × formulario | El campo de adjuntos de un formulario, con la ayuda debajo. |
+| Filas × alerta | Un resumen de los archivos que fallaron sobre la lista. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| La zona cambia de tinte cuando un archivo está encima | La persona sabe que soltar funcionará. |
+| Una fila por archivo con su tamaño y la razón de un error | Nada necesita un clic para entenderse. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-dropzone`, `is-over` | La zona, y su estado con un archivo encima |
+| `dd-dropzone-title`, `dd-dropzone-hint` | Sus textos |
+| `dd-file` | La fila de un archivo |
+| `dd-file-name`, `dd-file-size` | El nombre y el tamaño |
+
+## Accesibilidad
+
+- El botón abre el selector con el teclado; la zona no necesita ser enfocable.
+- Una región viva anuncia cada archivo que se añade o se rechaza.
+- El botón de quitar nombra su archivo.
