@@ -4,7 +4,10 @@ declare module 'sharp' {
     interface Sharp {
         resize(width: number, height: number): Sharp;
         png(): Sharp;
+        ensureAlpha(): Sharp;
+        raw(): Sharp;
         toBuffer(): Promise<Buffer>;
+        toBuffer(options: {resolveWithObject: true}): Promise<{data: Buffer; info: {width: number; height: number; channels: number}}>;
     }
     export default function sharp(input: Buffer, options?: {density?: number}): Sharp;
 }

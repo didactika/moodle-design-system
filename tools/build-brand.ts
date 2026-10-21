@@ -3,13 +3,15 @@
 
 /**
  * Draws the icon of the site: the Didactika logo (the organisation's, from public/brand/didactika-logo.png) on a white tile with the
- * handles of a selection and a "UI" badge, so it reads as "Didactika" and "design system" at once. It writes favicon.svg, the PNG sizes,
- * favicon.ico, the apple touch icon and the image used when a link is shared.
+ * handles of a selection and the graduation cap of Moodle in a badge on the corner, so it reads as "Didactika" and "Moodle" at once, in the
+ * favicon too. The cap is not drawn here: it is the one in Moodle's own logo (.github/moodlelogo.svg in the Moodle repository), cut out of
+ * it and painted with the orange of that same file. It writes moodle-cap.svg, favicon.svg, the PNG sizes, favicon.ico, the apple touch icon
+ * and the image used when a link is shared.
  *
  * The output is committed; run it only when the icon changes. It needs sharp, which the site itself does not:
  *   npm i --no-save sharp && tsx tools/build-brand.ts
  */
-import {readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import sharp from 'sharp';
@@ -17,6 +19,32 @@ import sharp from 'sharp';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const pub = join(root, 'public');
 const logo = readFileSync(join(pub, 'brand/didactika-logo.png')).toString('base64');
+/** The cap of Moodle's logo, as an SVG that fits it exactly. */
+const MOODLE_LOGO = 'https://raw.githubusercontent.com/moodle/moodle/MOODLE_503_STABLE/.github/moodlelogo.svg';
+const cached = join(root, 'vendor/moodle/moodlelogo.svg');
+if (!existsSync(cached)) {
+    const response = await fetch(MOODLE_LOGO);
+    if (!response.ok) { throw new Error(`${response.status} ${MOODLE_LOGO}`); }
+    mkdirSync(dirname(cached), {recursive: true});
+    writeFileSync(cached, Buffer.from(await response.arrayBuffer()));
+}
+const source = readFileSync(cached, 'utf8');
+const ORANGE = (source.match(/\.cls-1\{fill:(#[0-9a-f]{6})/i) as RegExpMatchArray)[1] as string;
+const capPaths = [...source.matchAll(/<path class="cls-4" d="([^"]+)"\/>/g)].map((m) => `<path d="${m[1]}"/>`).join('');
+const probe = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1231.24 314.44" width="1231" height="314"><g fill="${ORANGE}">${capPaths}</g></svg>`;
+const {data, info} = await sharp(Buffer.from(probe), {density: 288}).ensureAlpha().raw().toBuffer({resolveWithObject: true});
+const scale = info.width / 1231.24;
+let [x0, y0, x1, y1] = [info.width, info.height, 0, 0];
+for (let y = 0; y < info.height; y += 1) {
+    for (let x = 0; x < info.width; x += 1) {
+        if ((data[(y * info.width + x) * info.channels + 3] as number) > 8) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+    }
+}
+const box = {x: x0 / scale, y: y0 / scale, w: (x1 - x0 + 1) / scale, h: (y1 - y0 + 1) / scale};
+const CAP = { w: box.w, h: box.h, view: `${box.x.toFixed(2)} ${box.y.toFixed(2)} ${box.w.toFixed(2)} ${box.h.toFixed(2)}` };
+const cap = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${CAP.view}" width="${Math.round(CAP.w)}" height="${Math.round(CAP.h)}"><g fill="${ORANGE}">${capPaths}</g></svg>
+`;
+writeFileSync(join(pub, 'brand/moodle-cap.svg'), cap);
 const TEAL = '#0f766e';
 const DEEP = '#00555a';
 
@@ -29,8 +57,8 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" widt
   <image href="data:image/png;base64,${logo}" x="62" y="52" width="388" height="388"/>
   <rect x="64" y="64" width="384" height="384" rx="26" fill="none" stroke="${TEAL}" stroke-width="9" stroke-dasharray="1 0"/>
   ${handle(64, 64)}${handle(448, 64)}${handle(64, 448)}
-  <rect x="268" y="338" width="214" height="142" rx="54" fill="${TEAL}" stroke="#fff" stroke-width="14"/>
-  <text x="375" y="436" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="104" letter-spacing="-2" fill="#fff">UI</text>
+  <circle cx="392" cy="392" r="104" fill="#fff" stroke="${TEAL}" stroke-width="14"/>
+  <svg x="${392 - 78}" y="${392 - 78 * CAP.h / CAP.w}" width="156" height="${156 * CAP.h / CAP.w}" viewBox="${CAP.view}"><g fill="${ORANGE}">${capPaths}</g></svg>
 </svg>
 `;
 writeFileSync(join(pub, 'favicon.svg'), icon);
@@ -69,10 +97,11 @@ const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" vi
   </defs>
   <rect width="1200" height="630" fill="url(#g)"/><rect width="1200" height="630" fill="url(#d)" opacity=".55"/>
   <g transform="translate(96 150)">
-    <text x="0" y="170" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="96" letter-spacing="-3" fill="${DEEP}">Didactika</text>
-    <text x="4" y="262" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="72" letter-spacing="-2" fill="${TEAL}">Moodle UI</text>
-    <text x="6" y="336" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#334155">The design system of our Moodle plugins</text>
-    <text x="6" y="380" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#475569">Bootstrap 4 and 5 · English and Spanish · open source</text>
+    <text x="0" y="150" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="104" letter-spacing="-3" fill="${DEEP}">Moodle</text>
+    <text x="2" y="236" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="76" letter-spacing="-2" fill="${TEAL}">Design System</text>
+    <text x="6" y="290" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="34" fill="#334155">by Didactika</text>
+    <text x="6" y="350" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#334155">The design system of our Moodle plugins</text>
+    <text x="6" y="394" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#475569">Bootstrap 4 and 5 · English and Spanish · open source</text>
   </g>
   <image href="data:image/svg+xml;base64,${Buffer.from(icon).toString('base64')}" x="760" y="118" width="360" height="360"/>
 </svg>`;

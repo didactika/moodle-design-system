@@ -53,6 +53,12 @@ Para una pantalla de un plugin que necesita una barra propia (una herramienta in
 
 <Example title="Sobre el color primario" src="navbar/primary" />
 
+### Búsqueda desde la barra
+
+La lupa de una barra es un icono marcado, no una caja de texto: un campo dentro de la barra tiene que ser estrecho y compite con los enlaces. Al pulsarla, el icono abre debajo de la barra un componente de búsqueda: un campo con sitio para una consulta larga, filtros por tipo, resultados que dicen qué es cada uno (una pastilla con icono, un título, una línea de contexto y una insignia), el seleccionado resaltado y las teclas que lo manejan. El icono toma el tinte del color primario mientras el componente está abierto.
+
+<Example title="Icono de búsqueda y componente de búsqueda" src="navbar/search" />
+
 ## Combinaciones
 
 | Combinación | Para qué usarla |
@@ -79,6 +85,8 @@ Para una pantalla de un plugin que necesita una barra propia (una herramienta in
 | `navbar-nav`, `nav-link` | Los enlaces; `active`, `disabled` |
 | `navbar-toggler` | El botón que abre el menú en pantallas pequeñas |
 | `navbar-text` | Texto plano dentro de la barra |
+| `nav-search-toggle` | La lupa marcada de una barra (Didactika) |
+| `dd-search`, `dd-search-field`, `dd-search-filters`, `dd-search-results`, `dd-search-foot` | El componente de búsqueda que se abre bajo la barra (Didactika) |
 | <Only of="v53" inline>`bg-body-tertiary`, `data-bs-theme="dark"`</Only><Only of="v45,v41" inline>`navbar-light bg-light`, `navbar-dark bg-primary`</Only> | Barra clara y oscura |
 
 ## En esta versión
