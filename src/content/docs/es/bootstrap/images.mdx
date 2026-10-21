@@ -1,0 +1,76 @@
+---
+title: Imágenes y figuras
+summary: "Cómo se adaptan las imágenes a su caja y cómo llevan un pie."
+group: bootstrap
+section: content
+order: 25
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Las imágenes nunca deben romper la maquetación: escalan con su contenedor y mantienen sus proporciones. Una figura une una imagen con su pie.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Hacer fluidas las imágenes (`img-fluid`) para que nunca se desborden.
+- Dar a toda imagen con significado un texto alternativo; marcar las decorativas con un `alt` vacío.
+- Usar una figura con pie cuando la imagen necesita explicación.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Meter texto dentro de una imagen.
+- Estirar una imagen: recórtala.
+- Usar una imagen para algo que un icono real puede decir.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una imagen (`img`) con una forma (`rounded`, `rounded-circle`, `img-thumbnail`), sola o dentro de una **figura** (`figure`) con un **pie** (`figure-caption`).
+
+## Variantes y estados
+
+<Example title="Formas y figura" src="images/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `img-fluid` | Escala con su contenedor |
+| `img-thumbnail` | Borde y relleno |
+| `rounded`, `rounded-circle` | Forma |
+| `figure`, `figure-img`, `figure-caption` | Imagen con pie |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- Las imágenes con significado llevan `alt` que diga qué muestran, no que son imágenes.
+- Las decorativas llevan `alt=""`.
+- El pie es texto real, no parte de la imagen.

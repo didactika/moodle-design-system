@@ -1,0 +1,77 @@
+---
+title: Insignias
+summary: "Una etiqueta pequeña que cuenta algo o nombra un estado, junto a lo que describe."
+group: bootstrap
+section: feedback
+order: 15
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Una insignia es una etiqueta corta: un recuento (4 mensajes) o un estado (Completado, Oculto). Va junto a un título, un botón o una fila, y se lee con ello.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Una o dos palabras, o un número.
+- Usar píldoras (`rounded-pill`) para estados y contadores.
+- Elegir el color por significado y mantener el mismo para el mismo estado en todas partes.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Escribir frases en una insignia.
+- Usar insignias como botones.
+- Usar muchos colores en una lista: deja de significar algo.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una `badge` con un **color de fondo** y un texto que contrasta con él. Dentro de un botón conserva su color y recibe un pequeño hueco.
+
+## Variantes y estados
+
+<Example title="Colores y píldoras" src="badges/basic" />
+
+<Example title="En contexto" src="badges/context" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `badge` | Base |
+| <Only of="v53" inline>`text-bg-primary`, `text-bg-success`…</Only><Only of="v45,v41" inline>`badge-primary`, `badge-success`…</Only> | Color y color del texto a la vez |
+| `rounded-pill` | Totalmente redondeada |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. El color y el color del texto vienen juntos en `text-bg-*`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El color es `badge-*` y la píldora es `badge-pill` (`rounded-pill` también funciona).
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El color es `badge-*` y la píldora es `badge-pill` (`rounded-pill` también funciona).
+
+</Only>
+
+## Accesibilidad
+
+- Un recuento debe decir qué cuenta: añade texto visualmente oculto («mensajes sin leer»).
+- El contraste del texto con el color es de al menos 4,5:1: usa `text-bg-*`, que lo elige.
+- Un estado también se escribe, no solo se colorea.

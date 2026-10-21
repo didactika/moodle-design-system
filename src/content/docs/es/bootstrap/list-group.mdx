@@ -1,0 +1,81 @@
+---
+title: Grupo de lista
+summary: "Una lista vertical de elementos que pueden ser simples, clicables o llevar un estado."
+group: bootstrap
+section: content
+order: 22
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un grupo de lista presenta una serie de elementos relacionados uno bajo otro: un menú, las unidades de un curso, los resultados de una búsqueda. Los elementos pueden ser enlaces o botones.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Usar `list-group-item-action` cuando los elementos son enlaces o botones.
+- Marcar el elemento actual como activo.
+- Poner una insignia a la derecha para un recuento o un estado.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlo para una tabla con varias columnas; usa una tabla.
+- Hacer clicables unos elementos y otros no en la misma lista.
+- Colorear elementos por significado sin un texto que también lo diga.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un contenedor (`list-group`) de **elementos** (`list-group-item`), cada uno simple, una **acción** (enlace o botón) o **contextual** (éxito, aviso…). Uno puede estar **activo** y algunos **desactivados**.
+
+## Variantes y estados
+
+<Example title="Elementos y acciones" src="list-group/basic" />
+
+<Example title="Con iconos e insignias" src="list-group/rich" />
+
+<Example title="Sin bordes y contextual" src="list-group/flush" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `list-group`, `list-group-item` | La lista y sus elementos |
+| `list-group-item-action` | Elemento clicable con hover y foco |
+| `active`, `disabled` | Estado de un elemento |
+| `list-group-flush` | Sin borde exterior ni radio (dentro de una tarjeta) |
+| `list-group-item-success`… | Color contextual |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- Usa `aria-current="true"` en el elemento activo.
+- Un elemento clicable es un `a` o un `button`, no un `div`.
+- Un elemento desactivado lleva `aria-disabled="true"` y `tabindex="-1"`.

@@ -1,0 +1,77 @@
+---
+title: Migas de pan
+summary: "Muestran dónde está la página en el sitio y dan una vía de vuelta, un nivel cada vez."
+group: bootstrap
+section: navigation
+order: 10
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Las migas de pan son el camino desde la página de inicio hasta la actual. Responden a «¿dónde estoy?» y dejan subir sin usar el botón de atrás.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Cada nivel es un enlace salvo el último, que es la página actual.
+- Nombres cortos; si el camino es largo, acorta los niveles intermedios.
+- Colócalas encima del título de la página, donde se mira primero.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlas como única navegación del sitio.
+- Repetir la página actual como enlace.
+- Mostrarlas en la página de inicio.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un `nav` con una lista ordenada (`breadcrumb`) de **elementos** (`breadcrumb-item`) separados por un divisor que dibuja el estilo; el último elemento está **activo** y lleva `aria-current="page"`.
+
+## Variantes y estados
+
+<Example title="Migas de pan" src="breadcrumb/basic" />
+
+<Example title="Estados" src="breadcrumb/states" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `breadcrumb` | La lista ordenada |
+| `breadcrumb-item` | Un nivel |
+| `active` | La página actual (no es un enlace) |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- El envoltorio es un `nav` con `aria-label="breadcrumb"`.
+- La página actual lleva `aria-current="page"`.
+- El divisor lo dibuja el CSS, así que un lector de pantalla no lo lee.

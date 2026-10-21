@@ -26,6 +26,7 @@ export const pages = async() => {
             id: slug,
             group: data.group,
             order: data.order,
+            section: data.section ?? null,
             versions: data.versions ?? versions.map((v) => v.id),
             title: {en: en?.data.title ?? null, es: es?.data.title ?? null},
             summary: {en: en?.data.summary ?? null, es: es?.data.summary ?? null},

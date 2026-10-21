@@ -1,0 +1,79 @@
+---
+title: Pagination
+summary: "Moves through a long list split in pages, with the current page always visible."
+group: bootstrap
+section: navigation
+order: 11
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Pagination lets the user move through the pages of a list or a table. It shows the current page and its neighbours, and the way to the previous and next ones.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Show the current page, a few neighbours, and previous and next.
+- Use the small size under a dense table.
+- Keep the total or the range near it ("21–40 of 312").
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Paginate fewer than two pages.
+- Show every page number of a long list; shorten the middle.
+- Use it to move between steps of a process; use steps.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A `nav` with a list (`pagination`) of **items** (`page-item`), each with a **link** (`page-link`). The current page is **active**; unavailable ones are **disabled**.
+
+## Variants and states
+
+<Example title="Pagination, sizes" src="pagination/basic" />
+
+<Example title="States" src="pagination/states" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `pagination` | The list |
+| `pagination-sm`, `pagination-lg` | Smaller and larger |
+| `page-item`, `page-link` | An item and its link |
+| `active`, `disabled` | State of an item |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- The wrapper is a `nav` with an `aria-label`.
+- The current page has `aria-current="page"`.
+- A disabled link has `aria-disabled="true"` and `tabindex="-1"`.
+- Previous and next have words or an `aria-label`, never only an arrow.

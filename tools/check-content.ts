@@ -60,7 +60,7 @@ for (const lang of ['en', 'es']) {
         }
         const a = pages[lang][slug].data;
         const b = pages[other][slug].data;
-        for (const key of ['group', 'order', 'versions']) {
+        for (const key of ['group', 'order', 'versions', 'section']) {
             if ((a[key] ?? '') !== (b[key] ?? '')) {
                 errors.push(`${slug}: "${key}" differs between languages (${a[key]} / ${b[key]})`);
             }

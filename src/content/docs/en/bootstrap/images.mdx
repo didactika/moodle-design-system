@@ -1,0 +1,76 @@
+---
+title: Images and figures
+summary: "How images adapt to their box and how they carry a caption."
+group: bootstrap
+section: content
+order: 25
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Images should never break the layout: they scale with their container and keep their proportions. A figure ties an image to its caption.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Make images fluid (`img-fluid`) so they never overflow.
+- Give every meaningful image alternative text; mark decorative ones with an empty `alt`.
+- Use a figure with a caption when the image needs explaining.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Put text inside an image.
+- Stretch an image: crop it instead.
+- Use an image for something a real icon can say.
+
+</Rule>
+</div>
+
+## Anatomy
+
+An image (`img`) with a shape (`rounded`, `rounded-circle`, `img-thumbnail`), alone or inside a **figure** (`figure`) with a **caption** (`figure-caption`).
+
+## Variants and states
+
+<Example title="Shapes and figure" src="images/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `img-fluid` | Scales down with its container |
+| `img-thumbnail` | Border and padding |
+| `rounded`, `rounded-circle` | Shape |
+| `figure`, `figure-img`, `figure-caption` | Image with caption |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- Meaningful images have `alt` text that says what they show, not that they are images.
+- Decorative images have `alt=""`.
+- A caption is real text, not part of the image.

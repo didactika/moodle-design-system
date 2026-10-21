@@ -1,0 +1,75 @@
+---
+title: Indicadores de carga
+summary: "Un indicador de que algo se está cargando cuando la espera no se puede medir."
+group: bootstrap
+section: feedback
+order: 17
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un indicador de carga dice al usuario que el sistema está trabajando. Úsalo para esperas de duración desconocida: cargar una lista, guardar, enviar. Para una cantidad conocida, usa una barra de progreso.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Decir qué se carga con un texto, visible u oculto.
+- Usar el tamaño pequeño dentro de un botón y desactivar el botón.
+- Mostrarlo solo pasado un momento (unos 300 ms), para que las cargas rápidas no parpadeen.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Cubrir toda la página cuando solo carga una parte.
+- Dejarlo girando tras un error: muestra el error.
+- Usar dos a la vez para la misma espera.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un círculo que gira (`spinner-border`) o late (`spinner-grow`) con una **etiqueta oculta** para tecnologías de apoyo.
+
+## Variantes y estados
+
+<Example title="Indicadores de carga" src="spinners/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `spinner-border`, `spinner-grow` | Los dos tipos |
+| `spinner-border-sm`, `spinner-grow-sm` | Pequeño, para botones y líneas de texto |
+| `text-primary`… | Color (toma el color del texto) |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- `role="status"` y una etiqueta oculta («Cargando…»).
+- Dentro de un botón, el indicador es `aria-hidden` y el texto del botón dice qué ocurre.
+- Con movimiento reducido gira más despacio, nunca se detiene.

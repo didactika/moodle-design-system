@@ -1,0 +1,82 @@
+---
+title: Tarjetas
+summary: "Un contenedor que agrupa contenido relacionado sobre una cosa: una imagen, un título, texto y una acción."
+group: bootstrap
+section: content
+order: 21
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Una tarjeta es un bloque autónomo sobre un tema, como un curso, una persona o un resumen. Las tarjetas se colocan en una rejilla y dejan que el ojo salte de una a otra.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Un tema y una acción principal por tarjeta.
+- La misma estructura en todas las tarjetas de un grupo, para poder compararlas.
+- Un encabezado o un pie solo para metadatos (estado, fecha), no para el título.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Poner una tarjeta dentro de otra.
+- Usar una tarjeta para un texto largo o un formulario; usa la página.
+- Hacer que toda la tarjeta sea un enlace y poner además enlaces dentro.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una caja (`card`) con **imagen** opcional (`card-img-top`), **encabezado**, **cuerpo** (`card-body`: `card-title`, `card-text`, acciones), **lista** y **pie**.
+
+## Variantes y estados
+
+<Example title="Tarjetas" src="cards/basic" />
+
+<Example title="Estructura con una lista" src="cards/structure" />
+
+<Example title="Horizontal" src="cards/horizontal" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `card` | La caja |
+| `card-body`, `card-title`, `card-text` | Contenido |
+| `card-header`, `card-footer` | Metadatos arriba y abajo |
+| `card-img-top` | Imagen arriba |
+| `card-link` | Enlaces en fila |
+| `row g-0`, `col-md-*` | Disposición horizontal |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. El margen entre columnas de la tarjeta horizontal es `g-0`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El margen entre columnas de la tarjeta horizontal es `no-gutters`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El margen entre columnas de la tarjeta horizontal es `no-gutters`.
+
+</Only>
+
+## Accesibilidad
+
+- El título es un encabezado real del nivel correcto.
+- Si toda la tarjeta es clicable, hay un enlace que la cubre, no enlaces anidados.
+- Las imágenes llevan texto alternativo o se marcan como decorativas.

@@ -1,0 +1,82 @@
+---
+title: Tablas
+summary: "Datos en filas y columnas que se comparan, se recorren y se ordenan."
+group: bootstrap
+section: content
+order: 23
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Una tabla es para datos con varios atributos por fila y que se comparan. Para una lista de una cosa por línea, usa un grupo de lista.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Una fila de encabezado con nombres de columna cortos; números alineados a la derecha.
+- Resaltar la fila bajo el puntero (`table-hover`) cuando las filas son accionables.
+- Envolver las tablas anchas en `table-responsive` para que la página nunca se desplace de lado.
+- Mantener las acciones de una fila en el mismo sitio y siempre visibles.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar una tabla para maquetar.
+- Colorear filas sin un texto que diga por qué.
+- Ocultar columnas necesarias para entender la fila.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una `table` con una **leyenda** (`caption`), un **encabezado** (`thead`, `th scope="col"`) y un **cuerpo** (`tbody`) cuya primera celda puede ser el **encabezado de fila** (`th scope="row"`). Filas y celdas pueden llevar un color contextual.
+
+## Variantes y estados
+
+<Example title="Una tabla de datos" src="tables/basic" />
+
+<Example title="Variantes" src="tables/variants" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `table` | Base |
+| `table-striped`, `table-hover`, `table-bordered` | Rayas, resalte al pasar y bordes |
+| `table-sm` | Compacta |
+| `table-active`, `table-success`… | Color de una fila o celda |
+| `table-responsive` | Se desplaza dentro de su caja en pantallas pequeñas |
+| `align-middle` | Alineación vertical |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- Usa `th` con `scope` y una `caption` (puede estar visualmente oculta).
+- No uses una tabla para maquetar.
+- Una fila coloreada también lo dice con texto.
+- Las columnas ordenables anuncian el orden (`aria-sort`).

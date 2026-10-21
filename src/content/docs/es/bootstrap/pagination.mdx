@@ -1,0 +1,79 @@
+---
+title: Paginación
+summary: "Recorre una lista larga dividida en páginas, con la página actual siempre visible."
+group: bootstrap
+section: navigation
+order: 11
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+La paginación deja moverse por las páginas de una lista o una tabla. Muestra la página actual y sus vecinas, y el camino a la anterior y a la siguiente.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Mostrar la página actual, algunas vecinas, y anterior y siguiente.
+- Usar el tamaño pequeño bajo una tabla densa.
+- Dejar cerca el total o el rango («21–40 de 312»).
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Paginar menos de dos páginas.
+- Mostrar todos los números de una lista larga; acorta el medio.
+- Usarla para moverse entre pasos de un proceso; usa pasos.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un `nav` con una lista (`pagination`) de **elementos** (`page-item`), cada uno con un **enlace** (`page-link`). La página actual está **activa**; las no disponibles, **desactivadas**.
+
+## Variantes y estados
+
+<Example title="Paginación, tamaños" src="pagination/basic" />
+
+<Example title="Estados" src="pagination/states" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `pagination` | La lista |
+| `pagination-sm`, `pagination-lg` | Más pequeña y más grande |
+| `page-item`, `page-link` | Un elemento y su enlace |
+| `active`, `disabled` | Estado de un elemento |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- El envoltorio es un `nav` con `aria-label`.
+- La página actual lleva `aria-current="page"`.
+- Un enlace desactivado lleva `aria-disabled="true"` y `tabindex="-1"`.
+- Anterior y siguiente llevan palabras o un `aria-label`, nunca solo una flecha.

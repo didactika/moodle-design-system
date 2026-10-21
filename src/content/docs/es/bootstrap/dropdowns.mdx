@@ -1,0 +1,83 @@
+---
+title: Desplegables
+summary: "Un menú de acciones o enlaces que se abre desde un botón, para las opciones que no hace falta tener siempre a la vista."
+group: bootstrap
+section: navigation
+order: 12
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un desplegable esconde tras un botón una lista corta de acciones relacionadas. Úsalo para acciones secundarias de una fila o una página, y para elegir una entre pocas cosas relacionadas.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Mantener el menú corto (hasta unos 8 elementos) y agrupar con un encabezado o un divisor.
+- Un icono antes del texto cuando la acción tiene uno en la [tabla de iconos](../../foundations/icons/).
+- Poner la acción destructiva la última, separada y en peligro.
+- Alinear el menú al final (`dropdown-menu-end`) cuando el botón está en el borde.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Esconder en un menú la acción principal de una página.
+- Anidar menús dentro de menús.
+- Usar un desplegable para una navegación que se usa todo el rato; usa pestañas o una barra de navegación.
+- Poner un formulario dentro de un menú.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un **disparador** (un botón con `dropdown-toggle`, o un botón de icono) y un **menú** (`dropdown-menu`) con **elementos** (`dropdown-item`), **encabezados** (`dropdown-header`) y **divisores** opcionales. El menú se abre bajo el disparador.
+
+## Variantes y estados
+
+<Example title="Ábrelo" src="dropdowns/basic" />
+
+<Example title="Elementos y estados" src="dropdowns/menu" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dropdown` | Envuelve el disparador y el menú |
+| `dropdown-toggle` | El botón con la flecha |
+| `dropdown-menu` | La lista que se abre |
+| `dropdown-item` | Una acción; `active`, `disabled` |
+| `dropdown-header`, `dropdown-divider` | Títulos de grupo y separadores |
+| <Only of="v53" inline>`dropdown-menu-end`</Only><Only of="v45,v41" inline>`dropdown-menu-right`</Only> | Alinea el menú al final del disparador |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. Los elementos se escriben dentro de una lista (`ul`/`li`).
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Los elementos son `a` directamente dentro del menú.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Los elementos son `a` directamente dentro del menú.
+
+</Only>
+
+## Accesibilidad
+
+- El disparador lleva `aria-expanded` y, si es solo un icono, `aria-label`.
+- Las flechas mueven entre elementos, Escape cierra y devuelve el foco al disparador.
+- Los elementos son enlaces o botones, nunca texto plano.
+- Un elemento desactivado lleva `aria-disabled="true"` y `tabindex="-1"`.

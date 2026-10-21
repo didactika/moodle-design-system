@@ -1,0 +1,81 @@
+---
+title: List group
+summary: "A vertical list of items that can be plain, clickable or carry a status."
+group: bootstrap
+section: content
+order: 22
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A list group presents a series of related items one under the other: a menu, the units of a course, the results of a search. Items can be links or buttons.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Use `list-group-item-action` when the items are links or buttons.
+- Mark the current item as active.
+- Put a badge on the right for a count or a status.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it for a table with several columns; use a table.
+- Make some items clickable and others not in the same list.
+- Colour items by meaning without text that says it too.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A container (`list-group`) of **items** (`list-group-item`), each plain, an **action** (link or button) or **contextual** (success, warning…). One can be **active** and some **disabled**.
+
+## Variants and states
+
+<Example title="Items and actions" src="list-group/basic" />
+
+<Example title="With icons and badges" src="list-group/rich" />
+
+<Example title="Flush and contextual" src="list-group/flush" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `list-group`, `list-group-item` | The list and its items |
+| `list-group-item-action` | Clickable item with hover and focus |
+| `active`, `disabled` | State of an item |
+| `list-group-flush` | No outer border or radius (inside a card) |
+| `list-group-item-success`… | Contextual colour |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- Use `aria-current="true"` on the active item.
+- A clickable item is an `a` or a `button`, not a `div`.
+- A disabled item has `aria-disabled="true"` and `tabindex="-1"`.

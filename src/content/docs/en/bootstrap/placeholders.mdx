@@ -1,0 +1,64 @@
+---
+title: Placeholders
+summary: "Grey shapes that stand in for content while it loads."
+group: bootstrap
+section: content
+order: 29
+versions: [v53]
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Placeholders (also called skeletons) show the shape of what is coming, so the page does not jump when it arrives. Use them for content that takes more than a moment.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Match the shape and size of the real content.
+- Use the glow animation lightly.
+- Mark the placeholder block `aria-hidden` and announce the loading state once.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use them for waits under 300 ms.
+- Leave them after an error.
+- Mix them with real content in the same block.
+
+</Rule>
+</div>
+
+## Anatomy
+
+Blocks (`placeholder`) sized with the grid (`col-6`) inside the element they replace, with an optional animation (`placeholder-glow`, `placeholder-wave`).
+
+## Variants and states
+
+<Example title="Placeholder card" src="placeholders/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `placeholder` | A grey block |
+| `col-*` | Its width |
+| `placeholder-glow`, `placeholder-wave` | Animation of the group |
+| `placeholder-xs`, `placeholder-sm`, `placeholder-lg` | Height |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+## Accessibility
+
+- Hide the placeholders from assistive technology and announce the loading state with a status message.
+- Respect reduced motion: no animation.

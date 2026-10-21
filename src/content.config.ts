@@ -14,6 +14,8 @@ const docs = defineCollection({
         /** The section of the navigation. */
         group: z.enum(['start', 'foundations', 'bootstrap', 'moodle', 'didactika', 'patterns', 'guides']),
         order: z.number(),
+        /** A subheading of the navigation inside the group (the Bootstrap components are split in actions, inputs, navigation, feedback and content). */
+        section: z.enum(['actions', 'inputs', 'navigation', 'feedback', 'content']).optional(),
         /** Versions the page applies to. Omitted: all of them. */
         versions: z.array(z.enum(['v41', 'v45', 'v53'])).optional(),
     }),

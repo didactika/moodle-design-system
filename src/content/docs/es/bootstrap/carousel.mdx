@@ -1,0 +1,77 @@
+---
+title: Carrusel
+summary: "Un conjunto de diapositivas que se muestran de una en una, con controles para moverse entre ellas."
+group: bootstrap
+section: content
+order: 26
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un carrusel muestra unas pocas diapositivas relacionadas en el mismo espacio. Úsalo con moderación: a menudo la gente se pierde lo que no está en la primera.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- De tres a cinco diapositivas, la más importante primero.
+- Mostrar los controles y los indicadores de posición.
+- No iniciarlo automáticamente.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Esconder contenido esencial en diapositivas posteriores.
+- Avanzar solo más rápido de lo que se puede leer.
+- Meter textos largos o formularios en las diapositivas.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un marco (`carousel`) con **diapositivas** (`carousel-item`, una `active`), **pies** opcionales, controles de **anterior y siguiente** e **indicadores**.
+
+## Variantes y estados
+
+<Example title="Carrusel" src="carousel/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `carousel`, `slide` | El marco |
+| `carousel-inner`, `carousel-item` | Las diapositivas |
+| `carousel-control-prev`, `carousel-control-next` | Controles |
+| `carousel-indicators` | Puntos de posición |
+| `carousel-caption` | Texto sobre una diapositiva |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. Los controles y los indicadores son botones.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Los controles son enlaces y los indicadores son elementos de lista.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Los controles son enlaces y los indicadores son elementos de lista.
+
+</Only>
+
+## Accesibilidad
+
+- Los controles son botones o enlaces con texto para tecnologías de apoyo.
+- Deja que el usuario pause o detenga el movimiento; no lo inicies solo.
+- Cada diapositiva tiene alternativas de texto.

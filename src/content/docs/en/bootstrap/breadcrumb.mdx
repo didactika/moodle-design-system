@@ -1,0 +1,77 @@
+---
+title: Breadcrumb
+summary: "Shows where the page sits in the site and gives a way back up, one level at a time."
+group: bootstrap
+section: navigation
+order: 10
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A breadcrumb is the path from the home page to the current one. It answers "where am I?" and lets the user go up without the back button.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Every level is a link except the last, which is the current page.
+- Keep names short; if the path is long, shorten the middle levels.
+- Put it above the title of the page, where people look first.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it as the only navigation of the site.
+- Repeat the current page as a link.
+- Show it on the home page.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A `nav` with an ordered list (`breadcrumb`) of **items** (`breadcrumb-item`) separated by a divider that the style draws; the last item is **active** and carries `aria-current="page"`.
+
+## Variants and states
+
+<Example title="Breadcrumb" src="breadcrumb/basic" />
+
+<Example title="States" src="breadcrumb/states" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `breadcrumb` | The ordered list |
+| `breadcrumb-item` | One level |
+| `active` | The current page (not a link) |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- The wrapper is a `nav` with `aria-label="breadcrumb"`.
+- The current page has `aria-current="page"`.
+- The divider is drawn by CSS, so a screen reader does not read it.

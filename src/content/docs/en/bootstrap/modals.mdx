@@ -1,0 +1,79 @@
+---
+title: Modals
+summary: "A dialog that takes the focus of the page to ask for a decision or a short form."
+group: bootstrap
+section: feedback
+order: 20
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A modal interrupts on purpose: it asks for something the user must answer before going on, such as a confirmation or a short form. Keep it for that.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- A clear title that says what is asked, and buttons named by their action ("Delete", not "OK").
+- The main action on the right, cancel next to it; danger for what deletes.
+- Keep it short; a long form deserves its own page.
+- Close on Escape, on the close button and on Cancel.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Open a modal from another modal.
+- Use it for information that does not need an answer; use an alert.
+- Open one without the user asking for it.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **dialog** (`modal-dialog`) over a dimmed page, with a **header** (title and close), a **body** and a **footer** with the actions. Sizes: small, default, large and extra large.
+
+## Variants and states
+
+<Example title="Form" src="modals/basic" />
+
+<Example title="Confirmation" src="modals/confirm" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `modal`, `modal-dialog`, `modal-content` | The layers of a modal |
+| `modal-header`, `modal-title`, `modal-body`, `modal-footer` | Its parts |
+| `modal-sm`, `modal-lg`, `modal-xl` | Sizes |
+| <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Close button |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- `role="dialog"` (or `alertdialog` for a confirmation) with `aria-labelledby` pointing at the title.
+- Focus moves into the modal when it opens, stays inside while open, and returns to the trigger when it closes.
+- Escape closes it; the page behind is not reachable.

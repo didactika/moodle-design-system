@@ -1,0 +1,84 @@
+---
+title: Alerts
+summary: "A message inside the page that tells the user what happened or what to know, with a colour that says how important it is."
+group: bootstrap
+section: feedback
+order: 14
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+An alert is a message in the flow of the page: a result, a warning or a tip. It stays until the situation changes or the user dismisses it. For something temporary, use a toast.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Say what happened and what to do, in one or two sentences.
+- Pick the colour by meaning: success, info, warning, danger.
+- An icon of Moodle that matches the meaning, and a heading only when the message needs one.
+- A link or button for the next step.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use colour as the only signal: the text and the icon say it too.
+- Stack several alerts; merge them into one.
+- Use danger for what is not an error or a risk.
+- Auto-hide a message the user needs to read.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A box (`alert` and a colour) with optional **icon**, **heading** (`alert-heading`), **text**, **links** (`alert-link`) and a **close** button when it is dismissible.
+
+## Variants and states
+
+<Example title="Colours" src="alerts/variants" />
+
+<Example title="Icon, heading and actions" src="alerts/rich" />
+
+<Example title="Dismissible" src="alerts/dismissible" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `alert` | Base |
+| `alert-primary`, `alert-secondary`, `alert-success`, `alert-danger`, `alert-warning`, `alert-info`, `alert-light`, `alert-dark` | Colour by meaning |
+| `alert-heading`, `alert-link` | Heading and link that match the colour |
+| `alert-dismissible`, <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Lets the user close it |
+| `fade show` | Animates when it appears and when it closes |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- `role="alert"` for something that must be read now; `role="status"` for something polite.
+- The close button has an `aria-label`.
+- Contrast of the text against the tint is at least 4.5:1.
+- Never rely on colour alone: use words and an icon.

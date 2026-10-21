@@ -1,0 +1,83 @@
+---
+title: Dropdowns
+summary: "A menu of actions or links that opens from a button, for the options that do not need to be always in view."
+group: bootstrap
+section: navigation
+order: 12
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A dropdown hides a short list of related actions behind one button. Use it for secondary actions of a row or a page, and for choosing one of a few related things.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Keep the menu short (up to about 8 items) and group related items with a header or a divider.
+- An icon before the text when the action has one in the [icon table](../../foundations/icons/).
+- Put the destructive action last, separated and in danger.
+- Align the menu to the end (`dropdown-menu-end`) when the button is at the edge.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Hide the main action of a page in a menu.
+- Nest menus inside menus.
+- Use a dropdown for navigation that people use all the time; use tabs or a navbar.
+- Put a form inside a menu.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **toggle** (a button with `dropdown-toggle`, or an icon button) and a **menu** (`dropdown-menu`) with **items** (`dropdown-item`), optional **headers** (`dropdown-header`) and **dividers**. The menu opens under the toggle.
+
+## Variants and states
+
+<Example title="Open it" src="dropdowns/basic" />
+
+<Example title="Items and states" src="dropdowns/menu" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dropdown` | Wraps the toggle and the menu |
+| `dropdown-toggle` | The button with the caret |
+| `dropdown-menu` | The list that opens |
+| `dropdown-item` | An action; `active`, `disabled` |
+| `dropdown-header`, `dropdown-divider` | Group titles and separators |
+| <Only of="v53" inline>`dropdown-menu-end`</Only><Only of="v45,v41" inline>`dropdown-menu-right`</Only> | Aligns the menu to the end of the toggle |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The items are written inside a list (`ul`/`li`).
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The items are `a` elements directly inside the menu.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The items are `a` elements directly inside the menu.
+
+</Only>
+
+## Accessibility
+
+- The toggle has `aria-expanded` and, when it is only an icon, `aria-label`.
+- Arrow keys move between items, Escape closes and returns focus to the toggle.
+- Items are links or buttons, never plain text.
+- A disabled item has `aria-disabled="true"` and `tabindex="-1"`.

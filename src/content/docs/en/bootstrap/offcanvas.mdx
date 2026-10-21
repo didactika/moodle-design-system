@@ -1,0 +1,64 @@
+---
+title: Offcanvas
+summary: "A panel that slides in from the edge of the screen for navigation, filters or details."
+group: bootstrap
+section: content
+order: 28
+versions: [v53]
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+An offcanvas keeps secondary content out of the way until the user asks for it: a course index, a filter panel, a cart. It covers part of the page and has a backdrop.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Use it for secondary content or navigation on small screens.
+- Give it a title and a close button.
+- Start on the left for navigation and on the right for details.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use it for a decision; use a modal.
+- Open it on its own.
+- Put the main content of the page in it.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A panel (`offcanvas`, with a side) with a **header** (`offcanvas-header`, `offcanvas-title`, close) and a **body** (`offcanvas-body`), over a dimmed page.
+
+## Variants and states
+
+<Example title="Offcanvas" src="offcanvas/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `offcanvas`, `offcanvas-start`, `offcanvas-end` | The panel and its side |
+| `offcanvas-header`, `offcanvas-title`, `offcanvas-body` | Its parts |
+| `btn-close` | Close button |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+## Accessibility
+
+- Focus moves into the panel and returns to the trigger when it closes.
+- Escape closes it.
+- `aria-labelledby` points at the title.

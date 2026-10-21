@@ -40,10 +40,13 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
                 {groups.map((g) => (
                     <div data-group>
                         <h2>{g.label}</h2>
-                        {g.pages.map((p) => (
+                        {g.pages.map((p, i) => (
+                            <>
+                            {p.section && p.section !== g.pages[i - 1]?.section && <h3>{t.sections[p.section]}</h3>}
                             <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined}>
                                 {p.title}{p.versions && <Versions of={p.versions.join(',')} />}
                             </a>
+                            </>
                         ))}
                     </div>
                 ))}

@@ -1,0 +1,76 @@
+---
+title: Rejilla y maquetación
+summary: "Contenedores, filas y columnas que ordenan el contenido y lo adaptan al ancho de la pantalla."
+group: bootstrap
+section: content
+order: 27
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+La rejilla tiene doce columnas y cinco puntos de corte. Una fila contiene columnas que se reparten su ancho; cada columna dice cuántas de las doce ocupa en cada punto de corte. El contenido se apila en pantallas pequeñas y se coloca en paralelo en las anchas.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Diseñar primero para pantalla pequeña y añadir columnas al crecer el ancho.
+- Mantener la suma de columnas de una fila en 12.
+- Usar los mismos márgenes entre columnas en toda la página.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Anidar más de dos niveles de filas.
+- Usar anchos fijos en píxeles para las columnas.
+- Usar la rejilla para alinear un solo control; usa espaciado.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un **contenedor** (`container`, `container-fluid`) contiene **filas** (`row`) que contienen **columnas** (`col`, `col-md-6`…). El hueco entre columnas es el **margen**.
+
+## Variantes y estados
+
+<Example title="Columnas" src="grid/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `container`, `container-fluid` | Envoltorio de ancho fijo y de ancho completo |
+| `row` | Un grupo horizontal de columnas |
+| `col`, `col-6`, `col-md-4` | Una columna: automática, 6 de 12, 4 de 12 desde el punto de corte medio |
+| <Only of="v53" inline>`g-0`, `g-3`</Only><Only of="v45,v41" inline>`no-gutters`</Only> | Margen entre columnas |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. El margen entre columnas se define con `g-*`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El margen entre columnas se quita con `no-gutters`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El margen entre columnas se quita con `no-gutters`.
+
+</Only>
+
+## Accesibilidad
+
+- El orden de lectura es el del marcado: no dependas de la rejilla para reordenar lo importante.
+- El contenido debe tener sentido cuando se apila.
+- Nunca exijas desplazamiento horizontal a 320 px de ancho.

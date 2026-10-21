@@ -1,0 +1,78 @@
+---
+title: Progress
+summary: "A bar that shows how far something has got: a course, an upload, a quiz."
+group: bootstrap
+section: feedback
+order: 16
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A progress bar shows a known amount of completion. When the amount is not known (waiting for a server), use a spinner instead.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Show the number next to the bar when the exact value matters.
+- Use the success colour only for completion.
+- Give it a text label that says what progresses.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use a bar when you cannot tell how long it will take.
+- Animate a bar that is not changing.
+- Use it as a chart.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **track** (`progress`) and one or more **bars** (`progress-bar`) whose width is the value. A bar can be striped, animated and carry a label.
+
+## Variants and states
+
+<Example title="Progress" src="progress/basic" />
+
+<Example title="Heights" src="progress/sizes" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `progress` | The track; its height sets the bar height |
+| `progress-bar` | The filled part; width in `style` |
+| `progress-bar-striped`, `progress-bar-animated` | Stripes and movement |
+| `bg-success`… | Colour of a bar |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The `role` goes on the track.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The `role` goes on each bar.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The `role` goes on each bar.
+
+</Only>
+
+## Accessibility
+
+- `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and an `aria-label`.
+- The value is also written as text when it matters.
+- Animated stripes respect the reduced motion preference.

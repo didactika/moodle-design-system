@@ -1,0 +1,82 @@
+---
+title: Navbar
+summary: "The bar at the top of a site: brand, main links, a search and the account, collapsing into a button on small screens."
+group: bootstrap
+section: navigation
+order: 13
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A navbar holds the main navigation of a site. It shows the brand, the places people go most, and the tools of the account, and folds into a menu button when the screen is narrow.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Five to seven main links, the current one marked.
+- The brand on the left, the tools (search, account) on the right.
+- Put the less used links inside a dropdown.
+- Let it collapse below the breakpoint that fits the number of links.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Fill it with every page of the site.
+- Use two navbars one above the other.
+- Change the order of the links between pages.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **brand** (`navbar-brand`), a **toggler** for small screens (`navbar-toggler`), a collapsible area (`navbar-collapse`) with the **links** (`navbar-nav`, `nav-link`) and optional **forms** or text (`navbar-text`).
+
+## Variants and states
+
+<Example title="Navbar" src="navbar/basic" />
+
+<Example title="On the primary colour" src="navbar/primary" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `navbar`, `navbar-expand-lg` | The bar, and the width from which it expands |
+| `navbar-brand` | Brand |
+| `navbar-nav`, `nav-link` | The links; `active`, `disabled` |
+| `navbar-toggler` | The button that opens the menu on small screens |
+| `navbar-text` | Plain text inside the bar |
+| <Only of="v53" inline>`bg-body-tertiary`, `data-bs-theme="dark"`</Only><Only of="v45,v41" inline>`navbar-light bg-light`, `navbar-dark bg-primary`</Only> | Light and dark bar |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The bar sits in a `container-fluid` and the dark bar is set with `data-bs-theme="dark"`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The light and dark bars are `navbar-light` and `navbar-dark`, and the search form is `form-inline`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The light and dark bars are `navbar-light` and `navbar-dark`, and the search form is `form-inline`.
+
+</Only>
+
+## Accessibility
+
+- Wrap it in a `nav` (the navbar already is one) and give it an `aria-label` if the page has more than one.
+- The toggler has `aria-controls`, `aria-expanded` and `aria-label`.
+- The current page has `aria-current="page"`.
+- Everything is reachable with the keyboard in the visual order.
