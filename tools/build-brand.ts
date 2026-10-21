@@ -47,28 +47,40 @@ writeFileSync(join(pub, 'brand/moodle-cap.svg'), cap);
 const TEAL = '#0f766e';
 const DEEP = '#00555a';
 
-/** The mark of Didactika in white: the logo is one colour on a transparent background, so its colour is replaced and its shape kept. */
-const mark = await sharp(readFileSync(join(pub, 'brand/didactika-logo.png'))).ensureAlpha().raw().toBuffer({resolveWithObject: true});
-for (let i = 0; i < mark.data.length; i += 4) {
-    mark.data[i] = 255;
-    mark.data[i + 1] = 255;
-    mark.data[i + 2] = 255;
-}
-const whiteMark = (await sharp(mark.data, {raw: {width: mark.info.width, height: mark.info.height, channels: 4}}).png().toBuffer()).toString('base64');
+/** The "m" of Moodle's logo with its cap, both cut out of the same file as the cap alone: that is how Moodle draws its mark. */
+const mPath = (source.match(/<path class="cls-1" d="(M288\.89,309\.11[^"]+)"\/>/) as RegExpMatchArray)[1] as string;
+const MARK = {view: '-4 70 354 244', w: 354, h: 244};
+const markInner = (halo: boolean): string => (halo
+    ? `<g fill="#fff" stroke="#fff" stroke-width="34" stroke-linejoin="round"><path d="${mPath}"/>${capPaths}</g>`
+    : `<path d="${mPath}" fill="${ORANGE}"/><g fill="#3b3b3d">${capPaths}</g>`);
+const pointer = (readFileSync(join(root, 'node_modules/@fortawesome/fontawesome-free/svgs/solid/arrow-pointer.svg'), 'utf8').match(/<path d="([^"]+)"/) as RegExpMatchArray)[1] as string;
+const book = readFileSync(join(pub, 'brand/didactika-logo.png')).toString('base64');
 
 /**
- * The icon as an SVG of 512 by 512: a tile in the teal of Didactika with its mark in white, and the cap of Moodle in a badge on the corner, so
- * the two names read at once, in the header and in the tab. Nothing else is drawn: the details would be lost at 16 pixels.
+ * The icon as an SVG of 512 by 512: a browser window (the interface), the book of Didactika inside it, a few pieces of interface around the
+ * book (pills, a selection, a pointer) and the "m" of Moodle with its cap rising from the lower edge of the window, so the three ideas read
+ * as one: Didactika's interface for Moodle.
  */
-const CAP_W = 150;
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16988d"/><stop offset=".55" stop-color="${TEAL}"/><stop offset="1" stop-color="${DEEP}"/></linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${DEEP}"/><stop offset="1" stop-color="#0f6b66"/></linearGradient>
+    <clipPath id="win"><rect x="30" y="52" width="452" height="342" rx="34"/></clipPath>
   </defs>
-  <rect x="16" y="16" width="480" height="480" rx="116" fill="url(#tile)"/>
-  <image href="data:image/png;base64,${whiteMark}" x="64" y="52" width="340" height="340"/>
-  <circle cx="392" cy="392" r="100" fill="#fff" stroke="${DEEP}" stroke-width="14"/>
-  <svg x="${392 - CAP_W / 2}" y="${400 - (CAP_W / 2) * CAP.h / CAP.w}" width="${CAP_W}" height="${CAP_W * CAP.h / CAP.w}" viewBox="${CAP.view}"><g fill="${ORANGE}">${capPaths}</g></svg>
+  <rect x="30" y="52" width="452" height="342" rx="34" fill="#fff"/>
+  <g clip-path="url(#win)">
+    <rect x="30" y="52" width="452" height="62" fill="url(#bar)"/>
+    <g stroke="${TEAL}" stroke-opacity=".12" stroke-width="3"><path d="M158 114v280M256 114v280M354 114v280M30 214h452M30 304h452"/></g>
+  </g>
+  <rect x="30" y="52" width="452" height="342" rx="34" fill="none" stroke="${DEEP}" stroke-width="12"/>
+  <g fill="#fff"><circle cx="66" cy="83" r="8.5"/><circle cx="94" cy="83" r="8.5"/><circle cx="122" cy="83" r="8.5"/></g>
+  <image href="data:image/png;base64,${book}" x="108" y="98" width="296" height="296"/>
+  <rect x="60" y="334" width="76" height="24" rx="12" fill="#7cbd9f" stroke="${DEEP}" stroke-width="5"/>
+  <circle cx="158" cy="346" r="12" fill="#7cbd9f" stroke="${DEEP}" stroke-width="5"/>
+  <rect x="50" y="318" width="120" height="56" rx="4" fill="none" stroke="${ORANGE}" stroke-width="4" stroke-dasharray="9 7"/>
+  <rect x="372" y="318" width="66" height="22" rx="11" fill="#f9c593" stroke="${ORANGE}" stroke-width="5"/>
+  <rect x="354" y="350" width="86" height="24" rx="12" fill="#7cbd9f" stroke="${DEEP}" stroke-width="5"/>
+  <svg x="326" y="296" width="34" height="54" viewBox="0 0 320 512"><path d="${pointer}" fill="#7cbd9f" stroke="${DEEP}" stroke-width="26" stroke-linejoin="round"/></svg>
+  <svg x="146" y="344" width="220" height="${220 * MARK.h / MARK.w}" viewBox="${MARK.view}">${markInner(true)}${markInner(false)}</svg>
 </svg>
 `;
 writeFileSync(join(pub, 'favicon.svg'), icon);
