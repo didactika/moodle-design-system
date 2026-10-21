@@ -1,0 +1,68 @@
+---
+title: A settings page
+summary: "Change how something behaves: grouped settings that explain themselves and a bar that saves them."
+group: patterns
+order: 5
+---
+
+import Example from '../../../../components/Example.astro';
+
+A settings page is not a form that creates something: it changes how something that exists behaves. The user is looking for one setting, so the page is built to be scanned.
+
+## When to use it
+
+- Options that apply to a course, a site or a plugin and are changed from time to time.
+- If each setting is saved by itself at once, say so in the page; if they save together, use the bar.
+
+## Anatomy
+
+1. **Sections as cards** with a title and one line that says what the section controls.
+2. **Rows**: on the left the **name** of the setting in bold and under it **what it does**; on the right the **control** (a check, a switch, a select).
+3. **A hairline** between rows; no boxes around each one.
+4. **Save bar** at the foot: it says "You have unsaved changes" and offers Discard and Save changes. It only appears when something changed.
+
+<Example title="Settings in sections, with the save bar" src="patterns/settings" />
+
+## Layout and spacing
+
+| Piece | Rule |
+|---|---|
+| Section | Card, 1 rem from the next; title and description above the rows |
+| Row | 0.875 rem above and below; the control aligned to the top of the text |
+| Description | Muted, one or two lines; says the consequence, not the name again |
+| Save bar | Under the last section, or fixed at the foot of the window when the page is long |
+
+## Behaviour
+
+1. A setting that is only on or off is a **switch or a check**; one with several values is a **select** or **radio buttons**; a number or a text is a field with its unit.
+2. The **save bar appears at the first change** and stays until the user saves or discards. Discard returns every control to its saved value.
+3. A setting whose change is risky or affects other people says so in its description, and the confirmation is asked when saving, not when changing the control.
+4. A setting that depends on another is shown disabled, with the reason ("Needs notifications on"), not hidden.
+5. After saving, a toast confirms and the bar goes away; the page does not reload or move.
+
+## States
+
+| State | What the user sees |
+|---|---|
+| Clean | No bar; every control has its saved value |
+| Changed | The save bar |
+| Saving | The bar's button disabled with "Saving…" |
+| Error | An alert above the bar and the setting that failed marked |
+| Locked by policy | The control disabled and a line that says who sets it |
+
+## Narrow screens
+
+Rows stack: name and description, then the control under them, full width for selects and fields. The bar is fixed at the foot.
+
+## Accessibility
+
+- Each control is labelled with the name of its setting (in a switch row, the name is the label, even if the visible text is the paragraph beside it).
+- The save bar is a region announced politely when it appears.
+- Grouping by `fieldset` and `legend` when the options of one setting are radio buttons.
+
+## Before shipping
+
+- [ ] Every setting says what it does in a line.
+- [ ] Discard really discards.
+- [ ] A dependent setting is disabled with its reason.
+- [ ] Nothing saves without the user knowing it did.

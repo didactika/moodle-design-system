@@ -1,0 +1,62 @@
+---
+title: El inspector
+summary: "Cómo medir un elemento, leer su código y el CSS que se aplica, probar cambios y escribir CSS para las clases de los ejemplos."
+group: guides
+order: 9
+---
+
+El inspector es la herramienta del sitio para **mirar un componente como lo hacen las herramientas de un navegador, sin el ruido**: mide, muestra el código como lo escribiría un plugin, dice qué reglas se aplican y deja probar cambios al momento. Solo existe en una pantalla ancha y solo mientras el **modo diseñador** está activo.
+
+## Activarlo
+
+Pulsa el botón de la regla en la barra de arriba, o abre cualquier página con `?designer=1`. Mientras está activo, los ejemplos dejan de reaccionar a los clics (un clic selecciona en vez de actuar) y se abre un panel a la derecha. Pulsa el botón de nuevo para volver a usar los componentes.
+
+## Seleccionar
+
+- **Haz clic** en un elemento de cualquier ejemplo para seleccionarlo. Se perfila, y encima se dibujan su margen, su relleno y su tamaño.
+- **Alt y las flechas** van a su padre (↑), su hijo (↓) y su hermano anterior y siguiente (← →).
+- **Esc** quita la selección.
+- La **ruta** de la pestaña Código muestra los ancestros; cada paso se puede pulsar.
+
+## Las tres pestañas
+
+| Pestaña | Qué muestra |
+|---|---|
+| **Diseño** | El modelo de caja (margen, borde, relleno, contenido), tamaño y display, tipografía (fuente, tamaño, peso, línea), colores (texto y fondo con su hex), borde y radio, sombra y un grupo de accesibilidad: rol, nombre, enfocable y el **contraste** del texto con lo que hay detrás |
+| **Código** | El HTML del elemento como lo escribiría un plugin (sin las clases y atributos de este sitio, con los iconos como llamadas de Moodle), las clases con cuántas reglas aporta cada una y el **CSS que se aplica**, en orden de cascada, con la hoja de la que viene cada regla (la versión de Moodle, el sistema de diseño o el tema) |
+| **Editar** | Los estados que puedes forzar y las propiedades que puedes cambiar |
+
+Los grupos de la pestaña Diseño se pliegan y el inspector recuerda cuáles cerraste.
+
+## Solo ofrece lo que tiene sentido
+
+La pestaña Editar pregunta al elemento qué es:
+
+- Un **icono** tiene color y tamaño; nada más.
+- Un **texto plano** tiene color, tamaño y peso, y no fondo ni borde.
+- Una **caja** (un botón, una tarjeta, una insignia) tiene además fondo, borde, radio y relleno.
+- Una **celda de tabla** no tiene radio.
+- **Hover, foco, pulsado y desactivado** solo aparecen en lo que puede tenerlos: botones, enlaces, campos, pestañas y elementos de menú. Un párrafo no tiene estados.
+
+## Probar cambios
+
+Cada propiedad tiene un número y un deslizador (los colores, un selector). El cambio se aplica a ese elemento al instante y se lista en **Cambios** como el CSS que lo produciría, listo para copiar. **Deshacer** vuelve atrás una propiedad cada vez; **Restablecer** las quita todas.
+
+## Tu propio CSS
+
+Al pie de la pestaña Editar (y cuando no hay nada seleccionado) hay un área de texto para CSS. Lo que escribas se aplica a **las clases de los ejemplos**, mientras el modo diseñador está activo:
+
+```css
+.btn-primary { border-radius: 4px; }
+.card { box-shadow: none; }
+.btn:hover { background-color: #0b5ed7; }
+```
+
+- Las reglas se acotan a los ejemplos, así que no pueden tocar el sitio.
+- Una regla para `:hover`, `:focus` o `:active` dibuja también el estado forzado de los ejemplos.
+- **Regla para este elemento** escribe por ti el selector del elemento seleccionado.
+- El CSS se guarda en tu navegador y aparece en la pestaña Código como "CSS propio".
+
+## Copiar
+
+Cada valor de la pestaña Diseño se copia al hacer clic; el HTML, el CSS y los cambios tienen un botón Copiar; **Copiar selector** da la ruta del elemento.

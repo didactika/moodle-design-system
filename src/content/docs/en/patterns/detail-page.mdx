@@ -1,0 +1,66 @@
+---
+title: A detail page
+summary: "Look at one thing in depth: its header, its sections as tabs, its facts and its history."
+group: patterns
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+
+The detail page is where a row of a list leads: one course, one user, one rule. It says what the thing is, gives its facts and its history, and offers what can be done to it.
+
+## When to use it
+
+- An object with enough information that it does not fit in a row or a dialog.
+- If the object only has three attributes, a dialog with a description list is enough.
+
+## Anatomy
+
+1. **Page header**: breadcrumb, a tile with the type of object, the **name**, one line of context with its **status** as a badge, and the actions (the main one filled, the rest outline or icons).
+2. **Tabs** (`nav-tabs`) for the sections of the object (Summary, Participants, Grades, Settings), with a count in a badge where it helps. The first tab is the summary.
+3. **Summary**: cards in a grid. **Details** as a description list (`dd-dl`); **Activity** as a timeline (`dd-timeline`); other cards as needed (figures, progress).
+4. **Related things** as a table or list inside their own tab, with the same pattern as any list.
+
+<Example title="A detail page" src="patterns/detail" />
+
+## Layout and spacing
+
+| Between | Distance |
+|---|---|
+| Header and tabs | 1.25 rem |
+| Tabs and content | 1.25 rem |
+| Cards | 1 rem; two columns when each has at least 18 rem |
+
+## Behaviour
+
+1. The **tab is in the address**, so a link opens the section and Back works.
+2. Tabs switch without reloading the header; the count in a badge updates when the content changes.
+3. The **status** is edited where it is shown (a menu on the badge) only if changing it is a common, safe action; otherwise it is in Settings.
+4. **Editing** opens a form page or a dialog and returns to the same tab afterwards.
+5. The timeline shows the last events (five) with "See all" leading to the full history.
+
+## States
+
+| State | What the user sees |
+|---|---|
+| Loading | The header already shows the name (it came with the link); the cards show skeletons |
+| Not found | An empty state: "This course does not exist or was deleted", with the way back to the list |
+| No permission | An empty state that names who can see it |
+| Archived or closed | A note under the header that says so, and the actions that no longer apply disabled with their reason |
+
+## Narrow screens
+
+The header's actions go under the title; tabs scroll sideways in one row; cards stack.
+
+## Accessibility
+
+- The name is the `h1`; the sections of the cards are `h2`.
+- Tabs follow the pattern of tabs (arrow keys between them, the panel after them).
+- The breadcrumb ends in the current page with `aria-current="page"`.
+
+## Before shipping
+
+- [ ] The name, the type and the status are visible without scrolling.
+- [ ] The tab is in the address.
+- [ ] Not found and no permission have their screens.
+- [ ] Every action that no longer applies says why.

@@ -1,0 +1,60 @@
+---
+title: "Estados: cargando, vacío, error"
+summary: "Qué muestra cada lista, tarjeta y página cuando aún no hay datos que mostrar, no hay ninguno o algo falló."
+group: patterns
+order: 10
+---
+
+import Example from '../../../../components/Example.astro';
+
+Una pantalla no está terminada cuando se ve bien con datos. La gente ve los otros estados más a menudo de lo que esperan los diseñadores: la primera vez, una conexión lenta, una búsqueda vacía, un servidor que falla, una lista que no pueden ver. Cada uno tiene su diseño.
+
+<Example title="Cargando, vacío, error y sin permiso" src="patterns/states" />
+
+## Los cuatro estados
+
+| Estado | Muestra | Nunca |
+|---|---|---|
+| **Cargando** | Esqueletos con la forma y el tamaño de lo que viene (`dd-skeleton`), para que nada salte cuando llegan los datos | Un spinner sobre toda la página; un spinner para una espera de menos de 300 ms |
+| **Vacío** | Un estado vacío: una pastilla, qué falta, qué hacer y la acción que lo hace | Un área en blanco; una tabla solo con su cabecera |
+| **Error** | Una alerta con lo que falló en palabras que la persona entiende, y un botón "Reintentar" | "Algo salió mal" sin acción; un código de error solo |
+| **Sin permiso** | Un estado vacío que dice quién puede verlo y cómo pedirlo | Una página que parece rota; un 404 para algo que existe |
+
+## Cargando
+
+1. Espera unos **300 ms** antes de mostrar esqueletos; una respuesta rápida no debe parpadear.
+2. Los esqueletos mantienen la **altura** del contenido final. En una tabla, filas de la altura correcta; en una tarjeta, las líneas de su texto.
+3. Para una espera larga (más de diez segundos), di qué ocurre y ofrece cancelar si se puede.
+4. Marca la región como ocupada (`aria-busy="true"`) y conserva su etiqueta.
+
+## Vacío
+
+Hay tres tipos, con texto distinto y acciones distintas:
+
+- **La primera vez**: aún no existe nada. La acción crea el primer elemento.
+- **Tras una búsqueda o un filtro**: hay elementos pero ninguno coincide. La acción quita los filtros.
+- **Hecho**: no hay nada pendiente porque el trabajo está terminado. Es una buena noticia y se dibuja como tal, sin acción.
+
+## Error
+
+- La alerta va **donde habría estado el contenido** (dentro de la tarjeta que falló, no arriba de la página), así el resto sigue funcionando.
+- Dice **qué** falló y, si la persona puede hacer algo, **qué**. "Los cursos no se cargaron. El servidor no respondió a tiempo." y un botón "Reintentar".
+- **Reintentar** repite la llamada y vuelve a mostrar el estado de carga; tras tres fallos ofrece además un enlace para informar del problema.
+- Un error de formulario no es esto: va junto a su campo.
+
+## Sin permiso
+
+Di que el contenido existe, quién puede verlo ("Solo los gestores del curso") y cómo pedir acceso. No muestres una versión desactivada del contenido.
+
+## Accesibilidad
+
+- Las regiones que cargan no anuncian nada por sí solas; el fin de la carga se anuncia en una región viva educada ("48 cursos").
+- Los errores usan `role="alert"` solo para algo que la persona causó o debe atender ahora; una carga fallida en segundo plano usa `role="status"`.
+- El botón "Reintentar" recibe el foco cuando el error sustituye a un contenido que la persona estaba leyendo.
+
+## Antes de publicar
+
+- [ ] Los cuatro estados existen para cada lista y cada tarjeta que carga datos.
+- [ ] Los esqueletos tienen la altura final.
+- [ ] Cada error tiene salida.
+- [ ] "Vacío" y "Sin permiso" son pantallas distintas.

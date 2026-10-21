@@ -1,6 +1,7 @@
 import type {APIRoute} from 'astro';
 import versions from '../../data/versions.json';
 import themeData from '../../data/theme.json';
+import systemData from '../../data/system.json';
 import {SCHEMA, json, pages, urls} from '../../lib/api';
 
 /** The entry point of the data of the site: what exists, where it is, and how to open a page in a state. */
@@ -14,6 +15,8 @@ export const GET: APIRoute = async() => {
         repository: 'https://github.com/didactika/moodle-design-system',
         licence: 'GPL-3.0-or-later',
         languages: ['en', 'es'],
+        designSystem: {default: systemData.default, versions: systemData.versions},
+        theme: {default: themeData.default, versions: themeData.versions},
         versions: versions.map((v) => ({...v, tokens: abs(`/api/tokens/${v.id}.json`), stylesheet: abs(`/moodle/${v.id}/boost.css`)})),
         resources: {components: abs('/api/components/index.json'), icons: abs('/api/icons.json'), brand: abs('/api/brand.json')},
         pages: list.map(({body, ...page}) => page),

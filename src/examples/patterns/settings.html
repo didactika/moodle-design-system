@@ -1,0 +1,36 @@
+<div style="display:grid;gap:1rem;max-width:44rem">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="h5 mb-1">Notifications</h3>
+      <p class="form-text mt-0 mb-3">Choose when Algebra I writes to its participants.</p>
+      <div style="display:grid;gap:0">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:.875rem 0;border-top:1px solid var(--dd-hairline)">
+          <div><b style="display:block">New submissions</b><span style="color:var(--dd-muted);font-size:.875rem">The teacher receives a message for each submission.</span></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="st-1" checked><label class="form-check-label visually-hidden" for="st-1">New submissions</label></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:.875rem 0;border-top:1px solid var(--dd-hairline)">
+          <div><b style="display:block">Weekly summary</b><span style="color:var(--dd-muted);font-size:.875rem">One message on Monday with what is pending.</span></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="st-2" checked><label class="form-check-label visually-hidden" for="st-2">Weekly summary</label></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:.875rem 0;border-top:1px solid var(--dd-hairline)">
+          <div><b style="display:block">Reminders to students</b><span style="color:var(--dd-muted);font-size:.875rem">Two days before a deadline closes.</span></div>
+          <div class="form-check"><input class="form-check-input" type="checkbox" id="st-3"><label class="form-check-label visually-hidden" for="st-3">Reminders to students</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="h5 mb-1">Dates</h3>
+      <p class="form-text mt-0 mb-3">When the course opens and closes.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1rem">
+        <div><label class="form-label" for="st-start">Start</label><input class="form-control" id="st-start" type="text" value="12 September 2026"></div>
+        <div><label class="form-label" for="st-end">End</label><input class="form-control" id="st-end" type="text" value="30 June 2027"></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 1rem;border:1px solid var(--dd-hairline);border-radius:var(--dd-radius-lg);background:var(--dd-surface)">
+    <span style="color:var(--dd-muted)">You have unsaved changes</span>
+    <span style="display:flex;gap:.5rem"><button type="button" class="btn btn-outline-secondary">Discard</button><button type="button" class="btn btn-primary">Save changes</button></span>
+  </div>
+</div>

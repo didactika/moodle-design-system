@@ -1,32 +1,68 @@
 ---
 title: Un panel de resumen
-summary: Cifras, lo que requiere atención y el progreso, en una página que se lee de un vistazo.
+summary: "Cifras, lo que requiere atención y el progreso, en una página que se lee de un vistazo."
 group: patterns
-order: 4
+order: 8
 ---
 
 import Example from '../../../../components/Example.astro';
 
-Un panel responde a tres preguntas en este orden: cómo van las cosas, qué me necesita y a dónde vamos. No sustituye a las listas: cada cifra lleva a la lista que hay detrás.
+Un panel responde a tres preguntas en este orden: **cómo van las cosas**, **qué me necesita** y **a dónde vamos**. No sustituye a las listas: cada cifra lleva a la lista que hay detrás.
 
-## Las piezas
+## Cuándo usarlo
 
-| Pieza | Responde | Construida con |
+- Una página de entrada para un curso, un área del sitio o un profesor, con unas pocas cosas que vigilar.
+- Si la página necesita más de unas ocho piezas, son dos páginas.
+
+## Anatomía
+
+| Región | Responde | Construida con |
 |---|---|---|
+| Cabecera | Cuál es este | Cabecera de página con el objeto y su contexto |
 | Cifras (2–4) | Cómo van las cosas | Tarjetas con pastilla, un valor y una etiqueta; una tendencia solo cuando significa algo |
-| Una lista de lo que requiere atención | Qué me necesita | Una lista con pastilla, una línea y una insignia que dice por qué (días que quedan, vencido) |
+| Lo que requiere atención | Qué me necesita | Una lista con pastilla, una línea y una insignia que dice por qué (días que quedan, vencido) |
 | Progreso | A dónde vamos | Barras de progreso con el valor al lado, color por significado |
 
 <Example title="Resumen de un curso" src="patterns/dashboard" />
 
-## Reglas
+## Disposición y espacios
 
-- No más de cuatro cifras; si hay más, van en una tabla debajo.
-- Una cifra que es mala noticia lo dice con color y un icono, nunca solo con color.
-- El orden de "qué me necesita" es el de urgencia, no el alfabético.
-- Cada tarjeta tiene una acción o un enlace que lleva al detalle; una cifra muerta es decoración.
-- En una pantalla estrecha las piezas se apilan en el mismo orden.
+| Entre | Distancia |
+|---|---|
+| Cabecera y cifras | 1,25 rem |
+| Cifras | 1 rem; comparten la fila y cada una mide al menos 13 rem |
+| Tarjetas de abajo | 1 rem; dos columnas desde 36 rem, una por debajo |
+
+## Comportamiento
+
+1. **Cada cifra y cada fila es un enlace** al detalle que hay detrás; una cifra que no lleva a ninguna parte es decoración y se quita.
+2. **"Qué me necesita" se ordena por urgencia**, no alfabéticamente, y muestra como mucho cinco filas más "Ver todo".
+3. **El color tiene un significado**: éxito para lo que va bien, aviso para lo que se acerca, peligro para lo que va tarde; y cada color va con una palabra o un icono.
+4. Las cifras se actualizan sin mover la página; una cifra que está cargando muestra un esqueleto de su tamaño.
+5. La página no recuerda nada que la persona no haya elegido: sin filtros ocultos.
 
 ## Estados
 
-Un curso nuevo sin datos muestra estados vacíos en cada tarjeta en vez de ceros: "Aún no hay actividad".
+| Estado | Qué ve la persona |
+|---|---|
+| Cargando | Esqueletos del tamaño de cada tarjeta |
+| Aún sin datos | Un estado vacío en cada tarjeta ("Aún no hay actividad") en vez de ceros |
+| Error en una tarjeta | La alerta está dentro de esa tarjeta; las demás siguen |
+| Nada requiere atención | Un estado vacío positivo: "Estás al día" |
+
+## Pantallas estrechas
+
+Las piezas se apilan en el mismo orden: primero las cifras, luego la atención, luego el progreso. Las cifras pueden ir de dos en dos.
+
+## Accesibilidad
+
+- Cada tarjeta tiene un encabezado; las cifras se leen como "Estudiantes: 128".
+- Una tendencia tiene texto ("sube 6 puntos"), no solo una flecha o un color.
+- Las barras de progreso tienen `role="progressbar"` y una etiqueta que nombra lo que miden.
+
+## Antes de publicar
+
+- [ ] No más de cuatro cifras.
+- [ ] Cada cifra y fila lleva a algún sitio.
+- [ ] La urgencia decide el orden.
+- [ ] Un curso vacío no muestra ceros.

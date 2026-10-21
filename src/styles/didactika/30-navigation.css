@@ -162,3 +162,11 @@
 .ds-v-scope .dd-search-results a:hover, .ds-v-scope .dd-search-results a.ds-is-hover, .ds-v-scope .dd-search-results a.active { background-color: var(--dd-primary-soft); }
 .ds-v-scope .dd-search-foot { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin: .5rem 0 0; padding: .625rem .5rem .25rem; border-top: 1px solid var(--dd-hairline); color: var(--dd-muted); font-size: .8125rem; }
 .ds-v-scope .dd-search-foot kbd + kbd { margin-left: .125rem; }
+
+/* the buttons of a pager are one group of small icon buttons: square-ish, joined, the ends rounded (the pager of Filebank) */
+.ds-v-scope .btn-group > .btn.btn-icon { border-radius: 0; }
+.ds-v-scope .btn-group > .btn.btn-icon:first-of-type { border-top-left-radius: var(--dd-radius-btn); border-bottom-left-radius: var(--dd-radius-btn); }
+.ds-v-scope .btn-group > .btn.btn-icon:last-of-type { border-top-right-radius: var(--dd-radius-btn); border-bottom-right-radius: var(--dd-radius-btn); }
+.ds-v-scope .btn-group > .btn.btn-icon:only-of-type { border-radius: 50%; }
+.ds-v-scope .dd-pager .btn-group > .btn-icon { width: var(--dd-h-sm); }
+.ds-v-scope .dd-pager-range small, .ds-v-scope .dd-pager-page { color: var(--dd-muted); }

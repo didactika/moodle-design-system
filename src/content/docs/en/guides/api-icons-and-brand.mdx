@@ -1,8 +1,8 @@
 ---
 title: "API: icons and brand"
-summary: The Moodle icon ids with the Font Awesome name each version draws them with, and the colours and logo of the Didactika theme.
+summary: "The Moodle icon ids with the Font Awesome name each version draws them with, and the colours and logo of the Didactika theme."
 group: guides
-order: 4
+order: 6
 ---
 
 ## Icons
@@ -18,6 +18,8 @@ order: 4
 }
 ```
 
+An icon id is `<group>/<name>`: `t/` for the icons of tools, `i/` for the icons of items, `a/` for actions, `e/` for the editor. In a Moodle template it is written `{{#pix}}t/add, core{{/pix}}`; in PHP, `$OUTPUT->pix_icon('t/add', get_string('add'))`.
+
 ```js
 const root = 'https://didactika.github.io/moodle-design-system';
 const {versions, icons} = await (await fetch(root + '/api/icons.json')).json();
@@ -27,7 +29,7 @@ const name = icons['t/edit'].v41;                       // a name of Font Awesom
 const html = family.v41 === 'fa4' ? `<i class="fa fa-${name}"></i>` : `<i class="fa-solid fa-${name}"></i>`;
 ```
 
-A name that starts with `regular ` or `brands ` already carries its family. An id with no entry for a version has no icon there: do not draw one by hand. The rule is the same everywhere in this system: icons come from Moodle, never drawn for a plugin.
+A name that starts with `regular ` or `brands ` already carries its family. An id with no entry for a version has no icon there: do not draw one by hand. The rule is the same everywhere in this system: **icons come from Moodle, never drawn for a plugin**. If a plugin needs an icon that Moodle does not have, it ships an SVG in `pix/` and calls it with `pix_icon` of its own component.
 
 ## Brand
 
@@ -35,9 +37,11 @@ A name that starts with `regular ` or `brands ` already carries its family. An i
 
 | Field | Meaning |
 |---|---|
+| `name` | `Didactika` |
+| `logo` | The colour of the logo |
 | `teal` | The 50 to 950 scale of the brand colour |
 | `extra` | The few neutrals and accents used besides it |
-| `roles` | The colour of each Bootstrap role (`primary`, `secondary`, `success`...) with the Didactika theme on |
+| `roles` | The colour of each Bootstrap role (`primary`, `secondary`, `success`, `info`, `warning`, `danger`, `light`, `dark`) with the Didactika theme on |
 | `assets.logo`, `assets.icon`, `assets.share` | The logo, the icon and the image used when a page is shared |
 
 ```js
@@ -45,4 +49,4 @@ const brand = await (await fetch(root + '/api/brand.json')).json();
 console.log(brand.roles.primary, brand.assets.logo);
 ```
 
-The roles are what the "Didactika theme" switch of the header applies; to recolour with something else, change the Bootstrap variables, never the components.
+The roles are what the "Didactika theme" switch of the header applies; to recolour with something else, change the Bootstrap variables, never the components. Every role reaches 4.5:1 with white text (the light role is the exception: it takes dark text).

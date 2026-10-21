@@ -1,73 +1,88 @@
 ---
-title: Conectar la documentación de un plugin
-summary: Los datos y los componentes de este sitio se publican como JSON, y cada página se abre en una versión de Moodle, un modo de color y una paleta concretos, para que otra documentación pueda leerlos y enlazarlos.
+title: "API: visión general"
+summary: "Qué publica el sitio como JSON, cómo leerlo, qué se promete que no cambie y cómo llamarlo desde cualquier lenguaje."
 group: guides
 order: 1
 ---
 
-La documentación de un plugin no debería copiar qué es un botón, una tabla o un color: debería apuntar aquí. Todo lo que sabe este sitio se publica como JSON estático, servido por GitHub Pages con cabeceras CORS abiertas, así que cualquier otra documentación, script de compilación o editor puede leerlo.
+La documentación de un plugin no debería copiar lo que es un botón, una tabla o un color: debería apuntar aquí. Todo lo que sabe este sitio se publica como **JSON estático**, así que cualquier otra documentación, script de build, prueba o editor puede leerlo. Esta página es el mapa; las demás páginas de la guía profundizan en cada parte.
 
-## El punto de entrada
+## Qué obtienes
+
+| Quieres… | Lee | Página de la guía |
+|---|---|---|
+| Saber qué existe y abrir una página en un estado dado | `/api/index.json` | Visión general, Enlaces y estados |
+| Listar cada página y leer su texto | `/api/index.json`, `/api/pages/<id>.json` | Páginas y búsqueda |
+| Copiar el marcado de un componente | `/api/components/<componente>.json` | Componentes y ejemplos |
+| Leer las variables CSS de una versión de Moodle | `/api/tokens/<version>.json` | Tokens y versiones |
+| Dibujar un icono de Moodle con Font Awesome | `/api/icons.json` | Iconos y marca |
+| Usar los colores y el logo de Didactika | `/api/brand.json` | Iconos y marca |
+| Comprobar la forma de cada archivo | | Referencia de los archivos |
+
+## La dirección
 
 ```http
 GET https://didactika.github.io/moodle-design-system/api/index.json
 ```
 
-Lista las versiones de Moodle (con los enlaces a su hoja de estilos y a sus tokens), cada página con su identificador, grupo, versiones a las que aplica, título, resumen y dirección en los dos idiomas, y los demás recursos.
+El sitio lo sirve GitHub Pages: **no hay clave, ni inicio de sesión, ni límite de uso que gestionar**. Cada respuesta es un archivo JSON con `Content-Type: application/json` y la cabecera `Access-Control-Allow-Origin: *`, así que también se puede leer desde un navegador en cualquier otro sitio.
 
-| Dirección | Qué contiene |
+## El punto de entrada
+
+`/api/index.json` guarda, en un archivo:
+
+| Campo | Qué es |
 |---|---|
-| `/api/index.json` | Versiones, páginas, recursos y cómo funcionan los enlaces con estado |
-| `/api/pages/<id>.json` | Una página en los dos idiomas, con el texto fuente y los ejemplos que usa |
-| `/api/components/index.json` | Los componentes que tienen ejemplos |
-| `/api/components/<componente>.json` | El marcado de cada ejemplo de un componente, para Bootstrap 5 y para Bootstrap 4 |
-| `/api/tokens/<version>.json` | Las variables CSS de esa versión de Moodle, en claro y en oscuro |
-| `/api/icons.json` | Cada identificador de icono de Moodle y el nombre de Font Awesome con el que lo dibuja cada versión |
-| `/api/brand.json` | Los colores, el logo y el icono de Didactika |
-
-## Componentes
-
-Cada ejemplo de un componente se publica como marcado que se puede usar tal cual. Viene en dos formas para cada generación de Bootstrap (Moodle 5.x usa Bootstrap 5, Moodle 4.x usa Bootstrap 4): HTML plano, y una plantilla de Moodle en la que cada icono es la llamada que hace una plantilla (`{{#pix}}t/add, core{{/pix}}`). Los identificadores de icono usados se listan aparte.
+| `schema` | La versión de la forma del JSON (mira más abajo) |
+| `name`, `site`, `repository`, `licence` | Qué es esto y dónde vive |
+| `languages` | `["en", "es"]` |
+| `designSystem`, `theme` | Las versiones del sistema de diseño y del tema de Didactika, con la de por defecto de cada uno |
+| `versions[]` | Cada versión de Moodle con su generación de Bootstrap, familia de iconos, soporte y los enlaces a sus `tokens` y `stylesheet` |
+| `resources` | Las direcciones de los componentes, los iconos y la marca |
+| `pages[]` | Cada página: identificador, grupo, orden, sección, versiones, título, resumen, direcciones y los ejemplos que usa |
+| `deepLinks` | Cómo se abre una página en un estado dado |
 
 ```js
 const root = 'https://didactika.github.io/moodle-design-system';
-const buttons = await (await fetch(root + '/api/components/buttons.json')).json();
+const index = await (await fetch(root + '/api/index.json')).json();
 
-const example = buttons.examples.find((e) => e.id === 'buttons/icons');
-console.log(example.title.es);
-console.log(example.bootstrap5.mustache); // para una plantilla de un plugin en Moodle 5.x
-console.log(example.bootstrap4.mustache); // lo mismo, con los nombres de clase de Bootstrap 4
-console.log(example.icons);               // ['t/add', 'i/import', 't/delete', ...]
+if (index.schema !== 1) { throw new Error('Esquema desconocido: ' + index.schema); }
+console.log(index.designSystem.default, index.theme.default);   // "0.1" "0.1"
+console.log(index.versions.map((v) => v.label));                 // ["Moodle 5.3 LTS", ...]
 ```
 
 ## Estable a propósito
 
-Cada fichero lleva `"schema": 1`. El número cambia solo cuando se quita un campo o cambia su significado; añadir campos nunca lo cambia. Un lector que compruebe el número sigue funcionando cuando el sitio crece. Los identificadores de página y de ejemplo (como `bootstrap/buttons` o `buttons/icons`) no cambian una vez publicados.
+- Cada archivo lleva `"schema": 1`. El número cambia **solo cuando se quita un campo o cambia su significado**. Añadir campos nunca lo cambia, así que un lector que comprueba el número e ignora lo que no conoce sigue funcionando cuando el sitio crece.
+- Los **identificadores** de páginas (`bootstrap/buttons`) y de ejemplos (`buttons/icons`) no cambian una vez publicados. Los títulos y resúmenes sí pueden.
+- Un ejemplo o una página que se quita desaparece de las listas; su dirección antigua deja de responder.
+- Los datos se **regeneran con el sitio**. Guárdalos en caché un día, no para siempre, y nunca más tiempo que la versión del sistema de diseño a la que apuntas.
 
-## Enlazar una página con un estado
+## Llamarlo desde otros lenguajes
 
-Cualquier página se abre en un estado concreto con parámetros de la dirección, para que la documentación de un plugin pueda mostrar su pantalla como la vería un sitio.
-
-| Parámetro | Valores | Efecto |
-|---|---|---|
-| `version` | `v53`, `v45`, `v41` | La versión de Moodle con la que se dibujan los ejemplos |
-| `mode` | `light`, `dark` | El modo de color (el oscuro solo existe desde Moodle 5.x) |
-| `brand` | `1`, `0` | La paleta de Didactika en cada ejemplo |
-
-```
-https://didactika.github.io/moodle-design-system/es/bootstrap/buttons/?version=v45&mode=light&brand=1
+```bash
+curl -s https://didactika.github.io/moodle-design-system/api/index.json | jq '.pages[] | select(.group == "patterns") | .id'
 ```
 
-## Leer las páginas desde una compilación
-
-```js
-const index = await (await fetch(root + '/api/index.json')).json();
-if (index.schema !== 1) { throw new Error('Esquema desconocido'); }
-
-const page = index.pages.find((p) => p.id === 'bootstrap/buttons');
-console.log(page.title.es, page.url.es, page.examples);
-
-// El texto fuente de una página, para incluirlo o citarlo.
-const detail = await (await fetch(page.api)).json();
-console.log(detail.body.es);
+```php
+$root = 'https://didactika.github.io/moodle-design-system';
+$index = json_decode(file_get_contents($root . '/api/index.json'), true);
+foreach ($index['pages'] as $page) {
+    echo $page['id'] . ' - ' . $page['title']['es'] . PHP_EOL;
+}
 ```
+
+```python
+import json, urllib.request
+
+root = "https://didactika.github.io/moodle-design-system"
+with urllib.request.urlopen(root + "/api/components/buttons.json") as response:
+    buttons = json.load(response)
+print([e["id"] for e in buttons["examples"]])
+```
+
+## Buenas maneras
+
+- Descarga una vez en tu build, no en cada visita de tu documentación.
+- Comprueba `schema` antes de leer e ignora los campos que no conoces.
+- Conserva la licencia: el sitio y sus datos son GPL-3.0-or-later.

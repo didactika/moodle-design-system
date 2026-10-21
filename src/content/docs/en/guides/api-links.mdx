@@ -1,0 +1,69 @@
+---
+title: "API: links and states"
+summary: "How a page opens in a given Moodle version, colour mode and theme, and how to link to a section or an example."
+group: guides
+order: 2
+---
+
+Any page of the site can be opened in the state you want to show, with parameters in the address. The documentation of a plugin can then show a component **the way a given site would see it**: Moodle 4.5, dark colours, with the Didactika theme.
+
+## The parameters
+
+| Parameter | Values | Effect |
+|---|---|---|
+| `version` | `v53`, `v45`, `v41` | The Moodle version the examples are drawn with |
+| `mode` | `light`, `dark` | The colour mode (dark only exists from Moodle 5.x) |
+| `brand` | `1`, `0` | The Didactika theme on or off. Off, the examples show the design system alone |
+| `theme` | `0.1` | The version of the theme (only matters with `brand=1`) |
+| `designer` | `1` | Opens with the inspector on (not on phones) |
+
+Without parameters, the page opens with what the visitor chose last time (the choices are remembered in their browser) or with the defaults: Moodle 5.3, the colour mode of the system, the theme off.
+
+```text
+https://didactika.github.io/moodle-design-system/en/bootstrap/buttons/?version=v45&mode=light&brand=1&theme=0.1
+```
+
+## Language
+
+The language is part of the path: `/en/…` and `/es/…`. Every page exists in both, with the same identifier, so a link can be built by changing the first segment.
+
+## Sections and examples
+
+Every heading has an anchor (the `id` that Astro makes from its text), so a link can land on the exact section:
+
+```text
+https://didactika.github.io/moodle-design-system/en/bootstrap/tables/#sortable-headers
+```
+
+The anchor is the heading in lower case, without accents, with dashes. Headings are not renamed lightly, but if you need a link that never changes, link to the page and name the section in the text.
+
+## Link to a component in a Moodle version, from a ticket
+
+A report that says "the pager looks wrong in 4.1" is better as a link than as a screenshot:
+
+```text
+…/en/bootstrap/pagination/?version=v41#the-pagination-of-a-list
+```
+
+## Build the links in code
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+
+const link = (id, {lang = 'en', version, mode, brand, hash = ''} = {}) => {
+    const params = new URLSearchParams();
+    if (version) { params.set('version', version); }
+    if (mode) { params.set('mode', mode); }
+    if (brand !== undefined) { params.set('brand', brand ? '1' : '0'); }
+    const query = params.toString();
+    return `${root}/${lang}/${id}/${query ? '?' + query : ''}${hash}`;
+};
+
+link('bootstrap/buttons', {version: 'v45', mode: 'light', brand: true});
+```
+
+## What a link never does
+
+- It never changes the data of the site: states are only for looking.
+- It never needs the visitor to be signed in.
+- Unknown values are ignored and the default is used.

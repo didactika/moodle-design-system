@@ -1,32 +1,45 @@
 ---
 title: "API: components and examples"
-summary: Every example of a component, as markup you can paste into a template, for Bootstrap 5 and for Bootstrap 4.
+summary: "Every example of a component, as markup you can paste into a template, for Bootstrap 5 and for Bootstrap 4."
 group: guides
-order: 2
+order: 4
 ---
 
 A plugin's documentation (or its tests) should not keep its own copy of "what a Didactika button looks like". It reads the example from here and uses it.
 
 ## What is published
 
-`/api/components/index.json` lists the components that have examples. `/api/components/<component>.json` holds all the examples of one component:
+`/api/components/index.json` lists the components that have examples. `/api/components/<component>.json` holds all the examples of one component.
 
 | Field | Meaning |
 |---|---|
-| `id` | The component, such as `buttons` |
+| `id` | The component, such as `buttons`, `tables`, `patterns` |
 | `page` | The page of the site that explains it, such as `bootstrap/buttons` |
 | `examples[].id` | The example, such as `buttons/icons`. Stable once published |
 | `examples[].title` | Its name in `en` and `es` |
-| `examples[].icons` | The Moodle icon ids it uses (`t/add`, `i/import`...) |
+| `examples[].page` | The page where it appears |
+| `examples[].icons` | The Moodle icon ids it uses (`t/add`, `i/import`…) |
 | `examples[].bootstrap5` | `html` and `mustache` for Moodle 5.x |
 | `examples[].bootstrap4` | `html` and `mustache` for Moodle 4.x |
+
+The list in the index also has, for each component, the `examples` as plain identifiers, so you can know what exists without downloading every file.
 
 ## HTML or Mustache
 
 - **`html`** is the example as the page draws it, with the icons as `data-pix` placeholders. Use it in a document, a screenshot test or a static preview.
 - **`mustache`** replaces every icon with the call a Moodle template makes (`{{#pix}}t/add, core{{/pix}}`), so you can drop it into `templates/*.mustache` as it is.
 
-The two generations differ where Bootstrap 4 and 5 differ (`ms-2` or `ml-2`, `data-bs-toggle` or `data-toggle`, `text-bg-*` or `badge-*`), so pick by the Moodle version of the plugin, not by taste.
+The two generations differ where Bootstrap 4 and 5 differ:
+
+| Bootstrap 5 (Moodle 5.x) | Bootstrap 4 (Moodle 4.x) |
+|---|---|
+| `ms-2`, `me-2`, `ps-3`, `text-end` | `ml-2`, `mr-2`, `pl-3`, `text-right` |
+| `data-bs-toggle`, `data-bs-target` | `data-toggle`, `data-target` |
+| `text-bg-success` on a badge | `badge-success` |
+| `form-select`, `btn-close` | `custom-select`, `close` |
+| `visually-hidden` | `sr-only` |
+
+Pick by the **Moodle version of the plugin**, not by taste. A plugin that supports both publishes a template for each, or uses the classes the two share.
 
 ## Use it
 
@@ -42,10 +55,23 @@ console.log(sortable.bootstrap5.mustache);
 console.log(sortable.icons);
 ```
 
+## Render it in a Moodle template
+
+The `mustache` field is a valid Mustache template. A plugin saves it as `templates/<name>.mustache`, writes the data it needs where the example has text, and renders it with `$OUTPUT->render_from_template()`:
+
+```php
+echo $OUTPUT->render_from_template('local_example/toolbar', [
+    'title' => get_string('courses'),
+    'count' => $count,
+]);
+```
+
+Replace the example text with Mustache variables (`{{title}}`, `{{count}}`) and the strings with `{{#str}}…{{/str}}`; leave the classes as they are.
+
 ## Which icons does it need?
 
-`examples[].icons` lists the Moodle ids. To draw them in a documentation page, read the icon table (see "API: icons and brand") and use the name of the Font Awesome version of the target Moodle.
+`examples[].icons` lists the Moodle ids. To draw them outside Moodle (a documentation page, a preview) read the icon table (see "API: icons and brand") and use the name of the Font Awesome version of the target Moodle. Inside a Moodle template, `{{#pix}}` does it for you.
 
 ## What a component is not
 
-An example is a **starting point with its classes**: the Didactika layer is the CSS that makes it look that way (`dd-*` classes and the modifiers listed on each component's page), and a plugin never redraws it. If a plugin needs something the example does not have, the component page says which combination to use or which class to ask for.
+An example is a **starting point with its classes**. The Didactika classes (`dd-*`, `btn-tonal`, `badge-soft`…) belong to the design system and are published with it; the Didactika theme adds its own look to the same markup and never needs different markup. If a plugin needs something the example does not have, the page of the component says which combination to use or which class to ask for.

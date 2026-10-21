@@ -18,37 +18,39 @@ Pagination lets the user move through the pages of a list or a table. It shows t
 <div class="ds-do-dont">
 <Rule kind="do" title="Use it">
 
-- Show the current page, a few neighbours, and previous and next.
-- Use the small size under a dense table.
-- Keep the total or the range near it ("21–40 of 312").
+- Under every list and table that can have more rows than fit: rows per page on the left, the range and the arrows on the right.
+- Say how much there is ("21–40 of 312") and where you are ("Page 2 of 16").
+- Offer the first and the last page when the list has more than a few pages.
+- Keep the page and the rows per page in the address, so a link or a reload comes back to the same place.
 
 </Rule>
 <Rule kind="dont" title="Don't">
 
 - Paginate fewer than two pages.
-- Show every page number of a long list; shorten the middle.
-- Use it to move between steps of a process; use steps.
+- Show every page number of a long list.
+- Use it to move between the steps of a process; use steps.
+- Put it above and below the same table: under it is enough.
 
 </Rule>
 </div>
 
 ## Anatomy
 
-A `nav` with a list (`pagination`) of **items** (`page-item`), each with a **link** (`page-link`). The current page is **active**; unavailable ones are **disabled**.
+**The pagination of a list** is the one we use in every plugin (it is the one of Filebank): a row with, on the left, the label **Rows per page** and a small select, and on the right the **range** ("21–40 of 312"), the **page** ("Page 2 of 16") and a **group of four small icon buttons**: first, previous, next and last. The group is outlined and joined, with the ends rounded; a button that cannot be used is disabled, never hidden, so the group does not change width.
+
+**Numbered pages** (`pagination`, `page-item`, `page-link`) are for the places where the user needs to jump to a given page of a short list, and for Moodle's own pages that already use them.
 
 ## Variants and states
 
-<Example title="Pagination, sizes" src="pagination/basic" />
-
-### States
-
-<Example title="States" src="pagination/states" />
-
 ### The pagination of a list
 
-The pagination Didactika uses on its lists and tables says how many rows there are on a page, which ones are shown and where the arrows lead. It is the same in every list, so a user who has learnt it once knows it everywhere.
-
 <Example title="Pagination of a list" src="pagination/list" />
+
+The first row is the full version, for lists of many rows. The second is the short version, for a list that only goes forward (a feed, a log that loads more). The third is the version with text, for a flow where only the next page matters.
+
+### Numbered pages
+
+<Example title="Numbered pages" src="pagination/basic" />
 
 <Only of="v53">
 
@@ -59,6 +61,14 @@ Moodle 5.3 has its own pagination component (`mds-pagination`) for the places wh
 <Example title="Pagination of Moodle 5.3" src="pagination/moodle" />
 
 </Only>
+
+## Behaviour
+
+1. Changing the rows per page goes back to the first page, because the old page number may no longer exist.
+2. The buttons are links when the page is in the address (so they can be opened in a new tab) and buttons when the list updates in place.
+3. While the next page loads, the list shows its placeholder and the pager is hidden; it comes back with the new range.
+4. After going to another page the focus goes to the top of the list, and the new range is announced ("Showing 41–60 of 312").
+5. A page that no longer exists (the list got shorter) shows the last one, never an empty page.
 
 ## Combinations
 

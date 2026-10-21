@@ -1,11 +1,11 @@
 ---
 title: "API: tokens and Moodle versions"
-summary: The CSS variables of every Moodle version, light and dark, and the stylesheet they come from.
+summary: "The CSS variables of every Moodle version, light and dark, how to turn them into SCSS or design-tool files, and how to check contrast."
 group: guides
-order: 3
+order: 5
 ---
 
-A token is a CSS variable the theme of a Moodle version defines: `--bs-primary`, `--bs-body-bg`, the `--mds-*` of Moodle 5.3. Reading them from here keeps a plugin's documentation, a Figma kit or a build script in step with the real stylesheet.
+A token is a CSS variable the theme of a Moodle version defines: `--bs-primary`, `--bs-body-bg`, the `--mds-*` of Moodle 5.3. Reading them from here keeps a plugin's documentation, a Figma kit or a build script in step with the real stylesheet of that version.
 
 ## What is published
 
@@ -15,7 +15,7 @@ A token is a CSS variable the theme of a Moodle version defines: `--bs-primary`,
 | `/api/tokens/<version>.json` | `tokens.light` and `tokens.dark`, each a map of variable name to value |
 | `/moodle/<version>/boost.css` | The stylesheet of that version, scoped under `.ds-<version>` so several can live in one page |
 
-Dark exists from Moodle 5.x; the 4.x files have an empty `dark`.
+`<version>` is `v53`, `v45` or `v41`. Moodle 5.3 has about 500 variables per mode; 4.x versions have far fewer, because Bootstrap 4 compiles its colours into the classes. Dark exists from Moodle 5.x; the 4.x files have an empty `dark`.
 
 ## Read a token
 
@@ -28,11 +28,47 @@ console.log(v53.tokens.light['--bs-primary']);
 console.log(v53.tokens.dark['--bs-body-bg']);
 ```
 
+## The families of variables
+
+| Prefix | What it holds |
+|---|---|
+| `--bs-*` | Bootstrap: colours, body, borders, fonts, shadows, radii |
+| `--bs-*-rgb` | The same colours as channels, for `rgba(var(--bs-primary-rgb), .2)` |
+| `--bs-*-bg-subtle`, `-border-subtle`, `-text-emphasis` | The tones Bootstrap 5.3 derives for each role |
+| `--mds-*` | Moodle 5.3's own design system (typography, spacing, colour) |
+| `--primary`, `--secondary`… | Moodle's older names, still defined |
+
 ## Generate SCSS for a tool
 
 ```js
 const entries = Object.entries(v53.tokens.light).filter(([name]) => name.startsWith('--bs-'));
 const scss = entries.map(([name, value]) => `$${name.slice(2)}: ${value};`).join('\n');
+```
+
+## Generate a file for a design tool
+
+A set of tokens in the format that Figma plugins and Style Dictionary read (`{ "name": { "value": … } }`):
+
+```js
+const toTokens = (map) => Object.fromEntries(
+    Object.entries(map)
+        .filter(([name]) => name.startsWith('--bs-') && !name.endsWith('-rgb'))
+        .map(([name, value]) => [name.slice(5), {value, type: /^#|^rgb/.test(value) ? 'color' : 'other'}]),
+);
+const file = {light: toTokens(v53.tokens.light), dark: toTokens(v53.tokens.dark)};
+```
+
+## Check contrast with the real colours
+
+```js
+const luminance = ([r, g, b]) => {
+    const f = (x) => { const v = x / 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+};
+const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+const ratio = (a, b) => { const [x, y] = [luminance(rgb(a)), luminance(rgb(b))].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+
+console.log(ratio(v53.tokens.light['--bs-primary'], '#ffffff').toFixed(2));  // 4.5 or more
 ```
 
 ## The colours of the Didactika theme are not tokens of Moodle
@@ -41,4 +77,4 @@ The palette of the Didactika theme (`/api/brand.json`) is applied on top of Mood
 
 ## Check a version before you rely on it
 
-The `support` field of each version says whether it is current, LTS or legacy, in both languages. Read it when a guide tells people which versions to test.
+The `support` field of each version says whether it is current, LTS or legacy, in both languages. Read it when a guide tells people which versions to test; the matrix of a CI should include the two ends of the supported range and the LTS in between.

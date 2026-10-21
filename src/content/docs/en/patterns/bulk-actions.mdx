@@ -1,0 +1,64 @@
+---
+title: Selection and bulk actions
+summary: "Act on several rows at once: how the selection is made, shown and acted on."
+group: patterns
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+
+When the same action is needed on many rows (hide twenty courses, remove fifteen participants), doing it one by one is a punishment. The selection pattern lets the user pick rows and act on all of them from one bar.
+
+## When to use it
+
+- The list has **actions that make sense for several rows** (hide, move, delete, export).
+- Users really do these in numbers. If they act on one row at a time, row actions are enough.
+
+## Anatomy
+
+1. **Checkbox column** (`table-select`): a checkbox per row and one in the header that selects the rows of the page.
+2. **Selected rows** keep a tint (`table-active`) so the selection is visible at a glance.
+3. **Selection bar**: it takes the place of the toolbar while there is a selection (`table-toolbar-selection`), with the count, "Select all N" and the actions.
+4. **Clear selection** as an icon button at the end of the bar.
+
+<Example title="Rows selected, with the bar of actions" src="patterns/bulk-actions" />
+
+## Behaviour
+
+1. Checking a row changes the toolbar into the selection bar, with the count; unchecking the last one brings the toolbar back.
+2. The checkbox of the header selects the rows of the **current page**. It shows a mixed state when only some are selected.
+3. When the page is selected and the list has more, the bar offers **"Select all 48"**. Choosing it makes the action apply to the whole list, and the bar says so ("All 48 selected").
+4. The actions are the same buttons as the row actions, in the same order, with their label: in a bar there is room for words.
+5. A destructive action asks for confirmation with the quantity ("Delete 3 courses?") and, if it can be undone, offers "Undo" afterwards.
+6. After an action the selection is cleared and the result is announced.
+7. Changing the filter, the search or the page clears the selection, unless "all" was chosen deliberately.
+
+## Layout and spacing
+
+| Piece | Rule |
+|---|---|
+| Selection bar | Same height as the toolbar (no jump); tinted with the primary colour; count in bold |
+| Actions | Small buttons (`btn-sm`), 0.5 rem apart; the destructive one in the danger outline, last |
+| Checkbox column | 2.75 rem wide, no padding on the right |
+
+## States
+
+- **Loading after an action**: the affected rows dim and the bar's buttons are disabled.
+- **Partial failure**: an alert above the table lists what failed ("2 of 3 courses could not be hidden") and the failed rows stay selected so the user can retry.
+
+## Narrow screens
+
+The bar wraps in two lines: count and clear on the first, the actions on the second. Actions that do not fit go into a "More" dropdown, with the destructive one always last.
+
+## Accessibility
+
+- Each row's checkbox has a label that names the row; the header's names the scope ("Select all on this page").
+- The count is in a live region: "3 selected".
+- The bar appears without moving the focus; the keyboard reaches it with Tab after the table.
+
+## Before shipping
+
+- [ ] Every action of the bar also exists for a single row.
+- [ ] "Select all N" says the real number.
+- [ ] The destructive action confirms with the quantity.
+- [ ] A partial failure is reported and can be retried.

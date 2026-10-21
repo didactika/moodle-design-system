@@ -1,0 +1,62 @@
+---
+title: The inspector
+summary: "How to measure an element, read its code and the CSS that applies, try changes and write CSS for the classes of the examples."
+group: guides
+order: 9
+---
+
+The inspector is the tool of the site for **looking at a component the way a browser's tools do, without the noise**: it measures, shows the code as a plugin would write it, tells which rules apply, and lets you try changes on the spot. It only exists on a wide screen, and only while **designer mode** is on.
+
+## Turning it on
+
+Press the ruler button in the bar at the top, or open any page with `?designer=1`. While it is on, the examples stop reacting to clicks (a click selects instead of acting) and a panel opens on the right. Press the button again to go back to using the components.
+
+## Selecting
+
+- **Click** an element of any example to select it. It is outlined, and its margin, padding and size are drawn over it.
+- **Alt and the arrows** move to its parent (↑), its child (↓) and its previous and next sibling (← →).
+- **Esc** clears the selection.
+- The **path** in the Code tab shows the ancestors; each step can be clicked.
+
+## The three tabs
+
+| Tab | What it shows |
+|---|---|
+| **Design** | The box model (margin, border, padding, content), size and display, type (font, size, weight, line), colours (text and background with their hex), border and radius, shadow and an accessibility group: role, name, focusable and the **contrast** of the text against what is behind it |
+| **Code** | The HTML of the element as a plugin would write it (without the classes and attributes of this site, with icons as Moodle calls), the classes with how many rules each brings, and the **CSS that applies**, in cascade order, with the sheet each rule comes from (the Moodle version, the design system or the theme) |
+| **Edit** | The states you can force and the properties you can change |
+
+The groups of the Design tab fold, and the inspector remembers which ones you closed.
+
+## It only offers what makes sense
+
+The Edit tab asks the element what it is:
+
+- An **icon** has a colour and a size; nothing else.
+- A **plain text** has colour, size and weight, and no background or border.
+- A **box** (a button, a card, a badge) also has background, border, radius and padding.
+- A **table cell** has no radius.
+- **Hover, focus, pressed and disabled** only appear on what can take them: buttons, links, fields, tabs and menu items. A paragraph has no states.
+
+## Trying changes
+
+Each property has a number and a slider (colours have a picker). The change is applied to that element at once and is listed under **Changes** as the CSS that would produce it, ready to copy. **Undo** goes back one property at a time; **Reset** removes them all.
+
+## Your own CSS
+
+At the foot of the Edit tab (and when nothing is selected) there is a text area for CSS. What you write applies to **the classes of the examples**, while designer mode is on:
+
+```css
+.btn-primary { border-radius: 4px; }
+.card { box-shadow: none; }
+.btn:hover { background-color: #0b5ed7; }
+```
+
+- The rules are scoped to the examples, so they cannot touch the site.
+- A rule for `:hover`, `:focus` or `:active` also draws the forced state of the examples.
+- **Rule for this element** writes the selector of the selected element for you.
+- The CSS is saved in your browser and listed in the Code tab as "Custom CSS".
+
+## Copying
+
+Every value in the Design tab copies on click; the HTML, the CSS and the changes have a Copy button; **Copy selector** gives the path of the element.

@@ -73,10 +73,7 @@
 .ds-v-scope .table-foot { padding: .75rem 1rem; border-top: 1px solid var(--dd-hairline); }
 .ds-v-scope .table-sort { display: inline-flex; align-items: center; gap: .375rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
 .ds-v-scope .table-sort:hover, .ds-v-scope .table-sort.ds-is-hover { color: var(--dd-ink); }
-.ds-v-scope .table-sort i { opacity: .45; transition: opacity .15s, color .15s; }
-.ds-v-scope .table-sort:hover i, .ds-v-scope .table-sort.ds-is-hover i, .ds-v-scope .table-sort:focus-visible i, .ds-v-scope .table-sort.ds-is-focus i { opacity: .85; }
 .ds-v-scope th[aria-sort="ascending"] .table-sort, .ds-v-scope th[aria-sort="descending"] .table-sort { color: var(--dd-primary-ink, var(--dd-primary)); }
-.ds-v-scope th[aria-sort="ascending"] .table-sort i, .ds-v-scope th[aria-sort="descending"] .table-sort i { color: var(--dd-primary); opacity: 1; }
 .ds-v-scope .table-sort:focus-visible, .ds-v-scope .table-sort.ds-is-focus { outline: 0; border-radius: .25rem; box-shadow: 0 0 0 3px var(--dd-ring); }
 .ds-v-scope th[aria-sort] { color: var(--dd-ink); }
 
@@ -136,3 +133,9 @@
   .ds-v-scope .list-group-item, .ds-v-scope .card-hover { transition: none; }
 }
 
+/* Sorting has one icon: an arrow. Faded and pointing down while the column is not sorted, solid in the primary colour and pointing up or down
+ * when it is. It turns instead of changing glyph, so the eye follows one shape. */
+.ds-v-scope .table-sort::after { content: ""; flex: none; width: .4375rem; height: .4375rem; border: solid currentColor; border-width: 0 2px 2px 0; opacity: .35; transform: translateY(-2px) rotate(45deg); transition: transform .2s cubic-bezier(.2, 0, 0, 1), opacity .15s, color .15s; }
+.ds-v-scope .table-sort:hover::after, .ds-v-scope .table-sort.ds-is-hover::after, .ds-v-scope .table-sort:focus-visible::after { opacity: .8; }
+.ds-v-scope th[aria-sort="ascending"] .table-sort::after { opacity: 1; color: var(--dd-primary); transform: translateY(2px) rotate(-135deg); }
+.ds-v-scope th[aria-sort="descending"] .table-sort::after { opacity: 1; color: var(--dd-primary); }

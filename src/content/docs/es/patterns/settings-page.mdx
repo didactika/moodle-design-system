@@ -1,0 +1,68 @@
+---
+title: Una página de ajustes
+summary: "Cambiar cómo se comporta algo: ajustes agrupados que se explican solos y una barra que los guarda."
+group: patterns
+order: 5
+---
+
+import Example from '../../../../components/Example.astro';
+
+Una página de ajustes no es un formulario que crea algo: cambia cómo se comporta algo que existe. La persona busca un ajuste, así que la página se construye para recorrerla con la vista.
+
+## Cuándo usarla
+
+- Opciones que se aplican a un curso, un sitio o un plugin y se cambian de vez en cuando.
+- Si cada ajuste se guarda por sí solo al instante, dilo en la página; si se guardan juntos, usa la barra.
+
+## Anatomía
+
+1. **Secciones como tarjetas** con un título y una línea que dice qué controla la sección.
+2. **Filas**: a la izquierda el **nombre** del ajuste en negrita y debajo **qué hace**; a la derecha el **control** (una casilla, un interruptor, un select).
+3. **Una línea fina** entre filas; sin cajas alrededor de cada una.
+4. **Barra de guardado** al pie: dice "Tienes cambios sin guardar" y ofrece Descartar y Guardar cambios. Solo aparece cuando algo cambió.
+
+<Example title="Ajustes en secciones, con la barra de guardado" src="patterns/settings" />
+
+## Disposición y espacios
+
+| Pieza | Regla |
+|---|---|
+| Sección | Tarjeta, a 1 rem de la siguiente; título y descripción sobre las filas |
+| Fila | 0,875 rem arriba y abajo; el control alineado con la parte alta del texto |
+| Descripción | Atenuada, una o dos líneas; dice la consecuencia, no repite el nombre |
+| Barra de guardado | Bajo la última sección, o fija al pie de la ventana cuando la página es larga |
+
+## Comportamiento
+
+1. Un ajuste que solo está activado o no es un **interruptor o una casilla**; uno con varios valores es un **select** o **botones de radio**; un número o un texto es un campo con su unidad.
+2. La **barra de guardado aparece al primer cambio** y se queda hasta que la persona guarda o descarta. Descartar devuelve cada control a su valor guardado.
+3. Un ajuste cuyo cambio es arriesgado o afecta a otras personas lo dice en su descripción, y la confirmación se pide al guardar, no al cambiar el control.
+4. Un ajuste que depende de otro se muestra desactivado, con la razón ("Necesita las notificaciones activadas"), no oculto.
+5. Tras guardar, un toast lo confirma y la barra desaparece; la página no se recarga ni se mueve.
+
+## Estados
+
+| Estado | Qué ve la persona |
+|---|---|
+| Limpia | Sin barra; cada control tiene su valor guardado |
+| Cambiada | La barra de guardado |
+| Guardando | El botón de la barra desactivado con "Guardando…" |
+| Error | Una alerta sobre la barra y el ajuste que falló marcado |
+| Bloqueado por política | El control desactivado y una línea que dice quién lo fija |
+
+## Pantallas estrechas
+
+Las filas se apilan: nombre y descripción, luego el control debajo, a todo el ancho para selects y campos. La barra va fija al pie.
+
+## Accesibilidad
+
+- Cada control se etiqueta con el nombre de su ajuste (en una fila con interruptor, el nombre es la etiqueta, aunque el texto visible sea el párrafo de al lado).
+- La barra de guardado es una región que se anuncia educadamente al aparecer.
+- Agrupa con `fieldset` y `legend` cuando las opciones de un ajuste son botones de radio.
+
+## Antes de publicar
+
+- [ ] Cada ajuste dice en una línea qué hace.
+- [ ] Descartar descarta de verdad.
+- [ ] Un ajuste dependiente está desactivado con su razón.
+- [ ] Nada se guarda sin que la persona lo sepa.

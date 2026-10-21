@@ -1,0 +1,60 @@
+---
+title: "States: loading, empty, error"
+summary: "What every list, card and page shows when there is no data to show yet, none at all, or something failed."
+group: patterns
+order: 10
+---
+
+import Example from '../../../../components/Example.astro';
+
+A screen is not finished when it looks good with data. People see the other states more often than designers expect: the first time, a slow connection, an empty search, a server that fails, a list they cannot see. Each has a design.
+
+<Example title="Loading, empty, error and no permission" src="patterns/states" />
+
+## The four states
+
+| State | Show | Never |
+|---|---|---|
+| **Loading** | Skeletons with the shape and size of what is coming (`dd-skeleton`), so nothing jumps when the data arrives | A spinner over the whole page; a spinner for a wait of less than 300 ms |
+| **Empty** | An empty state: a tile, what is missing, what to do, and the action that does it | A blank area; a table with only its header |
+| **Error** | An alert with what failed in words that the user understands, and a "Try again" button | "Something went wrong" with no action; an error code alone |
+| **No permission** | An empty state that says who can see it and how to ask | A page that looks broken; a 404 for something that exists |
+
+## Loading
+
+1. Wait about **300 ms** before showing skeletons; a fast response should not flash.
+2. The skeletons keep the **height** of the final content. In a table, rows of the right height; in a card, the lines of its text.
+3. For a long wait (more than ten seconds), say what is happening and offer to cancel if it can be.
+4. Mark the region as busy (`aria-busy="true"`) and keep its label.
+
+## Empty
+
+There are three kinds, with different text and different actions:
+
+- **First time**: nothing exists yet. The action creates the first item.
+- **After a search or a filter**: there are items but none match. The action clears the filters.
+- **Done**: nothing is pending because the work is finished. It is good news and is drawn as such, with no action.
+
+## Error
+
+- The alert goes **where the content would have been** (inside the card that failed, not at the top of the page), so the rest keeps working.
+- It says **what** failed and, if the user can do something, **what**. "The courses did not load. The server did not answer in time." and a "Try again" button.
+- **Try again** repeats the call and shows the loading state again; after three failures it also offers a link to report the problem.
+- A form error is not this: it goes by its field.
+
+## No permission
+
+Say that the content exists, who can see it ("Only course managers") and how to ask for access. Do not show a disabled version of the content.
+
+## Accessibility
+
+- Loading regions announce nothing by themselves; the end of loading is announced in a polite live region ("48 courses").
+- Errors use `role="alert"` only for something the user caused or must react to now; a failed background load uses `role="status"`.
+- The "Try again" button receives the focus when the error replaces content the user was reading.
+
+## Before shipping
+
+- [ ] The four states exist for every list and every card that loads data.
+- [ ] Skeletons have the final height.
+- [ ] Every error has a way out.
+- [ ] "Empty" and "No permission" are different screens.

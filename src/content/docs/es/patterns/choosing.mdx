@@ -1,0 +1,47 @@
+---
+title: Elegir un patrón
+summary: "Qué patrón encaja con la tarea que tienes delante y cómo se construyen los patrones a partir de los componentes."
+group: patterns
+order: 0
+---
+
+Un patrón es una pantalla entera, o un flujo entero, armado con los componentes de este sistema siempre de la misma manera. Quien ha conocido una lista, un formulario o una confirmación sabe usar la siguiente, así que un plugin nunca tiene que explicar sus pantallas.
+
+## De qué está hecho un patrón
+
+Cada patrón de esta sección sigue el mismo esquema, así se leen rápido y se comparan:
+
+1. **Cuándo usarlo**, y cuándo no.
+2. **Anatomía**: las regiones de la pantalla de arriba abajo, cada una con el componente que usa.
+3. **Disposición y espacios**: las distancias que sostienen las regiones.
+4. **Comportamiento**: qué pasa, paso a paso, cuando la persona actúa.
+5. **Estados**: cargando, vacío, error, éxito y sin permiso.
+6. **Pantallas estrechas**: cómo se pliega.
+7. **Accesibilidad** y una **lista de comprobación** que se pasa antes de publicar.
+
+## ¿Cuál necesito?
+
+| La persona necesita… | Patrón |
+|---|---|
+| Recorrer, ordenar, filtrar y actuar sobre muchas cosas de un tipo | Una lista para trabajar |
+| Actuar sobre varias filas a la vez | Selección y acciones en bloque |
+| Encontrar algo escribiendo o acotando | Búsqueda y filtros |
+| Introducir datos una vez, bien | Una página de formulario |
+| Cambiar cómo se comporta algo | Una página de ajustes |
+| Hacer una tarea con varias etapas | Un flujo guiado |
+| Mirar una cosa en profundidad | Una página de detalle |
+| Estar segura antes de perder algo, y poder deshacerlo | Confirmar, hacer y deshacer |
+| Ver cómo van las cosas | Un panel de resumen |
+| Entender qué hace la pantalla cuando no hay datos | Estados: cargando, vacío, error |
+
+## Reglas que valen para todos
+
+- **Una acción principal por pantalla.** Es un botón relleno, a la derecha de la cabecera o del pie, con el nombre de lo que hace.
+- **El mismo orden siempre**: dónde estás, qué es esto, qué puedes hacer, el contenido, el pie.
+- **Acciones donde el ojo ya está**: las de una fila al final de la fila, las de un formulario al pie, las de una página en su cabecera.
+- **Cada estado está diseñado**, no solo el que tiene datos.
+- **Las piezas salen de los componentes.** Si un patrón necesita algo que no está, primero se añade el componente y se documenta, y luego el patrón lo usa.
+
+## Plugins y el tema de Didactika
+
+Los patrones son parte del sistema de diseño, así que son lo que usa un plugin de la comunidad en cualquier sitio Moodle: mantienen los colores y la fuente de ese sitio. El tema de Didactika dibuja los mismos patrones con su tipografía, formas y movimiento propios; nunca cambia su estructura.
