@@ -1,0 +1,33 @@
+---
+title: Una página de formulario
+summary: Cómo se organiza un formulario largo para rellenarlo sin perderse, con la validación junto a cada campo.
+group: patterns
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+
+Una página de formulario pide datos una vez y bien. Es una tarjeta con un título, los campos en el orden en que la gente los piensa y las acciones al pie.
+
+## Reglas
+
+- **Una columna** para los campos que se rellenan uno tras otro; dos columnas solo para pares que van juntos (nombre y apellidos, desde y hasta).
+- **Los campos obligatorios** se marcan con un asterisco y la regla se dice una vez bajo el título.
+- **Ayuda bajo el campo**, errores en su sitio y en texto; nunca solo un borde rojo.
+- **Agrupa los formularios largos en secciones** con un título cada una, o en pasos si el orden importa.
+- **Las acciones al pie**: la principal a la derecha con el nombre de lo que hace ("Crear curso"), Cancelar antes.
+- **Valida al salir del campo** y otra vez al enviar; al enviar, lleva el foco al primer error.
+
+<Example title="Un formulario con sus estados de validación" src="form-controls/layout" />
+
+## Construida con
+
+Tarjetas, campos de texto, selects, casillas, mensajes de validación y botones. Para una tarea con varias etapas, añade el componente de pasos y deja Atrás y Siguiente al pie.
+
+## Estados
+
+| Estado | Qué ve la persona |
+|---|---|
+| Enviando | El botón principal desactivado con un spinner pequeño y el texto "Guardando…" |
+| Guardado | Un toast con el resultado, o la página a la que va después |
+| Error | Una alerta arriba que lista los errores y enlaza a cada campo, y los errores junto a sus campos |

@@ -2,6 +2,7 @@
 // version, the icons of each version, and an inspector that measures anything inside an example and shows its code.
 import './colour';
 import {installBehaviours} from './behaviours';
+import {installRipple} from './ripple';
 import {installSelectMenus} from './select-menu';
 import {$, $$, readJson} from './dom';
 import {DIDACTIKA, contrast, grade, hex, parse, styleElements, themeCss, toHex} from './theme';
@@ -851,6 +852,7 @@ if (headings.length) {
 
 installBehaviours({bs5, enabled: () => !designerOn()});
 installSelectMenus({enabled: () => !designerOn()});
+installRipple({enabled: () => !designerOn()});
 phone.addEventListener('change', applyDesigner);
 applyDesigner();
 applyDesigner();

@@ -1,0 +1,40 @@
+---
+title: A list people work with
+summary: "Header, filters, a table with its tools and a pager: the screen most plugins have."
+group: patterns
+order: 1
+---
+
+import Example from '../../../../components/Example.astro';
+
+The most repeated screen of a plugin is a list the user works on: courses, participants, rules, logs. It is built with the same pieces every time, in the same order, so people know where each one is.
+
+## The pieces, top to bottom
+
+1. **Page header**: where you are, the title with its context and the main action of the page.
+2. **Filter chips**: the three to six filters used all the time, with their counts.
+3. **Card with the table**: toolbar (search, secondary actions), the table and, under it, the pager.
+4. **Actions of a row**, always visible, at the end of the row.
+
+<Example title="A list for working" src="patterns/working-list" />
+
+## Rules
+
+| Piece | Rule |
+|---|---|
+| Header | One primary action. The count of items goes in the subtitle. |
+| Chips | They narrow the list at once and keep the count. A filter with no results shows an empty state. |
+| Toolbar | Search first, filters that do not fit as chips next, export or import on the right. When rows are selected, it becomes the bar of the selection. |
+| Table | The first column is the identity of the row (a `th scope="row"`), numbers on the right, one sorted column at a time. |
+| Row actions | Icon buttons with a title, in the same place in every row. A destructive one asks for confirmation. |
+| Pager | Rows per page on the left, the range and the arrows on the right. |
+
+## Built with
+
+Page header, filter chips, input group, buttons, badges, table (selection, sorting, actions) and the pager of a list. See their pages for the classes.
+
+## States
+
+- **Loading**: the table keeps its height with placeholder rows, not a spinner over the whole page.
+- **Empty**: the empty state of the first time or of a search, inside the card.
+- **Error**: an alert above the table with what failed and a "Try again" button.

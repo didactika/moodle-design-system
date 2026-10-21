@@ -1,0 +1,39 @@
+---
+title: Fotos e iniciales de usuario
+summary: "El avatar de una persona: las iniciales de Moodle en cinco tamaños, una pila para grupos y el nombre al lado."
+group: moodle
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+
+Moodle muestra a una persona con su foto o, cuando no hay, con sus iniciales sobre un fondo redondo (`userinitials`). El sistema de diseño las mantiene como las dibuja Moodle y añade la pila para grupos.
+
+## Variantes
+
+<Example title="Iniciales, grupo y nombre" src="user-pictures/basic" />
+
+## Tamaños
+
+| Clase | Tamaño | Uso |
+|---|---|---|
+| `size-30` | 30 px | Listas y filas |
+| `size-35` | 35 px | El menú de usuario y los comentarios |
+| `size-50` | 50 px | Una persona junto a su nombre y rol |
+| `size-64` | 64 px | Una tarjeta de una persona |
+| `size-100` | 100 px | La cabecera de un perfil |
+
+## Reglas
+
+- Siempre un `title` o el nombre al lado: las iniciales solas no nombran a nadie.
+- Una pila muestra como mucho tres personas y un `+N`; el grupo tiene una etiqueta que lista los primeros nombres y el número del resto.
+- La foto es redonda, como las iniciales; nunca mezcles formas en una fila.
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `userinitials` | El avatar redondo con iniciales, escrito por Moodle |
+| `size-30` … `size-100` | El tamaño |
+| `dd-avatars` | Una pila de avatares que se solapan (Didactika) |
+| `dd-avatars-more` | El último, con el número de personas que no se muestran (Didactika) |

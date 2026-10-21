@@ -39,26 +39,26 @@ A button has a **label** (text, or an icon with a hidden label), an optional **i
 
 ## Variants and states
 
-Every colour against every state. Hover, focus and pressed are forced from the version's own CSS, so what you see is what a user sees.
+Every colour against every state. Hover and focus are forced from the version's own CSS, so what you see is what a user sees.
 
 <Matrix
   title="Solid"
   variants={['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']}
-  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Pressed', 'ds-is-active'], ['Disabled', 'disabled']]}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
   template='<button type="button" class="btn btn-{v} {s}"{disabled}>{label}</button>'
 />
 
 <Matrix
   title="Outline"
   variants={['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark']}
-  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Pressed', 'ds-is-active'], ['Disabled', 'disabled']]}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
   template='<button type="button" class="btn btn-outline-{v} {s}"{disabled}>{label}</button>'
 />
 
 <Matrix
   title="Link"
   variants={['link']}
-  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Pressed', 'ds-is-active'], ['Disabled', 'disabled']]}
+  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
   template='<button type="button" class="btn btn-{v} {s}"{disabled}>{label}</button>'
 />
 
@@ -78,6 +78,18 @@ Icons are written with the Moodle icon id (`{{#pix}}t/add, core{{/pix}}` in a te
 
 <Example title="Full width" src="buttons/block" narrow />
 
+## Icon buttons with a count
+
+A button that holds only an icon is always a circle. A count on its corner (`badge-float`) tells how many things wait behind it; with no number the badge becomes a dot that only says something is new. The count never replaces the label of the button: it still has a title and an `aria-label` that include the number.
+
+<Example title="Round icon buttons with a count" src="buttons/counts" />
+
+## Tonal and plain buttons
+
+Between the filled button and the outline there is a **tonal** one (`btn-tonal`): a soft tint of the colour of the role behind the label. It is for actions that matter but must not compete with the main one. An icon button comes in four weights, from the strongest to the quietest: filled, tonal, outline and plain (`btn-link btn-icon`); pick the one that matches the weight of the action in its row.
+
+<Example title="Tonal buttons and the four weights of an icon button" src="buttons/tonal" />
+
 ## Combinations
 
 | Combination | Use it for |
@@ -92,11 +104,11 @@ Icons are written with the Moodle icon id (`{{#pix}}t/add, core{{/pix}}` in a te
 
 | What we changed | Why it helps |
 |---|---|
-| A pill, 40 px tall, with more padding at the sides than above and below | A wide pill reads as clickable and keeps the label centred. The proportions are the ones people know from Material, so nobody has to learn them. |
+| A rounded rectangle (8 px radius), 36 px tall, with more padding at the sides than above and below | It reads as clickable, keeps the label centred and is a step rounder than the square buttons of Bootstrap without turning into a pill. |
 | Outline and link buttons answer with a tint of their own colour | Bootstrap floods them with solid colour on hover and the label turns white on a light page. A tint keeps the label readable and shows the pressed state without shouting. |
-| Icon-only buttons are square (`btn-icon`) | The target has the same height and width, so a row of icon actions lines up and is easy to hit. |
+| Icon-only buttons are always round (`btn-icon`) | The target has the same height and width and no corners to catch the eye, so a row of icon actions lines up and is easy to hit. |
 | One focus ring of 3 px for every button | A keyboard user always sees where they are, with the same cue they get in fields and links. |
-| A group is one pill and the toggle of a split button closes it | The group reads as one control instead of two buttons that happen to touch. |
+| A group is one piece and the toggle of a split button closes it | The group reads as one control instead of two buttons that happen to touch. |
 
 ## Classes
 
@@ -110,7 +122,8 @@ Icons are written with the Moodle icon id (`{{#pix}}t/add, core{{/pix}}` in a te
 | `btn-group` | Joins related buttons |
 | <Only of="v53" inline>`d-grid gap-2`</Only><Only of="v45,v41" inline>`btn-block`</Only> | Full-width stack |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Close button inside alerts and modals, written by Moodle |
-| `btn-icon` | Square button that holds only an icon. Add `btn-sm` or `btn-lg` for the other sizes (Didactika) |
+| `btn-tonal` | A soft tint of the colour of the role instead of a filled background (Didactika) |
+| `btn-icon` | Round button that holds only an icon. Add `btn-sm` or `btn-lg` for the other sizes (Didactika) |
 
 ## In this version
 

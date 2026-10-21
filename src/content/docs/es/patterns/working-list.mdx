@@ -1,0 +1,40 @@
+---
+title: Una lista para trabajar
+summary: "Cabecera, filtros, una tabla con sus herramientas y un paginador: la pantalla que tienen casi todos los plugins."
+group: patterns
+order: 1
+---
+
+import Example from '../../../../components/Example.astro';
+
+La pantalla más repetida de un plugin es una lista sobre la que se trabaja: cursos, participantes, reglas, registros. Se construye siempre con las mismas piezas, en el mismo orden, para que la gente sepa dónde está cada una.
+
+## Las piezas, de arriba abajo
+
+1. **Cabecera de página**: dónde estás, el título con su contexto y la acción principal de la página.
+2. **Chips de filtro**: los tres a seis filtros que se usan siempre, con sus cuentas.
+3. **Tarjeta con la tabla**: barra de herramientas (búsqueda, acciones secundarias), la tabla y, debajo, el paginador.
+4. **Acciones de una fila**, siempre visibles, al final de la fila.
+
+<Example title="Una lista para trabajar" src="patterns/working-list" />
+
+## Reglas
+
+| Pieza | Regla |
+|---|---|
+| Cabecera | Una acción primaria. La cuenta de elementos va en el subtítulo. |
+| Chips | Acotan la lista al instante y mantienen la cuenta. Un filtro sin resultados muestra un estado vacío. |
+| Barra de herramientas | Primero la búsqueda, luego los filtros que no caben como chips, a la derecha exportar o importar. Cuando hay filas seleccionadas, pasa a ser la barra de la selección. |
+| Tabla | La primera columna es la identidad de la fila (un `th scope="row"`), los números a la derecha, una columna ordenada a la vez. |
+| Acciones de fila | Botones de icono con título, en el mismo sitio en cada fila. Una destructiva pide confirmación. |
+| Paginador | Filas por página a la izquierda, el rango y las flechas a la derecha. |
+
+## Construida con
+
+Cabecera de página, chips de filtro, grupo de entrada, botones, insignias, tabla (selección, orden, acciones) y el paginador de una lista. Mira sus páginas para las clases.
+
+## Estados
+
+- **Cargando**: la tabla mantiene su altura con filas de relleno, no un spinner sobre toda la página.
+- **Vacía**: el estado vacío de la primera vez o de una búsqueda, dentro de la tarjeta.
+- **Error**: una alerta sobre la tabla con lo que falló y un botón "Reintentar".

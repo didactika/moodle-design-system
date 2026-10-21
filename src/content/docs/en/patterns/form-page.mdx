@@ -1,0 +1,33 @@
+---
+title: A form page
+summary: How a long form is organised so it can be filled in without getting lost, with validation next to each field.
+group: patterns
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+
+A form page asks for data once and well. It is a card with a title, the fields in the order in which people think of them, and the actions at the foot.
+
+## Rules
+
+- **One column** for the fields that are filled in one after another; two columns only for pairs that belong together (first and last name, from and to).
+- **Required fields** are marked with an asterisk and the rule is said once under the title.
+- **Help under the field**, errors in its place and in text; never only a red border.
+- **Group long forms in sections** with a title each, or in steps if the order matters.
+- **The actions at the foot**: the main one on the right with the name of what it does ("Create course"), Cancel before it.
+- **Validate when leaving the field** and again when sending; on sending, move the focus to the first error.
+
+<Example title="A form with its validation states" src="form-controls/layout" />
+
+## Built with
+
+Cards, text fields, selects, checks, validation messages and buttons. For a task with several stages, add the steps component and keep Back and Next at the foot.
+
+## States
+
+| State | What the user sees |
+|---|---|
+| Sending | The main button is disabled with a small spinner and the text "Saving…" |
+| Saved | A toast with the result, or the page the user goes to next |
+| Error | An alert at the top that lists the errors and links to each field, and the errors by their fields |
