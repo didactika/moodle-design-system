@@ -69,13 +69,6 @@ code, kbd, pre, samp { font-family: var(--mono); }
   background: color-mix(in srgb, var(--panel) 86%, transparent); backdrop-filter: blur(12px) saturate(1.4); border-bottom: 1px solid var(--line);
 }
 .ds-brand { display: inline-flex; align-items: center; gap: .65rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
-.ds-logo { position: relative; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 11px; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 2px 8px rgb(0 85 90 / 18%); flex: none; }
-.ds-logo img { width: 74%; height: 74%; display: block; }
-.ds-logo .h { position: absolute; width: .3rem; height: .3rem; border-radius: 1.5px; background: #fff; border: 1.2px solid #0f766e; }
-.ds-logo .h1 { left: -2px; top: -2px; } .ds-logo .h2 { right: -2px; top: -2px; } .ds-logo .h3 { left: -2px; bottom: -2px; }
-.ds-logo-ui { position: absolute; right: -.45rem; bottom: -.4rem; padding: .14rem .32rem; border-radius: 6px; background: #0f766e; color: #fff; font: 700 .5rem/1 var(--display); letter-spacing: .02em; box-shadow: 0 0 0 2px var(--panel); }
-.ds-logo.is-lg { width: 2.9rem; height: 2.9rem; border-radius: 13px; }
-.ds-logo.is-lg .ds-logo-ui { font-size: .58rem; right: -.5rem; bottom: -.45rem; }
 .ds-wordmark { display: inline-flex; align-items: baseline; gap: .45rem; font: 700 1.05rem/1 var(--display); letter-spacing: -.01em; }
 .ds-wordmark b { font: 500 .78rem var(--font); padding: .2rem .5rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); letter-spacing: 0; }
 .ds-head-left { display: flex; align-items: center; gap: .75rem; }
@@ -335,10 +328,6 @@ a.ds-cta-alt { display: inline-flex; align-items: center; gap: .55rem; height: 2
 .ds-art-label { position: absolute; top: -1.35rem; left: .15rem; font: 500 .72rem var(--mono); color: var(--muted); }
 .ds-art-frame { position: relative; aspect-ratio: 6 / 5; border-radius: 20px; border: 1px solid var(--line); background-color: var(--panel); background-image: radial-gradient(var(--dot) 1px, transparent 1px); background-size: 16px 16px; box-shadow: var(--shadow); overflow: hidden; }
 .ds-art-card { position: absolute; left: 50%; top: 46%; translate: -50% -50%; display: grid; justify-items: center; gap: .15rem; padding: 1.6rem 2.4rem 1.3rem; border-radius: 26px; background: #fff; color: #00555a; box-shadow: 0 0 0 1px rgb(0 85 90 / 10%), 0 20px 50px rgb(0 85 90 / 22%); }
-.ds-art-card .ds-logo { width: clamp(5.5rem, 11vw, 8.25rem); height: clamp(5.5rem, 11vw, 8.25rem); border-radius: clamp(1.2rem, 2.4vw, 1.9rem); box-shadow: none; margin-bottom: .6rem; }
-.ds-art-card .ds-logo .h { width: .55rem; height: .55rem; border-width: 1.6px; }
-.ds-art-card .ds-logo .h1 { left: -3px; top: -3px; } .ds-art-card .ds-logo .h2 { right: -3px; top: -3px; } .ds-art-card .ds-logo .h3 { left: -3px; bottom: -3px; }
-.ds-art-card .ds-logo.is-lg .ds-logo-ui { width: clamp(1.9rem, 4vw, 2.8rem); height: clamp(1.9rem, 4vw, 2.8rem); right: -.9rem; bottom: -.9rem; box-shadow: 0 0 0 3px #0f766e, 0 0 0 6px #fff; }
 .ds-art-card b { font: 700 1.25rem/1.1 var(--display); letter-spacing: -.01em; }
 .ds-art-card span { font: 500 .78rem var(--font); color: #5b7f82; }
 .ds-art-item { position: absolute; }
@@ -743,9 +732,6 @@ html[data-designer="1"] .ds-canvas { box-shadow: inset 0 0 0 1px color-mix(in sr
 .ds-wordmark { display: inline-flex; flex-direction: column; align-items: flex-start; gap: .15rem; font: 700 1rem/1 var(--display); letter-spacing: -.01em; }
 .ds-wordmark strong { font: inherit; }
 .ds-wordmark small { color: var(--accent); font: 600 .6875rem/1 var(--font); letter-spacing: .02em; }
-.ds-logo-ui { display: grid; place-items: center; right: -.5rem; bottom: -.5rem; width: 1.2rem; height: 1.2rem; padding: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px #0f766e, 0 0 0 4px var(--panel); }
-.ds-logo-ui img { width: 66%; height: auto; display: block; }
-.ds-logo.is-lg .ds-logo-ui { width: 1.7rem; height: 1.7rem; right: -.6rem; bottom: -.6rem; }
 @media (max-width: 760px) {
   .ds-wordmark { display: inline-flex; }
   .ds-wordmark { font-size: .92rem; }
@@ -839,3 +825,9 @@ html[data-brand="1"] .ds-theme-chip { visibility: visible; }
 .ds-custom-css:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .ds-mini-row { display: inline-flex; gap: .35rem; margin-inline-start: auto; }
 .ds-insp h3 { display: flex; align-items: center; gap: .5rem; }
+
+/* the logo: one image, the tile with the mark of Didactika and the cap of Moodle */
+.ds-logo { display: block; flex: none; width: 2.5rem; height: 2.5rem; filter: drop-shadow(0 2px 6px rgb(0 85 90 / 28%)); }
+.ds-logo img { display: block; width: 100%; height: 100%; }
+.ds-logo.is-lg { width: 3.25rem; height: 3.25rem; }
+.ds-art-card .ds-logo { width: clamp(5.5rem, 11vw, 8.25rem); height: clamp(5.5rem, 11vw, 8.25rem); margin-bottom: .6rem; }

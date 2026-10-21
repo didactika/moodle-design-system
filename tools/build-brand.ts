@@ -18,7 +18,6 @@ import sharp from 'sharp';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const pub = join(root, 'public');
-const logo = readFileSync(join(pub, 'brand/didactika-logo.png')).toString('base64');
 /** The cap of Moodle's logo, as an SVG that fits it exactly. */
 const MOODLE_LOGO = 'https://raw.githubusercontent.com/moodle/moodle/MOODLE_503_STABLE/.github/moodlelogo.svg';
 const cached = join(root, 'vendor/moodle/moodlelogo.svg');
@@ -48,21 +47,33 @@ writeFileSync(join(pub, 'brand/moodle-cap.svg'), cap);
 const TEAL = '#0f766e';
 const DEEP = '#00555a';
 
-const handle = (x: number, y: number): string => `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="6" fill="#fff" stroke="${TEAL}" stroke-width="9"/>`;
+/** The mark of Didactika in white: the logo is one colour on a transparent background, so its colour is replaced and its shape kept. */
+const mark = await sharp(readFileSync(join(pub, 'brand/didactika-logo.png'))).ensureAlpha().raw().toBuffer({resolveWithObject: true});
+for (let i = 0; i < mark.data.length; i += 4) {
+    mark.data[i] = 255;
+    mark.data[i + 1] = 255;
+    mark.data[i + 2] = 255;
+}
+const whiteMark = (await sharp(mark.data, {raw: {width: mark.info.width, height: mark.info.height, channels: 4}}).png().toBuffer()).toString('base64');
 
-/** The icon as an SVG of 512 by 512. */
+/**
+ * The icon as an SVG of 512 by 512: a tile in the teal of Didactika with its mark in white, and the cap of Moodle in a badge on the corner, so
+ * the two names read at once, in the header and in the tab. Nothing else is drawn: the details would be lost at 16 pixels.
+ */
+const CAP_W = 150;
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect x="16" y="16" width="480" height="480" rx="120" fill="#fff"/>
-  <rect x="16" y="16" width="480" height="480" rx="120" fill="none" stroke="${DEEP}" stroke-opacity=".14" stroke-width="8"/>
-  <image href="data:image/png;base64,${logo}" x="62" y="52" width="388" height="388"/>
-  <rect x="64" y="64" width="384" height="384" rx="26" fill="none" stroke="${TEAL}" stroke-width="9" stroke-dasharray="1 0"/>
-  ${handle(64, 64)}${handle(448, 64)}${handle(64, 448)}
-  <circle cx="392" cy="392" r="104" fill="#fff" stroke="${TEAL}" stroke-width="14"/>
-  <svg x="${392 - 78}" y="${392 - 78 * CAP.h / CAP.w}" width="156" height="${156 * CAP.h / CAP.w}" viewBox="${CAP.view}"><g fill="${ORANGE}">${capPaths}</g></svg>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16988d"/><stop offset=".55" stop-color="${TEAL}"/><stop offset="1" stop-color="${DEEP}"/></linearGradient>
+  </defs>
+  <rect x="16" y="16" width="480" height="480" rx="116" fill="url(#tile)"/>
+  <image href="data:image/png;base64,${whiteMark}" x="64" y="52" width="340" height="340"/>
+  <circle cx="392" cy="392" r="100" fill="#fff" stroke="${DEEP}" stroke-width="14"/>
+  <svg x="${392 - CAP_W / 2}" y="${400 - (CAP_W / 2) * CAP.h / CAP.w}" width="${CAP_W}" height="${CAP_W * CAP.h / CAP.w}" viewBox="${CAP.view}"><g fill="${ORANGE}">${capPaths}</g></svg>
 </svg>
 `;
 writeFileSync(join(pub, 'favicon.svg'), icon);
 writeFileSync(join(pub, 'brand/favicon.svg'), icon);
+writeFileSync(join(pub, 'brand/logo.svg'), icon);
 
 const png = (size: number): Promise<Buffer> => sharp(Buffer.from(icon), {density: 384}).resize(size, size).png().toBuffer();
 const sizes: Record<number, string> = {16: 'favicon-16x16.png', 32: 'favicon-32x32.png', 180: 'apple-touch-icon.png', 192: 'brand/android-chrome-192x192.png', 512: 'brand/android-chrome-512x512.png'};

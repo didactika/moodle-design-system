@@ -1,5 +1,5 @@
 ---
-/** The Didactika logo for this site: the organisation's mark on a tile, with the handles of a selection and the cap of Moodle in a badge on the corner. */
+/** The logo of this site: the mark of Didactika on its teal tile, and the cap of Moodle in a badge on the corner (public/brand/logo.svg). */
 interface Props {
     size?: 'sm' | 'lg';
 }
@@ -8,7 +8,5 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <span class:list={['ds-logo', {'is-lg': size === 'lg'}]} aria-hidden="true">
-    <img src={`${base}/brand/didactika-logo.png`} alt="" width="64" height="64" />
-    <i class="h h1"></i><i class="h h2"></i><i class="h h3"></i>
-    <b class="ds-logo-ui"><img src={`${base}/brand/moodle-cap.svg`} alt="" width="24" height="20" /></b>
+    <img src={`${base}/brand/logo.svg`} alt="" width="64" height="64" />
 </span>
