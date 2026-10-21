@@ -102,3 +102,12 @@
   --dd-c-line: color-mix(in srgb, var(--dd-c) 32%, var(--dd-surface));
   --dd-c-ink: color-mix(in srgb, var(--dd-c) 55%, var(--dd-ink));
 }
+
+/* Secondary and light are greys, and a grey that is mixed down to 10% is almost white: their tints are stronger and their text darker, so a tonal
+ * button, a soft badge or a selected item in these colours still reads. */
+.ds-v-scope :is([class*="-secondary"], [class*="-light"]) {
+  --dd-c-soft: color-mix(in srgb, var(--dd-c) 24%, var(--dd-surface));
+  --dd-c-soft-2: color-mix(in srgb, var(--dd-c) 36%, var(--dd-surface));
+  --dd-c-line: color-mix(in srgb, var(--dd-c) 60%, var(--dd-surface));
+  --dd-c-ink: color-mix(in srgb, var(--dd-c) 18%, var(--dd-ink));
+}
