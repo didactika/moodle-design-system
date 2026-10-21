@@ -27,6 +27,7 @@ const groups = (['foundations', 'bootstrap', 'moodle', 'didactika', 'patterns', 
     text: h.groupText[key],
     pages: count(key),
     first: pages.filter((e) => e.data.group === key).sort((a, b) => a.data.order - b.data.order)[0],
+    list: pages.filter((e) => e.data.group === key).sort((a, b) => a.data.order - b.data.order),
 }));
 const groupIcon = {foundations: 'palette', bootstrap: 'cubes', moodle: 'puzzle', didactika: 'layers', patterns: 'sparkles', guides: 'book'} as const;
 const stats = [
@@ -48,8 +49,7 @@ const [before, after] = h.title.split(h.accent);
                 <p class="ds-lead">{h.lead}</p>
                 <div class="ds-cta">
                     <a class="ds-cta-main" href={href('bootstrap/buttons')}>{h.ctaPrimary}<Icon name="arrow" /></a>
-                    <a class="ds-cta-alt" href={href('foundations/colour')}>{h.ctaSecondary}</a>
-                    <a class="ds-cta-alt" href={href('start/introduction')}>{h.ctaTertiary}</a>
+                    <a class="ds-cta-link" href={href('start/introduction')}>{h.ctaTertiary}<Icon name="arrow" /></a>
                 </div>
             </div>
 
@@ -120,14 +120,18 @@ const [before, after] = h.title.split(h.accent);
             <div class="ds-cards ds-cards-groups">
                 {groups.map((g) => {
                     const ready = g.pages > 0;
-                    const Tag = ready ? 'a' : 'div';
                     return (
-                        <Tag class:list={['ds-card', 'ds-card-link', {'is-soon': !ready}]} href={ready ? href(g.first.id.slice(lang.length + 1)) : undefined}>
+                        <article class:list={['ds-card', 'ds-card-group', {'is-soon': !ready}]}>
                             <span class="ds-card-i"><Icon name={groupIcon[g.key]} /></span>
-                            <h3>{g.label}</h3>
+                            <h3>{ready ? <a href={href(g.first.id.slice(lang.length + 1))}>{g.label}</a> : g.label}</h3>
                             <p>{g.text}</p>
-                            <span class="ds-card-meta">{ready ? `${g.pages} ${g.pages === 1 ? h.pagesOne : h.pagesMany}` : h.soon}{ready && <Icon name="arrow" />}</span>
-                        </Tag>
+                            {ready ? (
+                                <ul class="ds-card-pages">
+                                    {g.list.slice(0, 5).map((p) => <li><a href={href(p.id.slice(lang.length + 1))}>{p.data.title}</a></li>)}
+                                </ul>
+                            ) : null}
+                            <span class="ds-card-meta">{ready ? `${g.pages} ${g.pages === 1 ? h.pagesOne : h.pagesMany}` : h.soon}</span>
+                        </article>
                     );
                 })}
             </div>

@@ -1,0 +1,66 @@
+---
+title: Una página de detalle
+summary: "Mirar una cosa en profundidad: su cabecera, sus secciones como pestañas, sus datos y su historia."
+group: patterns
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+
+La página de detalle es a donde lleva la fila de una lista: un curso, un usuario, una regla. Dice qué es la cosa, da sus datos y su historia y ofrece lo que se puede hacer con ella.
+
+## Cuándo usarla
+
+- Un objeto con tanta información que no cabe en una fila ni en un diálogo.
+- Si el objeto solo tiene tres atributos, basta un diálogo con una lista de descripción.
+
+## Anatomía
+
+1. **Cabecera de página**: migas, una pastilla con el tipo de objeto, el **nombre**, una línea de contexto con su **estado** como insignia, y las acciones (la principal rellena, el resto de contorno o iconos).
+2. **Pestañas** (`nav-tabs`) para las secciones del objeto (Resumen, Participantes, Calificaciones, Ajustes), con una cuenta en una insignia donde ayuda. La primera pestaña es el resumen.
+3. **Resumen**: tarjetas en una cuadrícula. **Datos** como lista de descripción (`dd-dl`); **Actividad** como línea de tiempo (`dd-timeline`); otras tarjetas según haga falta (cifras, progreso).
+4. **Cosas relacionadas** como tabla o lista dentro de su propia pestaña, con el mismo patrón que cualquier lista.
+
+<Example title="Una página de detalle" src="patterns/detail" />
+
+## Disposición y espacios
+
+| Entre | Distancia |
+|---|---|
+| Cabecera y pestañas | 1,25 rem |
+| Pestañas y contenido | 1,25 rem |
+| Tarjetas | 1 rem; dos columnas cuando cada una tiene al menos 18 rem |
+
+## Comportamiento
+
+1. La **pestaña está en la dirección**, así un enlace abre la sección y Atrás funciona.
+2. Las pestañas cambian sin recargar la cabecera; la cuenta de una insignia se actualiza cuando cambia el contenido.
+3. El **estado** se edita donde se muestra (un menú en la insignia) solo si cambiarlo es una acción común y segura; si no, está en Ajustes.
+4. **Editar** abre una página de formulario o un diálogo y vuelve a la misma pestaña después.
+5. La línea de tiempo muestra los últimos sucesos (cinco) con "Ver todo" que lleva a la historia completa.
+
+## Estados
+
+| Estado | Qué ve la persona |
+|---|---|
+| Cargando | La cabecera ya muestra el nombre (venía con el enlace); las tarjetas muestran esqueletos |
+| No encontrado | Un estado vacío: "Este curso no existe o fue eliminado", con el camino de vuelta a la lista |
+| Sin permiso | Un estado vacío que nombra quién puede verlo |
+| Archivado o cerrado | Una nota bajo la cabecera que lo dice, y las acciones que ya no valen desactivadas con su razón |
+
+## Pantallas estrechas
+
+Las acciones de la cabecera van bajo el título; las pestañas se desplazan hacia los lados en una fila; las tarjetas se apilan.
+
+## Accesibilidad
+
+- El nombre es el `h1`; las secciones de las tarjetas son `h2`.
+- Las pestañas siguen el patrón de pestañas (flechas entre ellas, el panel después).
+- Las migas terminan en la página actual con `aria-current="page"`.
+
+## Antes de publicar
+
+- [ ] El nombre, el tipo y el estado se ven sin desplazarse.
+- [ ] La pestaña está en la dirección.
+- [ ] No encontrado y sin permiso tienen sus pantallas.
+- [ ] Cada acción que ya no vale dice por qué.

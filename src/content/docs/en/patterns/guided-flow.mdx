@@ -1,0 +1,69 @@
+---
+title: A guided flow
+summary: "A task with several stages, in order: steps, one decision per screen, and a clear way back and forward."
+group: patterns
+order: 6
+---
+
+import Example from '../../../../components/Example.astro';
+
+Some tasks cannot be one form: importing a course, creating a rule with several conditions, enrolling a group. A guided flow cuts the task into stages, shows where the user is and asks one thing at a time.
+
+## When to use it
+
+- The task has **three to six stages** and the later ones depend on the earlier ones.
+- The user will do it rarely, so it must explain itself.
+- Do not use it for a form that can be filled in in any order, nor for two stages (use one form with two sections).
+
+## Anatomy
+
+1. **Steps** (`dd-steps`), vertical beside the content or horizontal above it: done ones with a check, the current one marked, the rest quiet. Each may have a line of text.
+2. **Stage card**: a title that names the decision, one line that explains it, and the fields or choices.
+3. **Foot of the card**: **Back** (a quiet button) on the left; **Cancel** and the main button, **Next**, on the right. On the last stage the main button names the action ("Import 8 activities").
+4. **Review** as the last but one stage: everything chosen, in a description list, each block with an "Edit" link that returns to its stage.
+
+<Example title="A guided flow: step 2 of 4" src="patterns/wizard" />
+
+## Layout and spacing
+
+| Piece | Rule |
+|---|---|
+| Steps | 14 rem wide column on a wide screen; above the card, horizontal, on a narrow one |
+| Card | The rest of the width, up to 44 rem |
+| Foot | Hairline above; Back at the left edge and the other two at the right |
+| Between steps and card | 1.5 rem |
+
+## Behaviour
+
+1. **Next validates the stage**; the user does not leave a stage with errors. Back never validates and never loses what was typed.
+2. **Steps are an indicator, not a menu**: a done step may be clicked to go back; a step to come cannot be skipped to.
+3. **Every choice is kept** in the browser (or the server) while the flow lasts, so a reload does not start again.
+4. **Cancel** asks for confirmation only if something was entered, and says what is lost.
+5. The **last stage runs the task** and shows progress. If it takes long, a progress bar with the name of what is being done, and the flow cannot be left by mistake.
+6. At the end, a **result**: what was done (counts), what failed and why, and the next step as a button ("Open the course").
+
+## States
+
+| State | What the user sees |
+|---|---|
+| Stage with errors | The errors by their fields and an alert at the top; the focus on the first |
+| Running | A progress bar and the stage disabled; Cancel only if the task can really stop |
+| Done | A result with a success alert, the counts and the next step |
+| Failed | An alert with what failed, and "Try again" and "Back" |
+
+## Narrow screens
+
+Steps become horizontal above the card and show only the number and the label of the current stage. The foot's buttons stack with the main one on top.
+
+## Accessibility
+
+- The steps are an ordered list with a label; the current one has `aria-current="step"`.
+- When the stage changes, the focus goes to its title and the title is announced ("Step 2 of 4: Select activities").
+- Back, Next and Cancel are always in the same order in the tab sequence.
+
+## Before shipping
+
+- [ ] Each stage asks one thing and says why.
+- [ ] Back never loses data.
+- [ ] The review lists everything and can edit each part.
+- [ ] The result says what happened and what to do next.

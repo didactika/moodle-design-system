@@ -70,3 +70,29 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-group > .btn-pri
 
 /* ---- the tip: a little rounder, with a tinted shadow and a short entrance */
 html[data-brand="1"] .dd-tip { --dd-tip-bg: #0f2b2f; padding: .4375rem .75rem; border-radius: .75rem; font-family: "Inter", system-ui, sans-serif; box-shadow: 0 10px 24px -8px rgb(0 85 90 / 55%); }
+
+/* ---- touches for a learning platform: what is selected, done or in progress is easy to see and a little rewarding */
+/* a row under the pointer gets a bar of the primary colour; a selected tab an underline that slides in */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .table-hover > tbody > tr:hover > :first-child { box-shadow: inset 3px 0 0 var(--dd-primary); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .table > tbody > tr > * { transition: background-color var(--dd-ease), box-shadow var(--dd-ease); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .nav-tabs .nav-link { transition: color var(--dd-ease), box-shadow .25s cubic-bezier(.2, 0, 0, 1), background-color var(--dd-ease); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .nav-tabs .nav-link.active { box-shadow: inset 0 -3px 0 var(--dd-primary); }
+/* icon tiles carry a soft gradient of their colour; soft badges a hairline of it */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-tile:not(.dd-tile-solid) { background-image: linear-gradient(135deg, var(--dd-c-soft, var(--dd-primary-soft)) 0%, var(--dd-c-soft-2, var(--dd-primary-soft-2)) 100%); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-tile-solid { background-image: linear-gradient(135deg, color-mix(in srgb, var(--dd-c, var(--dd-primary)) 82%, #fff) 0%, var(--dd-c, var(--dd-primary)) 100%); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .badge-soft { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--dd-c) 22%, transparent); }
+/* progress is thicker and has a light on top, so a bar that fills feels like progress */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .progress { height: .75rem; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .progress-bar { box-shadow: inset 0 1px 0 rgb(255 255 255 / 30%); }
+/* a check pops when it is checked; a dialog and a toast rise when they enter */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .form-check-input:checked { animation: dd-pop .22s cubic-bezier(.2, 0, 0, 1); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .modal.show .modal-dialog, html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .toast.show { animation: dd-rise .28s cubic-bezier(.2, 0, 0, 1); }
+@keyframes dd-pop { 0% { transform: scale(.8); } 60% { transform: scale(1.12); } 100% { transform: scale(1); } }
+@keyframes dd-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+/* tags, chips and steps follow the shapes of the theme */
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-step.is-current::before { box-shadow: 0 0 0 4px var(--dd-ring); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-segmented { box-shadow: inset 0 1px 2px rgb(15 23 42 / 8%); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-dropzone { background-image: var(--dd-gradient-soft); background-color: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-check-input, .modal-dialog, .toast) { animation: none !important; }
+}

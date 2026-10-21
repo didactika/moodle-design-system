@@ -18,47 +18,57 @@ La paginación deja moverse por las páginas de una lista o una tabla. Muestra l
 <div class="ds-do-dont">
 <Rule kind="do" title="Úsalo">
 
-- Mostrar la página actual, algunas vecinas, y anterior y siguiente.
-- Usar el tamaño pequeño bajo una tabla densa.
-- Dejar cerca el total o el rango («21–40 de 312»).
+- Bajo cada lista y tabla que pueda tener más filas de las que caben: filas por página a la izquierda, el rango y las flechas a la derecha.
+- Di cuánto hay ("21–40 de 312") y dónde estás ("Página 2 de 16").
+- Ofrece la primera y la última página cuando la lista tiene más de unas pocas páginas.
+- Guarda la página y las filas por página en la dirección, para que un enlace o una recarga vuelvan al mismo sitio.
 
 </Rule>
 <Rule kind="dont" title="No">
 
 - Paginar menos de dos páginas.
-- Mostrar todos los números de una lista larga; acorta el medio.
-- Usarla para moverse entre pasos de un proceso; usa pasos.
+- Mostrar todos los números de página de una lista larga.
+- Usarla para moverse entre los pasos de un proceso; usa pasos.
+- Ponerla encima y debajo de la misma tabla: debajo basta.
 
 </Rule>
 </div>
 
 ## Anatomía
 
-Un `nav` con una lista (`pagination`) de **elementos** (`page-item`), cada uno con un **enlace** (`page-link`). La página actual está **activa**; las no disponibles, **desactivadas**.
+**La paginación de una lista** es la que usamos en todos los plugins (es la de Filebank): una fila con, a la izquierda, la etiqueta **Filas por página** y un select pequeño, y a la derecha el **rango** ("21–40 de 312"), la **página** ("Página 2 de 16") y un **grupo de cuatro botones de icono pequeños**: primera, anterior, siguiente y última. El grupo es de contorno y está unido, con los extremos redondeados; un botón que no se puede usar se desactiva, nunca se oculta, para que el grupo no cambie de ancho.
+
+**Las páginas numeradas** (`pagination`, `page-item`, `page-link`) son para los sitios donde la persona necesita saltar a una página concreta de una lista corta, y para las páginas propias de Moodle que ya las usan.
 
 ## Variantes y estados
 
-<Example title="Paginación, tamaños" src="pagination/basic" />
-
-### Estados
-
-<Example title="Estados" src="pagination/states" />
-
 ### La paginación de una lista
 
-La paginación que Didactika usa en sus listas y tablas dice cuántas filas hay en una página, cuáles se muestran y adónde llevan las flechas. Es la misma en todas las listas, así que quien la ha aprendido una vez la conoce en todas partes.
-
 <Example title="Paginación de una lista" src="pagination/list" />
+
+La primera fila es la versión completa, para listas de muchas filas. La segunda es la versión corta, para una lista que solo avanza (un feed, un registro que carga más). La tercera es la versión con texto, para un flujo donde solo importa la página siguiente.
+
+### Páginas numeradas
+
+<Example title="Páginas numeradas" src="pagination/basic" />
 
 <Only of="v53">
 
 ### La paginación propia de Moodle 5.3
 
-Moodle 5.3 tiene su propio componente de paginación (`mds-pagination`) para los sitios donde pagina el propio Moodle.
+Moodle 5.3 tiene su propio componente de paginación (`mds-pagination`) para los sitios donde Moodle mismo pagina.
 
 <Example title="Paginación de Moodle 5.3" src="pagination/moodle" />
 
 </Only>
+
+## Comportamiento
+
+1. Cambiar las filas por página vuelve a la primera página, porque el número de página anterior puede ya no existir.
+2. Los botones son enlaces cuando la página está en la dirección (así se pueden abrir en otra pestaña) y botones cuando la lista se actualiza en el sitio.
+3. Mientras carga la página siguiente, la lista muestra su marcador y el paginador se oculta; vuelve con el nuevo rango.
+4. Tras ir a otra página el foco va al inicio de la lista y se anuncia el nuevo rango ("Mostrando 41–60 de 312").
+5. Una página que ya no existe (la lista se acortó) muestra la última, nunca una página vacía.
 
 ## Combinaciones
 

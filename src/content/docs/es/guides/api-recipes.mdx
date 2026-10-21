@@ -1,11 +1,11 @@
 ---
 title: "API: recetas"
-summary: Tres scripts pequeños que ponen los datos de este sitio a trabajar en la documentación y las pruebas de un plugin.
+summary: "Scripts que ponen los datos de este sitio a trabajar en la documentación, las pruebas y la CI de un plugin."
 group: guides
-order: 5
+order: 7
 ---
 
-Todas las recetas leen el JSON del sitio; ninguna necesita una clave ni compilar este repositorio.
+Todas las recetas leen el JSON del sitio; ninguna necesita una clave ni compilar este repositorio. Copia, ajusta los identificadores y ejecútalas en tu propio build.
 
 ## Enlazar cada componente que usa un plugin
 
@@ -15,9 +15,10 @@ El README o la wiki de un plugin puede nombrar los componentes que usa y enlazar
 const root = 'https://didactika.github.io/moodle-design-system';
 const index = await (await fetch(root + '/api/index.json')).json();
 
-const used = ['bootstrap/buttons', 'bootstrap/tables', 'bootstrap/modal'];
+const used = ['bootstrap/buttons', 'bootstrap/tables', 'bootstrap/modals', 'patterns/working-list'];
 const lines = used.map((id) => {
     const page = index.pages.find((p) => p.id === id);
+    if (!page) { throw new Error('No existe la página: ' + id); }
     return `- [${page.title.es}](${page.url.es}?version=v53): ${page.summary.es}`;
 });
 console.log(lines.join('\n'));
@@ -28,6 +29,8 @@ console.log(lines.join('\n'));
 Compara las clases de la plantilla de un plugin con las del ejemplo, para que un rediseño se detecte en una revisión.
 
 ```js
+import {readFile} from 'node:fs/promises';
+
 const buttons = await (await fetch(root + '/api/components/buttons.json')).json();
 const classes = (html) => new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1].split(/\s+/)));
 
@@ -37,15 +40,47 @@ const missing = [...expected].filter((c) => !actual.has(c));
 console.log(missing.length ? `No está en la plantilla: ${missing.join(', ')}` : 'Mismas clases');
 ```
 
+## Hacer que una CI falle cuando cambia un ejemplo que el plugin copió
+
+Guarda el marcado que copiaste y compáralo en cada build:
+
+```js
+const current = (await (await fetch(root + '/api/components/tables.json')).json())
+    .examples.find((e) => e.id === 'tables/selectable').bootstrap5.html;
+const copied = await readFile('tests/fixtures/tables-selectable.html', 'utf8');
+if (current.trim() !== copied.trim()) {
+    console.warn('El ejemplo tables/selectable cambió: revisa tu plantilla.');
+    process.exitCode = 1;
+}
+```
+
+Usa un aviso en vez de un fallo mientras se construye el plugin, y un fallo cuando ya está publicado.
+
+## Dibujar los iconos de un plugin en su documentación
+
+```js
+const {icons} = await (await fetch(root + '/api/icons.json')).json();
+const ids = ['t/add', 't/edit', 't/delete'];
+const table = ids.map((id) => `| \`${id}\` | ${icons[id].v53} | ${icons[id].v41} |`);
+console.log('| Id | Moodle 5.x | Moodle 4.1 |\n|---|---|---|\n' + table.join('\n'));
+```
+
+## Probar una pantalla contra cada versión de Moodle
+
+Las hojas de las tres versiones se sirven acotadas bajo `.ds-v53`, `.ds-v45` y `.ds-v41`. En una prueba visual, carga la de la versión que pruebas y pon el marcado dentro de un elemento con esa clase y con `ds-v-scope`:
+
+```html
+<link rel="stylesheet" href="https://didactika.github.io/moodle-design-system/moodle/v45/boost.css">
+<div class="ds-v45 ds-v-scope">…el marcado de tu pantalla…</div>
+```
+
 ## Abrir la página en el estado de una incidencia
 
 Un error de un componente en Moodle 4.5 es un enlace, no una captura que describir:
 
-```
+```text
 https://didactika.github.io/moodle-design-system/es/bootstrap/tables/?version=v45#cabeceras-ordenables
 ```
-
-Cada sección de una página tiene ancla (el `id` de su encabezado), así que el enlace cae sobre el ejemplo.
 
 ## Que siga funcionando
 

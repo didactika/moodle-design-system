@@ -84,14 +84,17 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" widt
 </svg>
 `;
 /**
- * The small version, for the tab, the touch icon and the installed app: what still reads at 16 pixels. The window, the pills and the pointer
- * are gone; what is left is the book on a white tile and the "m" of Moodle with its cap on the corner.
+ * The small version, for the tab, the touch icon and the installed app: only the book of Didactika with the cap of Moodle on it, in the same
+ * place the cap has in Moodle's logo (leaning on the upper left, with its tassel hanging at the left), on a white tile. The window, the pills
+ * and the "m" are gone: at 16 pixels the book and the cap are what still reads.
  */
+const CAP_VIEW = '0.75 74.01 228.79 189.54';
+const capDark = `<svg x="44" y="82" width="240" height="${240 * 189.54 / 228.79}" viewBox="${CAP_VIEW}"><g fill="#fff" stroke="#fff" stroke-width="16" stroke-linejoin="round">${capPaths}</g><g fill="#3b3b3d">${capPaths}</g></svg>`;
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <rect x="16" y="16" width="480" height="480" rx="116" fill="#fff"/>
   <rect x="16" y="16" width="480" height="480" rx="116" fill="none" stroke="${DEEP}" stroke-opacity=".18" stroke-width="8"/>
-  <image href="data:image/png;base64,${book}" x="44" y="40" width="340" height="340"/>
-  <svg x="212" y="250" width="240" height="${240 * MARK.h / MARK.w}" viewBox="${MARK.view}">${markInner(true)}${markInner(false)}</svg>
+  <image href="data:image/png;base64,${book}" x="60" y="92" width="416" height="416"/>
+  ${capDark}
 </svg>
 `;
 writeFileSync(join(pub, 'favicon.svg'), favicon);

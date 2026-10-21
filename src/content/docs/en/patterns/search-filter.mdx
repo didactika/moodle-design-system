@@ -1,0 +1,67 @@
+---
+title: Search and filter
+summary: "Find one thing among many: a search field, a few filters and the applied ones, with the count of results."
+group: patterns
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+
+People find things in two ways: by typing what they remember and by narrowing a list. This pattern combines both and always shows what is applied and how many results there are.
+
+## When to use it
+
+- The list is long enough that scrolling is not a way to find something (more than about twenty items).
+- Use only the search for a list with one obvious thing to type; only chips when the filters are few and known.
+
+## Anatomy
+
+1. **Search field**: an input group with the magnifier, a field and the button. In a bar of a page, the search icon opens the search component instead.
+2. **Filter chips** for the filters used all the time, with their counts.
+3. **Applied filters**: chips with a remove button, a "Clear all" link and the **count of results**, announced as it changes.
+4. **The results**, as a table (to work) or as a list group (to choose).
+
+<Example title="Search, filters and results" src="patterns/search-filter" />
+
+## Behaviour
+
+1. Search runs when the user stops typing (300 ms) or presses Enter; the button is for those who look for it.
+2. The text searched also appears as an applied filter, so it can be removed like any other.
+3. Chips narrow the results at once. The counts on the chips are the counts **with the other filters applied**, so a chip never promises results that are not there.
+4. The count of results changes in a live region ("7 results"); with none, the empty state of a search appears, with the way to clear the filters.
+5. Every filter goes to the address, so the search can be shared and survives a reload.
+6. The matched text is highlighted in the results when the list is a list group.
+
+## Layout and spacing
+
+| Between | Distance |
+|---|---|
+| Search and chips | 1 rem |
+| Chips and applied filters | 1 rem |
+| Applied filters and results | 1 rem; the count sits at the right end of the applied-filters row |
+
+## States
+
+| State | What the user sees |
+|---|---|
+| Searching | The results dim and a skeleton shows where they were; the field keeps its focus |
+| No results | The empty state of a search and a "Clear filters" button |
+| Error | An alert that keeps the filters and offers "Try again" |
+
+## Narrow screens
+
+The search takes the whole width; the chips scroll sideways in one row instead of wrapping into several; the applied filters wrap.
+
+## Accessibility
+
+- The search is a `form` with `role="search"` and a label on the field.
+- Chips are toggle buttons (`aria-pressed`) in a labelled group.
+- Each remove button names its filter.
+- The count is a `role="status"` region.
+
+## Before shipping
+
+- [ ] Everything applied is visible and removable.
+- [ ] The count of results is announced.
+- [ ] The empty result has a way out.
+- [ ] The filters are in the address.

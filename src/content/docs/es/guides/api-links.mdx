@@ -1,0 +1,69 @@
+---
+title: "API: enlaces y estados"
+summary: "Cómo se abre una página en una versión de Moodle, modo de color y tema dados, y cómo enlazar a una sección o a un ejemplo."
+group: guides
+order: 2
+---
+
+Cualquier página del sitio se puede abrir en el estado que quieras mostrar, con parámetros en la dirección. La documentación de un plugin puede entonces mostrar un componente **como lo vería un sitio concreto**: Moodle 4.5, colores oscuros, con el tema de Didactika.
+
+## Los parámetros
+
+| Parámetro | Valores | Efecto |
+|---|---|---|
+| `version` | `v53`, `v45`, `v41` | La versión de Moodle con la que se dibujan los ejemplos |
+| `mode` | `light`, `dark` | El modo de color (el oscuro solo existe desde Moodle 5.x) |
+| `brand` | `1`, `0` | El tema de Didactika activado o no. Apagado, los ejemplos muestran el sistema de diseño solo |
+| `theme` | `0.1` | La versión del tema (solo importa con `brand=1`) |
+| `designer` | `1` | Abre con el inspector activo (no en teléfonos) |
+
+Sin parámetros, la página se abre con lo que la persona eligió la última vez (las elecciones se recuerdan en su navegador) o con los valores por defecto: Moodle 5.3, el modo de color del sistema, el tema apagado.
+
+```text
+https://didactika.github.io/moodle-design-system/es/bootstrap/buttons/?version=v45&mode=light&brand=1&theme=0.1
+```
+
+## Idioma
+
+El idioma forma parte de la ruta: `/en/…` y `/es/…`. Cada página existe en ambos, con el mismo identificador, así que un enlace se construye cambiando el primer segmento.
+
+## Secciones y ejemplos
+
+Cada encabezado tiene un ancla (el `id` que Astro hace con su texto), así que un enlace puede caer en la sección exacta:
+
+```text
+https://didactika.github.io/moodle-design-system/es/bootstrap/tables/#cabeceras-ordenables
+```
+
+El ancla es el encabezado en minúsculas, sin acentos, con guiones. Los encabezados no se renombran a la ligera, pero si necesitas un enlace que nunca cambie, enlaza a la página y nombra la sección en el texto.
+
+## Enlazar a un componente en una versión de Moodle, desde una incidencia
+
+Un informe que dice "el paginador se ve mal en 4.1" es mejor como enlace que como captura:
+
+```text
+…/es/bootstrap/pagination/?version=v41#la-paginación-de-una-lista
+```
+
+## Construir los enlaces en código
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+
+const link = (id, {lang = 'es', version, mode, brand, hash = ''} = {}) => {
+    const params = new URLSearchParams();
+    if (version) { params.set('version', version); }
+    if (mode) { params.set('mode', mode); }
+    if (brand !== undefined) { params.set('brand', brand ? '1' : '0'); }
+    const query = params.toString();
+    return `${root}/${lang}/${id}/${query ? '?' + query : ''}${hash}`;
+};
+
+link('bootstrap/buttons', {version: 'v45', mode: 'light', brand: true});
+```
+
+## Lo que un enlace nunca hace
+
+- Nunca cambia los datos del sitio: los estados son solo para mirar.
+- Nunca necesita que la persona haya iniciado sesión.
+- Los valores desconocidos se ignoran y se usa el de por defecto.

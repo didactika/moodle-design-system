@@ -1,0 +1,67 @@
+---
+title: Búsqueda y filtros
+summary: "Encontrar una cosa entre muchas: un campo de búsqueda, unos filtros y los aplicados, con la cuenta de resultados."
+group: patterns
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+
+La gente encuentra las cosas de dos maneras: escribiendo lo que recuerda y acotando una lista. Este patrón combina las dos y muestra siempre qué está aplicado y cuántos resultados hay.
+
+## Cuándo usarlo
+
+- La lista es tan larga que desplazarse no es una forma de encontrar algo (más de unos veinte elementos).
+- Usa solo la búsqueda para una lista con una cosa obvia que escribir; solo chips cuando los filtros son pocos y conocidos.
+
+## Anatomía
+
+1. **Campo de búsqueda**: un grupo de entrada con la lupa, un campo y el botón. En la barra de una página, el icono de búsqueda abre el componente de búsqueda.
+2. **Chips de filtro** para los filtros que se usan siempre, con sus cuentas.
+3. **Filtros aplicados**: chips con botón de quitar, un enlace "Quitar todos" y la **cuenta de resultados**, que se anuncia al cambiar.
+4. **Los resultados**, como tabla (para trabajar) o como lista (para elegir).
+
+<Example title="Búsqueda, filtros y resultados" src="patterns/search-filter" />
+
+## Comportamiento
+
+1. La búsqueda se ejecuta cuando la persona deja de escribir (300 ms) o pulsa Intro; el botón es para quien lo busca.
+2. El texto buscado también aparece como filtro aplicado, así se quita como cualquier otro.
+3. Los chips acotan los resultados al instante. Las cuentas de los chips son las cuentas **con los otros filtros aplicados**, así un chip nunca promete resultados que no hay.
+4. La cuenta de resultados cambia en una región viva ("7 resultados"); sin ninguno, aparece el estado vacío de una búsqueda, con la forma de quitar los filtros.
+5. Cada filtro va a la dirección, así la búsqueda se puede compartir y sobrevive a una recarga.
+6. El texto encontrado se resalta en los resultados cuando la lista es una lista.
+
+## Disposición y espacios
+
+| Entre | Distancia |
+|---|---|
+| Búsqueda y chips | 1 rem |
+| Chips y filtros aplicados | 1 rem |
+| Filtros aplicados y resultados | 1 rem; la cuenta va en el extremo derecho de la fila de filtros aplicados |
+
+## Estados
+
+| Estado | Qué ve la persona |
+|---|---|
+| Buscando | Los resultados se atenúan y un esqueleto muestra dónde estaban; el campo conserva el foco |
+| Sin resultados | El estado vacío de una búsqueda y un botón "Quitar filtros" |
+| Error | Una alerta que conserva los filtros y ofrece "Reintentar" |
+
+## Pantallas estrechas
+
+La búsqueda ocupa todo el ancho; los chips se desplazan hacia los lados en una sola fila en vez de repartirse en varias; los filtros aplicados se reparten en líneas.
+
+## Accesibilidad
+
+- La búsqueda es un `form` con `role="search"` y una etiqueta en el campo.
+- Los chips son botones de alternancia (`aria-pressed`) en un grupo con etiqueta.
+- Cada botón de quitar nombra su filtro.
+- La cuenta es una región `role="status"`.
+
+## Antes de publicar
+
+- [ ] Todo lo aplicado es visible y se puede quitar.
+- [ ] La cuenta de resultados se anuncia.
+- [ ] El resultado vacío tiene salida.
+- [ ] Los filtros están en la dirección.

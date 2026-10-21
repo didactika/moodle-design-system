@@ -1,8 +1,8 @@
 ---
 title: "API: iconos y marca"
-summary: Los ids de iconos de Moodle con el nombre de Font Awesome con que cada versión los dibuja, y los colores y el logo del tema de Didactika.
+summary: "Los ids de iconos de Moodle con el nombre de Font Awesome con que cada versión los dibuja, y los colores y el logo del tema de Didactika."
 group: guides
-order: 4
+order: 6
 ---
 
 ## Iconos
@@ -18,6 +18,8 @@ order: 4
 }
 ```
 
+Un id de icono es `<grupo>/<nombre>`: `t/` para los iconos de herramientas, `i/` para los de elementos, `a/` para acciones, `e/` para el editor. En una plantilla de Moodle se escribe `{{#pix}}t/add, core{{/pix}}`; en PHP, `$OUTPUT->pix_icon('t/add', get_string('add'))`.
+
 ```js
 const root = 'https://didactika.github.io/moodle-design-system';
 const {versions, icons} = await (await fetch(root + '/api/icons.json')).json();
@@ -27,7 +29,7 @@ const name = icons['t/edit'].v41;                       // un nombre de Font Awe
 const html = family.v41 === 'fa4' ? `<i class="fa fa-${name}"></i>` : `<i class="fa-solid fa-${name}"></i>`;
 ```
 
-Un nombre que empieza por `regular ` o `brands ` ya lleva su familia. Un id sin entrada para una versión no tiene icono ahí: no se dibuja uno a mano. La regla es la misma en todo este sistema: los iconos vienen de Moodle, nunca se dibujan para un plugin.
+Un nombre que empieza por `regular ` o `brands ` ya lleva su familia. Un id sin entrada para una versión no tiene icono ahí: no se dibuja uno a mano. La regla es la misma en todo este sistema: **los iconos vienen de Moodle, nunca se dibujan para un plugin**. Si un plugin necesita un icono que Moodle no tiene, lleva un SVG en `pix/` y lo llama con `pix_icon` de su propio componente.
 
 ## Marca
 
@@ -35,9 +37,11 @@ Un nombre que empieza por `regular ` o `brands ` ya lleva su familia. Un id sin 
 
 | Campo | Significado |
 |---|---|
+| `name` | `Didactika` |
+| `logo` | El color del logo |
 | `teal` | La escala de 50 a 950 del color de marca |
 | `extra` | Los pocos neutros y acentos que se usan además |
-| `roles` | El color de cada rol de Bootstrap (`primary`, `secondary`, `success`...) con el tema de Didactika activo |
+| `roles` | El color de cada rol de Bootstrap (`primary`, `secondary`, `success`, `info`, `warning`, `danger`, `light`, `dark`) con el tema de Didactika activo |
 | `assets.logo`, `assets.icon`, `assets.share` | El logo, el icono y la imagen que se usa al compartir una página |
 
 ```js
@@ -45,4 +49,4 @@ const brand = await (await fetch(root + '/api/brand.json')).json();
 console.log(brand.roles.primary, brand.assets.logo);
 ```
 
-Los roles son lo que aplica el interruptor "Tema de Didactika" de la cabecera; para recolorear con otra cosa se cambian las variables de Bootstrap, nunca los componentes.
+Los roles son lo que aplica el interruptor "Tema de Didactika" de la cabecera; para recolorear con otra cosa se cambian las variables de Bootstrap, nunca los componentes. Cada rol llega a 4,5:1 con texto blanco (el rol claro es la excepción: lleva texto oscuro).

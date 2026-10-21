@@ -1,32 +1,45 @@
 ---
 title: "API: componentes y ejemplos"
-summary: Cada ejemplo de un componente, como marcado que se pega en una plantilla, para Bootstrap 5 y para Bootstrap 4.
+summary: "Cada ejemplo de un componente, como marcado que se pega en una plantilla, para Bootstrap 5 y para Bootstrap 4."
 group: guides
-order: 2
+order: 4
 ---
 
 La documentación de un plugin (o sus pruebas) no debería guardar su propia copia de "cómo es un botón de Didactika". Lee el ejemplo de aquí y lo usa.
 
 ## Qué se publica
 
-`/api/components/index.json` lista los componentes que tienen ejemplos. `/api/components/<componente>.json` guarda todos los ejemplos de uno:
+`/api/components/index.json` lista los componentes que tienen ejemplos. `/api/components/<componente>.json` guarda todos los ejemplos de uno.
 
 | Campo | Significado |
 |---|---|
-| `id` | El componente, como `buttons` |
+| `id` | El componente, como `buttons`, `tables`, `patterns` |
 | `page` | La página del sitio que lo explica, como `bootstrap/buttons` |
 | `examples[].id` | El ejemplo, como `buttons/icons`. Estable una vez publicado |
 | `examples[].title` | Su nombre en `en` y `es` |
-| `examples[].icons` | Los ids de iconos de Moodle que usa (`t/add`, `i/import`...) |
+| `examples[].page` | La página donde aparece |
+| `examples[].icons` | Los ids de iconos de Moodle que usa (`t/add`, `i/import`…) |
 | `examples[].bootstrap5` | `html` y `mustache` para Moodle 5.x |
 | `examples[].bootstrap4` | `html` y `mustache` para Moodle 4.x |
+
+La lista del índice también trae, para cada componente, los `examples` como identificadores simples, así sabes qué existe sin descargar cada archivo.
 
 ## HTML o Mustache
 
 - **`html`** es el ejemplo como lo dibuja la página, con los iconos como marcadores `data-pix`. Úsalo en un documento, una prueba de capturas o una vista previa estática.
 - **`mustache`** cambia cada icono por la llamada que hace una plantilla de Moodle (`{{#pix}}t/add, core{{/pix}}`), así que se puede dejar en `templates/*.mustache` tal cual.
 
-Las dos generaciones se diferencian donde se diferencian Bootstrap 4 y 5 (`ms-2` o `ml-2`, `data-bs-toggle` o `data-toggle`, `text-bg-*` o `badge-*`), así que se elige por la versión de Moodle del plugin, no por gusto.
+Las dos generaciones se diferencian donde se diferencian Bootstrap 4 y 5:
+
+| Bootstrap 5 (Moodle 5.x) | Bootstrap 4 (Moodle 4.x) |
+|---|---|
+| `ms-2`, `me-2`, `ps-3`, `text-end` | `ml-2`, `mr-2`, `pl-3`, `text-right` |
+| `data-bs-toggle`, `data-bs-target` | `data-toggle`, `data-target` |
+| `text-bg-success` en una insignia | `badge-success` |
+| `form-select`, `btn-close` | `custom-select`, `close` |
+| `visually-hidden` | `sr-only` |
+
+Elige por la **versión de Moodle del plugin**, no por gusto. Un plugin que admite ambas publica una plantilla para cada una, o usa las clases que las dos comparten.
 
 ## Úsalo
 
@@ -42,10 +55,23 @@ console.log(sortable.bootstrap5.mustache);
 console.log(sortable.icons);
 ```
 
+## Dibújalo en una plantilla de Moodle
+
+El campo `mustache` es una plantilla Mustache válida. Un plugin la guarda como `templates/<nombre>.mustache`, escribe los datos que necesita donde el ejemplo tiene texto y la dibuja con `$OUTPUT->render_from_template()`:
+
+```php
+echo $OUTPUT->render_from_template('local_example/toolbar', [
+    'title' => get_string('courses'),
+    'count' => $count,
+]);
+```
+
+Cambia el texto del ejemplo por variables de Mustache (`{{title}}`, `{{count}}`) y las cadenas por `{{#str}}…{{/str}}`; deja las clases como están.
+
 ## ¿Qué iconos necesita?
 
-`examples[].icons` lista los ids de Moodle. Para dibujarlos en una página de documentación, lee la tabla de iconos (mira "API: iconos y marca") y usa el nombre de la versión de Font Awesome del Moodle de destino.
+`examples[].icons` lista los ids de Moodle. Para dibujarlos fuera de Moodle (una página de documentación, una vista previa) lee la tabla de iconos (mira "API: iconos y marca") y usa el nombre de la versión de Font Awesome del Moodle de destino. Dentro de una plantilla de Moodle, `{{#pix}}` lo hace por ti.
 
 ## Lo que un componente no es
 
-Un ejemplo es un **punto de partida con sus clases**: la capa de Didactika es el CSS que hace que se vea así (clases `dd-*` y los modificadores que lista la página de cada componente), y un plugin nunca la redibuja. Si un plugin necesita algo que el ejemplo no tiene, la página del componente dice qué combinación usar o qué clase pedir.
+Un ejemplo es un **punto de partida con sus clases**. Las clases de Didactika (`dd-*`, `btn-tonal`, `badge-soft`…) pertenecen al sistema de diseño y se publican con él; el tema de Didactika añade su aspecto al mismo marcado y nunca necesita un marcado distinto. Si un plugin necesita algo que el ejemplo no tiene, la página del componente dice qué combinación usar o qué clase pedir.

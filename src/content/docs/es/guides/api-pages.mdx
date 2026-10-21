@@ -1,0 +1,75 @@
+---
+title: "API: páginas y búsqueda"
+summary: "Lee la lista de páginas y su texto para construir una navegación, una búsqueda o una copia sincronizada."
+group: guides
+order: 3
+---
+
+Cada página del sitio está descrita en `/api/index.json` y, con su texto, en `/api/pages/<id>.json`. Con eso puedes construir un menú de los componentes que usa un plugin, buscar en la documentación desde un editor o comprobar que un enlace de tu README sigue apuntando a una página que existe.
+
+## La lista de páginas
+
+Cada elemento de `pages[]` en el índice tiene:
+
+| Campo | Significado |
+|---|---|
+| `id` | El identificador, que es también la ruta: `bootstrap/buttons`, `patterns/states` |
+| `group` | `foundations`, `bootstrap`, `moodle`, `didactika`, `patterns` o `guides`; `start` para las primeras páginas |
+| `order` | La posición dentro de su grupo |
+| `section` | Para los componentes de Bootstrap, la familia: `actions`, `inputs`, `navigation`, `feedback`, `content`; `null` en el resto |
+| `versions` | Las versiones de Moodle a las que se aplica la página (todas cuando no lo dice) |
+| `title`, `summary` | `{en, es}` |
+| `url` | `{en, es}`: la dirección de la página |
+| `api` | La dirección del archivo de la página con su texto |
+| `examples` | Los identificadores de los ejemplos que usa la página |
+
+## El texto de una página
+
+`/api/pages/<id>.json` tiene los mismos campos más `body`: el fuente del texto en `{en, es}`, como el MDX en el que está escrito el sitio. Úsalo para **citar** o **incluir** una parte de una página en otro documento; no intentes dibujarlo sin los componentes que nombra (`Example`, `Rule`, `Matrix`, `Only`).
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const page = await (await fetch(root + '/api/pages/patterns/states.json')).json();
+
+console.log(page.title.es);                     // "Estados: cargando, vacío, error"
+const sections = page.body.es.split(/^## /m);   // las secciones del texto
+console.log(sections.map((s) => s.split('\n')[0]));
+```
+
+## Receta: un menú con las páginas de un grupo
+
+```js
+const index = await (await fetch(root + '/api/index.json')).json();
+
+const menu = index.pages
+    .filter((p) => p.group === 'patterns')
+    .sort((a, b) => a.order - b.order)
+    .map((p) => `- [${p.title.es}](${p.url.es})`);
+
+console.log(menu.join('\n'));
+```
+
+## Receta: una búsqueda sencilla
+
+```js
+const index = await (await fetch(root + '/api/index.json')).json();
+const find = (text) => {
+    const words = text.toLowerCase().split(/\s+/).filter(Boolean);
+    return index.pages.filter((p) => {
+        const haystack = `${p.title.es} ${p.summary.es} ${p.id}`.toLowerCase();
+        return words.every((w) => haystack.includes(w));
+    });
+};
+console.log(find('tabla orden').map((p) => p.id));
+```
+
+La búsqueda propia del sitio (`Ctrl K`) hace lo mismo con los títulos, los resúmenes, los encabezados y las clases de cada página.
+
+## Receta: comprobar los enlaces de un README
+
+```js
+const known = new Set(index.pages.map((p) => p.url.es));
+const links = [...readme.matchAll(/https:\/\/didactika\.github\.io\/moodle-design-system\/es\/[^\s)#?]+/g)].map((m) => m[0]);
+const broken = links.filter((url) => !known.has(url));
+if (broken.length) { throw new Error('Estas páginas ya no existen:\n' + broken.join('\n')); }
+```

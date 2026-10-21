@@ -1,0 +1,23 @@
+<div style="display:grid;gap:1rem">
+  <form role="search" class="input-group"><span class="input-group-text"><i data-pix="a/search"></i></span><input class="form-control" type="search" value="alg" aria-label="Search courses" placeholder="Search courses"><button type="submit" class="btn btn-primary">Search</button></form>
+  <div class="dd-chips" role="group" aria-label="Filter by status">
+    <button type="button" class="dd-chip" aria-pressed="true">All <span class="dd-chip-count">7</span></button>
+    <button type="button" class="dd-chip" aria-pressed="false">Open <span class="dd-chip-count">5</span></button>
+    <button type="button" class="dd-chip" aria-pressed="false">Draft <span class="dd-chip-count">2</span></button>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem">
+    <div class="dd-chips" aria-label="Applied filters">
+      <span class="dd-chip dd-chip-applied">Search: alg <button type="button" class="dd-chip-remove" aria-label="Remove the search"></button></span>
+      <span class="dd-chip dd-chip-applied">2026 <button type="button" class="dd-chip-remove" aria-label="Remove 2026"></button></span>
+      <button type="button" class="btn btn-link btn-sm">Clear all</button>
+    </div>
+    <span style="color:var(--dd-muted);font-size:.875rem" role="status">7 results</span>
+  </div>
+  <div class="card">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" style="display:flex;align-items:center;gap:.75rem"><span class="dd-tile dd-tile-sm"><i data-pix="i/course"></i></span><span style="flex:1"><b>Algebra I</b><br><small style="color:var(--dd-muted)">Mathematics · 128 students</small></span><span class="badge badge-soft rounded-pill text-bg-success">Open</span></li>
+      <li class="list-group-item" style="display:flex;align-items:center;gap:.75rem"><span class="dd-tile dd-tile-sm"><i data-pix="i/course"></i></span><span style="flex:1"><b>Algebra II</b><br><small style="color:var(--dd-muted)">Mathematics · 94 students</small></span><span class="badge badge-soft rounded-pill text-bg-warning">Draft</span></li>
+      <li class="list-group-item" style="display:flex;align-items:center;gap:.75rem"><span class="dd-tile dd-tile-sm"><i data-pix="i/course"></i></span><span style="flex:1"><b>Linear algebra</b><br><small style="color:var(--dd-muted)">Mathematics · 61 students</small></span><span class="badge badge-soft rounded-pill text-bg-success">Open</span></li>
+    </ul>
+  </div>
+</div>

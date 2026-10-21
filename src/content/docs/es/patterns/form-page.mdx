@@ -1,33 +1,73 @@
 ---
 title: Una página de formulario
-summary: Cómo se organiza un formulario largo para rellenarlo sin perderse, con la validación junto a cada campo.
+summary: "Cómo se organiza un formulario largo para rellenarlo sin perderse, con la validación junto a cada campo."
 group: patterns
-order: 2
+order: 4
 ---
 
 import Example from '../../../../components/Example.astro';
 
 Una página de formulario pide datos una vez y bien. Es una tarjeta con un título, los campos en el orden en que la gente los piensa y las acciones al pie.
 
-## Reglas
+## Cuándo usarla
 
-- **Una columna** para los campos que se rellenan uno tras otro; dos columnas solo para pares que van juntos (nombre y apellidos, desde y hasta).
-- **Los campos obligatorios** se marcan con un asterisco y la regla se dice una vez bajo el título.
-- **Ayuda bajo el campo**, errores en su sitio y en texto; nunca solo un borde rojo.
-- **Agrupa los formularios largos en secciones** con un título cada una, o en pasos si el orden importa.
-- **Las acciones al pie**: la principal a la derecha con el nombre de lo que hace ("Crear curso"), Cancelar antes.
-- **Valida al salir del campo** y otra vez al enviar; al enviar, lleva el foco al primer error.
+- Crear o editar un objeto con más de dos o tres campos.
+- Para un solo campo, o una opción entre dos, usa un diálogo o un control en línea.
+- Para una tarea larga cuyo orden importa, usa un flujo guiado.
+
+## Anatomía
+
+1. **Título y la regla de los campos obligatorios**, dicha una vez ("Los campos con * son obligatorios").
+2. **Campos**, uno por fila, cada uno con su **etiqueta encima**, el campo y su **ayuda** debajo.
+3. **Pares que van juntos** (nombre y apellidos, desde y hasta) en paralelo cuando caben.
+4. **Secciones** con un título cada una cuando el formulario es largo; una sección es una tarjeta o un grupo con título.
+5. **Pie**: la acción principal a la derecha con el nombre de lo que hace ("Crear curso"); Cancelar antes.
 
 <Example title="Un formulario con sus estados de validación" src="form-controls/layout" />
 
-## Construida con
+## Disposición y espacios
 
-Tarjetas, campos de texto, selects, casillas, mensajes de validación y botones. Para una tarea con varias etapas, añade el componente de pasos y deja Atrás y Siguiente al pie.
+| Entre | Distancia |
+|---|---|
+| Campos | 1,25 rem |
+| Etiqueta y campo | 0,375 rem |
+| Campo y su ayuda o error | 0,375 rem |
+| Secciones | 2 rem, con el título de la sección sobre sus campos |
+| Último campo y pie | El pie se separa con una línea fina |
+
+Los campos ocupan todo el ancho de la columna hasta 42 rem; un texto corto por naturaleza (un código postal, un número) tiene el ancho de su contenido.
+
+## Comportamiento
+
+1. **Valida al salir de un campo** y otra vez al enviar. Mientras se escribe, solo se quita un error que ya está a la vista.
+2. Al enviar con errores, **lleva el foco al primer error** y muestra arriba una alerta que los lista, cada uno enlazado a su campo.
+3. El **botón principal se desactiva al enviar**, con un spinner pequeño y el texto "Guardando…". Nunca antes, porque un botón desactivado esconde la razón.
+4. Tras guardar, ve a donde estaba la persona (la lista, el detalle) con un toast que dice qué se guardó; quédate en el formulario solo si el siguiente paso es seguir editando.
+5. Si la persona sale con cambios sin guardar, pregunta una vez, en un diálogo con "Descartar" y "Seguir editando".
 
 ## Estados
 
 | Estado | Qué ve la persona |
 |---|---|
-| Enviando | El botón principal desactivado con un spinner pequeño y el texto "Guardando…" |
+| Enviando | El botón principal desactivado con un spinner y "Guardando…" |
 | Guardado | Un toast con el resultado, o la página a la que va después |
-| Error | Una alerta arriba que lista los errores y enlaza a cada campo, y los errores junto a sus campos |
+| Error | Una alerta que lista los errores y enlaza a cada campo; los errores junto a sus campos, en texto |
+| Bloqueado | Un campo que la persona no puede cambiar está desactivado y dice por qué en su ayuda |
+
+## Pantallas estrechas
+
+Los pares se apilan; los botones del pie ocupan todo el ancho, el principal primero (arriba). Las etiquetas nunca van a la izquierda del campo.
+
+## Accesibilidad
+
+- Cada campo tiene una `label` visible, enlazada; la ayuda y los errores se enlazan con `aria-describedby`.
+- Un campo obligatorio se marca en la etiqueta y con `required`.
+- El error es texto; el borde rojo es solo un apoyo. Nunca uses un marcador como etiqueta.
+- El pie se alcanza tras el último campo en el orden del tabulador.
+
+## Antes de publicar
+
+- [ ] Cada campo tiene etiqueta, ayuda si hace falta y un mensaje de error escrito.
+- [ ] El primer error recibe el foco.
+- [ ] El botón principal dice lo que hace.
+- [ ] Salir con cambios pregunta.

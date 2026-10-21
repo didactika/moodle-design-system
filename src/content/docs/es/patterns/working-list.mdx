@@ -9,32 +9,68 @@ import Example from '../../../../components/Example.astro';
 
 La pantalla más repetida de un plugin es una lista sobre la que se trabaja: cursos, participantes, reglas, registros. Se construye siempre con las mismas piezas, en el mismo orden, para que la gente sepa dónde está cada una.
 
-## Las piezas, de arriba abajo
+## Cuándo usarla
 
-1. **Cabecera de página**: dónde estás, el título con su contexto y la acción principal de la página.
-2. **Chips de filtro**: los tres a seis filtros que se usan siempre, con sus cuentas.
-3. **Tarjeta con la tabla**: barra de herramientas (búsqueda, acciones secundarias), la tabla y, debajo, el paginador.
+- La persona tiene **muchas cosas de un tipo** y tiene que encontrarlas, compararlas o actuar sobre ellas.
+- Cada cosa tiene **varios atributos** que merece la pena comparar (una tabla), no solo un nombre y una línea (entonces usa una lista).
+- No la uses para menos de unos cinco elementos, ni para cosas que se miran mejor una a una (tarjetas o una página de detalle).
+
+## Anatomía
+
+1. **Cabecera de página** (`dd-page-header`): dónde estás, el título con su contexto y la acción principal de la página.
+2. **Chips de filtro** (`dd-chips`): los tres a seis filtros que se usan siempre, con sus cuentas.
+3. **Tarjeta con la tabla**: la **barra de herramientas** (búsqueda, acciones secundarias), la **tabla** y, debajo, el **paginador**.
 4. **Acciones de una fila**, siempre visibles, al final de la fila.
 
 <Example title="Una lista para trabajar" src="patterns/working-list" />
 
-## Reglas
+## Disposición y espacios
 
-| Pieza | Regla |
+| Entre | Distancia |
 |---|---|
-| Cabecera | Una acción primaria. La cuenta de elementos va en el subtítulo. |
-| Chips | Acotan la lista al instante y mantienen la cuenta. Un filtro sin resultados muestra un estado vacío. |
-| Barra de herramientas | Primero la búsqueda, luego los filtros que no caben como chips, a la derecha exportar o importar. Cuando hay filas seleccionadas, pasa a ser la barra de la selección. |
-| Tabla | La primera columna es la identidad de la fila (un `th scope="row"`), los números a la derecha, una columna ordenada a la vez. |
-| Acciones de fila | Botones de icono con título, en el mismo sitio en cada fila. Una destructiva pide confirmación. |
-| Paginador | Filas por página a la izquierda, el rango y las flechas a la derecha. |
+| Cabecera y chips | 1 rem |
+| Chips y tarjeta | 1 rem |
+| Barra de herramientas y tabla | 0, una línea fina las separa |
+| Tabla y paginador | 0, dentro de la misma tarjeta |
+| Celdas | 0,75 rem arriba y abajo, 1 rem a los lados |
+| Acciones de fila | 2 px entre botones de icono |
 
-## Construida con
+La tarjeta ocupa todo el ancho de la columna. La primera columna crece; los números y las acciones mantienen su ancho natural.
 
-Cabecera de página, chips de filtro, grupo de entrada, botones, insignias, tabla (selección, orden, acciones) y el paginador de una lista. Mira sus páginas para las clases.
+## Comportamiento
+
+1. Escribir en la búsqueda acota la lista tras una pausa corta (unos 300 ms), nunca a cada tecla, y la cuenta de la cabecera cambia con ella.
+2. Un chip se aplica al instante y vuelve a la primera página. Varios chips de tipos distintos se combinan; los del mismo tipo se sustituyen.
+3. Pulsar una cabecera ordenable ordena por esa columna; pulsar de nuevo la invierte. Solo se ordena una columna a la vez y la flecha muestra cuál.
+4. Una fila se abre por su nombre; los botones de icono del final son las acciones rápidas (editar, ocultar). Una destructiva pide confirmación.
+5. Cambiar las filas por página vuelve a la primera página.
+6. El estado de la lista (búsqueda, chips, orden, página) se guarda en la dirección, así un enlace o una recarga vuelven a la misma lista.
 
 ## Estados
 
-- **Cargando**: la tabla mantiene su altura con filas de relleno, no un spinner sobre toda la página.
-- **Vacía**: el estado vacío de la primera vez o de una búsqueda, dentro de la tarjeta.
-- **Error**: una alerta sobre la tabla con lo que falló y un botón "Reintentar".
+| Estado | Qué ve la persona |
+|---|---|
+| Cargando | La tabla mantiene su altura con filas de esqueleto; el paginador se oculta |
+| Vacía, la primera vez | El estado vacío de la primera vez, dentro de la tarjeta, con la acción que crea el primer elemento |
+| Vacía, tras una búsqueda o un filtro | El estado vacío de una búsqueda, con un botón que quita los filtros |
+| Error | Una alerta sobre la tabla que dice qué falló y un botón "Reintentar" |
+| Sin permiso | Un estado vacío que dice quién puede ver la lista |
+
+## Pantallas estrechas
+
+La tabla se desplaza hacia los lados dentro de su tarjeta; la primera columna sigue visible. La barra de herramientas se reparte en líneas: la búsqueda ocupa todo el ancho y las acciones van debajo. El paginador mantiene las flechas y quita "Filas por página".
+
+## Accesibilidad
+
+- La tabla tiene un título (visible u oculto) que la nombra, cada cabecera es un `th scope="col"` y la primera celda de una fila es un `th scope="row"`.
+- La columna ordenada lleva `aria-sort`; los controles de orden son botones.
+- La cuenta y los resultados se anuncian en una región viva educada ("7 resultados").
+- Los botones de icono tienen título y un `aria-label` que nombra la fila ("Editar Álgebra I").
+
+## Antes de publicar
+
+- [ ] Un botón relleno en toda la pantalla.
+- [ ] Existen todos los estados de arriba.
+- [ ] El estado de la lista está en la dirección.
+- [ ] Ordenar, filtrar y paginar funcionan solo con el teclado.
+- [ ] Una acción destructiva de fila pregunta antes.

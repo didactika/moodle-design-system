@@ -1,0 +1,47 @@
+---
+title: Choosing a pattern
+summary: "Which pattern fits the task in front of you, and how patterns are built from the components."
+group: patterns
+order: 0
+---
+
+A pattern is a whole screen, or a whole flow, assembled from the components of this system the same way every time. A user who has met one list, one form or one confirmation knows how to use the next, so a plugin never has to explain its screens.
+
+## What a pattern is made of
+
+Every pattern in this section follows the same outline, so they can be read quickly and compared:
+
+1. **When to use it**, and when not to.
+2. **Anatomy**: the regions of the screen from top to bottom, each with the component it uses.
+3. **Layout and spacing**: the distances that hold the regions together.
+4. **Behaviour**: what happens, step by step, when the user acts.
+5. **States**: loading, empty, error, success and no permission.
+6. **Narrow screens**: how it folds.
+7. **Accessibility** and a **checklist** to run before shipping.
+
+## Which one do I need?
+
+| The user needs to… | Pattern |
+|---|---|
+| Browse, sort, filter and act on many things of one kind | A list people work with |
+| Act on several rows at once | Selection and bulk actions |
+| Find something by typing or narrowing | Search and filter |
+| Enter data once, well | A form page |
+| Change how something behaves | A settings page |
+| Do a task with several stages | A guided flow |
+| Look at one thing in depth | A detail page |
+| Be sure before something is lost, and be able to undo it | Confirm, do and undo |
+| See how things are going | A dashboard |
+| Understand what the screen is doing when there is no data | States: loading, empty, error |
+
+## Rules that hold for all of them
+
+- **One main action per screen.** It is a filled button, on the right of the header or of the foot, and it carries the name of what it does.
+- **The same order every time**: where you are, what this is, what you can do, the content, the foot.
+- **Actions where the eye already is**: row actions at the end of the row, the actions of a form at its foot, the actions of a page in its header.
+- **Every state is designed**, not only the one with data in it.
+- **The pieces come from the components.** If a pattern needs something that is not there, the component is added first and documented, and then the pattern uses it.
+
+## Plugins and the Didactika theme
+
+The patterns are part of the design system, so they are what a plugin of the community uses on any Moodle site: they keep the colours and the font of that site. The Didactika theme draws the same patterns with its own typeface, shapes and motion; it never changes their structure.

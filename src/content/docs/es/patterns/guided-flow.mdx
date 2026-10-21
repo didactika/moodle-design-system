@@ -1,0 +1,69 @@
+---
+title: Un flujo guiado
+summary: "Una tarea con varias etapas, en orden: pasos, una decisión por pantalla y un camino claro hacia atrás y hacia delante."
+group: patterns
+order: 6
+---
+
+import Example from '../../../../components/Example.astro';
+
+Algunas tareas no pueden ser un solo formulario: importar un curso, crear una regla con varias condiciones, matricular un grupo. Un flujo guiado corta la tarea en etapas, muestra dónde está la persona y pregunta una cosa cada vez.
+
+## Cuándo usarlo
+
+- La tarea tiene **de tres a seis etapas** y las últimas dependen de las primeras.
+- La persona la hará pocas veces, así que debe explicarse sola.
+- No lo uses para un formulario que se puede rellenar en cualquier orden, ni para dos etapas (usa un formulario con dos secciones).
+
+## Anatomía
+
+1. **Pasos** (`dd-steps`), verticales junto al contenido u horizontales encima: los hechos con una marca, el actual señalado, el resto apagados. Cada uno puede llevar una línea de texto.
+2. **Tarjeta de etapa**: un título que nombra la decisión, una línea que la explica y los campos o las opciones.
+3. **Pie de la tarjeta**: **Atrás** (un botón discreto) a la izquierda; **Cancelar** y el botón principal, **Siguiente**, a la derecha. En la última etapa el botón principal nombra la acción ("Importar 8 actividades").
+4. **Revisión** como penúltima etapa: todo lo elegido, en una lista de descripción, cada bloque con un enlace "Editar" que vuelve a su etapa.
+
+<Example title="Un flujo guiado: paso 2 de 4" src="patterns/wizard" />
+
+## Disposición y espacios
+
+| Pieza | Regla |
+|---|---|
+| Pasos | Columna de 14 rem en pantalla ancha; encima de la tarjeta, en horizontal, en una estrecha |
+| Tarjeta | El resto del ancho, hasta 44 rem |
+| Pie | Línea fina encima; Atrás en el borde izquierdo y los otros dos a la derecha |
+| Entre pasos y tarjeta | 1,5 rem |
+
+## Comportamiento
+
+1. **Siguiente valida la etapa**; la persona no sale de una etapa con errores. Atrás nunca valida y nunca pierde lo escrito.
+2. **Los pasos son un indicador, no un menú**: un paso hecho se puede pulsar para volver; no se puede saltar a uno futuro.
+3. **Cada elección se guarda** en el navegador (o el servidor) mientras dura el flujo, así una recarga no empieza de nuevo.
+4. **Cancelar** pide confirmación solo si se introdujo algo, y dice qué se pierde.
+5. La **última etapa ejecuta la tarea** y muestra el progreso. Si tarda, una barra de progreso con el nombre de lo que se hace, y el flujo no se puede abandonar por error.
+6. Al final, un **resultado**: qué se hizo (cuentas), qué falló y por qué, y el siguiente paso como botón ("Abrir el curso").
+
+## Estados
+
+| Estado | Qué ve la persona |
+|---|---|
+| Etapa con errores | Los errores junto a sus campos y una alerta arriba; el foco en el primero |
+| En marcha | Una barra de progreso y la etapa desactivada; Cancelar solo si la tarea se puede parar de verdad |
+| Hecho | Un resultado con una alerta de éxito, las cuentas y el siguiente paso |
+| Fallido | Una alerta con lo que falló, y "Reintentar" y "Atrás" |
+
+## Pantallas estrechas
+
+Los pasos pasan a horizontal sobre la tarjeta y muestran solo el número y la etiqueta de la etapa actual. Los botones del pie se apilan con el principal arriba.
+
+## Accesibilidad
+
+- Los pasos son una lista ordenada con etiqueta; el actual tiene `aria-current="step"`.
+- Al cambiar de etapa, el foco va a su título y el título se anuncia ("Paso 2 de 4: Seleccionar actividades").
+- Atrás, Siguiente y Cancelar están siempre en el mismo orden en la secuencia del tabulador.
+
+## Antes de publicar
+
+- [ ] Cada etapa pregunta una cosa y dice por qué.
+- [ ] Atrás nunca pierde datos.
+- [ ] La revisión lista todo y permite editar cada parte.
+- [ ] El resultado dice qué pasó y qué hacer después.

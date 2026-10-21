@@ -1,29 +1,67 @@
 ---
 title: Confirmar, hacer y deshacer
-summary: Cómo se confirma una acción destructiva, cómo se anuncia su resultado y cómo se deshace.
+summary: "Cómo se confirma una acción destructiva, cómo se anuncia su resultado y cómo se deshace."
 group: patterns
-order: 3
+order: 7
 ---
 
 import Example from '../../../../components/Example.astro';
 
 Una acción destructiva tiene tres momentos: la pregunta, la acción y el camino de vuelta. Cada uno tiene su componente y los tres se usan siempre juntos.
 
-## El flujo
+## Cuándo usarlo
 
-1. **Pregunta**: un diálogo con la pastilla de peligro, un título que es una pregunta con la cantidad ("¿Eliminar 3 cursos?"), una línea que dice qué se pierde y qué aún se puede recuperar, y un botón con el nombre de la acción.
-2. **Acción**: el diálogo se cierra al instante; la lista se actualiza sin recargar.
-3. **Camino de vuelta**: un toast que dice qué pasó y ofrece "Deshacer" mientras sea posible (unos segundos, o lo que permita la papelera).
+- Eliminar, restablecer, revocar, enviar a mucha gente: todo lo que no se puede deshacer con un clic.
+- Si la acción se puede deshacer, **salta el diálogo** y ofrece "Deshacer" después: es más rápido y más seguro que una pregunta que se responde sin leer.
+
+## Anatomía
+
+1. **Pregunta**: un diálogo (`modal-sm`) con la **pastilla de peligro**, un título que es una pregunta con la cantidad ("¿Eliminar 3 cursos?"), una línea que dice qué se pierde y qué aún se puede recuperar, y los botones.
+2. **Acción**: el diálogo se cierra al instante y la lista se actualiza sin recargar.
+3. **Camino de vuelta**: un **toast** que dice qué pasó, con "Deshacer" mientras sea posible.
 
 <Example title="Confirmación y resultado" src="patterns/confirm-flow" />
 
-## Reglas
+## Disposición y espacios
 
-- Pregunta solo por lo que no se puede deshacer. Si la acción se puede deshacer, salta el diálogo y ofrece "Deshacer".
-- El botón de peligro es el que hace la acción, a la derecha; Cancelar es un botón discreto a su izquierda.
-- El diálogo se abre con el foco en Cancelar, para que pulsar Intro por error no elimine.
-- Un toast con una acción dura lo bastante para leerlo y usarlo; nunca es el único registro de algo importante.
+| Pieza | Regla |
+|---|---|
+| Diálogo | Ancho pequeño (24 rem); la pastilla y el título en una línea; el texto debajo; el pie con Cancelar a la izquierda del botón de peligro, ambos a la derecha |
+| Toast | Abajo a la izquierda de la ventana, 24 rem como máximo; pastilla de icono, texto, Deshacer y un botón de cierre |
+| Entre diálogo y toast | El toast aparece cuando el diálogo se cierra, nunca encima |
 
-## Construida con
+## Comportamiento
 
-Diálogos, botones, pastillas de icono, toasts y, para el anuncio, una región de estado.
+1. El diálogo se abre con el **foco en Cancelar**, para que pulsar Intro por error no elimine.
+2. El botón de peligro lleva el nombre de la acción y la cantidad ("Eliminar 3 cursos"), no "Aceptar".
+3. Si la acción necesita tiempo, el botón de peligro muestra un spinner y ambos botones se desactivan; el diálogo no se cierra hasta que llega la respuesta.
+4. Si sale bien, el toast se queda unos **8 segundos** (más si tiene una acción, nunca menos de 5) y se detiene mientras el puntero está encima.
+5. "Deshacer" restaura todo y lo dice ("3 cursos restaurados"). Cuando ya no es posible, el toast simplemente se va.
+6. Si falla, el diálogo se queda abierto y muestra una alerta con lo que pasó; nada se cierra por un error.
+
+## Estados
+
+| Estado | Qué ve la persona |
+|---|---|
+| Preguntando | El diálogo con la pregunta |
+| Trabajando | El botón de peligro con un spinner |
+| Hecho | El toast con Deshacer |
+| Fallido | El diálogo con una alerta y "Reintentar" |
+| Deshecho | Un toast breve: "Restaurado" |
+
+## Pantallas estrechas
+
+El diálogo va al fondo de la ventana con el ancho de la pantalla; los botones se apilan, el de peligro arriba. El toast ocupa todo el ancho sobre el borde inferior.
+
+## Accesibilidad
+
+- El diálogo tiene `role="dialog"` y un título enlazado con `aria-labelledby`; el foco se queda dentro y vuelve al botón que lo abrió.
+- El toast es una región `role="status"` (educada). Una acción dentro de él se alcanza con el teclado mientras está.
+- Un toast nunca es el único registro de algo importante: el resultado también se ve en la lista.
+
+## Antes de publicar
+
+- [ ] La pregunta dice cuántos y qué se pierde.
+- [ ] El foco empieza en Cancelar.
+- [ ] Donde se puede deshacer, no hay diálogo.
+- [ ] Un fallo no cierra nada.

@@ -1,0 +1,106 @@
+---
+title: "API: reference of the files"
+summary: "Every file the site publishes, field by field, with an example of what it holds."
+group: guides
+order: 8
+---
+
+Every file has `"schema": 1`. This page lists the fields; a field that is not here is not promised, and one that is here keeps its meaning while the schema is 1.
+
+## `/api/index.json`
+
+| Field | Type | Meaning |
+|---|---|---|
+| `schema` | number | Shape of the file |
+| `name` | string | Name of the site |
+| `site` | string | Address of the site |
+| `repository` | string | Address of the repository |
+| `licence` | string | SPDX identifier |
+| `languages` | string[] | `["en", "es"]` |
+| `designSystem` | `{default, versions[]}` | Versions of the design system; each `{id, label, status: {en, es}}` |
+| `theme` | `{default, versions[]}` | The same for the Didactika theme |
+| `versions[]` | object | Moodle versions: `id`, `moodle`, `label`, `branch`, `public`, `bootstrap`, `icons`, `fontsFrom`, `noto`, `darkMode`, `support: {en, es}`, `tokens`, `stylesheet` |
+| `resources` | object | `components`, `icons`, `brand`: addresses |
+| `pages[]` | object | See the next table |
+| `deepLinks` | object | `description`, `parameters` (`version`, `mode`, `brand`, `theme`) and an `example` |
+
+## A page (in `pages[]` and in `/api/pages/<id>.json`)
+
+| Field | Type | Meaning |
+|---|---|---|
+| `id` | string | `group/name`, such as `bootstrap/buttons` |
+| `group` | string | `start`, `foundations`, `bootstrap`, `moodle`, `didactika`, `patterns`, `guides` |
+| `order` | number | Position in the group |
+| `section` | string or null | Family of a Bootstrap component |
+| `versions` | string[] | Moodle versions it applies to |
+| `title`, `summary` | `{en, es}` | Texts |
+| `url` | `{en, es}` | Addresses |
+| `api` | string | Address of the file with the text |
+| `examples` | string[] | Identifiers of the examples it uses |
+| `body` | `{en, es}` | Only in `/api/pages/<id>.json`: the source of the text |
+
+## `/api/components/index.json`
+
+```json
+{
+  "schema": 1,
+  "components": [
+    {"id": "buttons", "api": "…/api/components/buttons.json", "page": "bootstrap/buttons", "examples": ["buttons/block", "buttons/counts"]}
+  ]
+}
+```
+
+## `/api/components/<component>.json`
+
+```json
+{
+  "schema": 1,
+  "id": "buttons",
+  "api": "…/api/components/buttons.json",
+  "page": "bootstrap/buttons",
+  "examples": [
+    {
+      "id": "buttons/icons",
+      "title": {"en": "Icons come from Moodle", "es": "Los iconos vienen de Moodle"},
+      "page": "bootstrap/buttons",
+      "icons": ["t/add", "i/import"],
+      "bootstrap5": {"html": "<button …>", "mustache": "<button …>{{#pix}}t/add, core{{/pix}}…"},
+      "bootstrap4": {"html": "<button …>", "mustache": "<button …>"}
+    }
+  ]
+}
+```
+
+## `/api/tokens/<version>.json`
+
+```json
+{
+  "schema": 1,
+  "version": {"id": "v53", "moodle": "5.3", "label": "Moodle 5.3 LTS", "…": "…"},
+  "tokens": {"light": {"--bs-primary": "#0f6cbf"}, "dark": {"--bs-primary": "#…"}}
+}
+```
+
+## `/api/icons.json`
+
+```json
+{
+  "schema": 1,
+  "versions": [{"id": "v53", "family": "fa6"}],
+  "icons": {"t/add": {"v53": "plus", "v45": "plus", "v41": "plus"}}
+}
+```
+
+## `/api/brand.json`
+
+| Field | Meaning |
+|---|---|
+| `name`, `logo` | The name and the colour of the logo |
+| `teal` | Scale `50` to `950` |
+| `extra` | Neutrals and accents |
+| `roles` | Colour of each Bootstrap role with the theme on |
+| `assets` | `logo`, `icon`, `share`: addresses of the images |
+
+## Not in the API
+
+The stylesheets of the versions (`/moodle/<version>/boost.css`) and the images (`/brand/…`) are plain files, served with the same open access, but their content is not part of the promise of the schema.

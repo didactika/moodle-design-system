@@ -21,7 +21,7 @@ type Direction = 'up' | 'prev' | 'next' | 'down';
 /** Moodle icon id -> version id -> the Font Awesome name that version draws it with. */
 type IconMap = Record<string, Record<string, string>>;
 /** An element of an example that the inspector has edited remembers what it changed. */
-type Editable = HTMLElement & {_dsEdits?: Record<string, string>};
+type Editable = HTMLElement & {_dsEdits?: Record<string, string>; _dsHistory?: [string, string | null][]};
 type Disableable = HTMLElement & {disabled: boolean};
 
 const escapeHtml = (value: string): string => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -48,6 +48,10 @@ const versionOf = (id: string): VersionInfo => {
 };
 const store = (key: string, value: string | null): void => {
     try { if (value === null) { localStorage.removeItem(key); } else { localStorage.setItem(key, value); } } catch (error) { /* optional */ }
+};
+/** The groups of the design tab the reader has folded. */
+const closedGroups = (): string[] => {
+    try { return JSON.parse(localStorage.getItem('ds-insp-closed') ?? '[]') as string[]; } catch (error) { return []; }
 };
 const styles = styleElements();
 
@@ -236,7 +240,7 @@ const clearSelection = (): void => {
     path = [];
     layer.innerHTML = '';
     rail.dataset.rail = designerOn() ? 'idle' : 'toc';
-    body.innerHTML = `<p class="ds-insp-empty">${text.inspectHint}</p>${customCssBlock(null)}`;
+    body.innerHTML = `<div class="ds-insp-idle"><b>${text.inspectHint}</b><ul><li>${text.inspectTipClick}</li><li>${text.inspectTipKeys}</li><li>${text.inspectTipEdit}</li></ul></div>${customCssBlock(null)}`;
 };
 /** Turns the inspector on or off for the whole site. Off, the components of the examples can be used like any other. */
 const applyDesigner = (): void => {
@@ -398,7 +402,7 @@ const designPane = (el: HTMLElement): string => {
 
     const dot = (c: string): string => `<span class="ds-dot" style="background:${c}"></span>`;
     const row = (k: string, v: string, copyValue: string): string => `<div class="ds-prop"><span>${k}</span><button type="button" class="ds-val" data-copy-id="${escapeHtml(copyValue)}" title="${text.copy}">${v}</button></div>`;
-    const group = (title: string | undefined, rows: string[]): string => `<section class="ds-pgroup"><h3>${title}</h3>${rows.join('')}</section>`;
+    const group = (title: string | undefined, rows: string[]): string => `<details class="ds-pgroup" data-pgroup="${title}"${closedGroups().includes(String(title)) ? '' : ' open'}><summary><h3>${title}</h3></summary>${rows.join('')}</details>`;
     const ink = parse(cs.color);
     const ratio = ink ? contrast(ink, backdrop(el)) : 0;
     const focusable = el.matches('a[href], button, input, select, textarea, [tabindex]') && !(canDisable(el) && el.disabled);
@@ -420,12 +424,12 @@ const designPane = (el: HTMLElement): string => {
       ${!(bg || caps.fill) ? '' : group(text.groupFill, [row('Background', bg ? `${dot(bg)}${toHex(bg)}` : 'none', bg ? toHex(bg) : 'none')])}
       ${!(parseFloat(cs.borderTopWidth) || caps.radius) ? '' : group(text.groupStroke, [row('Border', escapeHtml(border), border), row('Radius', radius, radius)])}
       ${cs.boxShadow === 'none' ? '' : group(text.groupEffects, [row('Shadow', cs.boxShadow === 'none' ? 'none' : escapeHtml(cs.boxShadow), cs.boxShadow)])}
-      <section class="ds-pgroup"><h3>${text.a11y}</h3>
+      <details class="ds-pgroup" data-pgroup="a11y"${closedGroups().includes('a11y') ? '' : ' open'}><summary><h3>${text.a11y}</h3></summary>
         <div class="ds-prop"><span>${text.a11yRole}</span><span class="ds-chipx">${roleOf(el)}</span></div>
         <div class="ds-prop"><span>${text.a11yName}</span><span class="ds-val-text">${escapeHtml(nameOf(el)) || '—'}</span></div>
         <div class="ds-prop"><span>${text.a11yFocus}</span><span class="ds-chipx" data-pass="${focusable ? 'yes' : 'no'}">${focusable ? text.yes : text.no}</span></div>
         <div class="ds-prop"><span>${text.a11yContrast}</span>${(el.textContent ?? '').trim() ? `<span class="ds-ratio" data-pass="${ratio >= 4.5 ? 'yes' : 'no'}">${ratio.toFixed(1)}:1 ${grade(ratio)}</span>` : '<span class="ds-val-text">—</span>'}</div>
-      </section>`;
+      </details>`;
 };
 
 // What can be changed on an element, and how the value is read from and written to it. Only what makes sense for the element is offered: an
@@ -441,6 +445,7 @@ const EDITS: [string, string, EditKind][] = [
     ['borderRadius', 'radius', 'px'],
     ['padding', 'padding', 'px'],
 ];
+const RANGES: Record<string, number> = {fontSize: 48, borderWidth: 8, borderRadius: 40, padding: 48};
 const kebab = (prop: string): string => prop.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
 const STATES: [string, string][] = [['ds-is-hover', 'stateHover'], ['ds-is-focus', 'stateFocus'], ['ds-is-active', 'statePressed']];
 
@@ -513,7 +518,8 @@ const editPane = (el: Editable): string => {
         } else if (kind === 'weight') {
             input = `<select data-edit="${prop}" aria-label="${text[label]}">${[300, 400, 500, 600, 700].map((w) => `<option value="${w}"${String(w) === String(parseInt(value, 10)) ? ' selected' : ''}>${w}</option>`).join('')}</select>`;
         } else {
-            input = `<input type="number" min="0" step="1" data-edit="${prop}" value="${Math.round(parseFloat(value) || 0)}" aria-label="${text[label]}"><span class="u">px</span>`;
+            const now = Math.round(parseFloat(value) || 0);
+            input = `<input type="range" min="0" max="${RANGES[prop] ?? 48}" step="1" data-edit="${prop}" value="${Math.min(now, RANGES[prop] ?? 48)}" aria-label="${text[label]}"><input type="number" min="0" step="1" data-edit="${prop}" value="${now}" aria-label="${text[label]}"><span class="u">px</span>`;
         }
         return `<label>${text[label]}</label><span class="ctl">${input}</span>`;
     };
@@ -522,7 +528,7 @@ const editPane = (el: Editable): string => {
     const shown = EDITS.filter(([prop]) => caps.fields.includes(prop));
     return `<h3>${text.states}</h3>
       ${chips ? `<div class="ds-states">${chips}</div>` : `<p class="ds-insp-empty">${text.noStates}</p>`}
-      <h3>${text.editHeading}<button type="button" class="ds-mini" data-edit-reset>${text.reset}</button></h3>
+      <h3>${text.editHeading}<span class="ds-mini-row"><button type="button" class="ds-mini" data-edit-undo${el._dsHistory?.length ? '' : ' disabled'}>${text.undo}</button><button type="button" class="ds-mini" data-edit-reset>${text.reset}</button></span></h3>
       ${shown.length ? `<div class="ds-edit-grid">${shown.map(field).join('')}</div>` : `<p class="ds-insp-empty">${text.noEditable}</p>`}
       <h3>${text.changes}<button type="button" class="ds-mini" data-copy-code="edit">${text.copy}</button></h3>
       <pre class="ds-source ds-insp-pre"><code id="ds-insp-edit">${editOutput(el)}</code></pre>
@@ -535,10 +541,23 @@ const editOutput = (el: Editable): string => {
 };
 const applyEdit = (el: Editable, prop: string, value: string, kind: EditKind | undefined): void => {
     const css = kind === 'px' ? `${value}px` : value;
+    const history = el._dsHistory ?? (el._dsHistory = []);
+    if (history.length === 0 || history[history.length - 1]?.[0] !== prop) { history.push([prop, el._dsEdits?.[prop] ?? null]); }
     named(el.style)[prop] = css;
     el._dsEdits = {...(el._dsEdits ?? {}), [prop]: css};
 };
+/** Undoes the last property that was changed, back to what it was before. */
+const undoEdit = (el: Editable): void => {
+    const last = el._dsHistory?.pop();
+    if (!last) { return; }
+    const [prop, before] = last;
+    named(el.style)[prop] = before ?? '';
+    const edits = {...(el._dsEdits ?? {})};
+    if (before === null) { delete edits[prop]; } else { edits[prop] = before; }
+    el._dsEdits = edits;
+};
 const resetEdits = (el: Editable): void => {
+    el._dsHistory = [];
     Object.keys(el._dsEdits ?? {}).forEach((prop) => { named(el.style)[prop] = ''; });
     el._dsEdits = {};
     STATES.forEach(([cls]) => el.classList.remove(cls));
@@ -558,7 +577,7 @@ const inspect = (el: Editable, keepPath = false): void => {
     const move = (to: Direction, label: string, tip: string | undefined, ok: boolean): string => `<button type="button" data-inav="${to}" title="${tip}" aria-label="${tip}"${ok ? '' : ' disabled'}>${label}</button>`;
     const parent = Boolean(el.parentElement && inFrame(el.parentElement));
     const child = el.firstElementChild;
-    body.innerHTML = `<div class="ds-insp-head"><div class="ds-insp-id"><b class="tag">${escapeHtml(el.tagName.toLowerCase())}</b><span class="cls">${escapeHtml([...el.classList].filter((c) => !c.startsWith('ds-')).map((c) => `.${c}`).join('')) || '—'}</span></div>
+    body.innerHTML = `<div class="ds-insp-head"><div class="ds-insp-id"><b class="tag">${escapeHtml(el.tagName.toLowerCase())}</b><span class="cls">${escapeHtml([...el.classList].filter((c) => !c.startsWith('ds-')).map((c) => `.${c}`).join('')) || '—'}</span><button type="button" class="ds-mini ds-copysel" data-copy-selector>${text.copySelector}</button></div>
         <div class="ds-inav">${move('up', '↑', text.navParent, parent)}${move('prev', '←', text.navPrev, Boolean(el.previousElementSibling))}${move('next', '→', text.navNext, Boolean(el.nextElementSibling))}${move('down', '↓', text.navChild, Boolean(child))}</div></div>
       <div class="ds-itabs" role="tablist">${tabs.map(([id, label]) => `<button type="button" role="tab" data-itab="${id}" aria-selected="${state.itab === id}">${label}</button>`).join('')}</div>
       <div data-ipane="design"${state.itab === 'design' ? '' : ' hidden'}>${build(designPane)}</div>
@@ -590,6 +609,22 @@ document.addEventListener('mousemove', (event) => {
 });
 
 const MODES = ['light', 'dark', 'system'];
+document.addEventListener('toggle', (event) => {
+    const group = event.target;
+    if (!(group instanceof HTMLDetailsElement) || !group.matches('details[data-pgroup]')) { return; }
+    const closed = new Set(closedGroups());
+    if (group.open) { closed.delete(group.dataset.pgroup ?? ''); } else { closed.add(group.dataset.pgroup ?? ''); }
+    store('ds-insp-closed', JSON.stringify([...closed]));
+}, true);
+document.addEventListener('keydown', (event) => {
+    if (!designerOn() || !selected) { return; }
+    const field = event.target instanceof Element ? event.target.closest('input, textarea, select') : null;
+    if (field) { return; }
+    if (event.key === 'Escape') { clearSelection(); drawSelection(); return; }
+    const keys: Record<string, Direction> = {ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'prev', ArrowRight: 'next'};
+    const to = keys[event.key];
+    if (event.altKey && to) { event.preventDefault(); go(to); }
+});
 let customTimer = 0;
 document.addEventListener('input', (event) => {
     const area = event.target;
@@ -652,6 +687,9 @@ document.addEventListener('click', (event) => {
     const step = target.closest<HTMLElement>('[data-ipath]');
     if (step) { const node = path[Number(step.dataset.ipath)]; if (node) { inspect(node, true); } return; }
     if (target.closest('[data-edit-reset]') && selected) { resetEdits(selected); inspect(selected, true); return; }
+    if (target.closest('[data-edit-undo]') && selected) { undoEdit(selected); inspect(selected, true); return; }
+    const selectorButton = target.closest<HTMLElement>('[data-copy-selector]');
+    if (selectorButton && selected) { copy(path.map(describe).join(' > '), selectorButton); return; }
     const code = target.closest<HTMLElement>('[data-copy-code]');
     if (code) { copy($(COPIES[code.dataset.copyCode ?? ''] ?? '')?.innerText ?? '', code); return; }
 
@@ -719,6 +757,7 @@ document.addEventListener('input', (event) => {
     if (!(input instanceof HTMLInputElement || input instanceof HTMLSelectElement) || !selected || !input.matches('[data-edit]')) { return; }
     const prop = input.dataset.edit ?? '';
     applyEdit(selected, prop, input.value, EDIT_KIND[prop]);
+    $$<HTMLInputElement>(`[data-edit="${prop}"]`).forEach((other) => { if (other !== input) { other.value = input.value; } });
     const output = $('#ds-insp-edit');
     if (output) { output.innerHTML = editOutput(selected); }
     drawSelection();

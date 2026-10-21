@@ -1,29 +1,67 @@
 ---
 title: Confirm, do and undo
-summary: How a destructive action is confirmed, how its result is announced and how it is undone.
+summary: "How a destructive action is confirmed, how its result is announced and how it is undone."
 group: patterns
-order: 3
+order: 7
 ---
 
 import Example from '../../../../components/Example.astro';
 
 A destructive action has three moments: the question, the action and the way back. Each has its own component and the three are always used together.
 
-## The flow
+## When to use it
 
-1. **Question**: a dialog with the danger tile, a title that is a question with the quantity ("Delete 3 courses?"), one line that says what is lost and what can still be recovered, and a button named by the action.
-2. **Action**: the dialog closes at once; the list updates without reloading.
-3. **Way back**: a toast that says what happened and offers "Undo" for as long as it is possible (a few seconds, or as long as the recycle bin allows).
+- Deleting, resetting, revoking, sending to many people: anything that cannot be taken back with one click.
+- If the action can be undone, **skip the dialog** and offer "Undo" afterwards: it is faster and safer than a question people answer without reading.
+
+## Anatomy
+
+1. **Question**: a dialog (`modal-sm`) with the **danger tile**, a title that is a question with the quantity ("Delete 3 courses?"), one line that says what is lost and what can still be recovered, and the buttons.
+2. **Action**: the dialog closes at once and the list updates without reloading.
+3. **Way back**: a **toast** that says what happened, with "Undo" for as long as it is possible.
 
 <Example title="Confirmation and result" src="patterns/confirm-flow" />
 
-## Rules
+## Layout and spacing
 
-- Ask only for what cannot be undone. If the action can be undone, skip the dialog and offer "Undo".
-- The danger button is the one that does the action, on the right; Cancel is a quiet button on its left.
-- The dialog opens with the focus on Cancel, so pressing Enter by accident does not delete.
-- A toast with an action stays long enough to read and use it; it is never the only record of something important.
+| Piece | Rule |
+|---|---|
+| Dialog | Small width (24 rem); the tile and the title on one line; the text under it; the foot with Cancel on the left of the danger button, both at the right |
+| Toast | Bottom left of the window, 24 rem wide at most; icon tile, text, Undo and a close button |
+| Between dialog and toast | The toast appears after the dialog closes, never over it |
 
-## Built with
+## Behaviour
 
-Dialogs, buttons, icon tiles, toasts and, for the live announcement, a status region.
+1. The dialog opens with the **focus on Cancel**, so pressing Enter by accident does not delete.
+2. The danger button is named by the action and the quantity ("Delete 3 courses"), not "OK".
+3. If the action needs time, the danger button shows a spinner and both buttons are disabled; the dialog does not close until the answer arrives.
+4. On success, the toast stays about **8 seconds** (longer if it has an action, never less than 5) and pauses while the pointer is over it.
+5. "Undo" restores everything and says so ("3 courses restored"). When it is no longer possible, the toast just goes away.
+6. On failure, the dialog stays open and shows an alert with what happened; nothing is closed on an error.
+
+## States
+
+| State | What the user sees |
+|---|---|
+| Asking | The dialog with the question |
+| Working | The danger button with a spinner |
+| Done | The toast with Undo |
+| Failed | The dialog with an alert and "Try again" |
+| Undone | A short toast: "Restored" |
+
+## Narrow screens
+
+The dialog goes to the bottom of the window with the width of the screen; the buttons stack, the danger one on top. The toast takes the full width above the bottom edge.
+
+## Accessibility
+
+- The dialog has `role="dialog"` and a title tied with `aria-labelledby`; the focus stays inside and returns to the button that opened it.
+- The toast is a `role="status"` region (polite). An action inside it is reachable with the keyboard while it is there.
+- A toast is never the only record of something important: the result is also visible in the list.
+
+## Before shipping
+
+- [ ] The question says how many and what is lost.
+- [ ] The focus starts on Cancel.
+- [ ] Where it can be undone, there is no dialog.
+- [ ] A failure does not close anything.
