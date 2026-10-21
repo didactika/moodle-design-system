@@ -1,0 +1,32 @@
+---
+title: Un panel de resumen
+summary: Cifras, lo que requiere atención y el progreso, en una página que se lee de un vistazo.
+group: patterns
+order: 4
+---
+
+import Example from '../../../../components/Example.astro';
+
+Un panel responde a tres preguntas en este orden: cómo van las cosas, qué me necesita y a dónde vamos. No sustituye a las listas: cada cifra lleva a la lista que hay detrás.
+
+## Las piezas
+
+| Pieza | Responde | Construida con |
+|---|---|---|
+| Cifras (2–4) | Cómo van las cosas | Tarjetas con pastilla, un valor y una etiqueta; una tendencia solo cuando significa algo |
+| Una lista de lo que requiere atención | Qué me necesita | Una lista con pastilla, una línea y una insignia que dice por qué (días que quedan, vencido) |
+| Progreso | A dónde vamos | Barras de progreso con el valor al lado, color por significado |
+
+<Example title="Resumen de un curso" src="patterns/dashboard" />
+
+## Reglas
+
+- No más de cuatro cifras; si hay más, van en una tabla debajo.
+- Una cifra que es mala noticia lo dice con color y un icono, nunca solo con color.
+- El orden de "qué me necesita" es el de urgencia, no el alfabético.
+- Cada tarjeta tiene una acción o un enlace que lleva al detalle; una cifra muerta es decoración.
+- En una pantalla estrecha las piezas se apilan en el mismo orden.
+
+## Estados
+
+Un curso nuevo sin datos muestra estados vacíos en cada tarjeta en vez de ceros: "Aún no hay actividad".

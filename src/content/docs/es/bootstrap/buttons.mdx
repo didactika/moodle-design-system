@@ -39,26 +39,26 @@ Un botón tiene una **etiqueta** (texto, o un icono con etiqueta oculta), un **i
 
 ## Variantes y estados
 
-Cada color frente a cada estado. Hover, foco y pulsado se fuerzan desde el CSS propio de la versión, así que lo que ves es lo que ve una persona usuaria.
+Cada color frente a cada estado. Hover y foco se fuerzan desde el CSS propio de la versión, así que lo que ves es lo que ve una persona usuaria.
 
 <Matrix
   title="Sólido"
   variants={['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']}
-  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Pulsado', 'ds-is-active'], ['Desactivado', 'disabled']]}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
   template='<button type="button" class="btn btn-{v} {s}"{disabled}>{label}</button>'
 />
 
 <Matrix
   title="Contorno"
   variants={['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark']}
-  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Pulsado', 'ds-is-active'], ['Desactivado', 'disabled']]}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
   template='<button type="button" class="btn btn-outline-{v} {s}"{disabled}>{label}</button>'
 />
 
 <Matrix
   title="Enlace"
   variants={['link']}
-  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Pulsado', 'ds-is-active'], ['Desactivado', 'disabled']]}
+  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
   template='<button type="button" class="btn btn-{v} {s}"{disabled}>{label}</button>'
 />
 
@@ -78,6 +78,18 @@ Los iconos se escriben con el identificador de icono de Moodle (`{{#pix}}t/add, 
 
 <Example title="Ancho completo" src="buttons/block" narrow />
 
+## Botones de icono con contador
+
+Un botón que solo lleva un icono es siempre un círculo. Un contador en su esquina (`badge-float`) dice cuántas cosas esperan detrás; sin número, la insignia se vuelve un punto que solo dice que hay algo nuevo. El contador no sustituye la etiqueta del botón: sigue teniendo `title` y `aria-label` que incluyen el número.
+
+<Example title="Botones de icono redondos con contador" src="buttons/counts" />
+
+## Botones tonales y planos
+
+Entre el botón relleno y el de contorno hay uno **tonal** (`btn-tonal`): un tinte suave del color del rol detrás de la etiqueta. Es para acciones que importan pero no deben competir con la principal. Un botón de icono tiene cuatro pesos, del más fuerte al más discreto: relleno, tonal, de contorno y plano (`btn-link btn-icon`); elige el que corresponda al peso de la acción en su fila.
+
+<Example title="Botones tonales y los cuatro pesos de un botón de icono" src="buttons/tonal" />
+
 ## Combinaciones
 
 | Combinación | Para qué usarla |
@@ -92,11 +104,11 @@ Los iconos se escriben con el identificador de icono de Moodle (`{{#pix}}t/add, 
 
 | Qué cambiamos | Por qué ayuda |
 |---|---|
-| Una píldora de 40 px, con más relleno a los lados que arriba y abajo | Una píldora ancha se lee como clicable y mantiene la etiqueta centrada. Las proporciones son las que la gente conoce de Material, así que nadie tiene que aprenderlas. |
+| Un rectángulo redondeado (radio de 8 px), de 36 px de alto, con más relleno a los lados que arriba y abajo | Se lee como clicable, mantiene la etiqueta centrada y es un paso más redondo que los botones cuadrados de Bootstrap sin llegar a ser una píldora. |
 | Los botones de contorno y de enlace responden con un tinte de su propio color | Bootstrap los inunda de color sólido al pasar el ratón y la etiqueta se vuelve blanca sobre una página clara. Un tinte mantiene la etiqueta legible y muestra el estado pulsado sin gritar. |
-| Los botones solo con icono son cuadrados (`btn-icon`) | El objetivo tiene el mismo alto y ancho, así que una fila de acciones con icono queda alineada y es fácil de pulsar. |
+| Los botones solo con icono son siempre redondos (`btn-icon`) | El objetivo tiene el mismo alto y ancho y ninguna esquina que llame la atención, así que una fila de acciones con icono queda alineada y es fácil de pulsar. |
 | Un solo anillo de foco de 3 px en todos los botones | Quien usa el teclado ve siempre dónde está, con la misma señal que tiene en campos y enlaces. |
-| Un grupo es una píldora y el disparador de un botón dividido la cierra | El grupo se lee como un solo control y no como dos botones que se tocan. |
+| Un grupo es una sola pieza y el disparador de un botón dividido la cierra | El grupo se lee como un solo control y no como dos botones que se tocan. |
 
 ## Clases
 
@@ -110,7 +122,8 @@ Los iconos se escriben con el identificador de icono de Moodle (`{{#pix}}t/add, 
 | `btn-group` | Une botones relacionados |
 | <Only of="v53" inline>`d-grid gap-2`</Only><Only of="v45,v41" inline>`btn-block`</Only> | Pila a ancho completo |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cerrar dentro de alertas y modales, lo escribe Moodle |
-| `btn-icon` | Botón cuadrado que solo contiene un icono. Añade `btn-sm` o `btn-lg` para los otros tamaños (Didactika) |
+| `btn-tonal` | Un tinte suave del color del rol en vez de un fondo relleno (Didactika) |
+| `btn-icon` | Botón redondo que solo contiene un icono. Añade `btn-sm` o `btn-lg` para los otros tamaños (Didactika) |
 
 ## En esta versión
 

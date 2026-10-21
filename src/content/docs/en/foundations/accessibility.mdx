@@ -1,0 +1,39 @@
+---
+title: Accessibility
+summary: The minimums every component of the system meets, and the checks a plugin does before it is published.
+group: foundations
+order: 7
+---
+
+Accessibility is part of each component, not a layer on top. The pages of the components list their own points under "Accessibility"; this page gathers what is common to all of them.
+
+## What the system guarantees
+
+| Area | Minimum | How |
+|---|---|---|
+| Text contrast | 4.5:1 (3:1 from 24 px or 19 px bold) | Alerts, badges and buttons derive their text from the role colour so each pair reaches it |
+| Controls and focus | 3:1 against what is next to them | Field borders, the focus ring and the marks of checks and switches |
+| Focus | One visible ring of 3 px on everything that can be reached with the keyboard | The ring takes the colour of the component (a danger button is ringed in red) |
+| Target size | 36 px (2.25 rem) in height | Buttons and fields; small ones (28 px) only in dense rows, never alone |
+| Colour | Never the only signal | A state also changes the text, the icon, the weight or the shape |
+| Motion | Respects `prefers-reduced-motion` | See the page "Motion" |
+
+## Keyboard
+
+| Component | Keys |
+|---|---|
+| Button, link | Enter and Space (button), Enter (link) |
+| Select menu | Arrows, Home, End, a letter to jump, Enter to choose, Esc to close |
+| Dropdown | Enter or Space opens, arrows move, Esc closes and returns the focus to the button |
+| Tabs | Arrows move between tabs, Tab goes into the panel |
+| Dialog | The focus enters, stays inside and returns to the button that opened it on closing |
+| Search | `Ctrl K` opens it from any page, arrows move over the results, Enter opens one |
+
+## Before publishing a plugin
+
+1. Use every screen with the keyboard only and see the focus at all times.
+2. Check the contrast of any colour that is not a role of Bootstrap.
+3. Give every icon-only button a `title` and an `aria-label`.
+4. Give every field a visible label and tie the help and the error to it with `aria-describedby`.
+5. Announce changes that happen without a page load (a saved form, a deleted row) with a live region.
+6. Test with the theme of the site off and on, and in dark mode where it exists.

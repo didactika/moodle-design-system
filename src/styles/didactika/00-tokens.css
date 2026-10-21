@@ -40,9 +40,9 @@
   --dd-ring-danger: color-mix(in srgb, var(--dd-danger) 28%, transparent);
   --dd-radius: .625rem;
   --dd-radius-sm: .5rem;
-  --dd-radius-lg: .875rem;
+  --dd-radius-lg: .75rem;
   --dd-radius-xl: 1.25rem;
-  --dd-radius-btn: .375rem;
+  --dd-radius-btn: .5rem;
   --dd-h: 2.25rem;
   --dd-h-sm: 1.75rem;
   --dd-h-lg: 2.75rem;

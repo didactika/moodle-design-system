@@ -1,0 +1,29 @@
+---
+title: Confirm, do and undo
+summary: How a destructive action is confirmed, how its result is announced and how it is undone.
+group: patterns
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+
+A destructive action has three moments: the question, the action and the way back. Each has its own component and the three are always used together.
+
+## The flow
+
+1. **Question**: a dialog with the danger tile, a title that is a question with the quantity ("Delete 3 courses?"), one line that says what is lost and what can still be recovered, and a button named by the action.
+2. **Action**: the dialog closes at once; the list updates without reloading.
+3. **Way back**: a toast that says what happened and offers "Undo" for as long as it is possible (a few seconds, or as long as the recycle bin allows).
+
+<Example title="Confirmation and result" src="patterns/confirm-flow" />
+
+## Rules
+
+- Ask only for what cannot be undone. If the action can be undone, skip the dialog and offer "Undo".
+- The danger button is the one that does the action, on the right; Cancel is a quiet button on its left.
+- The dialog opens with the focus on Cancel, so pressing Enter by accident does not delete.
+- A toast with an action stays long enough to read and use it; it is never the only record of something important.
+
+## Built with
+
+Dialogs, buttons, icon tiles, toasts and, for the live announcement, a status region.

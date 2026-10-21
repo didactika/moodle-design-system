@@ -135,3 +135,4 @@
 @media (prefers-reduced-motion: reduce) {
   .ds-v-scope .list-group-item, .ds-v-scope .card-hover { transition: none; }
 }
+

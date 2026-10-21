@@ -1,0 +1,39 @@
+---
+title: User pictures and initials
+summary: "The avatar of a person: Moodle's initials in five sizes, a stack for groups and the name beside it."
+group: moodle
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+
+Moodle shows a person with their photo or, when there is none, with their initials on a round background (`userinitials`). The design system keeps them as Moodle draws them and adds the stack for groups.
+
+## Variants
+
+<Example title="Initials, group and name" src="user-pictures/basic" />
+
+## Sizes
+
+| Class | Size | Use |
+|---|---|---|
+| `size-30` | 30 px | Lists and rows |
+| `size-35` | 35 px | The user menu and comments |
+| `size-50` | 50 px | A person beside their name and role |
+| `size-64` | 64 px | A card of a person |
+| `size-100` | 100 px | The head of a profile |
+
+## Rules
+
+- Always a `title` or the name next to it: the initials alone do not name anyone.
+- A stack shows at most three people and a `+N`; the group has a label that lists the first names and the number of the rest.
+- The photo is round, as the initials; never mix shapes in a row.
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `userinitials` | The round avatar with initials, written by Moodle |
+| `size-30` … `size-100` | The size |
+| `dd-avatars` | A stack of avatars that overlap (Didactika) |
+| `dd-avatars-more` | The last one, with the number of people not shown (Didactika) |

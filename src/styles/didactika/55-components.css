@@ -58,3 +58,11 @@
 .ds-v-scope .dd-page-title { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; color: var(--dd-ink); }
 .ds-v-scope .dd-page-subtitle { margin: .25rem 0 0; color: var(--dd-muted); font-size: .9375rem; }
 .ds-v-scope .dd-page-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+
+/* ------------------------------------------------------------------ avatars (dd-avatars)
+ * Avatars of a group that overlap, each ringed in the colour of the surface, and a last one with the number of people not shown.
+ */
+.ds-v-scope .dd-avatars { display: inline-flex; align-items: center; }
+.ds-v-scope .dd-avatars .userinitials { box-sizing: content-box; margin-right: 0; border: 2px solid var(--dd-surface); }
+.ds-v-scope .dd-avatars .userinitials + .userinitials { margin-left: -.5rem; }
+.ds-v-scope .dd-avatars-more { background-color: var(--dd-primary-soft) !important; color: var(--dd-primary-ink) !important; font-size: .75rem; font-weight: 600; }

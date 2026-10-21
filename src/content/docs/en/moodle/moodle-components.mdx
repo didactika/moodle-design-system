@@ -1,0 +1,34 @@
+---
+title: What Moodle 5.3 draws itself
+summary: The components of Moodle's own design system (mds-*), what each is for and where this reference covers it.
+group: moodle
+order: 1
+---
+
+Moodle 5.3 ships a design system of its own, a set of components with the prefix `mds-`. A plugin that shows one of these parts uses Moodle's component, not a copy. This is the list in the stylesheet of 5.3, and where each is documented here.
+
+## Components
+
+| Component | Classes | What it is | Where it is covered |
+|---|---|---|---|
+| Navigation pill | `mds-nav-pill` | A link of the primary navigation with a dot that marks the current one | Navbar |
+| Breadcrumb | `mds-breadcrumb` | The path, which shortens a long one with a menu | Breadcrumb |
+| Pagination | `mds-pagination` | Pages with their arrows | Pagination |
+| Badge | `mds-badge` | A label or a count | Badges |
+| Progress bar | `mds-progress-bar` (track, fill, count) | The bar with its value | Progress |
+| Switch | `mds-switch` (track, thumb, label) | An on or off setting | Checkboxes, radios and switches |
+| Checkbox and radio | `mds-checkbox`, `mds-radio` | Choices with their feedback | Checkboxes, radios and switches |
+| Choicebox | `mds-choicebox` | A choice presented as a card with an icon and a supporting text | Checkboxes, radios and switches |
+| Dropdown | `mds-dropdown-trigger`, `mds-dropdown-item` | A menu and its items | Dropdowns |
+| Button and link | `mds-btn`, `mds-link` | The actions of Moodle's own pages | Buttons |
+| Close button | `mds-close-button` | The cross of a dialog or an alert | Modals, Alerts |
+| Tooltip | `mds-tooltip` | The tip that explains an element | Tooltips and popovers |
+| Avatar | `mds-avatar` | The picture of a person | User pictures and initials |
+| Activity icon | `mds-activity-icon` | The icon of an activity type, with its colour | Icons |
+| Favourite button | `mds-favourite-button` | The star that marks an item | Buttons |
+
+## How to use it
+
+- In Moodle 5.3, where a page shows one of these parts, write the `mds-` markup; the design system does not restyle it.
+- In Moodle 4.x there are no `mds-` classes: use the Bootstrap component of the same name, which the rest of this reference documents.
+- Never mix both in the same screen: the 4.x and 5.x versions of a plugin may differ in markup and share the look.

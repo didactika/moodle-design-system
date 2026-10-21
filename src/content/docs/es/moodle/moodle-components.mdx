@@ -1,0 +1,34 @@
+---
+title: Lo que Moodle 5.3 dibuja por sí mismo
+summary: Los componentes del sistema de diseño propio de Moodle (mds-*), para qué sirve cada uno y dónde los cubre esta referencia.
+group: moodle
+order: 1
+---
+
+Moodle 5.3 trae un sistema de diseño propio, un conjunto de componentes con el prefijo `mds-`. Un plugin que muestra una de estas partes usa el componente de Moodle, no una copia. Esta es la lista de la hoja de estilos de la 5.3 y dónde se documenta cada una aquí.
+
+## Componentes
+
+| Componente | Clases | Qué es | Dónde se cubre |
+|---|---|---|---|
+| Píldora de navegación | `mds-nav-pill` | Un enlace de la navegación principal con un punto que marca el actual | Barra de navegación |
+| Migas de pan | `mds-breadcrumb` | La ruta, que acorta una larga con un menú | Migas de pan |
+| Paginación | `mds-pagination` | Páginas con sus flechas | Paginación |
+| Insignia | `mds-badge` | Una etiqueta o una cuenta | Insignias |
+| Barra de progreso | `mds-progress-bar` (pista, relleno, cuenta) | La barra con su valor | Progreso |
+| Interruptor | `mds-switch` (pista, pulgar, etiqueta) | Un ajuste activado o no | Casillas, radios e interruptores |
+| Casilla y radio | `mds-checkbox`, `mds-radio` | Opciones con su respuesta | Casillas, radios e interruptores |
+| Choicebox | `mds-choicebox` | Una opción presentada como tarjeta con icono y un texto de apoyo | Casillas, radios e interruptores |
+| Desplegable | `mds-dropdown-trigger`, `mds-dropdown-item` | Un menú y sus elementos | Desplegables |
+| Botón y enlace | `mds-btn`, `mds-link` | Las acciones de las páginas propias de Moodle | Botones |
+| Botón de cierre | `mds-close-button` | La cruz de un diálogo o una alerta | Modales, Alertas |
+| Tooltip | `mds-tooltip` | La pista que explica un elemento | Tooltips y popovers |
+| Avatar | `mds-avatar` | La imagen de una persona | Fotos e iniciales de usuario |
+| Icono de actividad | `mds-activity-icon` | El icono de un tipo de actividad, con su color | Iconos |
+| Botón de favorito | `mds-favourite-button` | La estrella que marca un elemento | Botones |
+
+## Cómo usarlo
+
+- En Moodle 5.3, donde una página muestra una de estas partes, escribe el marcado `mds-`; el sistema de diseño no lo restiliza.
+- En Moodle 4.x no hay clases `mds-`: usa el componente de Bootstrap del mismo nombre, que documenta el resto de esta referencia.
+- Nunca mezcles ambos en la misma pantalla: las versiones 4.x y 5.x de un plugin pueden diferir en el marcado y compartir el aspecto.
