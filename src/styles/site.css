@@ -816,3 +816,26 @@ html[data-brand="1"] .ds-theme-chip { visibility: visible; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .ds-article pre.astro-code, :root:not([data-theme="light"]) .ds-article pre.astro-code span { color: var(--shiki-dark); }
 }
+
+/* navigation, polished: quiet group headers with a count, a guide line for the sections, links with a bar for the current page */
+.ds-navg { margin-top: .35rem; }
+.ds-navg > summary { padding: .25rem .5rem .25rem .25rem; border-radius: 8px; }
+.ds-nav .ds-navg > summary h2 { margin: 0; padding: .2rem .25rem; color: var(--ink); font-size: .6875rem; letter-spacing: .09em; }
+.ds-navg > summary::after { order: 3; margin-inline-end: .35rem; }
+.ds-nav-count { margin-inline-start: auto; padding: 0 .4rem; border-radius: 999px; background: var(--panel-2); color: var(--muted); font: 600 .6875rem/1.5 var(--mono); }
+.ds-navs > summary .ds-nav-count { opacity: 0; transition: opacity .15s; }
+.ds-navs > summary:hover .ds-nav-count, .ds-navs:not([open]) > summary .ds-nav-count { opacity: 1; }
+.ds-navs { margin: .1rem 0 .35rem .6rem; padding-inline-start: .5rem; border-inline-start: 1px solid var(--line); }
+.ds-nav .ds-navs > summary h3 { margin: 0; padding: .2rem .25rem; color: var(--muted); font-size: .75rem; font-weight: 600; }
+.ds-nav .ds-navs[open] > summary h3, .ds-nav .ds-navs:has([aria-current="page"]) > summary h3 { color: var(--ink); }
+.ds-nav a { position: relative; padding: .32rem .6rem; border-radius: 8px; color: color-mix(in srgb, var(--ink) 82%, var(--muted)); transition: background-color .12s, color .12s; }
+.ds-nav a:hover { background: var(--panel-2); color: var(--ink); }
+.ds-nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+.ds-nav a[aria-current="page"]::before { content: ""; position: absolute; inset-block: .4rem; left: -.5rem; width: 3px; border-radius: 3px; background: var(--accent); }
+.ds-nav .ds-navg > a { margin-inline-start: .25rem; }
+
+/* the custom CSS of the inspector */
+.ds-custom-css { display: block; width: 100%; min-height: 7rem; margin-top: .25rem; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: 8px; background: var(--code); color: var(--ink); font: .72rem/1.6 var(--mono); resize: vertical; tab-size: 2; }
+.ds-custom-css:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ds-mini-row { display: inline-flex; gap: .35rem; margin-inline-start: auto; }
+.ds-insp h3 { display: flex; align-items: center; gap: .5rem; }

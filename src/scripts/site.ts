@@ -117,8 +117,8 @@ const applyBrand = (): void => {
     const themeLabel = $('#ds-themever-label');
     if (themeLabel) { themeLabel.textContent = `v${state.themeVersion}`; }
     $$('#ds-themever [data-theme-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.themeVersion === state.themeVersion)));
-    $('#ds-sysver [data-system-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.systemVersion === state.systemVersion)));
-    $('[data-theme-banner-version]').forEach((b) => { b.textContent = `v${state.themeVersion}`; });
+    $$<HTMLElement>('#ds-sysver [data-system-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.systemVersion === state.systemVersion)));
+    $$<HTMLElement>('[data-theme-banner-version]').forEach((b) => { b.textContent = `v${state.themeVersion}`; });
 };
 
 const apply = (): void => {
@@ -233,7 +233,7 @@ const clearSelection = (): void => {
     path = [];
     layer.innerHTML = '';
     rail.dataset.rail = designerOn() ? 'idle' : 'toc';
-    body.innerHTML = `<p class="ds-insp-empty">${text.inspectHint}</p>`;
+    body.innerHTML = `<p class="ds-insp-empty">${text.inspectHint}</p>${customCssBlock(null)}`;
 };
 /** Turns the inspector on or off for the whole site. Off, the components of the examples can be used like any other. */
 const applyDesigner = (): void => {
@@ -241,6 +241,7 @@ const applyDesigner = (): void => {
     $$('[data-designer-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(designerOn())));
     if (hoverBox) { hoverBox.hidden = true; }
     clearSelection();
+    applyCustomCss();
 };
 const drawSelection = (): void => {
     layer.innerHTML = '';
@@ -303,6 +304,7 @@ const matchedRules = (el: HTMLElement): MatchedRule[] => {
         if (node.id === 'ds-didactika') { sources.push([sheet, text.didactikaLayer as string]); }
         if (node.id === 'ds-brand-style') { sources.push([sheet, text.brandTheme as string]); }
         if (node.id === 'ds-lab-style') { sources.push([sheet, 'Lab']); }
+        if (node.id === 'ds-custom-style') { sources.push([sheet, text.customCss as string]); }
     });
     const out: MatchedRule[] = [];
     const walk = (rules: CSSRuleList, from: string): void => {
@@ -325,7 +327,7 @@ const matchedRules = (el: HTMLElement): MatchedRule[] => {
     sources.forEach(([sheet, from]) => { try { walk(sheet.cssRules, from); } catch (error) { /* a sheet from another origin cannot be read */ } });
     return out.reverse();
 };
-const stripScope = (selector: string): string => selector.replace(/\.ds-v\d+\.ds-(themed|lab)\s?|\.ds-v-scope\.ds-(themed|lab)\s?|\.ds-v-scope\s?|\.ds-v\d+\s?/g, '').trim() || ':scope';
+const stripScope = (selector: string): string => selector.replace(/\.ds-frame\.ds-v-scope\s?|\.ds-v\d+\.ds-(themed|lab)\s?|\.ds-v-scope\.ds-(themed|lab)\s?|\.ds-v-scope\s?|\.ds-v\d+\s?/g, '').trim() || ':scope';
 
 const codePane = (el: HTMLElement): string => {
     const rules = matchedRules(el);
@@ -375,6 +377,7 @@ const nameOf = (el: HTMLElement): string => (el.getAttribute('aria-label') || (e
 
 const designPane = (el: HTMLElement): string => {
     const cs = getComputedStyle(el);
+    const caps = capabilitiesOf(el);
     const values = named(cs);
     const r = el.getBoundingClientRect();
     const round = (v: string | number): number => Math.round(parseFloat(String(v)) * 10) / 10 || 0;
@@ -402,15 +405,15 @@ const designPane = (el: HTMLElement): string => {
         row('Size', `${round(r.width)} × ${round(r.height)}`, `${round(r.width)}px ${round(r.height)}px`),
         row('Display', cs.display + (cs.display.includes('flex') ? ` · gap ${px(cs.columnGap === 'normal' ? '0px' : cs.columnGap)}` : ''), cs.display),
       ])}
-      ${group(text.groupType, [
+      ${!caps.text ? '' : group(text.groupType, [
         row('Font', escapeHtml(fontFamily), fontFamily),
         row('Size', both(cs.fontSize), cs.fontSize),
         row('Weight · line', `${cs.fontWeight} · ${px(cs.lineHeight)}`, `${cs.fontWeight}`),
         row('Text', `${dot(cs.color)}${toHex(cs.color)}`, toHex(cs.color)),
       ])}
-      ${group(text.groupFill, [row('Background', bg ? `${dot(bg)}${toHex(bg)}` : 'none', bg ? toHex(bg) : 'none')])}
-      ${group(text.groupStroke, [row('Border', escapeHtml(border), border), row('Radius', radius, radius)])}
-      ${group(text.groupEffects, [row('Shadow', cs.boxShadow === 'none' ? 'none' : escapeHtml(cs.boxShadow), cs.boxShadow)])}
+      ${!(bg || caps.fill) ? '' : group(text.groupFill, [row('Background', bg ? `${dot(bg)}${toHex(bg)}` : 'none', bg ? toHex(bg) : 'none')])}
+      ${!(parseFloat(cs.borderTopWidth) || caps.radius) ? '' : group(text.groupStroke, [row('Border', escapeHtml(border), border), row('Radius', radius, radius)])}
+      ${cs.boxShadow === 'none' ? '' : group(text.groupEffects, [row('Shadow', cs.boxShadow === 'none' ? 'none' : escapeHtml(cs.boxShadow), cs.boxShadow)])}
       <section class="ds-pgroup"><h3>${text.a11y}</h3>
         <div class="ds-prop"><span>${text.a11yRole}</span><span class="ds-chipx">${roleOf(el)}</span></div>
         <div class="ds-prop"><span>${text.a11yName}</span><span class="ds-val-text">${escapeHtml(nameOf(el)) || '—'}</span></div>
@@ -419,21 +422,81 @@ const designPane = (el: HTMLElement): string => {
       </section>`;
 };
 
-// What can be changed on an element, and how the value is read from and written to it.
+// What can be changed on an element, and how the value is read from and written to it. Only what makes sense for the element is offered: an
+// icon has a colour and a size, a plain text has no background, a box has padding, a thing that cannot be pressed has no states.
 type EditKind = 'colour' | 'weight' | 'px';
 const EDITS: [string, string, EditKind][] = [
     ['color', 'textColour', 'colour'],
-    ['backgroundColor', 'background', 'colour'],
     ['fontSize', 'fontSize', 'px'],
     ['fontWeight', 'weight', 'weight'],
+    ['backgroundColor', 'background', 'colour'],
+    ['borderColor', 'borderColour', 'colour'],
+    ['borderWidth', 'borderWidth', 'px'],
     ['borderRadius', 'radius', 'px'],
     ['padding', 'padding', 'px'],
-    ['borderWidth', 'borderWidth', 'px'],
 ];
 const kebab = (prop: string): string => prop.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
 const STATES: [string, string][] = [['ds-is-hover', 'stateHover'], ['ds-is-focus', 'stateFocus'], ['ds-is-active', 'statePressed']];
 
+/** What the inspector offers for an element. */
+interface Capabilities { fields: string[]; states: boolean; disable: boolean; text: boolean; fill: boolean; radius: boolean }
+const COMPONENT = '.btn, .badge, .alert, .card, .toast, .progress, .progress-bar, .list-group-item, .dropdown-menu, .modal-content, .form-control, .form-select, .form-check-input, .page-link, .nav-link, .dd-tile, .table-sort, .dropdown-item, .navbar';
+const INTERACTIVE = 'a[href], button, input:not([type="hidden"]), select, textarea, summary, [tabindex], .btn, .page-link, .nav-link, .dropdown-item, .list-group-item-action, .table-sort';
+const capabilitiesOf = (el: HTMLElement): Capabilities => {
+    const cs = getComputedStyle(el);
+    const tag = el.tagName.toLowerCase();
+    const icon = el.matches('.icon, i[data-pix], i.fa, i.fa-solid, svg');
+    const image = ['img', 'svg', 'canvas', 'video'].includes(tag);
+    const field = el.matches('input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), select, textarea, button');
+    const ownText = field || [...el.childNodes].some((n) => n.nodeType === Node.TEXT_NODE && (n.textContent ?? '').trim() !== '');
+    const component = el.matches(COMPONENT);
+    const inline = cs.display === 'inline' && !field && !component;
+    const filled = (parse(cs.backgroundColor)?.a ?? 0) > 0 || cs.backgroundImage !== 'none';
+    const bordered = ['Top', 'Right', 'Bottom', 'Left'].some((s) => parseFloat(cs[`border${s}Width` as 'borderTopWidth']) > 0);
+    const fields: string[] = [];
+    const text = ownText || icon;
+    if (text) { fields.push('color', 'fontSize'); }
+    if (ownText && !icon) { fields.push('fontWeight'); }
+    const fill = (filled || component) && !icon && !image;
+    if (fill) { fields.push('backgroundColor'); }
+    if ((bordered || component) && !icon) { fields.push('borderColor', 'borderWidth'); }
+    const part = cs.display.startsWith('table') && !component;
+    const radius = !inline && !icon && !part && (filled || bordered || image || component);
+    if (radius) { fields.push('borderRadius'); }
+    if (!inline && !icon && !image && (ownText || filled || bordered || component)) { fields.push('padding'); }
+    return {fields, states: el.matches(INTERACTIVE), disable: canDisable(el) || el.matches('.btn, .page-link, .dropdown-item, .nav-link, .list-group-item-action'), text, fill, radius};
+};
+
+// ---- custom CSS: rules written by the designer for the classes of the examples
+const CUSTOM_KEY = 'ds-custom-css';
+let customCss = '';
+try { customCss = localStorage.getItem(CUSTOM_KEY) ?? ''; } catch (error) { customCss = ''; }
+/** The rules scoped to the examples (so they cannot touch the site) and with a twin for each state, like the stylesheets of the versions. */
+const scopeCss = (css: string): string => {
+    const sheet = new CSSStyleSheet();
+    try { sheet.replaceSync(css); } catch (error) { return ''; }
+    const scoped = (rules: CSSRuleList): string => [...rules].map((rule) => {
+        if (rule instanceof CSSStyleRule) {
+            const selectors = rule.selectorText.split(/,(?![^(]*\))/).map((s) => s.trim()).filter(Boolean);
+            const twins = selectors.filter((s) => /:(hover|focus-visible|focus|active)/.test(s)).map((s) => s.replace(/:hover/g, '.ds-is-hover').replace(/:focus-visible/g, '.ds-is-focus').replace(/:focus/g, '.ds-is-focus').replace(/:active/g, '.ds-is-active'));
+            return `${[...selectors, ...twins].map((s) => `.ds-frame.ds-v-scope ${s}`).join(', ')} { ${rule.style.cssText} }`;
+        }
+        if (rule instanceof CSSMediaRule) { return `@media ${rule.conditionText} { ${scoped(rule.cssRules)} }`; }
+        return '';
+    }).join('\n');
+    return scoped(sheet.cssRules);
+};
+const applyCustomCss = (): void => {
+    let style = document.getElementById('ds-custom-style') as HTMLStyleElement | null;
+    if (!style) { style = document.head.appendChild(document.createElement('style')); style.id = 'ds-custom-style'; }
+    style.textContent = designerOn() ? scopeCss(customCss) : '';
+};
+const customCssBlock = (el: Editable | null): string => `<h3>${text.customCss}<span class="ds-mini-row">${el ? `<button type="button" class="ds-mini" data-custom-insert>${text.customCssInsert}</button>` : ''}<button type="button" class="ds-mini" data-custom-reset>${text.reset}</button></span></h3>
+      <p class="ds-insp-empty">${text.customCssHelp}</p>
+      <textarea class="ds-custom-css" data-custom-css spellcheck="false" rows="7" aria-label="${text.customCss}" placeholder=".btn-primary {&#10;  border-radius: 2px;&#10;}">${escapeHtml(customCss)}</textarea>`;
+
 const editPane = (el: Editable): string => {
+    const caps = capabilitiesOf(el);
     const values = named(getComputedStyle(el));
     const field = ([prop, label, kind]: [string, string, EditKind]): string => {
         const value = values[prop] as string;
@@ -449,12 +512,15 @@ const editPane = (el: Editable): string => {
         return `<label>${text[label]}</label><span class="ctl">${input}</span>`;
     };
     const disabled = canDisable(el) ? el.disabled : el.classList.contains('disabled');
+    const chips = caps.states ? STATES.map(([cls, key]) => `<label class="ds-statechip"><input type="checkbox" data-state="${cls}"${el.classList.contains(cls) ? ' checked' : ''}>${text[key]}</label>`).join('') + (caps.disable ? `<label class="ds-statechip"><input type="checkbox" data-state="disabled"${disabled ? ' checked' : ''}>${text.stateDisabled}</label>` : '') : '';
+    const shown = EDITS.filter(([prop]) => caps.fields.includes(prop));
     return `<h3>${text.states}</h3>
-      <div class="ds-states">${STATES.map(([cls, key]) => `<label class="ds-statechip"><input type="checkbox" data-state="${cls}"${el.classList.contains(cls) ? ' checked' : ''}>${text[key]}</label>`).join('')}<label class="ds-statechip"><input type="checkbox" data-state="disabled"${disabled ? ' checked' : ''}>${text.stateDisabled}</label></div>
+      ${chips ? `<div class="ds-states">${chips}</div>` : `<p class="ds-insp-empty">${text.noStates}</p>`}
       <h3>${text.editHeading}<button type="button" class="ds-mini" data-edit-reset>${text.reset}</button></h3>
-      <div class="ds-edit-grid">${EDITS.map(field).join('')}</div>
+      ${shown.length ? `<div class="ds-edit-grid">${shown.map(field).join('')}</div>` : `<p class="ds-insp-empty">${text.noEditable}</p>`}
       <h3>${text.changes}<button type="button" class="ds-mini" data-copy-code="edit">${text.copy}</button></h3>
-      <pre class="ds-source ds-insp-pre"><code id="ds-insp-edit">${editOutput(el)}</code></pre>`;
+      <pre class="ds-source ds-insp-pre"><code id="ds-insp-edit">${editOutput(el)}</code></pre>
+      ${customCssBlock(el)}`;
 };
 const editOutput = (el: Editable): string => {
     const set = el._dsEdits ?? {};
@@ -518,6 +584,15 @@ document.addEventListener('mousemove', (event) => {
 });
 
 const MODES = ['light', 'dark', 'system'];
+let customTimer = 0;
+document.addEventListener('input', (event) => {
+    const area = event.target;
+    if (!(area instanceof HTMLTextAreaElement) || !area.matches('[data-custom-css]')) { return; }
+    customCss = area.value;
+    store(CUSTOM_KEY, customCss || null);
+    window.clearTimeout(customTimer);
+    customTimer = window.setTimeout(() => { applyCustomCss(); if (selected) { drawSelection(); } }, 200);
+});
 const EDIT_KIND: Record<string, EditKind> = Object.fromEntries(EDITS.map(([prop, , kind]) => [prop, kind]));
 const COPIES: Record<string, string> = {html: '#ds-insp-html', css: '#ds-insp-css', edit: '#ds-insp-edit'};
 
@@ -530,6 +605,26 @@ document.addEventListener('click', (event) => {
     const frame = target.closest('.ds-frame');
     if (frame && target !== frame) {
         if (designerOn()) { event.preventDefault(); inspect(target as Editable); } else if (target.closest('a[href]')) { event.preventDefault(); }
+        return;
+    }
+    if (target.closest('[data-custom-reset]')) {
+        customCss = '';
+        store(CUSTOM_KEY, null);
+        $$<HTMLTextAreaElement>('[data-custom-css]').forEach((a) => { a.value = ''; });
+        applyCustomCss();
+        return;
+    }
+    if (target.closest('[data-custom-insert]') && selected) {
+        const classes = [...selected.classList].filter((c) => !c.startsWith('ds-'));
+        const selector = classes.length ? classes.map((c) => `.${c}`).join('') : selected.tagName.toLowerCase();
+        const area = $<HTMLTextAreaElement>('[data-custom-css]');
+        if (area) {
+            const gap = area.value && !area.value.endsWith('\n') ? '\n' : '';
+            area.value = `${area.value}${gap}${selector} {\n  \n}\n`;
+            area.dispatchEvent(new Event('input', {bubbles: true}));
+            area.focus();
+            area.setSelectionRange(area.value.length - 3, area.value.length - 3);
+        }
         return;
     }
     if (target.closest('[data-designer-toggle]')) {
@@ -578,7 +673,7 @@ document.addEventListener('click', (event) => {
         root.dataset.systemVersion = state.systemVersion;
         const label = $('#ds-sysver-label');
         if (label) { label.textContent = `v${state.systemVersion}`; }
-        $$('#ds-sysver [data-system-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.systemVersion === state.systemVersion)));
+        $$<HTMLElement>('#ds-sysver [data-system-version]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.systemVersion === state.systemVersion)));
         return;
     }
     const themePick = target.closest<HTMLElement>('#ds-themever [data-theme-version]');
