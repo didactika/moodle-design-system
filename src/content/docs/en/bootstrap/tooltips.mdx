@@ -1,0 +1,78 @@
+---
+title: Tooltips and popovers
+summary: "Small floating notes next to an element: a tooltip names it, a popover explains it."
+group: bootstrap
+section: feedback
+order: 19
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A **tooltip** is a one-line name or hint shown on hover and focus. A **popover** is a small card with a title and a few lines, opened on click. Neither holds anything the user needs in order to continue.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Tooltip: name an icon-only button, or give a short hint.
+- Popover: explain a term or a setting in two or three lines.
+- Open them on focus as well as on hover.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Put essential information, links or buttons in a tooltip.
+- Use a popover for a form or a long text; use a modal or a page.
+- Cover the element they describe.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A tooltip is a box (`tooltip`) with an **arrow** and an **inner** text. A popover is a box (`popover`) with an **arrow**, a **header** and a **body**. Both point at their trigger from the side that has room.
+
+## Variants and states
+
+<Example title="Hover and click" src="tooltips/live" />
+
+<Example title="Static" src="tooltips/static" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `tooltip`, `tooltip-inner` | The note and its text |
+| `popover`, `popover-header`, `popover-body` | The card and its parts |
+| <Only of="v53" inline>`tooltip-arrow`, `popover-arrow`</Only><Only of="v45,v41" inline>`arrow`</Only> | The pointer |
+| `data-bs-toggle`, `data-bs-placement` | What opens it and on which side |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The sides are `top`, `bottom`, `start` and `end`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The sides are `top`, `bottom`, `left` and `right`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The sides are `top`, `bottom`, `left` and `right`.
+
+</Only>
+
+## Accessibility
+
+- The trigger is focusable and the tooltip opens on focus, and Escape closes it.
+- A tooltip is linked with `aria-describedby`; do not use it as the only label of a control.
+- A popover can be reached by keyboard and closes with Escape.

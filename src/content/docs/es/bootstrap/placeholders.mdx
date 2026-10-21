@@ -1,0 +1,64 @@
+---
+title: Marcadores de posición
+summary: "Formas grises que ocupan el lugar del contenido mientras carga."
+group: bootstrap
+section: content
+order: 29
+versions: [v53]
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Los marcadores de posición (esqueletos) muestran la forma de lo que viene, para que la página no salte al llegar. Úsalos para contenido que tarda más de un momento.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Igualar la forma y el tamaño del contenido real.
+- Usar la animación de brillo con moderación.
+- Marcar el bloque `aria-hidden` y anunciar el estado de carga una vez.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlos para esperas de menos de 300 ms.
+- Dejarlos tras un error.
+- Mezclarlos con contenido real en el mismo bloque.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Bloques (`placeholder`) dimensionados con la rejilla (`col-6`) dentro del elemento que sustituyen, con una animación opcional (`placeholder-glow`, `placeholder-wave`).
+
+## Variantes y estados
+
+<Example title="Tarjeta con marcadores" src="placeholders/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `placeholder` | Un bloque gris |
+| `col-*` | Su ancho |
+| `placeholder-glow`, `placeholder-wave` | Animación del grupo |
+| `placeholder-xs`, `placeholder-sm`, `placeholder-lg` | Altura |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+## Accesibilidad
+
+- Oculta los marcadores a la tecnología de apoyo y anuncia el estado de carga con un mensaje de estado.
+- Respeta el movimiento reducido: sin animación.

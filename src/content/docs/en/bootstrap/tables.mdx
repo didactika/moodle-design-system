@@ -1,0 +1,82 @@
+---
+title: Tables
+summary: "Data in rows and columns that people compare, scan and sort."
+group: bootstrap
+section: content
+order: 23
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A table is for data that has several attributes per row and that people compare. For a list of one thing per line, use a list group.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- A header row with short column names; numbers aligned to the right.
+- Highlight the row under the pointer (`table-hover`) when rows are actionable.
+- Wrap wide tables in `table-responsive` so the page never scrolls sideways.
+- Keep the actions of a row in the same place and always visible.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use a table for layout.
+- Colour rows without a text that says why.
+- Hide columns that are needed to understand the row.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A `table` with a **caption**, a **header** (`thead`, `th scope="col"`) and a **body** (`tbody`) whose first cell can be the **row header** (`th scope="row"`). Rows and cells can take a contextual colour.
+
+## Variants and states
+
+<Example title="A data table" src="tables/basic" />
+
+<Example title="Variants" src="tables/variants" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `table` | Base |
+| `table-striped`, `table-hover`, `table-bordered` | Stripes, row hover and borders |
+| `table-sm` | Compact |
+| `table-active`, `table-success`… | Colour of a row or cell |
+| `table-responsive` | Scrolls inside its box on small screens |
+| `align-middle` | Vertical alignment |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- Use `th` with `scope`, and a `caption` (it can be visually hidden).
+- Do not use a table for layout.
+- A coloured row also says it with text.
+- Sortable columns announce the order (`aria-sort`).

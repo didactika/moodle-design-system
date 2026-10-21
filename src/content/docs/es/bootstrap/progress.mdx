@@ -1,0 +1,78 @@
+---
+title: Progreso
+summary: "Una barra que muestra hasta dónde ha llegado algo: un curso, una subida, un cuestionario."
+group: bootstrap
+section: feedback
+order: 16
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Una barra de progreso muestra una cantidad conocida de avance. Cuando no se conoce (esperando a un servidor), usa un indicador de carga.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Mostrar el número junto a la barra cuando importa el valor exacto.
+- Usar el color de éxito solo para lo completado.
+- Darle una etiqueta de texto que diga qué progresa.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar una barra cuando no se sabe cuánto va a tardar.
+- Animar una barra que no cambia.
+- Usarla como gráfico.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un **riel** (`progress`) y una o más **barras** (`progress-bar`) cuyo ancho es el valor. Una barra puede ir a rayas, animada y con una etiqueta.
+
+## Variantes y estados
+
+<Example title="Progreso" src="progress/basic" />
+
+<Example title="Alturas" src="progress/sizes" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `progress` | El riel; su altura marca la de la barra |
+| `progress-bar` | La parte rellena; ancho en `style` |
+| `progress-bar-striped`, `progress-bar-animated` | Rayas y movimiento |
+| `bg-success`… | Color de una barra |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. El `role` va en el riel.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El `role` va en cada barra.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. El `role` va en cada barra.
+
+</Only>
+
+## Accesibilidad
+
+- `role="progressbar"` con `aria-valuenow`, `aria-valuemin`, `aria-valuemax` y un `aria-label`.
+- El valor también se escribe como texto cuando importa.
+- Las rayas animadas respetan la preferencia de movimiento reducido.

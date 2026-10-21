@@ -1,0 +1,77 @@
+---
+title: Badges
+summary: "A small label that counts something or names a status, next to the thing it describes."
+group: bootstrap
+section: feedback
+order: 15
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A badge is a short label: a count (4 messages) or a status (Completed, Hidden). It sits next to a title, a button or a row, and it is read together with it.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- One or two words, or a number.
+- Use pills (`rounded-pill`) for statuses and counters.
+- Pick the colour by meaning and keep the same one for the same status everywhere.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Write sentences in a badge.
+- Use badges as buttons.
+- Use many colours in one list: it stops meaning anything.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A `badge` with a **background colour** and text that contrasts with it. Inside a button it keeps its colour and gets a small gap.
+
+## Variants and states
+
+<Example title="Colours and pills" src="badges/basic" />
+
+<Example title="In context" src="badges/context" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `badge` | Base |
+| <Only of="v53" inline>`text-bg-primary`, `text-bg-success`…</Only><Only of="v45,v41" inline>`badge-primary`, `badge-success`…</Only> | Colour and text colour together |
+| `rounded-pill` | Fully rounded |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The colour and the text colour come together in `text-bg-*`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The colour is `badge-*` and the pill is `badge-pill` (`rounded-pill` also works).
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The colour is `badge-*` and the pill is `badge-pill` (`rounded-pill` also works).
+
+</Only>
+
+## Accessibility
+
+- A count should say what it counts: add visually hidden text ("unread messages").
+- The contrast of the text against the colour is at least 4.5:1: use `text-bg-*`, which picks it.
+- A status is also written, not only coloured.

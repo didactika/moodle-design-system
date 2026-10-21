@@ -1,0 +1,64 @@
+---
+title: Panel lateral
+summary: "Un panel que entra desde el borde de la pantalla para navegación, filtros o detalles."
+group: bootstrap
+section: content
+order: 28
+versions: [v53]
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un panel lateral aparta el contenido secundario hasta que el usuario lo pide: un índice del curso, un panel de filtros, un carrito. Cubre parte de la página y tiene un fondo atenuado.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Usarlo para contenido secundario o navegación en pantallas pequeñas.
+- Darle un título y un botón de cierre.
+- Empezar por la izquierda para navegación y por la derecha para detalles.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usarlo para una decisión; usa un diálogo modal.
+- Abrirlo solo.
+- Meter en él el contenido principal de la página.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un panel (`offcanvas`, con un lado) con un **encabezado** (`offcanvas-header`, `offcanvas-title`, cierre) y un **cuerpo** (`offcanvas-body`), sobre una página atenuada.
+
+## Variantes y estados
+
+<Example title="Panel lateral" src="offcanvas/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `offcanvas`, `offcanvas-start`, `offcanvas-end` | El panel y su lado |
+| `offcanvas-header`, `offcanvas-title`, `offcanvas-body` | Sus partes |
+| `btn-close` | Botón de cierre |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+## Accesibilidad
+
+- El foco entra en el panel y vuelve al disparador al cerrarse.
+- Escape lo cierra.
+- `aria-labelledby` apunta al título.

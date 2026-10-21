@@ -1,0 +1,78 @@
+---
+title: Accordion and collapse
+summary: "Sections that open and close in place, to keep a long page short."
+group: bootstrap
+section: content
+order: 24
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+An accordion stacks sections of which one is open at a time; collapse shows or hides one block. Use them for content that most people do not need all at once.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Short, specific headings: they are what people scan.
+- Open the section most people need first.
+- Use collapse for optional details ("Show more").
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Hide content the user needs to finish the task.
+- Nest accordions.
+- Use an accordion where tabs would show the views side by side.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A group (`accordion`) of **items** (`accordion-item`), each with a **header button** (`accordion-button`) and a **panel** (`accordion-collapse` with `accordion-body`). A plain **collapse** is a button that shows or hides a `collapse` block.
+
+## Variants and states
+
+<Example title="Accordion" src="accordion/basic" />
+
+<Example title="Collapse" src="accordion/collapse" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| <Only of="v53" inline>`accordion`, `accordion-item`, `accordion-button`, `accordion-body`</Only><Only of="v45,v41" inline>`accordion`, `card`, `card-header`, `card-body`</Only> | The structure of the accordion |
+| `collapse`, `show` | A block that can be hidden; `show` is open |
+| `data-bs-toggle="collapse"`, `data-bs-target` | What opens it |
+| `data-bs-parent` | Closes the others when one opens |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. It has its own component, `accordion`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. There is no accordion component: it is built with cards and collapse.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. There is no accordion component: it is built with cards and collapse.
+
+</Only>
+
+## Accessibility
+
+- The header is a `button` with `aria-expanded` and `aria-controls`.
+- Enter and Space open and close; Tab moves between headers.
+- The heading level fits the page: wrap the button in `h2`/`h3`.

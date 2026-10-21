@@ -1,0 +1,84 @@
+---
+title: Alertas
+summary: "Un mensaje dentro de la página que dice al usuario qué ha pasado o qué debe saber, con un color que indica su importancia."
+group: bootstrap
+section: feedback
+order: 14
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Una alerta es un mensaje en el flujo de la página: un resultado, un aviso o un consejo. Se queda hasta que la situación cambia o el usuario la descarta. Para algo pasajero, usa un aviso emergente.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Decir qué ha pasado y qué hacer, en una o dos frases.
+- Elegir el color por significado: éxito, información, aviso, peligro.
+- Un icono de Moodle que encaje con el significado, y un título solo cuando el mensaje lo necesite.
+- Un enlace o botón para el siguiente paso.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar el color como única señal: el texto y el icono también lo dicen.
+- Apilar varias alertas; fúndelas en una.
+- Usar peligro para lo que no es un error o un riesgo.
+- Ocultar solo un mensaje que el usuario necesita leer.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una caja (`alert` y un color) con **icono**, **título** (`alert-heading`), **texto**, **enlaces** (`alert-link`) y un botón de **cierre** cuando se puede descartar.
+
+## Variantes y estados
+
+<Example title="Colores" src="alerts/variants" />
+
+<Example title="Icono, título y acciones" src="alerts/rich" />
+
+<Example title="Descartable" src="alerts/dismissible" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `alert` | Base |
+| `alert-primary`, `alert-secondary`, `alert-success`, `alert-danger`, `alert-warning`, `alert-info`, `alert-light`, `alert-dark` | Color por significado |
+| `alert-heading`, `alert-link` | Título y enlace que combinan con el color |
+| `alert-dismissible`, <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Deja que el usuario la cierre |
+| `fade show` | Anima al aparecer y al cerrarse |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- `role="alert"` para algo que debe leerse ya; `role="status"` para algo cortés.
+- El botón de cierre lleva `aria-label`.
+- El contraste del texto con el tinte es de al menos 4,5:1.
+- Nunca dependas solo del color: usa palabras y un icono.

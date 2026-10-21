@@ -1,6 +1,7 @@
 // The behaviour of the documentation site: the selected Moodle version, colour mode and Didactika theme, the examples drawn with the CSS of that
 // version, the icons of each version, and an inspector that measures anything inside an example and shows its code.
 import './colour';
+import {installBehaviours} from './behaviours';
 import {$, $$, readJson} from './dom';
 import {DIDACTIKA, contrast, grade, hex, parse, styleElements, themeCss, toHex} from './theme';
 import type {Rgba} from './theme';
@@ -644,5 +645,6 @@ if (headings.length) {
     headings.forEach((h) => spy.observe(h));
 }
 
+installBehaviours({bs5, enabled: () => !state.designer});
 applyDesigner();
 apply();

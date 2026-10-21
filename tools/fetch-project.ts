@@ -7,7 +7,7 @@
  *
  * - the repository (from GITHUB_REPOSITORY, or the origin remote of the clone): its address, description and licence;
  * - the organisation that owns it: name, description, website, avatar and the addresses of its repositories and people;
- * - the founders: the owners of the organisation, with the name each one has on GitHub;
+ * - the founders: the two co-founders, set below, with the name each one has on GitHub;
  * - the contributors: everyone who has contributed to any public repository of the organisation;
  * - the funding: what the FUNDING.yml of the repository (or of the organisation's `.github` repository) says, which is also what GitHub
  *   uses for its Sponsor button.
@@ -27,6 +27,9 @@ interface ApiUser { login: string; name?: string | null; html_url: string; avata
 interface ApiOrg { login: string; name: string | null; description: string | null; blog: string | null; avatar_url: string; html_url: string }
 interface ApiRepo { name: string; description: string | null; html_url: string; fork: boolean; archived: boolean; license: {spdx_id: string} | null }
 interface ApiFile { content: string; encoding: string }
+
+/** The co-founders of Didactika. They are the only people set by hand: everyone else is a collaborator and comes from GitHub. */
+const COFOUNDERS = ['E2RD0', 'hector-ae21'];
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'src/data/project.generated.json');
@@ -77,10 +80,7 @@ try {
     const repo = await github<ApiRepo>(`/repos/${owner}/${name}`);
     const repos = (await github<ApiRepo[]>(`/orgs/${owner}/repos?type=public&per_page=100`)).filter((r) => !r.fork && !r.archived);
 
-    const admins = await github<ApiUser[]>(`/orgs/${owner}/members?role=admin&per_page=100`)
-        .catch(() => github<ApiUser[]>(`/repos/${owner}/${name}/collaborators?permission=admin&per_page=100`))
-        .catch(() => [] as ApiUser[]);
-    const founders = await Promise.all(admins.map((user) => person(user)));
+    const founders = await Promise.all(COFOUNDERS.map(async(login) => person(await github<ApiUser>(`/users/${login}`))));
 
     const totals = new Map<string, Person>();
     for (const r of repos) {

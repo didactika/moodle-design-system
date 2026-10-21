@@ -1,0 +1,75 @@
+---
+title: Spinners
+summary: "An indicator that something is loading when the wait cannot be measured."
+group: bootstrap
+section: feedback
+order: 17
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A spinner tells the user that the system is working. Use it for waits of unknown length: loading a list, saving, sending. For a known amount, use a progress bar.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Say what is loading with a text, visible or hidden.
+- Use the small size inside a button and disable the button.
+- Show it only after a moment (about 300 ms), so quick loads do not flash.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Cover the whole page when only a part is loading.
+- Leave it spinning after an error: show the error.
+- Use two spinners at once for the same wait.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A circle that turns (`spinner-border`) or pulses (`spinner-grow`) with a **hidden label** for assistive technology.
+
+## Variants and states
+
+<Example title="Spinners" src="spinners/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `spinner-border`, `spinner-grow` | The two kinds |
+| `spinner-border-sm`, `spinner-grow-sm` | Small, for buttons and lines of text |
+| `text-primary`… | Colour (takes the text colour) |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- `role="status"` and a hidden label ("Loading…").
+- Inside a button, the spinner is `aria-hidden` and the button text says what happens.
+- Under reduced motion the spinner turns slower, never stops.

@@ -1,0 +1,76 @@
+---
+title: Toasts
+summary: "A short message that appears over the page and goes away by itself: it confirms something that already happened."
+group: bootstrap
+section: feedback
+order: 18
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A toast confirms an action without interrupting it: "Grades saved", "Participant added". It is temporary. If the user must act or the message must stay, use an alert or a modal.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- One short sentence, in the past tense.
+- An undo link when the action can be undone.
+- Stack them in a corner, newest on top, and let each close by itself after a few seconds.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use a toast for an error the user has to fix.
+- Put essential information in it: it may vanish before it is read.
+- Show more than three at once.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A box (`toast`) with an optional **header** (`toast-header`: title, time, close) and a **body** (`toast-body`), placed in a container fixed to a corner of the screen.
+
+## Variants and states
+
+<Example title="Toasts" src="toasts/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `toast`, `show` | The box, shown |
+| `toast-header`, `toast-body` | Its two parts |
+| <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Close button |
+| `toast-container` | Positions a stack of toasts |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet.
+
+</Only>
+
+## Accessibility
+
+- `role="status"` (polite) for a confirmation, `role="alert"` for something urgent, with `aria-atomic="true"`.
+- Give it enough time to be read, and pause the timer on hover and focus.
+- Everything inside it is reachable with the keyboard.

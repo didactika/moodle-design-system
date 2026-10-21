@@ -40,7 +40,7 @@ export interface Project {
     at: string | null;
     repository: {owner: string; name: string; url: string; description: string | null; licence: string | null};
     organisation: {login: string; name: string; description: string | null; website: string | null; avatar: string | null; url: string; repositoriesUrl: string; peopleUrl: string};
-    /** The owners of the organisation. */
+    /** The co-founders of Didactika. */
     founders: Person[];
     /** Everyone who has contributed to a public repository of the organisation, the most active first. */
     contributors: Person[];

@@ -1,0 +1,78 @@
+---
+title: Tooltips y popovers
+summary: "Pequeñas notas flotantes junto a un elemento: el tooltip lo nombra, el popover lo explica."
+group: bootstrap
+section: feedback
+order: 19
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un **tooltip** es un nombre o una pista de una línea que aparece al pasar el ratón y al enfocar. Un **popover** es una tarjeta pequeña con título y unas líneas, que se abre al hacer clic. Ninguno contiene nada que el usuario necesite para continuar.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Tooltip: nombrar un botón solo con icono, o dar una pista corta.
+- Popover: explicar un término o un ajuste en dos o tres líneas.
+- Abrirlos también al enfocar, no solo al pasar el ratón.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Meter información esencial, enlaces o botones en un tooltip.
+- Usar un popover para un formulario o un texto largo; usa un diálogo o una página.
+- Tapar el elemento que describen.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un tooltip es una caja (`tooltip`) con una **flecha** y un texto **interior**. Un popover es una caja (`popover`) con una **flecha**, un **encabezado** y un **cuerpo**. Los dos señalan a su disparador desde el lado que tiene sitio.
+
+## Variantes y estados
+
+<Example title="Ratón y clic" src="tooltips/live" />
+
+<Example title="Estático" src="tooltips/static" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `tooltip`, `tooltip-inner` | La nota y su texto |
+| `popover`, `popover-header`, `popover-body` | La tarjeta y sus partes |
+| <Only of="v53" inline>`tooltip-arrow`, `popover-arrow`</Only><Only of="v45,v41" inline>`arrow`</Only> | El puntero |
+| `data-bs-toggle`, `data-bs-placement` | Qué lo abre y de qué lado |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. Los lados son `top`, `bottom`, `start` y `end`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Los lados son `top`, `bottom`, `left` y `right`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Los lados son `top`, `bottom`, `left` y `right`.
+
+</Only>
+
+## Accesibilidad
+
+- El disparador es enfocable y el tooltip se abre al enfocar, y Escape lo cierra.
+- Un tooltip se enlaza con `aria-describedby`; no lo uses como única etiqueta de un control.
+- A un popover se llega con el teclado y se cierra con Escape.

@@ -1,0 +1,79 @@
+---
+title: Diálogos modales
+summary: "Un diálogo que toma el foco de la página para pedir una decisión o un formulario corto."
+group: bootstrap
+section: feedback
+order: 20
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un diálogo modal interrumpe a propósito: pide algo que el usuario debe responder antes de seguir, como una confirmación o un formulario corto. Resérvalo para eso.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Un título claro que diga qué se pide, y botones con el nombre de su acción («Eliminar», no «Aceptar»).
+- La acción principal a la derecha, cancelar a su lado; peligro para lo que elimina.
+- Mantenerlo corto; un formulario largo merece su propia página.
+- Cerrar con Escape, con el botón de cierre y con Cancelar.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Abrir un diálogo desde otro diálogo.
+- Usarlo para información que no necesita respuesta; usa una alerta.
+- Abrir uno sin que el usuario lo pida.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un **diálogo** (`modal-dialog`) sobre una página atenuada, con un **encabezado** (título y cierre), un **cuerpo** y un **pie** con las acciones. Tamaños: pequeño, normal, grande y extra grande.
+
+## Variantes y estados
+
+<Example title="Formulario" src="modals/basic" />
+
+<Example title="Confirmación" src="modals/confirm" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `modal`, `modal-dialog`, `modal-content` | Las capas de un diálogo |
+| `modal-header`, `modal-title`, `modal-body`, `modal-footer` | Sus partes |
+| `modal-sm`, `modal-lg`, `modal-xl` | Tamaños |
+| <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cierre |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- `role="dialog"` (o `alertdialog` para una confirmación) con `aria-labelledby` apuntando al título.
+- El foco entra en el diálogo al abrirse, se queda dentro mientras está abierto y vuelve al disparador al cerrarse.
+- Escape lo cierra; la página de detrás no es alcanzable.

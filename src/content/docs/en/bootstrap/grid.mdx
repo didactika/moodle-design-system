@@ -1,0 +1,76 @@
+---
+title: Grid and layout
+summary: "Containers, rows and columns that arrange content and adapt it to the width of the screen."
+group: bootstrap
+section: content
+order: 27
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+The grid has twelve columns and five breakpoints. A row holds columns that share its width; each column says how many of the twelve it takes at each breakpoint. Content stacks on small screens and sits side by side on wide ones.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Design for the small screen first and add columns as the width grows.
+- Keep the sum of the columns of a row at 12.
+- Use the same gutters in the whole page.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Nest more than two levels of rows.
+- Use fixed widths in pixels for columns.
+- Use the grid to align a single control; use spacing.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **container** (`container`, `container-fluid`) holds **rows** (`row`) that hold **columns** (`col`, `col-md-6`…). The gap between columns is the **gutter**.
+
+## Variants and states
+
+<Example title="Columns" src="grid/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `container`, `container-fluid` | Fixed-width and full-width wrapper |
+| `row` | A horizontal group of columns |
+| `col`, `col-6`, `col-md-4` | A column: automatic, 6 of 12, 4 of 12 from the medium breakpoint |
+| <Only of="v53" inline>`g-0`, `g-3`</Only><Only of="v45,v41" inline>`no-gutters`</Only> | Gutter between columns |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The gutter is set with `g-*`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The gutter is removed with `no-gutters`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The gutter is removed with `no-gutters`.
+
+</Only>
+
+## Accessibility
+
+- The reading order is the order in the markup: do not rely on the grid to reorder what matters.
+- Content must still make sense when it stacks.
+- Never require horizontal scrolling at 320 px wide.

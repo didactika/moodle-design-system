@@ -1,0 +1,87 @@
+---
+title: Tabs and pills
+summary: "Switch between views of the same content without leaving the page: tabs for a few sections, pills for filters and settings."
+group: bootstrap
+section: navigation
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Tabs split one subject into parallel views and show one at a time. **Tabs** read as sections of a page; **pills** read as a choice (a filter, a settings menu). Both are the `nav` component with a panel for each entry.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Two to six tabs with short, parallel names.
+- Tabs for views of the same thing (overview, participants, grades); pills for filters and for a vertical settings menu.
+- Show a count with a badge only when it helps to decide where to go.
+- Keep the first tab the one most people need.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use tabs to navigate to other pages; use a navbar or links.
+- Put a long form across tabs the user must complete in order; use steps.
+- Nest tabs inside tabs.
+- Disable a tab without saying why.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **list** of entries (`nav` with `nav-tabs` or `nav-pills`), each a **link or button** (`nav-link`), one of them **active**, and a **panel** (`tab-pane`) for each entry inside `tab-content`.
+
+## Variants and states
+
+<Example title="Tabs" src="tabs/tabs" />
+
+<Example title="Pills" src="tabs/pills" />
+
+<Example title="Vertical pills" src="tabs/vertical" />
+
+<Example title="States" src="tabs/states" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `nav` | Base of every list of tabs and pills |
+| `nav-tabs`, `nav-pills` | The look of the list |
+| `nav-link`, `nav-item` | An entry and its wrapper |
+| `active`, `disabled` | State of an entry |
+| `flex-column` | Stacks the entries (vertical pills) |
+| `tab-content`, `tab-pane` | The panels |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The entries of the examples are buttons; Bootstrap 4 draws them as links, so the layer resets the button.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The entries of the examples are buttons; Bootstrap 4 draws them as links, so the layer resets the button.
+
+</Only>
+
+## Accessibility
+
+- The list has `role="tablist"`, each entry `role="tab"` with `aria-selected` and `aria-controls`, each panel `role="tabpanel"` with `aria-labelledby`.
+- Arrow keys move between tabs and the panel is reachable with Tab: keep the native buttons.
+- A disabled tab has `aria-disabled` and `tabindex="-1"`.
+- The active tab is never shown by colour alone: it also has the underline or the filled pill.

@@ -1,0 +1,76 @@
+---
+title: Avisos emergentes
+summary: "Un mensaje corto que aparece sobre la página y se va solo: confirma algo que ya ha pasado."
+group: bootstrap
+section: feedback
+order: 18
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un aviso emergente confirma una acción sin interrumpirla: «Calificaciones guardadas», «Participante añadido». Es pasajero. Si el usuario debe actuar o el mensaje debe quedarse, usa una alerta o un diálogo.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Una frase corta, en pasado.
+- Un enlace de deshacer cuando la acción se puede deshacer.
+- Apilarlos en una esquina, el más nuevo arriba, y que cada uno se cierre solo tras unos segundos.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar un aviso para un error que el usuario tiene que arreglar.
+- Meter información esencial: puede desaparecer antes de leerse.
+- Mostrar más de tres a la vez.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una caja (`toast`) con un **encabezado** opcional (`toast-header`: título, hora, cierre) y un **cuerpo** (`toast-body`), colocada en un contenedor fijo en una esquina de la pantalla.
+
+## Variantes y estados
+
+<Example title="Avisos emergentes" src="toasts/basic" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `toast`, `show` | La caja, visible |
+| `toast-header`, `toast-body` | Sus dos partes |
+| <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cierre |
+| `toast-container` | Coloca una pila de avisos |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos.
+
+</Only>
+
+## Accesibilidad
+
+- `role="status"` (cortés) para una confirmación, `role="alert"` para algo urgente, con `aria-atomic="true"`.
+- Dale tiempo suficiente para leerse y pausa el temporizador al pasar el ratón y al enfocar.
+- Todo lo de dentro es alcanzable con el teclado.

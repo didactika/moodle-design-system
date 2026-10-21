@@ -1,0 +1,77 @@
+---
+title: Carousel
+summary: "A set of slides shown one at a time, with controls to move through them."
+group: bootstrap
+section: content
+order: 26
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A carousel shows a few related slides in the same space. Use it sparingly: people often miss what is not on the first slide.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Three to five slides, the most important first.
+- Show the controls and the position indicators.
+- Do not start it automatically.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Hide essential content in later slides.
+- Auto-advance faster than people can read.
+- Put long text or forms in slides.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A frame (`carousel`) with **slides** (`carousel-item`, one `active`), optional **captions**, **previous and next** controls and **indicators**.
+
+## Variants and states
+
+<Example title="Carousel" src="carousel/basic" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `carousel`, `slide` | The frame |
+| `carousel-inner`, `carousel-item` | The slides |
+| `carousel-control-prev`, `carousel-control-next` | Controls |
+| `carousel-indicators` | Position dots |
+| `carousel-caption` | Text over a slide |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. Controls and indicators are buttons.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. Controls are links and the indicators are list items.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. Controls are links and the indicators are list items.
+
+</Only>
+
+## Accessibility
+
+- Controls are buttons or links with text for assistive technology.
+- Let the user pause or stop movement; do not auto-play.
+- Each slide has text alternatives.

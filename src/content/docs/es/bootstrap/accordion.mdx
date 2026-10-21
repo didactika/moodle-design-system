@@ -1,0 +1,78 @@
+---
+title: Acordeón y colapso
+summary: "Secciones que se abren y se cierran en el sitio, para mantener corta una página larga."
+group: bootstrap
+section: content
+order: 24
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Un acordeón apila secciones de las que solo una está abierta a la vez; el colapso muestra u oculta un bloque. Úsalos para contenido que la mayoría no necesita entero a la vez.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Encabezados cortos y concretos: es lo que se recorre con la vista.
+- Abrir primero la sección que más gente necesita.
+- Usar el colapso para detalles opcionales («Ver más»).
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Ocultar contenido que el usuario necesita para terminar la tarea.
+- Anidar acordeones.
+- Usar un acordeón donde unas pestañas mostrarían las vistas una al lado de otra.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Un grupo (`accordion`) de **elementos** (`accordion-item`), cada uno con un **botón de encabezado** (`accordion-button`) y un **panel** (`accordion-collapse` con `accordion-body`). Un **colapso** simple es un botón que muestra u oculta un bloque `collapse`.
+
+## Variantes y estados
+
+<Example title="Acordeón" src="accordion/basic" />
+
+<Example title="Colapso" src="accordion/collapse" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| <Only of="v53" inline>`accordion`, `accordion-item`, `accordion-button`, `accordion-body`</Only><Only of="v45,v41" inline>`accordion`, `card`, `card-header`, `card-body`</Only> | La estructura del acordeón |
+| `collapse`, `show` | Un bloque que se puede ocultar; `show` es abierto |
+| `data-bs-toggle="collapse"`, `data-bs-target` | Qué lo abre |
+| `data-bs-parent` | Cierra los demás al abrir uno |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. Tiene su propio componente, `accordion`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. No hay componente de acordeón: se construye con tarjetas y colapso.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. No hay componente de acordeón: se construye con tarjetas y colapso.
+
+</Only>
+
+## Accesibilidad
+
+- El encabezado es un `button` con `aria-expanded` y `aria-controls`.
+- Intro y Espacio abren y cierran; Tab se mueve entre encabezados.
+- El nivel del título encaja con la página: envuelve el botón en `h2`/`h3`.

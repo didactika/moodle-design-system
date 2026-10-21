@@ -1,0 +1,82 @@
+---
+title: Barra de navegación
+summary: "La barra de arriba de un sitio: marca, enlaces principales, un buscador y la cuenta, que se pliega en un botón en pantallas pequeñas."
+group: bootstrap
+section: navigation
+order: 13
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Una barra de navegación contiene la navegación principal de un sitio. Muestra la marca, los sitios a los que más se va y las herramientas de la cuenta, y se pliega en un botón de menú cuando la pantalla es estrecha.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- De cinco a siete enlaces principales, con el actual marcado.
+- La marca a la izquierda, las herramientas (buscador, cuenta) a la derecha.
+- Meter los enlaces menos usados dentro de un desplegable.
+- Dejar que se pliegue bajo el punto de corte que encaje con el número de enlaces.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Llenarla con todas las páginas del sitio.
+- Usar dos barras una encima de otra.
+- Cambiar el orden de los enlaces entre páginas.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una **marca** (`navbar-brand`), un **botón** para pantallas pequeñas (`navbar-toggler`), un área plegable (`navbar-collapse`) con los **enlaces** (`navbar-nav`, `nav-link`) y **formularios** o texto opcionales (`navbar-text`).
+
+## Variantes y estados
+
+<Example title="Barra de navegación" src="navbar/basic" />
+
+<Example title="Sobre el color primario" src="navbar/primary" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `navbar`, `navbar-expand-lg` | La barra, y el ancho desde el que se expande |
+| `navbar-brand` | Marca |
+| `navbar-nav`, `nav-link` | Los enlaces; `active`, `disabled` |
+| `navbar-toggler` | El botón que abre el menú en pantallas pequeñas |
+| `navbar-text` | Texto plano dentro de la barra |
+| <Only of="v53" inline>`bg-body-tertiary`, `data-bs-theme="dark"`</Only><Only of="v45,v41" inline>`navbar-light bg-light`, `navbar-dark bg-primary`</Only> | Barra clara y oscura |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable. La barra va en un `container-fluid` y la barra oscura se define con `data-bs-theme="dark"`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Las barras clara y oscura son `navbar-light` y `navbar-dark`, y el formulario de búsqueda es `form-inline`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Las barras clara y oscura son `navbar-light` y `navbar-dark`, y el formulario de búsqueda es `form-inline`.
+
+</Only>
+
+## Accesibilidad
+
+- Envuélvela en un `nav` (la barra ya lo es) y dale un `aria-label` si la página tiene más de una.
+- El botón lleva `aria-controls`, `aria-expanded` y `aria-label`.
+- La página actual lleva `aria-current="page"`.
+- Todo es alcanzable con el teclado en el orden visual.

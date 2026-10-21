@@ -1,0 +1,87 @@
+---
+title: Pestañas y píldoras
+summary: "Cambian entre vistas del mismo contenido sin salir de la página: pestañas para pocas secciones, píldoras para filtros y ajustes."
+group: bootstrap
+section: navigation
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+Las pestañas dividen un tema en vistas paralelas y enseñan una a la vez. Las **pestañas** se leen como secciones de una página; las **píldoras**, como una elección (un filtro, un menú de ajustes). Las dos son el componente `nav` con un panel por entrada.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- De dos a seis pestañas con nombres cortos y paralelos.
+- Pestañas para vistas de lo mismo (resumen, participantes, calificaciones); píldoras para filtros y para un menú vertical de ajustes.
+- Mostrar un número con una insignia solo cuando ayude a decidir adónde ir.
+- Que la primera pestaña sea la que más gente necesita.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar pestañas para navegar a otras páginas; usa una barra de navegación o enlaces.
+- Repartir un formulario largo, que hay que completar en orden, entre pestañas; usa pasos.
+- Anidar pestañas dentro de pestañas.
+- Desactivar una pestaña sin decir por qué.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una **lista** de entradas (`nav` con `nav-tabs` o `nav-pills`), cada una un **enlace o botón** (`nav-link`), una de ellas **activa**, y un **panel** (`tab-pane`) por entrada dentro de `tab-content`.
+
+## Variantes y estados
+
+<Example title="Pestañas" src="tabs/tabs" />
+
+<Example title="Píldoras" src="tabs/pills" />
+
+<Example title="Píldoras verticales" src="tabs/vertical" />
+
+<Example title="Estados" src="tabs/states" />
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `nav` | Base de toda lista de pestañas y píldoras |
+| `nav-tabs`, `nav-pills` | El aspecto de la lista |
+| `nav-link`, `nav-item` | Una entrada y su envoltorio |
+| `active`, `disabled` | Estado de una entrada |
+| `flex-column` | Apila las entradas (píldoras verticales) |
+| `tab-content`, `tab-pane` | Los paneles |
+
+## En esta versión
+
+<Only of="v53">
+
+Bootstrap 5.3 guarda sus colores en variables CSS (`--bs-*`), así que un tema recolorea el componente con una sola variable.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Las entradas de los ejemplos son botones; Bootstrap 4 los dibuja como enlaces, así que la capa restablece el botón.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compila sus colores en las clases, así que un tema recolorea el componente recompilando su hoja de estilos. Las entradas de los ejemplos son botones; Bootstrap 4 los dibuja como enlaces, así que la capa restablece el botón.
+
+</Only>
+
+## Accesibilidad
+
+- La lista lleva `role="tablist"`, cada entrada `role="tab"` con `aria-selected` y `aria-controls`, cada panel `role="tabpanel"` con `aria-labelledby`.
+- Las flechas mueven entre pestañas y al panel se llega con Tab: conserva los botones nativos.
+- Una pestaña desactivada lleva `aria-disabled` y `tabindex="-1"`.
+- La pestaña activa nunca se marca solo con color: también tiene el subrayado o la píldora rellena.

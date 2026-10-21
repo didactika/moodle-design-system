@@ -1,0 +1,82 @@
+---
+title: Cards
+summary: "A container that groups related content about one thing: an image, a title, text and an action."
+group: bootstrap
+section: content
+order: 21
+---
+
+import Example from '../../../../components/Example.astro';
+import Matrix from '../../../../components/Matrix.astro';
+import Rule from '../../../../components/Rule.astro';
+import Only from '../../../../components/Only.astro';
+
+A card is a self-contained block about one subject, such as a course, a person or a summary. Cards sit in a grid and let the eye jump from one to the next.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- One subject and one main action per card.
+- The same structure in every card of a group, so they can be compared.
+- A header or footer only for metadata (status, date), not for the title.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Put a card inside a card.
+- Use a card for a long text or a form; use the page.
+- Make the whole card a link and also put links inside it.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A box (`card`) with an optional **image** (`card-img-top`), **header**, **body** (`card-body`: `card-title`, `card-text`, actions), **list** and **footer**.
+
+## Variants and states
+
+<Example title="Cards" src="cards/basic" />
+
+<Example title="Structure with a list" src="cards/structure" />
+
+<Example title="Horizontal" src="cards/horizontal" />
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `card` | The box |
+| `card-body`, `card-title`, `card-text` | Content |
+| `card-header`, `card-footer` | Metadata above and below |
+| `card-img-top` | Image at the top |
+| `card-link` | Links in a row |
+| `row g-0`, `col-md-*` | Horizontal layout |
+
+## In this version
+
+<Only of="v53">
+
+Bootstrap 5.3 keeps its colours in CSS variables (`--bs-*`), so a theme recolours the component with one variable. The gutter of the horizontal card is `g-0`.
+
+</Only>
+
+<Only of="v45">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The gutter of the horizontal card is `no-gutters`.
+
+</Only>
+
+<Only of="v41">
+
+Bootstrap 4.6 compiles its colours into the classes, so a theme recolours the component by rebuilding its stylesheet. The gutter of the horizontal card is `no-gutters`.
+
+</Only>
+
+## Accessibility
+
+- The title is a real heading of the right level.
+- If the whole card is clickable, there is one link that covers it, not nested links.
+- Images have alternative text or are marked decorative.
