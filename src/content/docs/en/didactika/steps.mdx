@@ -1,0 +1,73 @@
+---
+title: Steps
+summary: "The stages of a task in order, with the ones done, the current one and the ones to come."
+group: didactika
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A task with several stages (an import, a course set-up) shows where the user is and what is left. Steps are the indicator, not the navigation: they say "step 2 of 4"; the buttons of the screen move between them.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Between three and six steps, each with a short label.
+- Mark the current one with `aria-current="step"` and the done ones with `is-done`.
+- Put Back and Next at the foot of the screen, not on the steps.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use steps for a task with a single stage.
+- Hide the labels on a wide screen: the number alone does not say where you are.
+- Make the steps a menu that skips ahead if the earlier ones are not valid.
+
+</Rule>
+</div>
+
+## Anatomy
+
+An ordered list (`dd-steps`) whose items (`dd-step`) take a number from a counter, a **label** (`dd-step-label`) and a **line** that joins each one to the next. A step is `is-done` (check and filled line), `is-current` (ringed in the primary colour) or neither (quiet).
+
+## Variants and states
+
+Horizontal for a wizard in a page or a dialog; vertical (`dd-steps-vertical`) when the labels are long or the space is narrow.
+
+<Example title="Steps" src="steps/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Steps × dialog | The wizard of an import: steps at the top, the choices in the body, Back and Next at the foot. |
+| Steps × progress bar | Steps for the stages, a progress bar inside the current one if it takes long. |
+| Vertical × side panel | A set-up checklist beside a form. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| The number comes from a counter, the check from the state | The order cannot be written wrong in the markup, and a done step always looks done. |
+| The line fills as the task advances | The user sees how much is left at a glance, without reading. |
+| The current step has a ring, not only a colour | It stays visible for users who do not tell colours apart. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-steps` | The list |
+| `dd-step` | One step |
+| `dd-step-label` | Its label |
+| `is-done` | A step that is finished |
+| `is-current` | The step the user is on |
+| `dd-steps-vertical` | Steps in a column |
+
+## Accessibility
+
+- An `ol` with an `aria-label` that names the task.
+- `aria-current="step"` on the current step.
+- The state is also in the text for assistive technology ("completed"), not only in the mark.

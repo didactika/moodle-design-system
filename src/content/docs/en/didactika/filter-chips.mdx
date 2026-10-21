@@ -1,0 +1,72 @@
+---
+title: Filter chips
+summary: "Small toggles that narrow a list, with a count, and the removable chips of the filters already applied."
+group: didactika
+order: 3
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A filter chip narrows a list with one press. A group of chips is a filter bar; an applied filter is a chip with a button to remove it. Use them for the few filters people use all the time, and a form for the rest.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- Three to six chips, each with a short label and, when it helps, a count.
+- `aria-pressed` on a chip that toggles; the group has a label.
+- Show the applied filters as chips with a remove button, and a "Clear all" link.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Use chips for navigation between pages: those are tabs.
+- Put a long list of options in chips: use a select or a menu.
+- Let the chosen state depend on colour alone: the tint, the weight and the count all change.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A button (`dd-chip`) with a **label**, an optional **count** (`dd-chip-count`) and, once chosen (`aria-pressed="true"`), a tint of the primary colour. An applied filter (`dd-chip-applied`) holds a **remove button** (`dd-chip-remove`). The group is `dd-chips`.
+
+## Variants and states
+
+The bar of filters, the applied filters with their remove buttons, and the states of a chip side by side.
+
+<Example title="Filter chips" src="chips/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Chips × list | The chips sit over the list and the list answers at once, with a pager under it. |
+| Applied × empty state | A filter with no results shows the empty state of a search and a way to clear the chips. |
+| Chips × search field | The field filters by text, the chips by kind; both show as applied filters. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| A pill with a count | It is the one place in the system where a pill shape is the best fit: it reads as a switch and the count tells what will be left before pressing. |
+| The chosen chip changes tint, weight and count | Three signals, so it is clear without relying on colour. |
+| Applied filters can be removed one by one | The user undoes a single decision instead of starting over. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-chips` | A group of chips |
+| `dd-chip` | A chip; `aria-pressed` or `active` when chosen |
+| `dd-chip-count` | The number of results |
+| `dd-chip-applied` | An applied filter |
+| `dd-chip-remove` | The button that removes it |
+
+## Accessibility
+
+- `aria-pressed` on chips that toggle, with the group labelled by `aria-label` or a heading.
+- The remove button has a label that names the filter ("Remove Mathematics").
+- Announce the new number of results after a change.

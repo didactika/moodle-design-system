@@ -1,0 +1,72 @@
+---
+title: Empty states
+summary: "What a list or a region shows when there is nothing in it: what is missing, what to do, and the action that does it."
+group: didactika
+order: 1
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+An empty list is a moment to help, not a blank. An empty state names what is missing, says what to do about it in one line and offers the action. It is the same piece in every plugin, so a user who has seen one knows what to expect from the next.
+
+## When to use it
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Use it">
+
+- One icon tile, one title and one line of text; the title says what is missing.
+- The main action of the region as a primary button, only if the user can do it.
+- A different text when the list is empty because of a search or a filter: say so and offer to clear it.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Leave a table with only its header and no message.
+- Blame the user ("You have not done anything yet").
+- Add more than one primary action.
+
+</Rule>
+</div>
+
+## Anatomy
+
+A **tile** with the icon (`dd-tile`), a **title** (`dd-empty-title`), a **line of text** (`dd-empty-text`) and an optional **button**, centred in the region (`dd-empty`). The dashed variant (`dd-empty-dashed`) draws the region as a place waiting to be filled; the inline variant (`dd-empty-inline`) is for a small area, such as a card or a side panel.
+
+## Variants and states
+
+The first one invites to create, the second answers a search that found nothing, the third reports that there is nothing left to do, which is good news and is drawn as such.
+
+<Example title="Empty states" src="empty-states/basic" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Dashed × primary button | The first time: nothing exists yet and the user can create it. |
+| Plain × secondary button | A search or a filter that returned nothing: the action undoes the narrowing. |
+| Inline × success tile | A queue that is empty because the work is done. |
+
+## What Didactika adds and why
+
+| What it gives | Why it helps |
+|---|---|
+| A tile with the colour of the situation | Info for a search, success for "done", primary for "start here": the colour says whether it is an error or not before the text is read. |
+| One action, as a button | It removes the question "and now what?" that a blank list leaves. |
+| A dashed outline for the first time | It reads as a place to fill, not as something broken. |
+
+## Classes
+
+| Class | What it does |
+|---|---|
+| `dd-empty` | The block, centred |
+| `dd-empty-title` | The title |
+| `dd-empty-text` | The line of text |
+| `dd-empty-dashed` | A dashed outline |
+| `dd-empty-inline` | Compact, in a row |
+
+## Accessibility
+
+- The title is a heading of the level that fits the page; do not skip levels.
+- The icon is decoration: it is hidden from assistive technology.
+- When the list becomes empty after an action, announce it with a polite live region.

@@ -1,0 +1,73 @@
+---
+title: Pasos
+summary: "Las etapas de una tarea en orden, con las hechas, la actual y las que faltan."
+group: didactika
+order: 2
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Una tarea con varias etapas (una importación, la puesta en marcha de un curso) muestra dónde está el usuario y qué falta. Los pasos son el indicador, no la navegación: dicen "paso 2 de 4"; los botones de la pantalla se mueven entre ellos.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Entre tres y seis pasos, cada uno con una etiqueta corta.
+- Marca el actual con `aria-current="step"` y los hechos con `is-done`.
+- Pon Atrás y Siguiente al pie de la pantalla, no en los pasos.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Usar pasos para una tarea de una sola etapa.
+- Ocultar las etiquetas en una pantalla ancha: el número solo no dice dónde estás.
+- Hacer de los pasos un menú que salta adelante si los anteriores no son válidos.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una lista ordenada (`dd-steps`) cuyos elementos (`dd-step`) toman un número de un contador, una **etiqueta** (`dd-step-label`) y una **línea** que une cada uno con el siguiente. Un paso es `is-done` (marca y línea llena), `is-current` (con anillo del color primario) o ninguno (apagado).
+
+## Variantes y estados
+
+Horizontal para un asistente en una página o un diálogo; vertical (`dd-steps-vertical`) cuando las etiquetas son largas o el espacio es estrecho.
+
+<Example title="Pasos" src="steps/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Pasos × diálogo | El asistente de una importación: pasos arriba, las opciones en el cuerpo, Atrás y Siguiente al pie. |
+| Pasos × barra de progreso | Pasos para las etapas, una barra de progreso dentro de la actual si tarda. |
+| Vertical × panel lateral | Una lista de puesta en marcha junto a un formulario. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| El número sale de un contador, la marca del estado | El orden no se puede escribir mal en el marcado y un paso hecho siempre se ve hecho. |
+| La línea se llena al avanzar la tarea | El usuario ve cuánto falta de un vistazo, sin leer. |
+| El paso actual lleva un anillo, no solo un color | Sigue visible para quien no distingue colores. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-steps` | La lista |
+| `dd-step` | Un paso |
+| `dd-step-label` | Su etiqueta |
+| `is-done` | Un paso terminado |
+| `is-current` | El paso en el que está el usuario |
+| `dd-steps-vertical` | Pasos en columna |
+
+## Accesibilidad
+
+- Un `ol` con un `aria-label` que nombra la tarea.
+- `aria-current="step"` en el paso actual.
+- El estado también está en el texto para tecnologías de apoyo ("completado"), no solo en la marca.

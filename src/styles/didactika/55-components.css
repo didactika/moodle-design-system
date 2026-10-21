@@ -1,0 +1,60 @@
+/* ================================================================== Didactika components: empty states, steps, filter chips, page header */
+
+/* ------------------------------------------------------------------ empty state (dd-empty)
+ * What a list or a region shows when there is nothing in it: an icon tile, a title that says what is missing, one line that says what to do
+ * and the action that does it.
+ */
+.ds-v-scope .dd-empty { display: grid; justify-items: center; gap: .5rem; padding: 2.5rem 1.5rem; text-align: center; }
+.ds-v-scope .dd-empty .dd-tile { width: 3.5rem; height: 3.5rem; margin-bottom: .5rem; border-radius: 1rem; font-size: 1.5rem; }
+.ds-v-scope .dd-empty-title { margin: 0; font-size: 1.0625rem; font-weight: 700; color: var(--dd-ink); }
+.ds-v-scope .dd-empty-text { max-width: 28rem; margin: 0; color: var(--dd-muted); font-size: .9375rem; line-height: 1.5; }
+.ds-v-scope .dd-empty .btn { margin-top: .75rem; }
+.ds-v-scope .dd-empty-inline { grid-auto-flow: column; justify-content: center; align-items: center; gap: .75rem; padding: 1rem; text-align: left; }
+.ds-v-scope .dd-empty-inline .dd-tile { width: 2.25rem; height: 2.25rem; margin: 0; font-size: 1.0625rem; }
+.ds-v-scope .dd-empty-dashed { border: 1.5px dashed var(--dd-line); border-radius: var(--dd-radius-lg); }
+
+/* ------------------------------------------------------------------ steps (dd-steps)
+ * The stages of a task, in order: a numbered mark, a label and a line that fills as the task advances. Done steps hold a check, the current one
+ * is marked in the primary colour and the ones to come are quiet.
+ */
+.ds-v-scope .dd-steps { display: flex; gap: 0; margin: 0; padding: 0; list-style: none; counter-reset: dd-step; }
+.ds-v-scope .dd-step { position: relative; display: flex; flex: 1 1 auto; align-items: center; gap: .625rem; min-width: 0; counter-increment: dd-step; color: var(--dd-muted); font-size: .875rem; font-weight: 500; }
+.ds-v-scope .dd-step::before { content: counter(dd-step); display: grid; flex: none; place-items: center; width: 1.75rem; height: 1.75rem; border: 1.5px solid var(--dd-line); border-radius: 50%; background: var(--dd-surface); font-size: .8125rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ds-v-scope .dd-step:not(:last-child)::after { content: ""; flex: 1; min-width: 1rem; height: 2px; margin-right: .625rem; border-radius: 2px; background: var(--dd-hairline); }
+.ds-v-scope .dd-step-label { flex: none; white-space: nowrap; }
+.ds-v-scope .dd-step:last-child { flex: none; }
+.ds-v-scope .dd-step.is-done { color: var(--dd-ink); }
+.ds-v-scope .dd-step.is-done::before { content: "\2713"; border-color: var(--dd-primary); background: var(--dd-primary); color: #fff; }
+.ds-v-scope .dd-step.is-done:not(:last-child)::after { background: var(--dd-primary); }
+.ds-v-scope .dd-step.is-current { color: var(--dd-ink); font-weight: 700; }
+.ds-v-scope .dd-step.is-current::before { border-color: var(--dd-primary); background: var(--dd-primary-soft); color: var(--dd-primary-ink); box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .dd-steps-vertical { flex-direction: column; gap: 1rem; }
+.ds-v-scope .dd-steps-vertical .dd-step { flex: none; }
+.ds-v-scope .dd-steps-vertical .dd-step::after { display: none; }
+
+/* ------------------------------------------------------------------ filter chips (dd-chip)
+ * A small toggle that narrows a list: a label, an optional count and, once chosen, a tint of the primary colour. A group of them is a filter
+ * bar; a chip with a remove button is an applied filter.
+ */
+.ds-v-scope .dd-chips { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.ds-v-scope .dd-chip { display: inline-flex; align-items: center; gap: .4375rem; min-height: 2rem; padding: .1875rem .75rem; border: 1px solid var(--dd-line); border-radius: 999px; background: var(--dd-surface); color: var(--dd-ink); font-size: .875rem; font-weight: 500; line-height: 1.4; cursor: pointer; transition: background-color var(--dd-ease), border-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .dd-chip:hover, .ds-v-scope .dd-chip.ds-is-hover { border-color: var(--dd-line-hover); background: var(--dd-surface-2); }
+.ds-v-scope .dd-chip:focus-visible, .ds-v-scope .dd-chip.ds-is-focus { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .dd-chip[aria-pressed="true"], .ds-v-scope .dd-chip.active { border-color: var(--dd-primary); background: var(--dd-primary-soft); color: var(--dd-primary-ink); font-weight: 600; }
+.ds-v-scope .dd-chip-count { padding: 0 .4rem; border-radius: 999px; background: var(--dd-surface-3); color: var(--dd-muted); font-size: .75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ds-v-scope .dd-chip[aria-pressed="true"] .dd-chip-count { background: var(--dd-primary); color: #fff; }
+.ds-v-scope .dd-chip:disabled { opacity: .5; cursor: not-allowed; }
+.ds-v-scope .dd-chip-remove { display: inline-grid; place-items: center; width: 1.25rem; height: 1.25rem; margin: 0 -.375rem 0 -.125rem; padding: 0; border: 0; border-radius: 50%; background: none; color: inherit; font-size: .75rem; cursor: pointer; opacity: .7; }
+.ds-v-scope .dd-chip-remove:hover { background: color-mix(in srgb, currentColor 14%, transparent); opacity: 1; }
+.ds-v-scope .dd-chip-applied { border-color: var(--dd-primary); background: var(--dd-primary-soft); color: var(--dd-primary-ink); cursor: default; }
+
+/* ------------------------------------------------------------------ page header (dd-page-header)
+ * The top of a screen of a plugin: breadcrumb, the title with its context, and the actions of the page on the right.
+ */
+.ds-v-scope .dd-page-header { display: grid; gap: .75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--dd-hairline); }
+.ds-v-scope .dd-page-header .breadcrumb { margin: 0; }
+.ds-v-scope .dd-page-header-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: .75rem 1.5rem; }
+.ds-v-scope .dd-page-header-main { display: flex; align-items: center; gap: .875rem; min-width: 0; }
+.ds-v-scope .dd-page-title { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; color: var(--dd-ink); }
+.ds-v-scope .dd-page-subtitle { margin: .25rem 0 0; color: var(--dd-muted); font-size: .9375rem; }
+.ds-v-scope .dd-page-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }

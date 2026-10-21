@@ -1,0 +1,72 @@
+---
+title: Estados vacíos
+summary: "Lo que muestra una lista o una región cuando no hay nada: qué falta, qué hacer y la acción que lo hace."
+group: didactika
+order: 1
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Una lista vacía es un momento para ayudar, no un hueco en blanco. Un estado vacío nombra lo que falta, dice qué hacer en una línea y ofrece la acción. Es la misma pieza en todos los plugins, así que quien ha visto uno sabe qué esperar del siguiente.
+
+## Cuándo usarlo
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Una pastilla con icono, un título y una línea de texto; el título dice qué falta.
+- La acción principal de la región como botón primario, solo si el usuario puede hacerla.
+- Otro texto cuando la lista está vacía por una búsqueda o un filtro: decirlo y ofrecer quitarlo.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Dejar una tabla solo con su cabecera y sin mensaje.
+- Culpar al usuario ("Aún no has hecho nada").
+- Poner más de una acción primaria.
+
+</Rule>
+</div>
+
+## Anatomía
+
+Una **pastilla** con el icono (`dd-tile`), un **título** (`dd-empty-title`), una **línea de texto** (`dd-empty-text`) y un **botón** opcional, centrados en la región (`dd-empty`). La variante discontinua (`dd-empty-dashed`) dibuja la región como un sitio que espera llenarse; la variante en línea (`dd-empty-inline`) es para un área pequeña, como una tarjeta o un panel lateral.
+
+## Variantes y estados
+
+El primero invita a crear, el segundo responde a una búsqueda que no encontró nada, el tercero informa de que no queda nada por hacer, que es una buena noticia y se dibuja como tal.
+
+<Example title="Estados vacíos" src="empty-states/basic" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Discontinuo × botón primario | La primera vez: no existe nada y el usuario puede crearlo. |
+| Normal × botón secundario | Una búsqueda o un filtro sin resultados: la acción deshace el filtrado. |
+| En línea × pastilla de éxito | Una cola vacía porque el trabajo está hecho. |
+
+## Qué añade Didactika y por qué
+
+| Qué aporta | Por qué ayuda |
+|---|---|
+| Una pastilla con el color de la situación | Info para una búsqueda, éxito para "hecho", primario para "empieza aquí": el color dice si es un error o no antes de leer el texto. |
+| Una acción, como botón | Quita la pregunta "¿y ahora qué?" que deja una lista en blanco. |
+| Un borde discontinuo la primera vez | Se lee como un sitio por llenar, no como algo roto. |
+
+## Clases
+
+| Clase | Qué hace |
+|---|---|
+| `dd-empty` | El bloque, centrado |
+| `dd-empty-title` | El título |
+| `dd-empty-text` | La línea de texto |
+| `dd-empty-dashed` | Un borde discontinuo |
+| `dd-empty-inline` | Compacto, en fila |
+
+## Accesibilidad
+
+- El título es un encabezado del nivel que corresponde a la página; no saltes niveles.
+- El icono es decoración: se oculta a las tecnologías de apoyo.
+- Cuando la lista queda vacía tras una acción, anúnciala con una región viva educada.
