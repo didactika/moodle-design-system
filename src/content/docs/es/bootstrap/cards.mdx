@@ -40,9 +40,58 @@ Una caja (`card`) con **imagen** opcional (`card-img-top`), **encabezado**, **cu
 
 <Example title="Tarjetas" src="cards/basic" />
 
+### Con iconos
+
+Una baldosa de icono (`dd-tile`) arriba da identidad a una tarjeta. Úsala para funciones, secciones y puntos de entrada.
+
+<Example title="Con iconos" src="cards/icons" />
+
+### Cifras
+
+Una cifra, su etiqueta y su tendencia, junto a una baldosa. Para paneles y resúmenes.
+
+<Example title="Cifras" src="cards/stats" />
+
+### Tarjetas que son enlaces
+
+Una tarjeta que lleva a algún sitio (`card-hover`) se eleva un poco bajo el puntero y dibuja el anillo de foco alrededor de toda la tarjeta.
+
+<Example title="Tarjetas de acción" src="cards/actions" />
+
+### Mezclando las partes
+
+Badges, una barra de progreso, iconos y un pie con acciones en la misma tarjeta: una tarjeta de curso y una tarjeta con una lista.
+
+<Example title="Tarjetas de curso" src="cards/course" />
+
+### Estructura con una lista
+
 <Example title="Estructura con una lista" src="cards/structure" />
 
+### Horizontal
+
 <Example title="Horizontal" src="cards/horizontal" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Imagen × cuerpo × acción | La tarjeta clásica: imagen arriba, título, dos líneas de texto y una acción principal. |
+| Baldosa de icono × título × texto | Una función o un punto de entrada; no hace falta imagen. |
+| Cifra × tendencia | Un número, lo que cuenta y cómo se mueve; la tendencia en color de éxito o peligro. |
+| Tarjeta + badges + progreso | Un curso o una tarea: el estado como badges suaves, el progreso como una barra, las acciones en el pie. |
+| Tarjeta × enlace | Toda la tarjeta es un enlace (`card-hover`), sin otros enlaces dentro. |
+| Tarjeta + lista | Una tarjeta con un grupo de lista sin bordes para un resumen o una lista corta. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Un borde finísimo y una sombra muy suave | La tarjeta se separa de la página sin el contorno pesado que hace que una página de tarjetas parezca un formulario. |
+| Un radio mayor y más relleno | Se lee como una superficie sobre la que poner cosas; el contenido nunca toca el borde. |
+| El encabezado y el pie no tienen relleno | Son metadatos, así que no compiten con el título del cuerpo. |
+| Las tarjetas que son enlaces se elevan y muestran un anillo alrededor de toda la tarjeta | El usuario sabe que toda la tarjeta es el objetivo y ve dónde está el teclado. |
+| Los iconos van en una baldosa | La misma pieza se usa en alertas, avisos, diálogos y tarjetas, así que un icono significa siempre el mismo tipo de cosa. |
 
 ## Clases
 
@@ -54,6 +103,10 @@ Una caja (`card`) con **imagen** opcional (`card-img-top`), **encabezado**, **cu
 | `card-img-top` | Imagen arriba |
 | `card-link` | Enlaces en fila |
 | `row g-0`, `col-md-*` | Disposición horizontal |
+| `card-hover` | Una tarjeta que es un enlace: se eleva al pasar el ratón y muestra el anillo de foco (Didactika) |
+| `card-flat` | Una tarjeta sin sombra (Didactika) |
+| `dd-tile`, `dd-tile-lg`, `dd-tile-round` | La baldosa de icono, en otros tamaños y formas (Didactika) |
+| `dd-stat`, `dd-stat-value`, `dd-stat-label`, `dd-stat-trend` | Una cifra con su etiqueta y tendencia (Didactika) |
 
 ## En esta versión
 

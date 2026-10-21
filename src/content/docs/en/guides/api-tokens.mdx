@@ -1,0 +1,44 @@
+---
+title: "API: tokens and Moodle versions"
+summary: The CSS variables of every Moodle version, light and dark, and the stylesheet they come from.
+group: guides
+order: 3
+---
+
+A token is a CSS variable the theme of a Moodle version defines: `--bs-primary`, `--bs-body-bg`, the `--mds-*` of Moodle 5.3. Reading them from here keeps a plugin's documentation, a Figma kit or a build script in step with the real stylesheet.
+
+## What is published
+
+| Address | What it holds |
+|---|---|
+| `/api/index.json` → `versions[]` | Each version with its Bootstrap generation, icon family, support and the links to its `tokens` and `stylesheet` |
+| `/api/tokens/<version>.json` | `tokens.light` and `tokens.dark`, each a map of variable name to value |
+| `/moodle/<version>/boost.css` | The stylesheet of that version, scoped under `.ds-<version>` so several can live in one page |
+
+Dark exists from Moodle 5.x; the 4.x files have an empty `dark`.
+
+## Read a token
+
+```js
+const root = 'https://didactika.github.io/moodle-design-system';
+const v53 = await (await fetch(root + '/api/tokens/v53.json')).json();
+
+console.log(v53.version.label);           // "Moodle 5.3 LTS"
+console.log(v53.tokens.light['--bs-primary']);
+console.log(v53.tokens.dark['--bs-body-bg']);
+```
+
+## Generate SCSS for a tool
+
+```js
+const entries = Object.entries(v53.tokens.light).filter(([name]) => name.startsWith('--bs-'));
+const scss = entries.map(([name, value]) => `$${name.slice(2)}: ${value};`).join('\n');
+```
+
+## The colours of the Didactika theme are not tokens of Moodle
+
+The palette of the Didactika theme (`/api/brand.json`) is applied on top of Moodle's variables. A plugin never hard-codes a hex value from it: it uses the Bootstrap variable (`var(--bs-primary)`) and the palette arrives with the theme. See the page "Didactika theme".
+
+## Check a version before you rely on it
+
+The `support` field of each version says whether it is current, LTS or legacy, in both languages. Read it when a guide tells people which versions to test.

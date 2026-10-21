@@ -3,7 +3,7 @@ title: Badges
 summary: "A small label that counts something or names a status, next to the thing it describes."
 group: bootstrap
 section: feedback
-order: 15
+order: 16
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -38,9 +38,42 @@ A `badge` with a **background colour** and text that contrasts with it. Inside a
 
 ## Variants and states
 
+### Filled
+
 <Example title="Colours and pills" src="badges/basic" />
 
+### Soft, outline and with a dot
+
+Didactika adds the variants most statuses need. Soft (`badge-soft`) is the tint of the colour and is the one to use in lists; outline (`badge-outline`) is the quietest; a dot (`badge-dot`) turns a badge into a status.
+
+<Example title="Soft, outline and dot" src="badges/soft" />
+
+### Sizes
+
+<Example title="Sizes" src="badges/sizes" />
+
+### In context
+
 <Example title="In context" src="badges/context" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Soft × list | Statuses in a table or a list: soft with a dot and a pill shape ("Active", "Pending review"). |
+| Filled × count | Counters on buttons and icons: filled, in a pill, in danger when it asks for attention. |
+| Outline × secondary | A tag that describes without alerting (a category, a version). |
+| Badge + icon | An icon before the text for a status that has one (Completed with a check). Not both an icon and a dot. |
+| Badge × corner | A counter on the corner of an icon button or an avatar (`badge-float` inside `position-relative`). |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| Soft is the default for statuses | A page full of filled badges shouts; tints let the eye read the rows and still see which one is "Pending". |
+| The text colour is derived from the role | A soft badge keeps 4.5:1 whatever the colour of the theme, which a fixed pastel cannot. |
+| The dot repeats the colour in a shape | The status is not only a colour: the dot plus the word says it twice. |
+| Corner counters have a ring of the page colour | The count stays readable over any icon. |
 
 ## Classes
 
@@ -49,6 +82,10 @@ A `badge` with a **background colour** and text that contrasts with it. Inside a
 | `badge` | Base |
 | <Only of="v53" inline>`text-bg-primary`, `text-bg-success`…</Only><Only of="v45,v41" inline>`badge-primary`, `badge-success`…</Only> | Colour and text colour together |
 | `rounded-pill` | Fully rounded |
+| `badge-soft`, `badge-outline` | Tinted and outlined badge, with the role colour (Didactika) |
+| `badge-dot` | A status dot before the text (Didactika) |
+| `badge-sm`, `badge-lg` | Smaller and larger badge (Didactika) |
+| `badge-float` | A counter on the corner of its parent (Didactika) |
 
 ## In this version
 

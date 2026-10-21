@@ -1,0 +1,39 @@
+---
+title: Didactika theme
+summary: The design system is what every plugin applies; the Didactika theme is what a Didactika site adds on top, and it is versioned on its own.
+group: foundations
+order: 5
+---
+
+This site documents two things, and keeps them apart on purpose.
+
+- **The design system** is what the plugins of Didactika apply: components, shapes, sizes, states, layout and the way each Moodle version is drawn. A plugin uses only this, so it looks right on any Moodle site, whatever its theme.
+- **The Didactika theme** is what a site of Didactika adds on top: the palette, the typography, the gradient, the elevation and a few touches in the documentation. A plugin never sets any of it.
+
+The switch **Didactika theme** in the header draws every example with the theme on top of the design system. Off, you see the design system alone, as a plugin receives it on a stock site.
+
+## Versions of the theme
+
+The selector next to the switch chooses which version of the theme is drawn. The current one is **v0.1**. A new version of the theme changes what the theme adds and never the design system, so a plugin does not need to change when the theme does.
+
+Link to a page with the theme on: `?brand=1&theme=0.1`.
+
+## What v0.1 changes
+
+| Area | Design system (plugins) | Didactika theme v0.1 |
+|---|---|---|
+| Colour | The colours of the Moodle site, with the tones derived from them | The Didactika palette on the Bootstrap roles: primary `#0f766e`, secondary `#4f46e5`, success `#15803d`, info `#0369a1`, warning `#b45309`, danger `#b91c1c`; each reaches 4.5:1 with white text |
+| Typography | The font of the Moodle theme | IBM Plex Sans for text and Space Grotesk for headings, card and dialog titles and brand names |
+| Gradient | None: solid colours | A diagonal gradient from the primary colour on primary buttons, on the fill of progress bars, on a primary navbar and, soft, on the hover of a card |
+| Elevation | Neutral shadows | Shadows tinted with the primary colour, and larger radius on cards and dialogs |
+| Documentation | The pages as they are | A note at the top of every page that says the theme is on, and the sections that only apply to the theme |
+
+## What stays the same
+
+The theme changes values, not structure: sizes, spacing, states, focus ring, icons and behaviour are those of the design system. That is what lets a plugin look the same with or without the theme, and what keeps a theme from breaking a screen.
+
+## Rules for plugins
+
+- Use the Bootstrap variables and the classes of the components (`var(--bs-primary)`, `btn-primary`), never a hex value of the palette. The theme reaches the plugin through those variables.
+- Do not set a font family, a gradient or a custom shadow in a plugin. If a screen needs one, it belongs in the theme.
+- Test a screen with the theme off and with it on: both must look right.

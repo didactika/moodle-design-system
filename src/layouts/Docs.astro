@@ -29,6 +29,12 @@ const order = ['start', 'foundations', 'bootstrap', 'moodle', 'didactika', 'patt
 const groups = order
     .map((g) => ({key: g, label: t.groups[g], pages: all.filter((p) => p.group === g).sort((a, b) => a.order - b.order)}))
     .filter((g) => g.pages.length);
+/** Pages of a group in runs that share a section, so each run can fold on its own. */
+const runs = (pages: typeof all) => pages.reduce<{section?: string; pages: typeof all}[]>((acc, p) => {
+    const last = acc[acc.length - 1];
+    if (last && last.section === p.section) { last.pages.push(p); } else { acc.push({section: p.section, pages: [p]}); }
+    return acc;
+}, []);
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
@@ -38,26 +44,53 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
             <div class="ds-nav-in">
                 <a class="ds-nav-home" href={href(lang, '')}>{t.home}</a>
                 {groups.map((g) => (
-                    <div data-group>
-                        <h2>{g.label}</h2>
-                        {g.pages.map((p, i) => (
-                            <>
-                            {p.section && p.section !== g.pages[i - 1]?.section && <h3>{t.sections[p.section]}</h3>}
-                            <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined}>
-                                {p.title}{p.versions && <Versions of={p.versions.join(',')} />}
-                            </a>
-                            </>
-                        ))}
-                    </div>
+                    <details class="ds-navg" data-nav-key={g.key} open={g.pages.some((p) => p.slug === slug) || g.key === 'start' || undefined}>
+                        <summary><h2>{g.label}</h2></summary>
+                        {runs(g.pages).map((run) => {
+                            const links = run.pages.map((p) => (
+                                <a href={href(lang, p.slug)} aria-current={p.slug === slug ? 'page' : undefined}>
+                                    {p.title}{p.versions && <Versions of={p.versions.join(',')} />}
+                                </a>
+                            ));
+                            return run.section ? (
+                                <details class="ds-navs" data-nav-key={`${g.key}/${run.section}`} open={run.pages.some((p) => p.slug === slug) || undefined}>
+                                    <summary><h3>{t.sections[run.section]}</h3></summary>
+                                    {links}
+                                </details>
+                            ) : links;
+                        })}
+                    </details>
                 ))}
             </div>
         </nav>
+
+        <script is:inline>
+            // Restores what the reader had open in the navigation and where it was scrolled, before the page is painted.
+            (function () {
+                var nav = document.getElementById('ds-nav');
+                if (!nav) { return; }
+                var saved = null;
+                try { saved = JSON.parse(localStorage.getItem('ds-nav') || 'null'); } catch (e) { saved = null; }
+                if (saved && saved.open) {
+                    nav.querySelectorAll('details[data-nav-key]').forEach(function (d) {
+                        var current = d.querySelector('[aria-current="page"]');
+                        if (!current && saved.open[d.dataset.navKey] !== undefined) { d.open = saved.open[d.dataset.navKey]; }
+                    });
+                }
+                var scroller = nav.querySelector('.ds-nav-in');
+                if (scroller && saved && typeof saved.top === 'number') { scroller.scrollTop = saved.top; }
+            })();
+        </script>
 
         <main class="ds-main" id="content">
             <article class="ds-article" data-doc>
                 {group && <div class="ds-eyebrow">{t.groups[group as keyof typeof t.groups]}</div>}
                 <h1>{title}{appliesTo && appliesTo.length > 0 && <Versions of={appliesTo.join(',')} />}</h1>
                 <p class="ds-summary">{summary}</p>
+                <aside class="ds-theme-note" data-theme-only role="note">
+                    <b>{t.themeBanner.split('{v}')[0]}<span data-theme-banner-version>v0.1</span>{t.themeBanner.split('{v}')[1]}</b>
+                    <span>{t.themeBannerOff}</span>
+                </aside>
                 <slot />
             </article>
         </main>

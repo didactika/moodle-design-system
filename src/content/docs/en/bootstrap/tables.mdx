@@ -41,7 +41,46 @@ A `table` with a **caption**, a **header** (`thead`, `th scope="col"`) and a **b
 
 <Example title="A data table" src="tables/basic" />
 
-<Example title="Variants" src="tables/variants" />
+### Toolbar, selection, actions and pager
+
+How Didactika builds a table that people work with: a toolbar over it (search, filters and the main action), a bar that appears when rows are selected, a checkbox column, sortable headers, the actions of a row at the end and always visible, and the pager of a list under it. All of it lives in one card.
+
+<Example title="Toolbar, selection and actions" src="tables/selectable" />
+
+### Compact, with people and progress
+
+<Example title="Compact" src="tables/compact" />
+
+### Sortable headers
+
+A sortable header is a button inside the `th`. Only one column is sorted at a time, and the `aria-sort` of its `th` (`ascending`, `descending` or `none`) says which: the icon of the sorted column is in the primary colour and fully opaque, the others are dimmed until the pointer or the keyboard reaches them. The second table shows each state next to the others.
+
+<Example title="Sortable headers and their states" src="tables/sortable" />
+
+### Row styles
+
+<Example title="Row styles" src="tables/states" />
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Table × toolbar | Search and filters on the left, the main action on the right; the toolbar sits inside the same card as the table. |
+| Table × selection | A checkbox column; when rows are selected a bar shows how many and the actions that apply to them. |
+| Table × row actions | Icon buttons at the end of the row (edit, hide, delete), always visible, never hidden until hover. |
+| Table × pager | The pager of a list in the foot: rows per page, range and arrows. |
+| Table × status | A soft badge with a dot for the state of each row. |
+| Compact × people | Small padding, an avatar with a name, a role in a badge and a thin progress bar. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| Full width, a small capital header and quiet lines | The header is a label, not a title; the eye goes to the data. |
+| The actions of a row are always visible | Hiding them until hover makes them invisible on touch screens and for keyboard users, and moves the layout. |
+| The selected row is tinted | It is clear what an action will apply to before it is pressed. |
+| The toolbar, the table and the pager are one card | They are one object; the user sees one thing to work with. |
+| Sortable headers are buttons with an icon | They announce the order and are reachable by keyboard. |
 
 ## Classes
 
@@ -53,6 +92,12 @@ A `table` with a **caption**, a **header** (`thead`, `th scope="col"`) and a **b
 | `table-active`, `table-success`… | Colour of a row or cell |
 | `table-responsive` | Scrolls inside its box on small screens |
 | `align-middle` | Vertical alignment |
+| `table-toolbar`, `table-toolbar-start`, `table-toolbar-end` | The bar over a table (Didactika) |
+| `table-toolbar-selection` | The bar that appears when rows are selected (Didactika) |
+| `table-select` | The narrow column of the checkbox (Didactika) |
+| `table-actions` | The cell with the actions of a row (Didactika) |
+| `table-sort` | A sortable header (Didactika) |
+| `table-foot` | The foot of a table, for the pager (Didactika) |
 
 ## In this version
 

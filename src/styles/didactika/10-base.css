@@ -1,0 +1,59 @@
+/* ================================================================== base: type, links, focus and the close button */
+
+/* ------------------------------------------------------------------ type */
+.ds-v-scope h1, .ds-v-scope h2, .ds-v-scope h3, .ds-v-scope h4, .ds-v-scope h5, .ds-v-scope h6,
+.ds-v-scope .h1, .ds-v-scope .h2, .ds-v-scope .h3, .ds-v-scope .h4, .ds-v-scope .h5, .ds-v-scope .h6 { margin-top: 0; margin-bottom: .5rem; padding: 0; color: var(--dd-ink); font-weight: 700; line-height: 1.25; letter-spacing: -.011em; }
+.ds-v-scope h1, .ds-v-scope .h1 { font-size: 2rem; }
+.ds-v-scope h2, .ds-v-scope .h2 { font-size: 1.625rem; }
+.ds-v-scope h3, .ds-v-scope .h3 { font-size: 1.375rem; }
+.ds-v-scope h4, .ds-v-scope .h4 { font-size: 1.1875rem; }
+.ds-v-scope h5, .ds-v-scope .h5 { font-size: 1.0625rem; }
+.ds-v-scope h6, .ds-v-scope .h6 { font-size: .9375rem; }
+.ds-v-scope p { margin-bottom: 1rem; }
+.ds-v-scope .lead { font-size: 1.1875rem; font-weight: 400; line-height: 1.55; color: var(--dd-muted); }
+.ds-v-scope small, .ds-v-scope .small { font-size: .8125rem; }
+.ds-v-scope .text-muted, .ds-v-scope .text-body-secondary { color: var(--dd-muted) !important; }
+.ds-v-scope hr { border-color: var(--dd-hairline); opacity: 1; }
+
+/* ------------------------------------------------------------------ links */
+.ds-v-scope a:where(:not(.btn, .nav-link, .dropdown-item, .page-link, .list-group-item, .navbar-brand, .carousel-control-prev, .carousel-control-next, .alert-link, .close, .mds-nav-pill, [class*="mds-"])) {
+  color: var(--dd-primary-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  transition: color var(--dd-ease), text-decoration-color var(--dd-ease);
+}
+.ds-v-scope a:where(:not(.btn, .nav-link, .dropdown-item, .page-link, .list-group-item, .navbar-brand, .carousel-control-prev, .carousel-control-next, .alert-link, .close, .mds-nav-pill, [class*="mds-"])):hover,
+.ds-v-scope a:where(:not(.btn, .nav-link, .dropdown-item, .page-link, .list-group-item, .navbar-brand, .carousel-control-prev, .carousel-control-next, .alert-link, .close, .mds-nav-pill, [class*="mds-"])).ds-is-hover { color: var(--dd-primary); text-decoration-thickness: 2px; }
+
+.ds-v-scope a:where(:not(.btn, .nav-link, .dropdown-item, .page-link, .list-group-item, .navbar-brand, .carousel-control-prev, .carousel-control-next, .alert-link, .close, .mds-nav-pill, [class*="mds-"])):focus { background-color: transparent; box-shadow: none; }
+
+/*
+ * One ring for everything that takes focus. Moodle draws its own for links (a tinted box with an underline) and Bootstrap another for controls;
+ * both are cleared here so only this one is seen, and only for the keyboard (:focus-visible) or when a page forces the state.
+ */
+.ds-v-scope :where(a, button, summary, [tabindex], input, select, textarea):focus { box-shadow: none; }
+.ds-v-scope a:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; outline: 0; }
+.ds-v-scope a:focus-visible, .ds-v-scope [role="button"]:focus-visible, .ds-v-scope summary:focus-visible { outline: 3px solid var(--dd-ring); outline-offset: 2px; box-shadow: none; border-radius: .375rem; }
+
+/* ------------------------------------------------------------------ close button */
+.ds-v-scope .btn-close, .ds-v-scope .close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background-color: transparent;
+  background-position: center;
+  background-size: .8125rem;
+  opacity: .6;
+  font-size: 1.5rem;
+  line-height: 1;
+  text-shadow: none;
+  transition: background-color var(--dd-ease), opacity var(--dd-ease), box-shadow var(--dd-ease);
+}
+.ds-v-scope .btn-close:hover, .ds-v-scope .btn-close.ds-is-hover, .ds-v-scope .close:hover, .ds-v-scope .close.ds-is-hover { background-color: var(--dd-surface-2); opacity: 1; }
+.ds-v-scope .btn-close:focus, .ds-v-scope .btn-close:focus-visible, .ds-v-scope .btn-close.ds-is-focus, .ds-v-scope .close:focus, .ds-v-scope .close.ds-is-focus { outline: 0; opacity: 1; box-shadow: 0 0 0 3px var(--dd-ring); }

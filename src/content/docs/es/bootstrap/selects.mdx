@@ -41,18 +41,36 @@ Un selector tiene una **etiqueta**, el **control** con la opción elegida y una 
 
 ## Variantes y estados
 
-<Matrix
-  title="Selector"
-  variants={['select']}
-  states={[['Reposo', ''], ['Hover', 'ds-is-hover'], ['Foco', 'ds-is-focus'], ['Desactivado', 'disabled']]}
-  template='<select class="form-select {s}" aria-label="Selector"{disabled}><option>Profesor</option><option>Estudiante</option></select>'
-/>
-
 <Example title="Simple, pequeño y múltiple" src="selects/basic" />
+
+### La lista que se abre
+
+El navegador dibuja por su cuenta la lista de un selector y una página no puede darle estilo. En este sistema un selector abre en su lugar un menú del sistema de diseño: el mismo que tiene un desplegable, con los grupos como encabezados, las opciones desactivadas atenuadas y la elegida marcada. El selector conserva su valor y sus eventos, así que el marcado de un plugin no cambia. Pruébalo también con el teclado (flechas, Inicio, Fin, una letra, Intro, Escape).
+
+<Example title="El menú de un selector" src="selects/menu" />
 
 ### Tamaños
 
 <Example title="Pequeño, normal y grande" src="selects/sizes" measure="Height,Padding,Font size,Line height,Radius,Border" />
+
+Usa el tamaño normal. El pequeño es para sitios densos (una barra de filtros sobre una tabla, las filas por página de un paginador); el grande, solo para un campo principal único de una página.
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Selector × pocas opciones | De 4 a unas 15 opciones que el usuario ya conoce. Menos de 4: radios. Más de 15, o con búsqueda: el autocompletado de Moodle. |
+| Selector + optgroup | Agrupa las opciones con `optgroup`; el menú muestra cada grupo como un encabezado. |
+| Selector + grupo de entrada | Un selector pegado a un botón («Ocultar | Aplicar»): el grupo los une en un solo control. |
+| Ancho | Moodle ajusta un selector a su contenido. Añade `w-100` donde deba llenar la fila. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| La lista que se abre es un menú del sistema de diseño | La lista nativa no se puede estilar, así que cada navegador mostraba una lista distinta y simple que no encajaba con el resto de la página. Un menú se ve igual en todas partes y muestra la opción elegida. |
+| La flecha tiene su propio espacio a la derecha | Las opciones largas nunca pasan por debajo de la flecha, en ningún tamaño. |
+| Misma altura, borde y foco que un campo de texto | Un selector junto a un campo parece su hermano, no otro componente. |
 
 ## Clases
 
@@ -61,6 +79,7 @@ Un selector tiene una **etiqueta**, el **control** con la opción elegida y una 
 | <Only of="v53" inline>`form-select`</Only><Only of="v45,v41" inline>`custom-select`</Only> | El selector |
 | <Only of="v53" inline>`form-select-sm`, `form-select-lg`</Only><Only of="v45,v41" inline>`custom-select-sm`, `custom-select-lg`</Only> | Más pequeño y más grande |
 | `form-label` | Etiqueta sobre el selector |
+| `dd-select-menu` | El menú que abre un selector (Didactika). Lo construye el sitio; los plugins no lo escriben |
 
 ## En esta versión
 

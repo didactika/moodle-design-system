@@ -67,13 +67,15 @@ const build = async(version: VersionConfig): Promise<string> => {
     // The fonts the stylesheet asks for. A face whose file is not available here is dropped, so nothing points at a missing URL.
     const available = new Map<string, string>();
     const font = async(name: string, url: string, fromFile?: string): Promise<void> => {
-        const target = join(out, 'fonts', basename(name));
+        // Kept in the subfolder the stylesheet asks for (fonts/noto-sans/...), or the face points at a file that is not there.
+        const target = join(out, 'fonts', name);
+        mkdirSync(dirname(target), {recursive: true});
         if (fromFile) {
             copyFileSync(fromFile, target);
         } else {
             writeFileSync(target, await cached(url, join(root, 'vendor/moodle', version.id, 'fonts', basename(name))));
         }
-        available.set(name, basename(name));
+        available.set(name, name);
     };
     if (version.icons === 'fa4') {
         await font('fontawesome-webfont.woff2', `${RAW}/${version.branch}/lib/fonts/fontawesome-webfont.woff2`);

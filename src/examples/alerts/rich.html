@@ -1,14 +1,19 @@
 <div style="display:grid;gap:1rem">
-  <div class="alert alert-success mb-0" role="alert" style="display:flex;gap:.875rem;align-items:flex-start">
-    <i data-pix="i/checkedcircle" style="margin-top:.2rem"></i>
+  <div class="alert alert-success mb-0" role="status" style="display:flex;gap:1rem;align-items:flex-start">
+    <span class="dd-tile dd-tile-round"><i data-pix="i/checkedcircle"></i></span>
     <div><h5 class="alert-heading">Backup finished</h5><p class="mb-0">The course was saved. You can download the file for 7 days.</p></div>
   </div>
-  <div class="alert alert-warning mb-0" role="alert" style="display:flex;gap:.875rem;align-items:flex-start">
-    <i data-pix="i/warning" style="margin-top:.2rem"></i>
+  <div class="alert alert-warning mb-0" role="alert" style="display:flex;gap:1rem;align-items:flex-start">
+    <span class="dd-tile dd-tile-round"><i data-pix="i/warning"></i></span>
     <div><h5 class="alert-heading">Heads up</h5><p>Changing the enrolment key affects everyone who has not enrolled yet.</p><div style="display:flex;flex-wrap:wrap;align-items:center;gap:.75rem"><button type="button" class="btn btn-sm btn-warning">Change it</button><button type="button" class="btn btn-sm btn-link">Not now</button></div></div>
   </div>
-  <div class="alert alert-danger mb-0" role="alert" style="display:flex;gap:.875rem;align-items:flex-start">
-    <i data-pix="i/risk_xss" style="margin-top:.2rem"></i>
+  <div class="alert alert-danger mb-0" role="alert" style="display:flex;gap:1rem;align-items:flex-start">
+    <span class="dd-tile dd-tile-round"><i data-pix="i/risk_xss"></i></span>
     <div><h5 class="alert-heading">We could not send the message</h5><p class="mb-0">Check the address and try again. Nothing was saved.</p></div>
+  </div>
+  <div class="alert alert-info mb-0" role="status" style="display:flex;gap:1rem;align-items:center">
+    <span class="dd-tile dd-tile-round"><i data-pix="i/info"></i></span>
+    <div style="flex:1">New participants get an email when they are enrolled.</div>
+    <a href="#" class="btn btn-sm btn-outline-info">Settings</a>
   </div>
 </div>

@@ -20,7 +20,7 @@ Un grupo de lista presenta una serie de elementos relacionados uno bajo otro: un
 
 - Usar `list-group-item-action` cuando los elementos son enlaces o botones.
 - Marcar el elemento actual como activo.
-- Poner una insignia a la derecha para un recuento o un estado.
+- Poner un badge a la derecha para un recuento o un estado.
 
 </Rule>
 <Rule kind="dont" title="No">
@@ -40,9 +40,26 @@ Un contenedor (`list-group`) de **elementos** (`list-group-item`), cada uno simp
 
 <Example title="Elementos y acciones" src="list-group/basic" />
 
-<Example title="Con iconos e insignias" src="list-group/rich" />
+<Example title="Con iconos y badges" src="list-group/rich" />
 
 <Example title="Sin bordes y contextual" src="list-group/flush" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Lista de acciones × navegación | Elementos que son enlaces o botones, uno activo; para un menú lateral o una lista de resultados. |
+| Lista + badge | Un estado o un recuento a la derecha de cada elemento. |
+| Lista sin bordes × tarjeta | Dentro de una tarjeta, sin borde ni radio propios. |
+| Contextual × estado | Color solo cuando el color es el estado, y con un texto que también lo diga. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Los elementos tienen más relleno y una línea fina entre ellos | Las filas son fáciles de recorrer y de pulsar, y la lista no parece una pila de cajas. |
+| El elemento activo va relleno, el hover es un tinte y el foco se dibuja dentro | Los tres estados son cosas distintas, así que nunca se confunden. |
+| Las esquinas exteriores son redondeadas y las interiores rectas | La lista se lee como una sola superficie. |
 
 ## Clases
 

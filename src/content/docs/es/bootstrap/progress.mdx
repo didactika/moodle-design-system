@@ -3,7 +3,7 @@ title: Progreso
 summary: "Una barra que muestra hasta dónde ha llegado algo: un curso, una subida, un cuestionario."
 group: bootstrap
 section: feedback
-order: 16
+order: 17
 ---
 
 import Example from '../../../../components/Example.astro';
@@ -40,7 +40,46 @@ Un **riel** (`progress`) y una o más **barras** (`progress-bar`) cuyo ancho es 
 
 <Example title="Progreso" src="progress/basic" />
 
+### Varias partes en una barra
+
+Las partes de un mismo total comparten un riel y se unen sin hueco, así que se leen como una sola barra. Una leyenda con puntos nombra cada color.
+
+<Example title="Apilada y conectada" src="progress/stacked" />
+
+### Con etiqueta
+
+Un título y un valor encima, o el valor al lado. El texto lleva el número para que no tenga que llevarlo el color.
+
+<Example title="Con etiqueta" src="progress/labelled" />
+
+### Pasos
+
+Para un flujo en pasos o una lista de lecciones, una barra pequeña por paso.
+
+<Example title="Pasos" src="progress/steps" />
+
+### Alturas
+
 <Example title="Alturas" src="progress/sizes" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Barra simple × valor | Una barra, el número al lado o encima («64 %», «4 de 6 actividades»). |
+| Apilada × total | Partes de un total en una barra, unidas, con una leyenda de puntos. |
+| Pasos × flujo | Una barra pequeña por paso, las terminadas rellenas; con «Paso 3 de 5» encima. |
+| Color × significado | Primario para progreso, éxito para lo completado, aviso y peligro cuando un límite está cerca (almacenamiento). |
+| Rayas × espera | Con rayas y animada solo mientras algo trabaja de verdad. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Las barras de un total se unen sin hueco | Los huecos parecen cantidades separadas; una barra unida muestra un total repartido en partes. |
+| Los extremos del riel son redondos, las uniones rectas | La barra se lee como un objeto y las partes se distinguen por el color, no por la forma. |
+| El número siempre está escrito | El progreso no debe depender de adivinar un ancho: quien tiene poca visión o daltonismo lee el número. |
+| Los pasos son barras pequeñas separadas | Quien cuenta pasos cuenta bloques; una barra larga esconde cuántos quedan. |
 
 ## Clases
 
@@ -50,6 +89,9 @@ Un **riel** (`progress`) y una o más **barras** (`progress-bar`) cuyo ancho es 
 | `progress-bar` | La parte rellena; ancho en `style` |
 | `progress-bar-striped`, `progress-bar-animated` | Rayas y movimiento |
 | `bg-success`… | Color de una barra |
+| `dd-progress`, `dd-progress-head`, `dd-progress-value` | Una barra de progreso con su título y valor (Didactika) |
+| `dd-progress-inline` | El valor al lado de la barra (Didactika) |
+| `dd-progress-steps` | Una barra pequeña por paso (Didactika) |
 
 ## En esta versión
 

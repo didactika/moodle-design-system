@@ -1,8 +1,9 @@
 ---
 import {getCollection} from 'astro:content';
+import themeData from '../data/theme.json';
 import versions from '../data/versions.json';
 import icons from '../data/icons.json';
-import didactikaCss from '../styles/didactika.css?raw';
+const layerFiles = import.meta.glob('../styles/didactika/*.css', {query: '?raw', import: 'default', eager: true}) as Record<string, string>;
 import {ui, type Lang} from '../i18n/ui';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -23,6 +24,8 @@ const {lang, title, summary, slug, menu = true} = Astro.props;
 const t = ui[lang];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const site = new URL(base + '/', Astro.site ?? 'https://didactika.github.io').href.replace(/\/$/, '');
+/** The Didactika layer: its files joined in the order of their names (tokens, base, forms, navigation, feedback, content). */
+const didactikaCss = Object.entries(layerFiles).sort(([a], [b]) => a.localeCompare(b)).map(([, css]) => css).join('\n');
 const order = ['start', 'foundations', 'bootstrap', 'moodle', 'didactika', 'patterns', 'guides'] as const;
 /** What the page search finds: every page of the language, in the order of the navigation, plus the home. */
 const searchIndex = [
@@ -58,21 +61,23 @@ const versionData = versions.map((v) => ({id: v.id, moodle: v.moodle, label: v.l
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
         {versions.map((v) => <link rel="stylesheet" data-version-css={v.id} href={`${base}/moodle/${v.id}/boost.css`} media="not all" />)}
         <style id="ds-didactika" set:html={didactikaCss} is:inline></style>
-        <script is:inline define:vars={{versionIds: versions.map((v) => v.id)}}>
-            // Before the first paint: the version, the colour mode and the Didactika colours, and the Moodle stylesheet that goes with them.
+        <script is:inline define:vars={{versionIds: versions.map((v) => v.id), themeIds: themeData.versions.map((v) => v.id), themeDefault: themeData.default}}>
+            // Before the first paint: the version, the colour mode and the Didactika theme, and the Moodle stylesheet that goes with them.
             // A link can carry them (?version=v45&mode=dark&brand=1), so another site can open a page in the state it wants to show.
             const root = document.documentElement;
             const query = new URLSearchParams(location.search);
-            let version = null; let mode = null; let brand = null; let designer = null;
-            try { version = localStorage.getItem('ds-version'); mode = localStorage.getItem('ds-mode'); brand = localStorage.getItem('ds-brand'); designer = localStorage.getItem('ds-designer'); } catch (e) { /* the page works without storage */ }
+            let version = null; let mode = null; let brand = null; let designer = null; let themeVersion = null;
+            try { version = localStorage.getItem('ds-version'); mode = localStorage.getItem('ds-mode'); brand = localStorage.getItem('ds-brand'); designer = localStorage.getItem('ds-designer'); themeVersion = localStorage.getItem('ds-theme-version'); } catch (e) { /* the page works without storage */ }
             version = query.get('version') ?? version;
             mode = query.get('mode') ?? mode;
             brand = query.get('brand') ?? brand;
             designer = query.get('designer') ?? designer;
+            themeVersion = query.get('theme') ?? themeVersion;
             root.dataset.version = versionIds.includes(version) ? version : 'v53';
             if (mode === 'light' || mode === 'dark') { root.dataset.theme = mode; }
-            // Didactika's colours are the default look of the examples; the switch turns them off.
-            root.dataset.brand = brand === '0' ? '0' : '1';
+            // The examples show the design system alone, as a plugin gets it; the switch puts the Didactika theme on top.
+            root.dataset.brand = brand === '1' ? '1' : '0';
+            root.dataset.themeVersion = themeIds.includes(themeVersion) ? themeVersion : themeDefault;
             root.dataset.designer = designer === '1' ? '1' : '0';
             document.querySelectorAll('[data-version-css]').forEach((l) => { l.media = l.dataset.versionCss === document.documentElement.dataset.version ? 'all' : 'not all'; });
         </script>

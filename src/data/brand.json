@@ -24,10 +24,12 @@
   },
   "roles": {
     "primary": "#0f766e",
-    "secondary": "#475569",
+    "secondary": "#4f46e5",
     "success": "#15803d",
-    "info": "#0e7490",
+    "info": "#0369a1",
     "warning": "#b45309",
-    "danger": "#b91c1c"
+    "danger": "#b91c1c",
+    "light": "#f1f5f9",
+    "dark": "#0f172a"
   }
 }

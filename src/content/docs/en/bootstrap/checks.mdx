@@ -48,6 +48,24 @@ A control has the **box** (square, round or a track with a knob), the **mark** i
 
 <Example title="Inline" src="checks/inline" />
 
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Checkbox × group | Several that can be combined. In a `fieldset` with a `legend`, one under the other or in a line (`form-check-inline`). |
+| Radio × group | 2 to 5 options where exactly one must be chosen. Always with one selected by default when there is a sensible default. |
+| Switch × immediate | A setting that applies the moment it changes, with the label saying what it turns on ("Notifications"). |
+| Check × validation | `is-invalid` with its message under the label; the label turns to the danger colour too. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| 18 px boxes with a 1.5 px border of 3:1 contrast | Bootstrap's boxes are small and pale. These are easy to hit and always visible, empty or not. |
+| The mark is white on the primary colour | A checked box is the most saturated thing in the form, so the state is read at a glance and not from the shape of a tick. |
+| The switch has a gap to its label and a knob with no colour of its own | The label never touches the track, and the knob works with any theme colour. |
+| Disabled controls dim their label too | The whole row reads as unavailable, not only the box. |
+
 ## Classes
 
 | Class | What it does |

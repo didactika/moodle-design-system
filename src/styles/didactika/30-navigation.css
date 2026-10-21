@@ -1,0 +1,144 @@
+/* ================================================================== navigation: nav, tabs, pills, breadcrumb, pagination, dropdown, navbar */
+
+/* ------------------------------------------------------------------ nav, tabs and pills
+ * The navigation of Moodle itself (.primary-navigation, .secondary-navigation and the .mds-nav-pill of 5.3) keeps the design Moodle gives it;
+ * these rules are for the tabs and pills a plugin draws with Bootstrap.
+ */
+.ds-v-scope .nav:not(.more-nav) { gap: .25rem; }
+.ds-v-scope .nav:not(.more-nav) .nav-link {
+  padding: .5rem 1.125rem;
+  border-radius: 999px;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color var(--dd-ease), background-color var(--dd-ease), border-color var(--dd-ease), box-shadow var(--dd-ease);
+}
+.ds-v-scope button.nav-link { border: 0; background: none; font-family: inherit; cursor: pointer; }
+.ds-v-scope .nav:not(.navbar-nav):not(.more-nav) .nav-link { color: var(--dd-muted); }
+.ds-v-scope .nav:not(.navbar-nav):not(.more-nav) .nav-link:hover:not(.active):not(.disabled), .ds-v-scope .nav:not(.navbar-nav):not(.more-nav) .nav-link.ds-is-hover:not(.active):not(.disabled) { background-color: var(--dd-surface-2); color: var(--dd-ink); }
+.ds-v-scope .nav:not(.more-nav) .nav-link:focus, .ds-v-scope .nav:not(.more-nav) .nav-link:focus-visible, .ds-v-scope .nav:not(.more-nav) .nav-link.ds-is-focus { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .nav:not(.more-nav) .nav-link:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; }
+.ds-v-scope .nav-link.disabled, .ds-v-scope .nav-link:disabled { opacity: .5; pointer-events: none; }
+
+/* tabs: a line under the selected one, and a soft tint under the pointer */
+.ds-v-scope .nav-tabs { gap: .25rem; border-bottom: 1px solid var(--dd-hairline); }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link { margin-bottom: -1px; padding: .625rem 1rem; border: 0; border-bottom: 2px solid transparent; border-radius: var(--dd-radius-sm) var(--dd-radius-sm) 0 0; background: none; }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link:hover:not(.active):not(.disabled), .ds-v-scope .nav-tabs:not(.more-nav) .nav-link.ds-is-hover:not(.active):not(.disabled) { border-bottom-color: var(--dd-line); }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link.active, .ds-v-scope .nav-tabs:not(.more-nav) .nav-item.show .nav-link { border-bottom-color: var(--dd-primary); background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-weight: 600; }
+.ds-v-scope .nav-tabs .nav-link:focus-visible, .ds-v-scope .nav-tabs .nav-link.ds-is-focus { border-radius: var(--dd-radius-sm); }
+.ds-v-scope .tab-content > .tab-pane { color: var(--dd-ink); }
+
+/* pills: the selected one is filled, the rest are quiet */
+.ds-v-scope .nav-pills:not(.more-nav) .nav-link.active, .ds-v-scope .nav-pills:not(.more-nav) .show > .nav-link { background-color: var(--dd-primary); color: #fff; box-shadow: var(--dd-shadow-sm); }
+.ds-v-scope .nav-pills.flex-column:not(.more-nav) .nav-link { border-radius: var(--dd-radius-sm); text-align: left; }
+
+/* ------------------------------------------------------------------ breadcrumb */
+.ds-v-scope .breadcrumb { margin: 0; padding: .25rem 0; background: none; font-size: .875rem; line-height: 1.5; }
+.ds-v-scope .breadcrumb-item { color: var(--dd-muted); }
+.ds-v-scope .breadcrumb-item + .breadcrumb-item { padding-left: 0; }
+.ds-v-scope .breadcrumb-item + .breadcrumb-item::before { padding: 0 .5rem; color: var(--dd-line); content: "\203A"; font-size: 1.15em; line-height: 1.2; }
+.ds-v-scope .breadcrumb-item a { padding: .125rem .5rem; border-radius: 999px; color: var(--dd-muted); text-decoration: none; transition: color var(--dd-ease), background-color var(--dd-ease), box-shadow var(--dd-ease); }
+.ds-v-scope .breadcrumb-item a:hover, .ds-v-scope .breadcrumb-item a.ds-is-hover { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); text-decoration: none; }
+.ds-v-scope .breadcrumb-item a:active, .ds-v-scope .breadcrumb-item a.ds-is-active { background-color: var(--dd-primary-soft-2); color: var(--dd-primary-ink); }
+/* a link that was clicked and keeps focus looks like a link at rest; only the keyboard gets the ring */
+.ds-v-scope .breadcrumb-item a:focus:not(:focus-visible):not(.ds-is-focus) { background-color: transparent; box-shadow: none; outline: 0; color: var(--dd-muted); }
+.ds-v-scope .breadcrumb-item a:focus-visible, .ds-v-scope .breadcrumb-item a.ds-is-focus { outline: 0; background-color: transparent; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .breadcrumb-item.active { color: var(--dd-ink); font-weight: 600; }
+
+/* ------------------------------------------------------------------ pagination (Bootstrap) */
+.ds-v-scope .pagination { gap: .25rem; margin: 0; }
+.ds-v-scope .pagination .page-item .page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0 .75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--dd-ink);
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1;
+  transition: background-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease);
+}
+.ds-v-scope .pagination .page-item .page-link:hover, .ds-v-scope .pagination .page-item .page-link.ds-is-hover { background-color: var(--dd-surface-2); color: var(--dd-ink); }
+.ds-v-scope .pagination .page-item .page-link:focus, .ds-v-scope .pagination .page-item .page-link.ds-is-focus { z-index: 3; outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .pagination .page-item .page-link:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; }
+.ds-v-scope .pagination .page-item.active .page-link { border-color: var(--dd-primary); background-color: var(--dd-primary); box-shadow: var(--dd-shadow-sm); color: #fff; }
+.ds-v-scope .pagination .page-item.disabled .page-link { background-color: transparent; color: var(--dd-muted); opacity: .5; pointer-events: none; }
+.ds-v-scope .pagination-sm .page-item .page-link { min-width: 2rem; height: 2rem; padding: 0 .5rem; font-size: .8125rem; }
+.ds-v-scope .pagination-lg .page-item .page-link { min-width: 2.75rem; height: 2.75rem; padding: 0 1rem; font-size: 1.0625rem; }
+
+/* pagination of a list (dd-pager): how many rows, which ones are shown, and the arrows. The pagination Didactika uses on its tables and lists. */
+.ds-v-scope .dd-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; padding: .25rem 0; color: var(--dd-muted); font-size: .875rem; }
+.ds-v-scope .dd-pager-size { display: flex; align-items: center; gap: .625rem; }
+.ds-v-scope .dd-pager-size .form-select { width: auto; }
+.ds-v-scope .dd-pager-end { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+.ds-v-scope .dd-pager-range { color: var(--dd-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ds-v-scope .dd-pager-range b { font-weight: 600; }
+.ds-v-scope .dd-pager .btn-group .btn { border-color: var(--dd-line); }
+
+/* ------------------------------------------------------------------ dropdown */
+.ds-v-scope .dropdown-menu {
+  min-width: 12rem;
+  margin-top: .375rem;
+  padding: .375rem;
+  border: 1px solid var(--dd-hairline);
+  border-radius: var(--dd-radius);
+  background-color: var(--dd-surface);
+  box-shadow: var(--dd-shadow-md);
+  color: var(--dd-ink);
+  font-size: .9375rem;
+}
+.ds-v-scope .dropdown-menu[data-bs-popper] { margin-top: .375rem; }
+.ds-v-scope .dropdown-menu.show { animation: dd-pop 140ms cubic-bezier(.2, 0, 0, 1); }
+@keyframes dd-pop { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
+.ds-v-scope .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  color: var(--dd-ink);
+  font-size: .9375rem;
+  line-height: 1.5;
+  transition: background-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease);
+}
+.ds-v-scope .dropdown-item + .dropdown-item { margin-top: 2px; }
+.ds-v-scope .dropdown-item:hover, .ds-v-scope .dropdown-item.ds-is-hover { background-color: var(--dd-surface-2); color: var(--dd-ink); }
+/* the focus ring is drawn inside the item, so it never covers its neighbour */
+.ds-v-scope .dropdown-item:focus-visible, .ds-v-scope .dropdown-item.ds-is-focus { outline: 0; background-color: var(--dd-surface-2); box-shadow: inset 0 0 0 2px var(--dd-primary); color: var(--dd-ink); }
+.ds-v-scope .dropdown-item:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; }
+.ds-v-scope .dropdown-item.active, .ds-v-scope .dropdown-item:active { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-weight: 600; }
+.ds-v-scope .dropdown-item.active:hover { background-color: var(--dd-primary-soft-2); }
+.ds-v-scope .dropdown-item.disabled, .ds-v-scope .dropdown-item:disabled { background: none; color: var(--dd-muted); opacity: .55; pointer-events: none; }
+.ds-v-scope .dropdown-item.text-danger:hover, .ds-v-scope .dropdown-item.text-danger.ds-is-hover { background-color: color-mix(in srgb, var(--dd-danger) 10%, var(--dd-surface)); }
+.ds-v-scope .dropdown-header { padding: .625rem .75rem .25rem; color: var(--dd-muted); font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.ds-v-scope .dropdown-divider { margin: .375rem .25rem; border-top: 1px solid var(--dd-hairline); opacity: 1; }
+.ds-v-scope .dropdown-toggle::after { margin-left: .5rem; vertical-align: .14em; }
+.ds-v-scope .dropdown-toggle-split::after { margin-left: 0; }
+
+/* ------------------------------------------------------------------ navbar */
+.ds-v-scope .navbar { padding: .625rem 1rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius); gap: .25rem; }
+.ds-v-scope .navbar-brand { display: inline-flex; align-items: center; gap: .5rem; margin-right: 1rem; padding: 0; color: var(--bs-navbar-brand-color, var(--dd-ink)); font-size: 1.0625rem; font-weight: 700; letter-spacing: -.011em; }
+.ds-v-scope .navbar-dark .navbar-brand, .ds-v-scope .navbar-dark .navbar-brand:hover, .ds-v-scope .navbar-dark .navbar-text, .ds-v-scope .navbar-dark .navbar-nav .nav-link.active { color: #fff; }
+.ds-v-scope .navbar-nav { gap: .125rem; }
+.ds-v-scope .navbar-nav:not(.more-nav) .nav-link { padding: .5rem .75rem; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.ds-v-scope .navbar-nav:not(.more-nav) .nav-link:hover, .ds-v-scope .navbar-nav:not(.more-nav) .nav-link.ds-is-hover { background-color: color-mix(in srgb, currentColor 9%, transparent); }
+.ds-v-scope .navbar-nav:not(.more-nav) .nav-link.active, .ds-v-scope .navbar-nav:not(.more-nav) .show > .nav-link { background-color: color-mix(in srgb, currentColor 11%, transparent); font-weight: 600; }
+.ds-v-scope .navbar-toggler { padding: .375rem .625rem; border: 1px solid color-mix(in srgb, currentColor 30%, transparent); border-radius: var(--dd-radius-sm); transition: box-shadow var(--dd-ease); }
+.ds-v-scope .navbar-toggler:focus, .ds-v-scope .navbar-toggler.ds-is-focus { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope .navbar-text { font-size: .9375rem; }
+
+/* The navigation of Moodle: its own bar keeps the design of the version and only gets the shape and the focus of the layer. */
+.ds-v-scope .navbar.navbar-expand .primary-navigation { flex: 1 1 auto; min-width: 0; }
+.ds-v-scope .primary-navigation .nav-link:focus-visible, .ds-v-scope .primary-navigation .mds-nav-pill:focus-visible, .ds-v-scope .secondary-navigation .nav-link:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-v-scope .dropdown-menu.show { animation: none; }
+  .ds-v-scope .nav-link, .ds-v-scope .page-link, .ds-v-scope .dropdown-item { transition: none; }
+}

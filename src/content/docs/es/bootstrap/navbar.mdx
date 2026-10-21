@@ -39,9 +39,36 @@ Una **marca** (`navbar-brand`), un **botón** para pantallas pequeñas (`navbar-
 
 ## Variantes y estados
 
+### La barra de navegación de Moodle
+
+La barra de Moodle es la que conoce todo usuario, y cada versión la dibuja a su manera: Moodle 5.3 con la píldora y el punto de su sistema de diseño, Moodle 4.x con el enlace subrayado. La barra de abajo es lo que renderiza Moodle en la versión elegida; un plugin no dibuja la suya.
+
+<Example title="Barra de navegación de Moodle" src="navbar/moodle" />
+
+### La barra de Bootstrap
+
+Para una pantalla de un plugin que necesita una barra propia (una herramienta independiente, un panel), la barra de Bootstrap es el componente del que partir.
+
 <Example title="Barra de navegación" src="navbar/basic" />
 
 <Example title="Sobre el color primario" src="navbar/primary" />
+
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Marca × enlaces × herramientas | La marca a la izquierda, los enlaces principales a su lado, las herramientas (búsqueda, notificaciones, cuenta) a la derecha. |
+| Enlaces × desplegable | Los enlaces menos usados van dentro de un desplegable («Más») para que la barra nunca se parta. |
+| Clara × primaria | Una barra clara para pantallas de trabajo, una barra en el color primario para una herramienta con identidad propia. |
+| Iconos × badges | Iconos de herramienta con un contador en la esquina (`badge-float`); la cuenta como iniciales o una foto. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| La barra de Moodle conserva su diseño en cada versión | El usuario debe encontrar la misma navegación en cada curso; el sistema de diseño la documenta, no la sustituye. |
+| Los enlaces son píldoras con un tinte, el actual es más fuerte | Se ve dónde estás por el peso y el tinte, no solo por el color. |
+| Un borde fino y esquinas redondeadas en la barra independiente | Separa la barra de la página sin una sombra pesada. |
 
 ## Clases
 

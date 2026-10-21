@@ -5,21 +5,21 @@ group: start
 order: 1
 ---
 
-Esta referencia describe cómo se dibujan los plugins de Moodle de Didactika. Su objetivo es que una lista, un formulario, un diálogo o una insignia se vean y se comporten igual en todos los plugins y en todas las versiones de Moodle que soportamos, y que el tema de un sitio pueda reestilizarlos todos a la vez.
+Esta referencia describe cómo se dibujan los plugins de Moodle de Didactika. Su objetivo es que una lista, un formulario, un diálogo o un badge se vean y se comporten igual en todos los plugins y en todas las versiones de Moodle que soportamos, y que el tema de un sitio pueda reestilizarlos todos a la vez.
 
 ## Cómo usar este sitio
 
 Cada ejemplo es un componente de Bootstrap tal como lo dibuja Didactika: la hoja de estilos que el propio Moodle publica para la versión elegida en la cabecera, con la capa de Didactika encima (forma, tamaño, foco, estados y color). Usa los componentes como en una página real: pasa el ratón, enfoca y escribe. Activa el **modo diseñador** (el botón de la regla en la cabecera) y haz clic en cualquier elemento de un ejemplo para abrir el **inspector**, que lee también la capa. Su pestaña Diseño mide tamaño, relleno, radio, tipografía y colores a partir del CSS de esa versión; su pestaña Código muestra el HTML del elemento tal como lo escribiría un plugin, cada clase con el número de reglas que aporta y el CSS que se aplica. Los números no se pueden separar del código.
 
-- **Versión de Moodle.** Cada página está escrita para la versión elegida en la cabecera. Una clase, un icono o un componente que no existe en una versión no se muestra en ella, y lo que apareció después lleva una insignia como "5.3+".
+- **Versión de Moodle.** Cada página está escrita para la versión elegida en la cabecera. Una clase, un icono o un componente que no existe en una versión no se muestra en ella, y lo que apareció después lleva un badge como "5.3+".
 - **Modo de color.** Donde la versión elegida tiene modo oscuro, los ejemplos lo siguen.
-- **Colores de Didactika.** Un interruptor en la cabecera dibuja todos los ejemplos con la paleta de Didactika.
+- **Tema de Didactika.** El sistema de diseño es lo que aplican los plugins. Un interruptor en la cabecera dibuja todos los ejemplos con el tema de Didactika encima (colores, tipografía, gradientes) y un selector a su lado elige la versión del tema (de momento v0.1).
 - **Idioma.** Cada página existe en español y en inglés.
 
 ## Principios
 
 1. **Moodle dibuja, el tema decide.** Botones, campos, formularios, diálogos y alertas son componentes de Bootstrap y de Moodle con sus propias clases. Un plugin nunca los redibuja.
-2. **Una capa fina encima.** Los plugins añaden solo lo que Moodle no tiene como componente: el marco de una lista (barra de herramientas, filtros, paginador, acciones de fila), insignias teñidas, pasos, tarjetas de elección y estados vacíos.
+2. **Una capa fina encima.** Los plugins añaden solo lo que Moodle no tiene como componente: el marco de una lista (barra de herramientas, filtros, paginador, acciones de fila), badges teñidos, pasos, tarjetas de elección y estados vacíos.
 3. **Un marcado para todas las versiones.** Las mismas clases funcionan en todas las versiones compatibles, y cada página da los nombres de la versión que elijas.
 4. **Medido, no descrito.** Tamaños, espaciado, radio, tipografía y colores se leen del CSS real.
 5. **Accesible por defecto.** Contraste, foco, teclado y etiquetas forman parte de cada componente.

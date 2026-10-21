@@ -62,6 +62,24 @@ A field has a **label** above it, the **control** (text, with an optional placeh
 
 Use the default size. Small belongs in dense places (a filter bar over a table); large only for a single main field on a page, such as a search.
 
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Label + field + hint | The label above, the field, then a hint of one line. The hint is written before the error exists; the error replaces it. |
+| Field + input group | A unit, a prefix or a button attached to the field: use the input group instead of drawing the add-on inside the field. |
+| Size × context | Small in filters over a table, default in forms, large for one main field such as a search. |
+| Read only × disabled | `readonly` for a value the user can copy; `disabled` for a field that is not available now (it is not sent). |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The border has 3:1 contrast against the page | A field is a target: people with low vision, or a screen in the sun, must see where it begins. Bootstrap's default border is closer to 2:1. |
+| 40 px tall with more room inside | It is the height of a button, so a field and its button line up, and the text does not touch the border. |
+| The focus is the border in the primary colour plus a soft ring | The active field is the one that changed colour, and the ring is the same cue every other control gives. |
+| Labels are semi-bold and the hint is small and muted | The eye reads label, field, hint in that order, and the hint never competes with what the user types. |
+
 ## Classes
 
 | Class | What it does |

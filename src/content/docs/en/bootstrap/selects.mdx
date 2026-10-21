@@ -41,18 +41,36 @@ A select has a **label**, the **control** with the chosen option and an **arrow*
 
 ## Variants and states
 
-<Matrix
-  title="Select"
-  variants={['select']}
-  states={[['Rest', ''], ['Hover', 'ds-is-hover'], ['Focus', 'ds-is-focus'], ['Disabled', 'disabled']]}
-  template='<select class="form-select {s}" aria-label="Select"{disabled}><option>Teacher</option><option>Student</option></select>'
-/>
-
 <Example title="Single, small and multiple" src="selects/basic" />
+
+### The list that opens
+
+The browser draws the list of a select on its own and a page cannot style it. In this system a select opens a menu of the design system instead: the same one a dropdown has, with the groups as headers, the disabled options dimmed and the chosen one marked. The select keeps its value and its events, so the markup of a plugin does not change. Try it with the keyboard too (arrows, Home, End, a letter, Enter, Escape).
+
+<Example title="The menu of a select" src="selects/menu" />
 
 ### Sizes
 
 <Example title="Small, default and large" src="selects/sizes" measure="Height,Padding,Font size,Line height,Radius,Border" />
+
+Use the default size. Small belongs in dense places (a filter bar over a table, the rows per page of a pager); large only for a single main field on a page.
+
+## Combinations
+
+| Combination | Use it for |
+|---|---|
+| Select × a few options | 4 to about 15 options the user already knows. Fewer than 4: radios. More than 15, or searchable: the autocomplete of Moodle. |
+| Select + optgroup | Group options with `optgroup`; the menu shows each group as a header. |
+| Select + input group | A select attached to a button ("Hide | Apply"): the group joins them into one control. |
+| Width | Moodle sizes a select to its content. Add `w-100` where it has to fill the row. |
+
+## What Didactika changes and why
+
+| What we changed | Why it helps |
+|---|---|
+| The list that opens is a menu of the design system | The native list cannot be styled, so each browser showed a different, plain list that did not match the rest of the page. One menu looks the same everywhere and shows the chosen option. |
+| The arrow has its own room on the right | Long options never run under the arrow, in any size. |
+| Same height, border and focus as a text field | A select next to a field looks like its sibling, not like another component. |
 
 ## Classes
 
@@ -61,6 +79,7 @@ A select has a **label**, the **control** with the chosen option and an **arrow*
 | <Only of="v53" inline>`form-select`</Only><Only of="v45,v41" inline>`custom-select`</Only> | The select |
 | <Only of="v53" inline>`form-select-sm`, `form-select-lg`</Only><Only of="v45,v41" inline>`custom-select-sm`, `custom-select-lg`</Only> | Smaller and larger |
 | `form-label` | Label above the select |
+| `dd-select-menu` | The menu a select opens (Didactika). Built by the site; plugins do not write it |
 
 ## In this version
 

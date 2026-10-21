@@ -78,6 +78,26 @@ Los iconos se escriben con el identificador de icono de Moodle (`{{#pix}}t/add, 
 
 <Example title="Ancho completo" src="buttons/block" narrow />
 
+## Combinaciones
+
+| Combinación | Para qué usarla |
+|---|---|
+| Tamaño × color | Pequeño en barras de herramientas y filas de tabla, normal en el resto, grande para una sola llamada a la acción. El tamaño nunca cambia el color ni la etiqueta. |
+| Relleno × contorno × enlace | Relleno para la acción principal, contorno para las secundarias, enlace para las más discretas. Un solo botón relleno por zona. |
+| Icono + etiqueta | El icono va antes de la etiqueta, en acciones que lo tienen en la tabla de iconos. En sitios densos usa un botón solo con icono (`btn-icon`), siempre con título y `aria-label`. |
+| Grupo | Una elección entre vistas (cuadrícula, lista, mapa) o un botón dividido (Guardar con su menú). Los extremos son redondos y las uniones rectas. |
+| Botón + badge | Un recuento dentro del botón («Mensajes 4»). Nunca una frase. |
+
+## Qué cambia Didactika y por qué
+
+| Qué cambiamos | Por qué ayuda |
+|---|---|
+| Una píldora de 40 px, con más relleno a los lados que arriba y abajo | Una píldora ancha se lee como clicable y mantiene la etiqueta centrada. Las proporciones son las que la gente conoce de Material, así que nadie tiene que aprenderlas. |
+| Los botones de contorno y de enlace responden con un tinte de su propio color | Bootstrap los inunda de color sólido al pasar el ratón y la etiqueta se vuelve blanca sobre una página clara. Un tinte mantiene la etiqueta legible y muestra el estado pulsado sin gritar. |
+| Los botones solo con icono son cuadrados (`btn-icon`) | El objetivo tiene el mismo alto y ancho, así que una fila de acciones con icono queda alineada y es fácil de pulsar. |
+| Un solo anillo de foco de 3 px en todos los botones | Quien usa el teclado ve siempre dónde está, con la misma señal que tiene en campos y enlaces. |
+| Un grupo es una píldora y el disparador de un botón dividido la cierra | El grupo se lee como un solo control y no como dos botones que se tocan. |
+
 ## Clases
 
 | Clase | Qué hace |
@@ -90,6 +110,7 @@ Los iconos se escriben con el identificador de icono de Moodle (`{{#pix}}t/add, 
 | `btn-group` | Une botones relacionados |
 | <Only of="v53" inline>`d-grid gap-2`</Only><Only of="v45,v41" inline>`btn-block`</Only> | Pila a ancho completo |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Botón de cerrar dentro de alertas y modales, lo escribe Moodle |
+| `btn-icon` | Botón cuadrado que solo contiene un icono. Añade `btn-sm` o `btn-lg` para los otros tamaños (Didactika) |
 
 ## En esta versión
 
