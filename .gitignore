@@ -4,3 +4,4 @@ vendor/
 .astro/
 public/moodle/
 src/data/project.generated.json
+.idea/

@@ -306,6 +306,7 @@ code, kbd, pre, samp { font-family: var(--mono); }
 .ds-home { max-width: 76rem; margin: 0 auto; padding: 0 max(1.25rem, env(safe-area-inset-left, 0px)) 4rem; }
 .ds-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 2.5rem; align-items: center; padding: 3.5rem 0 2.5rem; }
 .ds-hero::before { content: ""; position: absolute; inset: -4rem -50vw 0; z-index: -1; background: var(--glow); pointer-events: none; }
+body:has(> .ds-home) { overflow-x: clip; }
 .ds-pill { display: inline-flex; align-items: center; gap: .45rem; padding: .3rem .75rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font: 600 .78rem/1 var(--font); }
 .ds-pill .ds-i { font-size: .7rem; }
 .ds-hero h1 { margin: 1rem 0 .9rem; font: 700 clamp(2.3rem, 4.6vw, 3.6rem)/1.05 var(--display); letter-spacing: -.035em; text-wrap: balance; }
