@@ -28,7 +28,7 @@ Cada elemento de `pages[]` en el índice tiene:
 `/api/pages/<id>.json` tiene los mismos campos más `body`: el fuente del texto en `{en, es}`, como el MDX en el que está escrito el sitio. Úsalo para **citar** o **incluir** una parte de una página en otro documento; no intentes dibujarlo sin los componentes que nombra (`Example`, `Rule`, `Matrix`, `Only`).
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const page = await (await fetch(root + '/api/pages/patterns/states.json')).json();
 
 console.log(page.title.es);                     // "Estados: cargando, vacío, error"

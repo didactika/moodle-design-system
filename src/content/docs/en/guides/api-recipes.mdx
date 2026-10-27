@@ -12,7 +12,7 @@ Every recipe reads the JSON of the site; none of them needs a key or a build of 
 A plugin's README or wiki can name the components it uses and link each one to its page, in the language of the reader.
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const index = await (await fetch(root + '/api/index.json')).json();
 
 const used = ['bootstrap/buttons', 'bootstrap/tables', 'bootstrap/modals', 'patterns/working-list'];
@@ -70,7 +70,7 @@ console.log('| Id | Moodle 5.x | Moodle 4.1 |\n|---|---|---|\n' + table.join('\n
 The stylesheets of the three versions are served scoped under `.ds-v53`, `.ds-v45` and `.ds-v41`. In a visual test, load the one of the version you test and put the markup inside an element with that class and with `ds-v-scope`:
 
 ```html
-<link rel="stylesheet" href="https://didactika.github.io/moodle-design-system/moodle/v45/boost.css">
+<link rel="stylesheet" href="https://moodle-design.didactika.org/moodle/v45/boost.css">
 <div class="ds-v45 ds-v-scope">…the markup of your screen…</div>
 ```
 
@@ -79,7 +79,7 @@ The stylesheets of the three versions are served scoped under `.ds-v53`, `.ds-v4
 A bug report about a component on Moodle 4.5 is a link, not a screenshot to describe:
 
 ```text
-https://didactika.github.io/moodle-design-system/en/bootstrap/tables/?version=v45#sortable-headers
+https://moodle-design.didactika.org/en/bootstrap/tables/?version=v45#sortable-headers
 ```
 
 ## Keep it working

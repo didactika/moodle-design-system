@@ -7,6 +7,9 @@
  * organisation, the people and the funding all follow the repository.
  */
 import {execSync} from 'node:child_process';
+import {existsSync, readFileSync} from 'node:fs';
+import {dirname, join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 export interface RepositoryId {
     owner: string;
@@ -41,4 +44,18 @@ export const github = async<T>(path: string, token = githubToken()): Promise<T> 
     const response = await fetch(`https://api.github.com${path}`, {headers});
     if (!response.ok) { throw new Error(`${response.status} ${path}`); }
     return response.json() as Promise<T>;
+};
+
+/**
+ * Where the site is served. With a custom domain (the file `public/CNAME`, which GitHub Pages also reads) the site lives at the root of that
+ * domain; without one it lives under `https://<owner>.github.io/<repository>/`.
+ */
+export const siteAddress = (): {site: string; base: string} => {
+    const file = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'CNAME');
+    const domain = existsSync(file) ? (readFileSync(file, 'utf8').split(/\r?\n/)[0] ?? '').trim() : '';
+    if (domain) {
+        return {site: `https://${domain}`, base: '/'};
+    }
+    const {owner, name} = repositoryId();
+    return {site: `https://${owner}.github.io`, base: `/${name}`};
 };

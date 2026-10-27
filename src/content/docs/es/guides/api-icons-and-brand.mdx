@@ -21,7 +21,7 @@ order: 6
 Un id de icono es `<grupo>/<nombre>`: `t/` para los iconos de herramientas, `i/` para los de elementos, `a/` para acciones, `e/` para el editor. En una plantilla de Moodle se escribe `{{#pix}}t/add, core{{/pix}}`; en PHP, `$OUTPUT->pix_icon('t/add', get_string('add'))`.
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const {versions, icons} = await (await fetch(root + '/api/icons.json')).json();
 
 const family = Object.fromEntries(versions.map((v) => [v.id, v.family]));

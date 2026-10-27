@@ -1,14 +1,15 @@
 import {defineConfig} from 'astro/config';
 import mdx from '@astrojs/mdx';
-import {repositoryId} from './tools/github';
+import {siteAddress} from './tools/github';
 
-// The site is static and published with GitHub Pages under https://<owner>.github.io/<repository>/, both read from the repository (not written
-// here). Languages are routes of our own (src/pages/[lang]/...) because every page exists in both and the content decides the navigation.
-const {owner, name} = repositoryId();
+// The site is static and published with GitHub Pages. Its address is read from the repository (not written here): the custom domain of
+// public/CNAME if there is one, or https://<owner>.github.io/<repository>/. Languages are routes of our own (src/pages/[lang]/...) because
+// every page exists in both and the content decides the navigation.
+const {site, base} = siteAddress();
 
 export default defineConfig({
-    site: `https://${owner}.github.io`,
-    base: `/${name}`,
+    site,
+    base,
     trailingSlash: 'always',
     integrations: [mdx()],
     build: {format: 'directory'},
