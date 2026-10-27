@@ -28,7 +28,7 @@ Each item of `pages[]` in the index has:
 `/api/pages/<id>.json` has the same fields plus `body`: the source of the text in `{en, es}`, as the MDX that the site is written in. Use it to **quote** or to **include** a part of a page in another document; do not try to render it without the components it names (`Example`, `Rule`, `Matrix`, `Only`).
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const page = await (await fetch(root + '/api/pages/patterns/states.json')).json();
 
 console.log(page.title.en);                     // "States: loading, empty, error"

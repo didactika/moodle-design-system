@@ -20,7 +20,7 @@ Cualquier página del sitio se puede abrir en el estado que quieras mostrar, con
 Sin parámetros, la página se abre con lo que la persona eligió la última vez (las elecciones se recuerdan en su navegador) o con los valores por defecto: Moodle 5.3, el modo de color del sistema, el tema apagado.
 
 ```text
-https://didactika.github.io/moodle-design-system/es/bootstrap/buttons/?version=v45&mode=light&brand=1&theme=0.1
+https://moodle-design.didactika.org/es/bootstrap/buttons/?version=v45&mode=light&brand=1&theme=0.1
 ```
 
 ## Idioma
@@ -32,7 +32,7 @@ El idioma forma parte de la ruta: `/en/…` y `/es/…`. Cada página existe en 
 Cada encabezado tiene un ancla (el `id` que Astro hace con su texto), así que un enlace puede caer en la sección exacta:
 
 ```text
-https://didactika.github.io/moodle-design-system/es/bootstrap/tables/#cabeceras-ordenables
+https://moodle-design.didactika.org/es/bootstrap/tables/#cabeceras-ordenables
 ```
 
 El ancla es el encabezado en minúsculas, sin acentos, con guiones. Los encabezados no se renombran a la ligera, pero si necesitas un enlace que nunca cambie, enlaza a la página y nombra la sección en el texto.
@@ -48,7 +48,7 @@ Un informe que dice "el paginador se ve mal en 4.1" es mejor como enlace que com
 ## Construir los enlaces en código
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 
 const link = (id, {lang = 'es', version, mode, brand, hash = ''} = {}) => {
     const params = new URLSearchParams();

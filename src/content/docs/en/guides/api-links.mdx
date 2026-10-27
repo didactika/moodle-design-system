@@ -20,7 +20,7 @@ Any page of the site can be opened in the state you want to show, with parameter
 Without parameters, the page opens with what the visitor chose last time (the choices are remembered in their browser) or with the defaults: Moodle 5.3, the colour mode of the system, the theme off.
 
 ```text
-https://didactika.github.io/moodle-design-system/en/bootstrap/buttons/?version=v45&mode=light&brand=1&theme=0.1
+https://moodle-design.didactika.org/en/bootstrap/buttons/?version=v45&mode=light&brand=1&theme=0.1
 ```
 
 ## Language
@@ -32,7 +32,7 @@ The language is part of the path: `/en/…` and `/es/…`. Every page exists in 
 Every heading has an anchor (the `id` that Astro makes from its text), so a link can land on the exact section:
 
 ```text
-https://didactika.github.io/moodle-design-system/en/bootstrap/tables/#sortable-headers
+https://moodle-design.didactika.org/en/bootstrap/tables/#sortable-headers
 ```
 
 The anchor is the heading in lower case, without accents, with dashes. Headings are not renamed lightly, but if you need a link that never changes, link to the page and name the section in the text.
@@ -48,7 +48,7 @@ A report that says "the pager looks wrong in 4.1" is better as a link than as a 
 ## Build the links in code
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 
 const link = (id, {lang = 'en', version, mode, brand, hash = ''} = {}) => {
     const params = new URLSearchParams();

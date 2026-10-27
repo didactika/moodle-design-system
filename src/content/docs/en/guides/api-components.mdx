@@ -44,7 +44,7 @@ Pick by the **Moodle version of the plugin**, not by taste. A plugin that suppor
 ## Use it
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const list = await (await fetch(root + '/api/components/index.json')).json();
 console.log(list.components.map((c) => c.id));
 

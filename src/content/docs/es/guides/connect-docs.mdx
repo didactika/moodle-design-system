@@ -22,7 +22,7 @@ La documentación de un plugin no debería copiar lo que es un botón, una tabla
 ## La dirección
 
 ```http
-GET https://didactika.github.io/moodle-design-system/api/index.json
+GET https://moodle-design.didactika.org/api/index.json
 ```
 
 El sitio lo sirve GitHub Pages: **no hay clave, ni inicio de sesión, ni límite de uso que gestionar**. Cada respuesta es un archivo JSON con `Content-Type: application/json` y la cabecera `Access-Control-Allow-Origin: *`, así que también se puede leer desde un navegador en cualquier otro sitio.
@@ -43,7 +43,7 @@ El sitio lo sirve GitHub Pages: **no hay clave, ni inicio de sesión, ni límite
 | `deepLinks` | Cómo se abre una página en un estado dado |
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const index = await (await fetch(root + '/api/index.json')).json();
 
 if (index.schema !== 1) { throw new Error('Esquema desconocido: ' + index.schema); }
@@ -61,11 +61,11 @@ console.log(index.versions.map((v) => v.label));                 // ["Moodle 5.3
 ## Llamarlo desde otros lenguajes
 
 ```bash
-curl -s https://didactika.github.io/moodle-design-system/api/index.json | jq '.pages[] | select(.group == "patterns") | .id'
+curl -s https://moodle-design.didactika.org/api/index.json | jq '.pages[] | select(.group == "patterns") | .id'
 ```
 
 ```php
-$root = 'https://didactika.github.io/moodle-design-system';
+$root = 'https://moodle-design.didactika.org';
 $index = json_decode(file_get_contents($root . '/api/index.json'), true);
 foreach ($index['pages'] as $page) {
     echo $page['id'] . ' - ' . $page['title']['es'] . PHP_EOL;
@@ -75,7 +75,7 @@ foreach ($index['pages'] as $page) {
 ```python
 import json, urllib.request
 
-root = "https://didactika.github.io/moodle-design-system"
+root = "https://moodle-design.didactika.org"
 with urllib.request.urlopen(root + "/api/components/buttons.json") as response:
     buttons = json.load(response)
 print([e["id"] for e in buttons["examples"]])

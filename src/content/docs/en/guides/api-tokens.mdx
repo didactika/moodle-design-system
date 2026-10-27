@@ -20,7 +20,7 @@ A token is a CSS variable the theme of a Moodle version defines: `--bs-primary`,
 ## Read a token
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const v53 = await (await fetch(root + '/api/tokens/v53.json')).json();
 
 console.log(v53.version.label);           // "Moodle 5.3 LTS"

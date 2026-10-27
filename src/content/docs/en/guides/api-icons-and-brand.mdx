@@ -21,7 +21,7 @@ order: 6
 An icon id is `<group>/<name>`: `t/` for the icons of tools, `i/` for the icons of items, `a/` for actions, `e/` for the editor. In a Moodle template it is written `{{#pix}}t/add, core{{/pix}}`; in PHP, `$OUTPUT->pix_icon('t/add', get_string('add'))`.
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const {versions, icons} = await (await fetch(root + '/api/icons.json')).json();
 
 const family = Object.fromEntries(versions.map((v) => [v.id, v.family]));

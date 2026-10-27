@@ -12,7 +12,7 @@ Todas las recetas leen el JSON del sitio; ninguna necesita una clave ni compilar
 El README o la wiki de un plugin puede nombrar los componentes que usa y enlazar cada uno a su página, en el idioma del lector.
 
 ```js
-const root = 'https://didactika.github.io/moodle-design-system';
+const root = 'https://moodle-design.didactika.org';
 const index = await (await fetch(root + '/api/index.json')).json();
 
 const used = ['bootstrap/buttons', 'bootstrap/tables', 'bootstrap/modals', 'patterns/working-list'];
@@ -70,7 +70,7 @@ console.log('| Id | Moodle 5.x | Moodle 4.1 |\n|---|---|---|\n' + table.join('\n
 Las hojas de las tres versiones se sirven acotadas bajo `.ds-v53`, `.ds-v45` y `.ds-v41`. En una prueba visual, carga la de la versión que pruebas y pon el marcado dentro de un elemento con esa clase y con `ds-v-scope`:
 
 ```html
-<link rel="stylesheet" href="https://didactika.github.io/moodle-design-system/moodle/v45/boost.css">
+<link rel="stylesheet" href="https://moodle-design.didactika.org/moodle/v45/boost.css">
 <div class="ds-v45 ds-v-scope">…el marcado de tu pantalla…</div>
 ```
 
@@ -79,7 +79,7 @@ Las hojas de las tres versiones se sirven acotadas bajo `.ds-v53`, `.ds-v45` y `
 Un error de un componente en Moodle 4.5 es un enlace, no una captura que describir:
 
 ```text
-https://didactika.github.io/moodle-design-system/es/bootstrap/tables/?version=v45#cabeceras-ordenables
+https://moodle-design.didactika.org/es/bootstrap/tables/?version=v45#cabeceras-ordenables
 ```
 
 ## Que siga funcionando
