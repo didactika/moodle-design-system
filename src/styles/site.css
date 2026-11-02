@@ -722,7 +722,8 @@ html[data-designer="1"] .ds-canvas { box-shadow: inset 0 0 0 1px color-mix(in sr
 .ds-navg:not([open]) { margin-bottom: 0; }
 /* the footer covers the end of the side columns: they stop where it starts */
 @media (min-width: 861px) {
-  .ds-nav-in { height: calc(100vh - var(--head-h) - var(--ds-foot-overlap, 0px)); padding-bottom: 1.5rem; }
+  .ds-shell ~ .ds-footer { margin-inline-start: var(--nav-w); }
+  .ds-nav-in { padding-bottom: 1.5rem; }
 }
 @media (min-width: 1181px) {
   .ds-rail-in { height: calc(100vh - var(--head-h) - var(--ds-foot-overlap, 0px)); }
