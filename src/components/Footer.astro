@@ -22,7 +22,6 @@ const cofounders = new Set(founders.map((p) => p.login.toLowerCase()));
 /** Everyone who has contributed to the repositories of the organisation, except the co-founders, who are shown on their own. */
 const seed = project.contributors.filter((p) => !cofounders.has(p.login.toLowerCase()));
 const shown = seed.slice(0, max);
-const host = organisation.website ? new URL(organisation.website).host : null;
 ---
 
 <footer class="ds-footer">
@@ -51,10 +50,7 @@ const host = organisation.website ? new URL(organisation.website).host : null;
                 </div>
             </div>
 
-            <nav class="ds-foot-links" aria-label={f.links}>
-                {organisation.website && <a href={organisation.website}><img src={organisation.avatar ?? `${base}/brand/didactika-logo.png`} alt="" width="16" height="16" />{host}</a>}
-                <a href={organisation.url}><Icon name="github" />github.com/{organisation.login}</a>
-            </nav>
+
         </div>
 
         <div class="ds-footer-bar">
