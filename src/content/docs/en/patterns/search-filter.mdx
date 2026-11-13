@@ -34,6 +34,10 @@ People find things in two ways: by typing what they remember and by narrowing a 
 
 <Example title="A menu that filters, before and after a choice" src="selects/filter-select" />
 
+## One row, always
+
+The toolbar never breaks in two rows. The search shrinks down to its own room (10 rem) and the filter menus keep their width beside it; a chosen menu says only its value ("Graded by a teacher", not "Status: Graded by a teacher") and ends with an ellipsis when it is too long. When the menus do not fit, on a narrow screen or with long values, they are grouped in one menu, **Filters (2)**, which says how many filters are applied and holds the same menus one under the other; they come back to the row when there is room again.
+
 ## Behaviour
 
 1. Search runs when the user stops typing (300 ms); Enter does not submit the page.

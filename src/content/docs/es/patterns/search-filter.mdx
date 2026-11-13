@@ -34,6 +34,10 @@ Las personas encuentran las cosas de dos maneras: escribiendo lo que recuerdan y
 
 <Example title="Un menú que filtra, antes y después de elegir" src="selects/filter-select" />
 
+## Siempre una fila
+
+La barra nunca se parte en dos filas. La búsqueda se estrecha hasta su propio espacio (10 rem) y los menús de filtro conservan su ancho junto a ella; un menú elegido dice solo su valor ("Calificado por un docente", no "Estado: Calificado por un docente") y termina con puntos suspensivos cuando es demasiado largo. Cuando los menús no caben, en una pantalla estrecha o con valores largos, se agrupan en un solo menú, **Filtros (2)**, que indica cuántos filtros están aplicados y contiene los mismos menús uno debajo de otro; vuelven a la fila cuando vuelve a haber espacio.
+
 ## Comportamiento
 
 1. La búsqueda se ejecuta cuando la persona deja de escribir (300 ms); Intro no envía la página.
