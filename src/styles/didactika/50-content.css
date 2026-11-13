@@ -59,7 +59,6 @@
 .ds-v-scope .table-striped tbody tr:nth-of-type(odd) > * { background-color: var(--dd-surface-2); }
 .ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); }
 .ds-v-scope .table-responsive { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); }
-.ds-v-scope .table-responsive .table tbody tr:last-child > * { border-bottom-width: 0; }
 .ds-v-scope caption { color: var(--dd-muted); }
 .ds-v-scope .table .table-select { width: 2.75rem; padding-right: 0; }
 .ds-v-scope .table .table-select .form-check { min-height: 0; margin: 0; padding-left: 0; }
