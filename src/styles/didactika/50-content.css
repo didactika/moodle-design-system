@@ -57,7 +57,8 @@
 .ds-v-scope .table-hover tbody tr:hover, .ds-v-scope .table-striped tbody tr:nth-of-type(odd), .ds-v-scope .table tbody tr.table-active { background-color: transparent; color: var(--dd-ink); }
 .ds-v-scope .table-hover tbody tr:hover > * { background-color: color-mix(in srgb, var(--dd-primary) 5%, var(--dd-surface)); }
 .ds-v-scope .table-striped tbody tr:nth-of-type(odd) > * { background-color: var(--dd-surface-2); }
-.ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); }
+.ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); box-shadow: none; }
+.ds-v-scope .table tbody tr:last-child > * { border-bottom: 1px solid var(--dd-hairline); }
 .ds-v-scope .table-responsive { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); }
 .ds-v-scope caption { color: var(--dd-muted); }
 .ds-v-scope .table .table-select { width: 2.75rem; padding-right: 0; }
@@ -77,7 +78,7 @@
  * empty state with its icon takes the place of the table, at the same height.
  */
 .ds-v-scope { --dd-table-h: 34rem; }
-.ds-v-scope .table-responsive[data-region="tablewrap"], .ds-v-scope [data-region="tablewrap"] { block-size: var(--dd-table-h); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.ds-v-scope .table-responsive[data-region="tablewrap"], .ds-v-scope [data-region="tablewrap"] { block-size: var(--dd-table-h); overflow-y: auto; overscroll-behavior: contain; }
 .ds-v-scope [data-region="tablewrap"] thead th { position: sticky; inset-block-start: 0; z-index: 1; background-color: var(--dd-surface); }
 .ds-v-scope [data-region="tablewrap"] > .dd-empty { display: grid; place-content: center; justify-items: center; min-block-size: 100%; }
 .ds-v-scope .table-sort { display: inline-flex; align-items: center; gap: .375rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }

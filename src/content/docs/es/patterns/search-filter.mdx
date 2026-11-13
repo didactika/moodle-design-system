@@ -31,12 +31,13 @@ Las personas encuentran las cosas de dos maneras: escribiendo lo que recuerdan y
 - **La flecha se convierte en una cruz.** Al elegir un valor, la flecha del menú se sustituye por una cruz (`dd-select-clear`) que devuelve el filtro a su estado base. La cruz tiene su propia etiqueta ("Quitar: Estado").
 - **Las cuentas van dentro del menú.** Cuando los valores de un filtro tienen cuentas, cada opción muestra la suya, calculada con los demás filtros aplicados.
 - Un filtro de varios valores (estado) usa casillas dentro del menú; un filtro de muchos valores (curso, actividad) tiene un campo de búsqueda al principio de su menú.
+- **Un periodo nunca queda al revés.** Un menú de fechas con dos días mantiene el primero igual o anterior al último: cuando el día recién elegido pasa al otro, el otro se mueve hasta él, se haya escrito como se haya escrito (a mano, con el calendario o en la dirección).
 
 <Example title="Un menú que filtra, antes y después de elegir" src="selects/filter-select" />
 
 ## Siempre una fila
 
-La barra nunca se parte en dos filas. La búsqueda se estrecha hasta su propio espacio (10 rem) y los menús de filtro conservan su ancho junto a ella; un menú elegido dice solo su valor ("Calificado por un docente", no "Estado: Calificado por un docente") y termina con puntos suspensivos cuando es demasiado largo. Cuando los menús no caben, en una pantalla estrecha o con valores largos, se agrupan en un solo menú, **Filtros (2)**, que indica cuántos filtros están aplicados y contiene los mismos menús uno debajo de otro; vuelven a la fila cuando vuelve a haber espacio.
+La barra nunca se parte en dos filas. La búsqueda se estrecha hasta su propio espacio (10 rem, 7 rem en un teléfono de menos de 400 px) y los menús de filtro conservan su ancho junto a ella; un menú elegido dice solo su valor ("Calificado por un docente", no "Estado: Calificado por un docente") y termina con puntos suspensivos antes de su cruz cuando es demasiado largo: el texto nunca pasa por debajo de la cruz. El menú es un bloque (`button.dd-select`), porque solo un bloque corta su texto con puntos suspensivos. Cuando los menús no caben, en una pantalla estrecha o con valores largos, se agrupan en un solo menú, **Filtros (2)**, siempre con el icono del embudo (`i/filter`), que indica cuántos filtros están aplicados y contiene los mismos menús uno debajo de otro; vuelven a la fila cuando vuelve a haber espacio.
 
 ## Comportamiento
 
@@ -79,6 +80,7 @@ La búsqueda ocupa todo el ancho; los menús pasan a la línea siguiente; el bot
 
 - [ ] Ningún menú ofrece su estado base como opción.
 - [ ] Un filtro elegido está teñido y tiene su cruz.
+- [ ] Un valor largo termina con puntos suspensivos antes de la cruz, y el menú Filtros tiene su embudo.
 - [ ] Los chips y los menús no se mezclan en una barra.
 - [ ] El botón de quitar está al final de la fila, con su icono.
 - [ ] Los filtros están en la dirección.
