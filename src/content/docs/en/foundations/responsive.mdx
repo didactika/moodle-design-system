@@ -1,0 +1,79 @@
+---
+title: Narrow screens
+summary: How every screen of a plugin behaves from a phone to a wide desktop, with the breakpoints of Bootstrap and no layout of its own.
+group: foundations
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+A plugin is used on a phone as often as on a desktop: a teacher checks a report between two classes, an administrator answers a message from the corridor. Every screen works from 360 px wide, never makes the page scroll sideways, and keeps the same parts in the same order; only their arrangement changes. The breakpoints are the ones of Bootstrap, so a theme that changes them changes the plugin too.
+
+## Breakpoints
+
+| Name | From | Typical device | What changes |
+|---|---|---|---|
+| (none) | 0 | Phone | One column; toolbars wrap; tables scroll sideways inside their box |
+| `sm` | 576 px | Large phone | The search takes the whole first row of a toolbar |
+| `md` | 768 px | Tablet | Tables show every column without scrolling; secondary columns come back |
+| `lg` | 992 px | Laptop | The page header puts its actions beside the title |
+| `xl` | 1200 px | Desktop | Grids of cards take three or four columns |
+
+Layout uses the grid and the utilities of Bootstrap (`col-md-*`, `d-none d-md-table-cell`, `flex-wrap`, `gap-*`). A plugin writes no media query for something a utility already does.
+
+## The rules
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Do">
+
+- Keep the whole page inside the screen: only a table, a row of tabs or a row of chips scroll sideways, inside their own box.
+- Keep the same order of parts as on a desktop: header, toolbar, list, pager.
+- Make every control at least 36 px tall and leave 8 px between controls a finger can press.
+- Let a toolbar wrap: the search first, then the menus; the button that clears the filters stays at the top right.
+- Keep tabs and chips on one row that scrolls sideways.
+- Float popovers, menus and tooltips over the page; they never take room in a cell or push content.
+
+</Rule>
+<Rule kind="dont" title="Don't">
+
+- Hide a function on a phone; move it, never remove it.
+- Let a cell break a word in pieces or a column squeeze the others until they cannot be read.
+- Pile tabs or chips in several rows.
+- Put a fixed width on a field, a menu or a card.
+- Open a dialog wider than the screen; a dialog takes the whole width under 576 px.
+
+</Rule>
+</div>
+
+## Lists and tables
+
+Under 768 px a table keeps the height of its box and:
+
+1. **Its cells keep one line** (`white-space: nowrap`), so no word is broken.
+2. **It scrolls sideways inside its box**, never the page.
+3. **Its first column stays fixed** (`position: sticky`), so each row keeps its name in view while the others scroll.
+4. **A secondary column can move under the first**: the column takes `d-none d-md-table-cell` and its text appears under the name with `d-md-none`. Use it when a column with an action (a switch, a button) would otherwise leave the screen.
+5. **The pager** keeps the rows per page, the range and the arrows; it wraps into two rows when they do not fit.
+
+<Example title="A list on a phone" src="patterns/narrow-list" />
+
+## Toolbars and filters
+
+The search takes the first row and the filter menus wrap under it, each with its own width. The button that clears every filter keeps its place at the top right of the toolbar. A menu opens under its button and never wider than the screen.
+
+## Headers, tabs and chips
+
+The page header stacks: the title, then the context, then the actions, which wrap. Tabs and chips keep one row that scrolls sideways (`flex-wrap: nowrap; overflow-x: auto`), with the chosen one in view.
+
+## Dialogs and floating elements
+
+A dialog takes the whole width under 576 px and scrolls inside its body. A popover, a menu or a tooltip is placed next to what opened it, inside the screen, and closes when the page scrolls; it never takes room in the layout, so nothing moves when it opens.
+
+## Before shipping
+
+- [ ] The page does not scroll sideways at 360 px.
+- [ ] Every table keeps its height, scrolls sideways inside its box and keeps its first column in view.
+- [ ] No action leaves the screen without a way to reach it.
+- [ ] Tabs and chips keep one row.
+- [ ] Opening a popover moves nothing.

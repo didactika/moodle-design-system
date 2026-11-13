@@ -69,6 +69,14 @@ La caja es el `table-responsive` de la tabla con `data-region="tablewrap"`; una 
 
 <Example title="Una lista que conserva su altura" src="patterns/search-filter" />
 
+### Columnas que no se mueven
+
+Las columnas de una lista nunca se mueven cuando un filtro, un orden u otra página cambian sus filas. La primera vez que la tabla tiene filas, se mide y se conserva el ancho que el navegador da a cada columna (`table-layout: fixed` con los anchos medidos); todas las páginas siguientes usan los mismos anchos, que solo se vuelven a medir cuando la caja de la tabla cambia de ancho. Un texto más largo que su columna pasa a la línea siguiente entre palabras, y un valor que ocupa una sola línea termina con puntos suspensivos.
+
+### El detalle de una fila
+
+Lo que una fila tiene que explicar (por qué una fecha, que un valor aún no se ha guardado, por qué no hay valor, por qué algo falló) nunca va como un icono dentro de cada celda, donde parte la línea y ensancha la columna. Un valor que aún no se ha guardado se muestra en gris con una etiqueta suave que lo indica (`badge badge-soft rounded-pill text-bg-secondary`, por ejemplo **Provisional**), y uno que falta como un guion. Las explicaciones se abren desde **un botón redondo al final de la fila**, entre sus acciones, del color de la más grave: `text-info` con el icono de información cuando solo informa, `text-warning` con el icono de aviso cuando hay una incidencia y `text-danger` cuando algo falló. Abre **un diálogo** que se lee como una ficha: una alerta para lo que falló, cuando algo falló, y después una lista de descripción (`dl.row`) con cada valor y, debajo en texto pequeño y gris, lo que lo explica.
+
 ## Combinaciones
 
 | Combinación | Para qué usarla |

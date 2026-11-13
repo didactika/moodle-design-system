@@ -1,0 +1,79 @@
+---
+title: Pantallas estrechas
+summary: Cómo se comporta cada pantalla de un plugin desde un teléfono hasta un escritorio amplio, con los puntos de corte de Bootstrap y sin diseño propio.
+group: foundations
+order: 9
+---
+
+import Example from '../../../../components/Example.astro';
+import Rule from '../../../../components/Rule.astro';
+
+Un plugin se usa en un teléfono tanto como en un escritorio: un docente consulta un informe entre dos clases, un administrador responde a un mensaje desde el pasillo. Cada pantalla funciona desde 360 px de ancho, nunca hace que la página se desplace hacia los lados y conserva las mismas partes en el mismo orden; solo cambia su disposición. Los puntos de corte son los de Bootstrap, de modo que un tema que los cambia también cambia el plugin.
+
+## Puntos de corte
+
+| Nombre | Desde | Dispositivo habitual | Qué cambia |
+|---|---|---|---|
+| (ninguno) | 0 | Teléfono | Una columna; las barras se reparten en líneas; las tablas se desplazan hacia los lados dentro de su caja |
+| `sm` | 576 px | Teléfono grande | La búsqueda ocupa toda la primera fila de una barra |
+| `md` | 768 px | Tableta | Las tablas muestran todas las columnas sin desplazarse; vuelven las columnas secundarias |
+| `lg` | 992 px | Portátil | La cabecera de la página pone sus acciones junto al título |
+| `xl` | 1200 px | Escritorio | Las rejillas de tarjetas ocupan tres o cuatro columnas |
+
+La disposición usa la rejilla y las utilidades de Bootstrap (`col-md-*`, `d-none d-md-table-cell`, `flex-wrap`, `gap-*`). Un plugin no escribe ninguna media query para algo que ya hace una utilidad.
+
+## Las reglas
+
+<div class="ds-do-dont">
+<Rule kind="do" title="Úsalo">
+
+- Mantener toda la página dentro de la pantalla: solo una tabla, una fila de pestañas o una fila de chips se desplazan hacia los lados, dentro de su propia caja.
+- Conservar el mismo orden de partes que en un escritorio: cabecera, barra, lista, paginador.
+- Dar a cada control al menos 36 px de alto y dejar 8 px entre los controles que se pulsan con el dedo.
+- Dejar que una barra se reparta en líneas: primero la búsqueda, después los menús; el botón que quita los filtros se queda arriba a la derecha.
+- Mantener las pestañas y los chips en una fila que se desplaza hacia los lados.
+- Hacer flotar los popovers, los menús y las ayudas sobre la página; nunca ocupan sitio en una celda ni empujan el contenido.
+
+</Rule>
+<Rule kind="dont" title="No">
+
+- Ocultar una función en un teléfono; se mueve, nunca se quita.
+- Dejar que una celda parta una palabra o que una columna aplaste a las demás hasta que no se puedan leer.
+- Apilar pestañas o chips en varias filas.
+- Poner un ancho fijo a un campo, un menú o una tarjeta.
+- Abrir un diálogo más ancho que la pantalla; un diálogo ocupa todo el ancho por debajo de 576 px.
+
+</Rule>
+</div>
+
+## Listas y tablas
+
+Por debajo de 768 px una tabla conserva la altura de su caja y:
+
+1. **Sus celdas ocupan una sola línea** (`white-space: nowrap`), de modo que ninguna palabra se parte.
+2. **Se desplaza hacia los lados dentro de su caja**, nunca la página.
+3. **Su primera columna queda fija** (`position: sticky`), de modo que cada fila mantiene su nombre a la vista mientras las demás se desplazan.
+4. **Una columna secundaria puede pasar bajo la primera**: la columna lleva `d-none d-md-table-cell` y su texto aparece bajo el nombre con `d-md-none`. Úselo cuando una columna con una acción (un interruptor, un botón) quedaría fuera de la pantalla.
+5. **El paginador** conserva las filas por página, el rango y las flechas; se reparte en dos filas cuando no caben.
+
+<Example title="Una lista en un teléfono" src="patterns/narrow-list" />
+
+## Barras y filtros
+
+La búsqueda ocupa la primera fila y los menús de filtro pasan a las siguientes, cada uno con su propio ancho. El botón que quita todos los filtros conserva su lugar arriba a la derecha de la barra. Un menú se abre bajo su botón y nunca es más ancho que la pantalla.
+
+## Cabeceras, pestañas y chips
+
+La cabecera de la página se apila: el título, después el contexto, después las acciones, que se reparten en líneas. Las pestañas y los chips mantienen una fila que se desplaza hacia los lados (`flex-wrap: nowrap; overflow-x: auto`), con la elegida a la vista.
+
+## Diálogos y elementos flotantes
+
+Un diálogo ocupa todo el ancho por debajo de 576 px y se desplaza dentro de su cuerpo. Un popover, un menú o una ayuda se coloca junto a lo que lo abrió, dentro de la pantalla, y se cierra cuando la página se desplaza; nunca ocupa sitio en la disposición, de modo que nada se mueve al abrirlo.
+
+## Antes de publicar
+
+- [ ] La página no se desplaza hacia los lados a 360 px.
+- [ ] Cada tabla conserva su altura, se desplaza hacia los lados dentro de su caja y mantiene su primera columna a la vista.
+- [ ] Ninguna acción queda fuera de la pantalla sin una forma de alcanzarla.
+- [ ] Las pestañas y los chips mantienen una fila.
+- [ ] Abrir un popover no mueve nada.
