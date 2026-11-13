@@ -69,9 +69,9 @@ La caja es el `table-responsive` de la tabla con `data-region="tablewrap"`; una 
 
 <Example title="Una lista que conserva su altura" src="patterns/search-filter" />
 
-### Las explicaciones de una fila
+### El detalle de una fila
 
-Lo que una fila tiene que explicar (por qué una fecha, que un valor es provisional, por qué no hay valor, por qué algo falló) nunca va como un icono dentro de cada celda, donde parte la línea y ensancha la columna. Se abre desde **un botón redondo al final de la fila**, entre sus acciones, del color de la explicación más grave: `text-info` con el icono de información cuando solo informa, `text-warning` con el icono de aviso cuando hay una incidencia y `text-danger` cuando algo falló. Su popover enumera todas las explicaciones, la más grave primero, cada una con el icono de su tipo (un calendario para una fecha, un reloj de arena para un valor provisional, una persona para una persona, un aviso para una incidencia, una cruz para un fallo) y su título en el color de su significado. Un valor provisional se muestra en gris y en cursiva, tras un reloj de arena, y uno que falta como un guion. El popover flota sobre la página, de modo que nada se mueve al abrirlo, y las celdas conservan solo sus valores, con los provisionales en cursiva.
+Lo que una fila tiene que explicar (por qué una fecha, que un valor aún no se ha guardado, por qué no hay valor, por qué algo falló) nunca va como un icono dentro de cada celda, donde parte la línea y ensancha la columna. Un valor que aún no se ha guardado se muestra en gris con una etiqueta suave que lo indica (`badge badge-soft rounded-pill text-bg-secondary`, por ejemplo **Prevista**), y uno que falta como un guion. Las explicaciones se abren desde **un botón redondo al final de la fila**, entre sus acciones, del color de la más grave: `text-info` con el icono de información cuando solo informa, `text-warning` con el icono de aviso cuando hay una incidencia y `text-danger` cuando algo falló. Abre **un diálogo** que se lee como una ficha: una alerta para lo que falló, cuando algo falló, y después una lista de descripción (`dl.row`) con cada valor y, debajo en texto pequeño y gris, lo que lo explica.
 
 ## Combinaciones
 
