@@ -36,7 +36,7 @@ La paginación deja moverse por las páginas de una lista o una tabla. Muestra l
 
 ## Anatomía
 
-**La paginación de una lista** es la que usamos en todos los plugins (es la de Filebank): una fila con, a la izquierda, la etiqueta **Filas por página** y un select pequeño, y a la derecha el **rango** ("21–40 de 312"), la **página** ("Página 2 de 16") y un **grupo de cuatro botones de icono pequeños**: primera, anterior, siguiente y última. El grupo es de contorno y está unido, con los extremos redondeados; un botón que no se puede usar se desactiva, nunca se oculta, para que el grupo no cambie de ancho.
+**La paginación de una lista** es la que usan todos los plugins (es la de Delegate account): una fila en el pie de la tarjeta con, a la izquierda, la etiqueta **Filas por página** y un select pequeño, y a la derecha el **rango** ("21–40 de 312") y **dos botones de icono redondos**, anterior y siguiente. Un botón que no se puede usar se desactiva, nunca se oculta, para que la fila no cambie de ancho.
 
 **Las páginas numeradas** (`pagination`, `page-item`, `page-link`) son para los sitios donde la persona necesita saltar a una página concreta de una lista corta, y para las páginas propias de Moodle que ya las usan.
 
@@ -61,6 +61,20 @@ Moodle 5.3 tiene su propio componente de paginación (`mds-pagination`) para los
 <Example title="Paginación de Moodle 5.3" src="pagination/moodle" />
 
 </Only>
+
+## Filas por página
+
+El select ofrece solo los tamaños menores que la lista, y **Todos**. Una lista empieza con 12 filas.
+
+| Filas de la lista | El select ofrece |
+|---|---|
+| De 1 a 12 | Todos |
+| De 13 a 24 | 12, Todos |
+| De 25 a 48 | 12, 24, Todos |
+| De 49 a 96 | 12, 24, 48, Todos |
+| Más de 96 | 12, 24, 48, 96, Todos |
+
+El select siempre muestra una de sus opciones: cuando todas las filas caben en la página, muestra **Todos**. Una lista sin nada que mostrar no tiene paginador: lo dice su estado vacío. Una lista que se lee del servidor puede limitar Todos (el informe de Autograder muestra hasta 1000 filas a la vez); el rango dice entonces cuántas hay y las flechas siguen.
 
 ## Comportamiento
 
@@ -96,7 +110,7 @@ Moodle 5.3 tiene su propio componente de paginación (`mds-pagination`) para los
 | `pagination-sm`, `pagination-lg` | Más pequeña y más grande |
 | `page-item`, `page-link` | Un elemento y su enlace |
 | `active`, `disabled` | Estado de un elemento |
-| `dd-pager`, `dd-pager-size`, `dd-pager-end`, `dd-pager-range` | La paginación de una lista: filas por página, rango y flechas (Didactika) |
+| `dd-pager`, `dd-pager-size`, `dd-pager-end`, `dd-pager-range`, `dd-pager-arrows` | La paginación de una lista: filas por página, rango y flechas (Didactika) |
 
 ## En esta versión
 

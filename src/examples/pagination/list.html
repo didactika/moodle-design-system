@@ -2,22 +2,24 @@
   <div class="dd-pager">
     <div class="dd-pager-size">
       <label class="mb-0" for="pg-size">Rows per page</label>
-      <select class="form-select form-select-sm" id="pg-size"><option>10</option><option selected>20</option><option>50</option></select>
+      <select class="form-select form-select-sm dd-select" id="pg-size"><option value="12">12</option><option value="24" selected>24</option><option value="48">48</option><option value="96">96</option><option value="0">All</option></select>
     </div>
     <div class="dd-pager-end">
-      <span class="dd-pager-range"><b>21–40</b> of 312 <span class="dd-pager-page">· Page 2 of 16</span></span>
-      <div class="btn-group" role="group" aria-label="Pages">
-        <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="First page" title="First page"><i data-pix="t/angles-left"></i></button>
+      <span class="dd-pager-range">25–48 of 312</span>
+      <div class="dd-pager-arrows" style="display:flex;gap:.25rem">
         <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Previous page" title="Previous page"><i data-pix="i/previous"></i></button>
         <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Next page" title="Next page"><i data-pix="i/next"></i></button>
-        <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Last page" title="Last page"><i data-pix="t/angles-right"></i></button>
       </div>
     </div>
   </div>
-  <div class="dd-pager" style="justify-content:flex-end">
+  <div class="dd-pager">
+    <div class="dd-pager-size">
+      <label class="mb-0" for="pg-size2">Rows per page</label>
+      <select class="form-select form-select-sm dd-select" id="pg-size2"><option value="12" selected>12</option><option value="0">All</option></select>
+    </div>
     <div class="dd-pager-end">
-      <span class="dd-pager-range"><b>1–20</b> of 312</span>
-      <div class="btn-group" role="group" aria-label="Pages">
+      <span class="dd-pager-range">1–12 of 20</span>
+      <div class="dd-pager-arrows" style="display:flex;gap:.25rem">
         <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Previous page" disabled><i data-pix="i/previous"></i></button>
         <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Next page"><i data-pix="i/next"></i></button>
       </div>

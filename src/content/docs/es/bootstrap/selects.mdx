@@ -61,6 +61,16 @@ Un select con el atributo `multiple` se dibuja como un campo de etiquetas: lo el
 
 <Example title="Un select con varios valores, etiquetas libres y un campo vacío" src="selects/tags" />
 
+## Un select que filtra una lista
+
+En la barra de una lista un select es un filtro, y sigue tres reglas:
+
+1. **Su estado base no es una opción.** "Todos los grupos" es lo que dice el select mientras no se elige nada (una opción `hidden`, o la etiqueta de un botón con forma de select); la lista que abre nunca la ofrece.
+2. **Un valor elegido lo tiñe.** El select muestra el valor con `border-primary`, el borde primario y el fondo primario suave.
+3. **Su flecha se convierte en una cruz.** Al elegir un valor, `dd-select-set` quita la flecha y un botón `dd-select-clear` con el icono `e/cancel` ocupa su lugar; al pulsarlo se vuelve al estado base. Ambos van dentro de un `dd-select-filter`.
+
+<Example title="Antes y después de elegir" src="selects/filter-select" />
+
 ## Combinaciones
 
 | Combinación | Para qué usarla |

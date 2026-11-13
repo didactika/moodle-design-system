@@ -36,7 +36,7 @@ Pagination lets the user move through the pages of a list or a table. It shows t
 
 ## Anatomy
 
-**The pagination of a list** is the one we use in every plugin (it is the one of Filebank): a row with, on the left, the label **Rows per page** and a small select, and on the right the **range** ("21–40 of 312"), the **page** ("Page 2 of 16") and a **group of four small icon buttons**: first, previous, next and last. The group is outlined and joined, with the ends rounded; a button that cannot be used is disabled, never hidden, so the group does not change width.
+**The pagination of a list** is the one every plugin uses (it is the one of Delegate account): a row in the foot of the card with, on the left, the label **Rows per page** and a small select, and on the right the **range** ("21–40 of 312") and **two round icon buttons**, previous and next. A button that cannot be used is disabled, never hidden, so the row does not change width.
 
 **Numbered pages** (`pagination`, `page-item`, `page-link`) are for the places where the user needs to jump to a given page of a short list, and for Moodle's own pages that already use them.
 
@@ -61,6 +61,20 @@ Moodle 5.3 has its own pagination component (`mds-pagination`) for the places wh
 <Example title="Pagination of Moodle 5.3" src="pagination/moodle" />
 
 </Only>
+
+## Rows per page
+
+The select offers only the sizes that are smaller than the list, and **All**. A list starts with 12 rows.
+
+| Rows in the list | The select offers |
+|---|---|
+| 1 to 12 | All |
+| 13 to 24 | 12, All |
+| 25 to 48 | 12, 24, All |
+| 49 to 96 | 12, 24, 48, All |
+| More than 96 | 12, 24, 48, 96, All |
+
+The select always shows one of its options: when every row fits on the page, it shows **All**. A list with nothing to show has no pager: its empty state says so. A list read from the server may cap All (the Autograder report shows up to 1000 rows at once); the range then says how many there are and the arrows go on.
 
 ## Behaviour
 
@@ -96,7 +110,7 @@ Moodle 5.3 has its own pagination component (`mds-pagination`) for the places wh
 | `pagination-sm`, `pagination-lg` | Smaller and larger |
 | `page-item`, `page-link` | An item and its link |
 | `active`, `disabled` | State of an item |
-| `dd-pager`, `dd-pager-size`, `dd-pager-end`, `dd-pager-range` | The pagination of a list: rows per page, range and arrows (Didactika) |
+| `dd-pager`, `dd-pager-size`, `dd-pager-end`, `dd-pager-range`, `dd-pager-arrows` | The pagination of a list: rows per page, range and arrows (Didactika) |
 
 ## In this version
 

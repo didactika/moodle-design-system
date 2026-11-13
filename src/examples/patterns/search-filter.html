@@ -1,23 +1,47 @@
-<div style="display:grid;gap:1rem">
-  <form role="search" class="input-group"><span class="input-group-text"><i data-pix="a/search"></i></span><input class="form-control" type="search" value="alg" aria-label="Search courses" placeholder="Search courses"><button type="submit" class="btn btn-primary">Search</button></form>
-  <div class="dd-chips" role="group" aria-label="Filter by status">
-    <button type="button" class="dd-chip" aria-pressed="true">All <span class="dd-chip-count">7</span></button>
-    <button type="button" class="dd-chip" aria-pressed="false">Open <span class="dd-chip-count">5</span></button>
-    <button type="button" class="dd-chip" aria-pressed="false">Draft <span class="dd-chip-count">2</span></button>
-  </div>
-  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem">
-    <div class="dd-chips" aria-label="Applied filters">
-      <span class="dd-chip dd-chip-applied">Search: alg <button type="button" class="dd-chip-remove" aria-label="Remove the search"></button></span>
-      <span class="dd-chip dd-chip-applied">2026 <button type="button" class="dd-chip-remove" aria-label="Remove 2026"></button></span>
-      <button type="button" class="btn btn-link btn-sm">Clear all</button>
+<div class="card" style="--dd-table-h:20rem">
+  <div class="table-toolbar">
+    <div class="table-toolbar-start" style="display:flex;flex-wrap:wrap;align-items:center;gap:.5rem">
+      <div class="dd-searchbox" role="search"><i data-pix="a/search"></i><input class="form-control" type="search" placeholder="Search" aria-label="Search students"></div>
+      <span class="dd-select-filter">
+        <button type="button" class="form-select dd-select dd-select-set border-primary" aria-haspopup="true" aria-expanded="false">Status: Pending</button>
+        <button type="button" class="dd-select-clear" title="Clear: Status" aria-label="Clear: Status"><i data-pix="e/cancel"></i></button>
+      </span>
+      <span class="dd-select-filter">
+        <select class="form-select dd-select" aria-label="Group">
+          <option value="" hidden selected>All groups</option>
+          <option value="1">Group A</option>
+          <option value="2">Group B</option>
+        </select>
+      </span>
+      <span class="dd-select-filter">
+        <button type="button" class="form-select dd-select" aria-haspopup="true" aria-expanded="false">Grading date</button>
+      </span>
     </div>
-    <span style="color:var(--dd-muted);font-size:.875rem" role="status">7 results</span>
+    <div class="table-toolbar-end">
+      <button type="button" class="btn btn-link btn-icon" title="Clear every filter" aria-label="Clear every filter"><i data-pix="i/reload"></i></button>
+    </div>
   </div>
-  <div class="card">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" style="display:flex;align-items:center;gap:.75rem"><span class="dd-tile dd-tile-sm"><i data-pix="i/course"></i></span><span style="flex:1"><b>Algebra I</b><br><small style="color:var(--dd-muted)">Mathematics · 128 students</small></span><span class="badge badge-soft rounded-pill text-bg-success">Open</span></li>
-      <li class="list-group-item" style="display:flex;align-items:center;gap:.75rem"><span class="dd-tile dd-tile-sm"><i data-pix="i/course"></i></span><span style="flex:1"><b>Algebra II</b><br><small style="color:var(--dd-muted)">Mathematics · 94 students</small></span><span class="badge badge-soft rounded-pill text-bg-warning">Draft</span></li>
-      <li class="list-group-item" style="display:flex;align-items:center;gap:.75rem"><span class="dd-tile dd-tile-sm"><i data-pix="i/course"></i></span><span style="flex:1"><b>Linear algebra</b><br><small style="color:var(--dd-muted)">Mathematics · 61 students</small></span><span class="badge badge-soft rounded-pill text-bg-success">Open</span></li>
-    </ul>
+  <div class="table-responsive" data-region="tablewrap" style="border:0;border-radius:0">
+    <table class="table table-hover mb-0">
+      <caption class="visually-hidden">Students</caption>
+      <thead><tr><th scope="col">Name</th><th scope="col">Group</th><th scope="col">Status</th><th scope="col">Grading date</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Ana Lopez</th><td>Group A</td><td><span class="badge badge-soft badge-dot rounded-pill text-bg-info">Pending</span></td><td>15/11/26, 12:22</td></tr>
+        <tr><th scope="row">Bruno Marti</th><td>Group B</td><td><span class="badge badge-soft badge-dot rounded-pill text-bg-info">Pending</span></td><td>15/11/26, 12:22</td></tr>
+        <tr><th scope="row">Carla Nunez</th><td>Group A</td><td><span class="badge badge-soft badge-dot rounded-pill text-bg-info">Pending</span></td><td>16/11/26, 09:10</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-foot">
+    <div class="dd-pager">
+      <div class="dd-pager-size"><label class="mb-0" for="sf-size">Rows per page</label><select class="form-select form-select-sm dd-select" id="sf-size"><option value="0" selected>All</option></select></div>
+      <div class="dd-pager-end">
+        <span class="dd-pager-range" role="status">1–3 of 3</span>
+        <div class="dd-pager-arrows" style="display:flex;gap:.25rem">
+          <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Previous page" disabled><i data-pix="i/previous"></i></button>
+          <button type="button" class="btn btn-outline-secondary btn-sm btn-icon" aria-label="Next page" disabled><i data-pix="i/next"></i></button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

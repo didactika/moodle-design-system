@@ -270,3 +270,30 @@
 
 /* the chosen button of a group (aria-pressed, active or checked) is the tint of its colour with a border of it and a heavier label */
 .ds-v-scope .btn.btn:is([class*="btn-outline-"]):is(.active, [aria-pressed="true"]), .ds-v-scope .btn-check:checked + .btn[class*="btn-outline-"] { border-color: var(--dd-c); background-color: var(--dd-c-soft-2); box-shadow: none; color: var(--dd-c-ink); font-weight: 700; }
+
+/*
+ * The search of a list (dd-searchbox): the magnifier inside a round field, at the start of the toolbar.
+ */
+.ds-v-scope .dd-searchbox { position: relative; flex: 1 1 16rem; max-width: 22rem; }
+.ds-v-scope .dd-searchbox > .icon, .ds-v-scope .dd-searchbox > i { position: absolute; top: 50%; left: .875rem; margin: 0; color: var(--dd-muted); transform: translateY(-50%); pointer-events: none; }
+.ds-v-scope .dd-searchbox .form-control { min-height: var(--dd-h); padding-left: 2.25rem; border-radius: 999px; }
+
+/*
+ * A select in the toolbar of a list (dd-select): the height and the round shape of the search beside it. A menu that is not a native
+ * select (a button with the shape of a select, as the filters with checkboxes or a search inside) takes the same classes.
+ */
+.ds-v-scope .dd-select { width: auto; min-width: 10rem; max-width: 20rem; min-height: var(--dd-h); padding-left: 1rem; border-radius: 999px; text-align: left; }
+.ds-v-scope .dd-pager .dd-select { min-width: 4.75rem; min-height: var(--dd-h-sm); }
+.ds-v-scope .dd-select.border-primary { border-color: var(--dd-primary); background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-weight: 600; }
+
+/*
+ * A select that filters a list (dd-select-filter). Its base state ("All groups") is what it says while nothing is chosen, never an
+ * option of its list. Once a value is chosen the select is tinted (border-primary), it loses its arrow (dd-select-set) and a cross
+ * (dd-select-clear) takes the place of the arrow: pressing it goes back to the base state.
+ */
+.ds-v-scope .dd-select-filter { position: relative; display: inline-flex; max-width: 100%; }
+.ds-v-scope .dd-select.dd-select-set { padding-right: 2.5rem; background-image: none; }
+.ds-v-scope .dd-select-clear { position: absolute; top: 50%; right: .5rem; display: inline-flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; padding: 0; border: 0; border-radius: 50%; background-color: transparent; color: var(--dd-primary-ink); transform: translateY(-50%); transition: background-color var(--dd-ease); }
+.ds-v-scope .dd-select-clear .icon, .ds-v-scope .dd-select-clear i { width: .875rem; height: .875rem; margin: 0; font-size: .875rem; }
+.ds-v-scope .dd-select-clear:hover { background-color: color-mix(in srgb, var(--dd-primary) 14%, transparent); }
+.ds-v-scope .dd-select-clear:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }

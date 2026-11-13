@@ -71,6 +71,16 @@
 .ds-v-scope .table-toolbar .form-control, .ds-v-scope .table-toolbar .input-group { max-width: 18rem; }
 .ds-v-scope .table-toolbar-selection { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-size: .875rem; font-weight: 600; }
 .ds-v-scope .table-foot { padding: .75rem 1rem; border-top: 1px solid var(--dd-hairline); }
+
+/*
+ * The box of a list (data-region="tablewrap"): the same height whatever it holds. With few rows there is room under them; with many it
+ * scrolls inside, the header stays in view and the room of the scrollbar is kept, so the columns never move. With nothing to show, the
+ * empty state with its icon takes the place of the table, at the same height.
+ */
+.ds-v-scope { --dd-table-h: 34rem; }
+.ds-v-scope .table-responsive[data-region="tablewrap"], .ds-v-scope [data-region="tablewrap"] { block-size: var(--dd-table-h); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.ds-v-scope [data-region="tablewrap"] thead th { position: sticky; inset-block-start: 0; z-index: 1; background-color: var(--dd-surface); }
+.ds-v-scope [data-region="tablewrap"] > .dd-empty { display: grid; place-content: center; justify-items: center; min-block-size: 100%; }
 .ds-v-scope .table-sort { display: inline-flex; align-items: center; gap: .375rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
 .ds-v-scope .table-sort:hover, .ds-v-scope .table-sort.ds-is-hover { color: var(--dd-ink); }
 .ds-v-scope th[aria-sort="ascending"] .table-sort, .ds-v-scope th[aria-sort="descending"] .table-sort { color: var(--dd-primary-ink, var(--dd-primary)); }
