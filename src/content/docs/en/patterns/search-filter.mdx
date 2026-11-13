@@ -36,7 +36,7 @@ People find things in two ways: by typing what they remember and by narrowing a 
 
 ## One row, always
 
-The toolbar never breaks in two rows. The search shrinks down to its own room (10 rem) and the filter menus keep their width beside it; a chosen menu says only its value ("Graded by a teacher", not "Status: Graded by a teacher") and ends with an ellipsis when it is too long. When the menus do not fit, on a narrow screen or with long values, they are grouped in one menu, **Filters (2)**, which says how many filters are applied and holds the same menus one under the other; they come back to the row when there is room again.
+The toolbar never breaks in two rows. The search shrinks down to its own room (10 rem) and the filter menus keep their width beside it; a chosen menu says only its value ("Graded by a teacher", not "Status: Graded by a teacher") and ends with an ellipsis before its cross when it is too long: the text never runs under the cross. The menu is a block (`button.dd-select`), because only a block cuts its text with an ellipsis. When the menus do not fit, on a narrow screen or with long values, they are grouped in one menu, **Filters (2)**, always with the funnel icon (`i/filter`), which says how many filters are applied and holds the same menus one under the other; they come back to the row when there is room again.
 
 ## Behaviour
 
@@ -79,6 +79,7 @@ The search takes the whole width; the menus wrap below it; the clear button stay
 
 - [ ] No menu offers its base state as an option.
 - [ ] A chosen filter is tinted and has its cross.
+- [ ] A long value ends with an ellipsis before the cross, and the Filters menu has its funnel.
 - [ ] Chips and menus are not mixed in one toolbar.
 - [ ] The clear button is at the end of the row, with its icon.
 - [ ] The filters are in the address.
