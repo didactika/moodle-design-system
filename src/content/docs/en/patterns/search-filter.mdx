@@ -31,6 +31,7 @@ People find things in two ways: by typing what they remember and by narrowing a 
 - **The arrow becomes a cross.** Once a value is chosen, the arrow of the menu is replaced by a cross (`dd-select-clear`) that takes the filter back to its base state. The cross has its own label ("Clear: Status").
 - **Counts go inside the menu.** When the values of a filter have counts, each option shows its count, computed with the other filters applied.
 - A filter with several values (status) uses checkboxes inside the menu; a filter with many values (course, activity) has a search field at the top of its menu.
+- **A period never goes the wrong way round.** A menu of dates with two days keeps the first one on or before the last one: when the day just chosen passes the other, the other moves to it, however the day was written (by hand, with the calendar or in the address).
 
 <Example title="A menu that filters, before and after a choice" src="selects/filter-select" />
 
