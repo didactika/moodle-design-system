@@ -69,6 +69,8 @@ const open = (select: HTMLSelectElement): void => {
     menu.tabIndex = -1;
     const entries: Entry[] = [];
     const add = (option: HTMLOptionElement, parent: HTMLElement): void => {
+        // A hidden option is the base state of a filter: the select says it, the list never offers it.
+        if (option.hidden) { return; }
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'dropdown-item';

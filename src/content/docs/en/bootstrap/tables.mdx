@@ -61,6 +61,14 @@ A sortable header is a button inside the `th`. Only one column is sorted at a ti
 
 <Example title="Row styles" src="tables/states" />
 
+### The height of a list
+
+A table people work with keeps **one height** whatever it holds (`--dd-table-h`, 34 rem). With few rows there is room under them; with many the table scrolls inside its box, the header stays in view and the room of the scrollbar is kept (`scrollbar-gutter: stable`), so the columns never move when the rows outgrow the box. With nothing to show, the [empty state](../../didactika/empty-states/) with its icon takes the place of the table, at the same height, so the page does not jump while the person searches, filters or pages.
+
+The box is the `table-responsive` of the table with `data-region="tablewrap"`; a list that is not a table (a list group of versions, of capabilities) uses the same attribute on its own box.
+
+<Example title="A list that keeps its height" src="patterns/search-filter" />
+
 ## Combinations
 
 | Combination | Use it for |

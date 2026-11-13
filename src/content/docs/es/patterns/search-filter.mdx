@@ -1,67 +1,80 @@
 ---
 title: Búsqueda y filtros
-summary: "Encontrar una cosa entre muchas: un campo de búsqueda, unos filtros y los aplicados, con la cuenta de resultados."
+summary: "Encontrar una cosa entre muchas: un campo de búsqueda, un menú para cada filtro y el botón que los quita, con la cuenta de resultados."
 group: patterns
 order: 3
 ---
 
 import Example from '../../../../components/Example.astro';
 
-La gente encuentra las cosas de dos maneras: escribiendo lo que recuerda y acotando una lista. Este patrón combina las dos y muestra siempre qué está aplicado y cuántos resultados hay.
+Las personas encuentran las cosas de dos maneras: escribiendo lo que recuerdan y acotando una lista. Este patrón combina ambas en una sola fila sobre la lista, de modo que se ve de un vistazo qué acota la lista y cómo deshacerlo.
 
 ## Cuándo usarlo
 
 - La lista es tan larga que desplazarse no es una forma de encontrar algo (más de unos veinte elementos).
-- Usa solo la búsqueda para una lista con una cosa obvia que escribir; solo chips cuando los filtros son pocos y conocidos.
+- Use solo la búsqueda para una lista con una cosa obvia que escribir.
+- Use solo [chips de filtro](../../didactika/filter-chips/) cuando la lista tiene un único filtro de dos a cuatro valores y nada más que la acote (por ejemplo, los tipos de actividad activados o desactivados). Los chips nunca se mezclan con menús de filtro en la misma barra.
 
 ## Anatomía
 
-1. **Campo de búsqueda**: un grupo de entrada con la lupa, un campo y el botón. En la barra de una página, el icono de búsqueda abre el componente de búsqueda.
-2. **Chips de filtro** para los filtros que se usan siempre, con sus cuentas.
-3. **Filtros aplicados**: chips con botón de quitar, un enlace "Quitar todos" y la **cuenta de resultados**, que se anuncia al cambiar.
-4. **Los resultados**, como tabla (para trabajar) o como lista (para elegir).
+1. **Campo de búsqueda** (`dd-searchbox`): la lupa dentro de un campo redondeado, al principio de la fila.
+2. **Un menú para cada filtro**, junto a la búsqueda: estado, curso, actividad, grupo, fechas. Cada menú tiene la forma de un select y dice qué filtra ("Estado", "Todos los grupos", "Fecha de calificación").
+3. **El botón que quita todos los filtros**, un botón de icono con el icono de recargar al final de la fila (`table-toolbar-end`), desactivado mientras nada acota la lista.
+4. **Los resultados**, como tabla (para trabajar) o como lista (para elegir), con la cuenta en el paginador bajo ellos.
 
-<Example title="Búsqueda, filtros y resultados" src="patterns/search-filter" />
+<Example title="Búsqueda, menús de filtro y resultados" src="patterns/search-filter" />
+
+## Un menú que filtra
+
+- **El estado base no es una opción.** "Todos los grupos", "Todos los estudiantes" o "Todos los estados" es lo que dice el menú mientras no se elige nada; nunca vuelve a aparecer dentro de la lista de opciones.
+- **El valor elegido se muestra y se tiñe.** El menú dice a qué está acotado ("Estado: Pendiente", "Grupo A") con el borde primario y el fondo primario suave.
+- **La flecha se convierte en una cruz.** Al elegir un valor, la flecha del menú se sustituye por una cruz (`dd-select-clear`) que devuelve el filtro a su estado base. La cruz tiene su propia etiqueta ("Quitar: Estado").
+- **Las cuentas van dentro del menú.** Cuando los valores de un filtro tienen cuentas, cada opción muestra la suya, calculada con los demás filtros aplicados.
+- Un filtro de varios valores (estado) usa casillas dentro del menú; un filtro de muchos valores (curso, actividad) tiene un campo de búsqueda al principio de su menú.
+
+<Example title="Un menú que filtra, antes y después de elegir" src="selects/filter-select" />
 
 ## Comportamiento
 
-1. La búsqueda se ejecuta cuando la persona deja de escribir (300 ms) o pulsa Intro; el botón es para quien lo busca.
-2. El texto buscado también aparece como filtro aplicado, así se quita como cualquier otro.
-3. Los chips acotan los resultados al instante. Las cuentas de los chips son las cuentas **con los otros filtros aplicados**, así un chip nunca promete resultados que no hay.
-4. La cuenta de resultados cambia en una región viva ("7 resultados"); sin ninguno, aparece el estado vacío de una búsqueda, con la forma de quitar los filtros.
-5. Cada filtro va a la dirección, así la búsqueda se puede compartir y sobrevive a una recarga.
-6. El texto encontrado se resalta en los resultados cuando la lista es una lista.
+1. La búsqueda se ejecuta cuando la persona deja de escribir (300 ms); Intro no envía la página.
+2. Cada filtro se aplica al instante y la lista vuelve a su primera página.
+3. La cruz de un menú quita solo ese filtro; el botón del final de la fila quita la búsqueda y todos los filtros.
+4. Las cuentas de las opciones son las cuentas **con los demás filtros aplicados**, de modo que una opción nunca promete resultados que no hay.
+5. Sin resultados, la lista muestra el estado vacío de una búsqueda, con su icono y la forma de quitar los filtros.
+6. Cada filtro va a la dirección, así la búsqueda se puede compartir y sobrevive a una recarga.
 
 ## Disposición y espacios
 
 | Entre | Distancia |
 |---|---|
-| Búsqueda y chips | 1 rem |
-| Chips y filtros aplicados | 1 rem |
-| Filtros aplicados y resultados | 1 rem; la cuenta va en el extremo derecho de la fila de filtros aplicados |
+| Búsqueda y el primer menú | 0,5 rem |
+| Menús | 0,5 rem |
+| Menús y el botón de quitar | El resto de la fila: el botón queda al final |
+| Barra y resultados | 0, una línea fina los separa dentro de la misma tarjeta |
 
 ## Estados
 
 | Estado | Qué ve la persona |
 |---|---|
-| Buscando | Los resultados se atenúan y un esqueleto muestra dónde estaban; el campo conserva el foco |
-| Sin resultados | El estado vacío de una búsqueda y un botón "Quitar filtros" |
+| Buscando | Los resultados se atenúan y conservan su altura; el campo conserva el foco |
+| Sin resultados | El estado vacío de una búsqueda, con su icono y un botón "Quitar filtros" |
 | Error | Una alerta que conserva los filtros y ofrece "Reintentar" |
 
 ## Pantallas estrechas
 
-La búsqueda ocupa todo el ancho; los chips se desplazan hacia los lados en una sola fila en vez de repartirse en varias; los filtros aplicados se reparten en líneas.
+La búsqueda ocupa todo el ancho; los menús pasan a la línea siguiente; el botón de quitar se queda al final de la primera fila.
 
 ## Accesibilidad
 
-- La búsqueda es un `form` con `role="search"` y una etiqueta en el campo.
-- Los chips son botones de alternancia (`aria-pressed`) en un grupo con etiqueta.
-- Cada botón de quitar nombra su filtro.
-- La cuenta es una región `role="status"`.
+- La búsqueda tiene `role="search"` y una etiqueta en el campo.
+- Cada menú es un botón con `aria-haspopup` y `aria-expanded`; su etiqueta nombra el filtro.
+- La cruz de un menú y el botón de quitar nombran lo que quitan.
+- La cuenta de resultados es una región `role="status"`.
 
 ## Antes de publicar
 
-- [ ] Todo lo aplicado es visible y se puede quitar.
-- [ ] La cuenta de resultados se anuncia.
-- [ ] El resultado vacío tiene salida.
+- [ ] Ningún menú ofrece su estado base como opción.
+- [ ] Un filtro elegido está teñido y tiene su cruz.
+- [ ] Los chips y los menús no se mezclan en una barra.
+- [ ] El botón de quitar está al final de la fila, con su icono.
 - [ ] Los filtros están en la dirección.

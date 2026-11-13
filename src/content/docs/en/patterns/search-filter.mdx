@@ -1,67 +1,80 @@
 ---
 title: Search and filter
-summary: "Find one thing among many: a search field, a few filters and the applied ones, with the count of results."
+summary: "Find one thing among many: a search field, one menu for each filter and the button that clears them, with the count of results."
 group: patterns
 order: 3
 ---
 
 import Example from '../../../../components/Example.astro';
 
-People find things in two ways: by typing what they remember and by narrowing a list. This pattern combines both and always shows what is applied and how many results there are.
+People find things in two ways: by typing what they remember and by narrowing a list. This pattern combines both in one row above the list, so the person sees at a glance what narrows the list and how to undo it.
 
 ## When to use it
 
 - The list is long enough that scrolling is not a way to find something (more than about twenty items).
-- Use only the search for a list with one obvious thing to type; only chips when the filters are few and known.
+- Use only the search for a list with one obvious thing to type.
+- Use only [filter chips](../../didactika/filter-chips/) when the list has a single filter with two to four values and nothing else to narrow it (for example the activity types that are on or off). Chips are never mixed with filter menus in the same toolbar.
 
 ## Anatomy
 
-1. **Search field**: an input group with the magnifier, a field and the button. In a bar of a page, the search icon opens the search component instead.
-2. **Filter chips** for the filters used all the time, with their counts.
-3. **Applied filters**: chips with a remove button, a "Clear all" link and the **count of results**, announced as it changes.
-4. **The results**, as a table (to work) or as a list group (to choose).
+1. **Search field** (`dd-searchbox`): the magnifier inside a round field, at the start of the row.
+2. **One menu for each filter**, beside the search: status, course, activity, group, dates. Each menu has the shape of a select and says what it filters ("Status", "All groups", "Grading date").
+3. **The button that clears every filter**, an icon button with the reload icon at the end of the row (`table-toolbar-end`), disabled while nothing narrows the list.
+4. **The results**, as a table (to work) or as a list (to choose), with the count in the pager under them.
 
-<Example title="Search, filters and results" src="patterns/search-filter" />
+<Example title="Search, filter menus and results" src="patterns/search-filter" />
+
+## A menu that filters
+
+- **The base state is not an option.** "All groups", "All the students" or "Every status" is what the menu says while nothing is chosen; it never appears again inside the list of options.
+- **A chosen value is shown and tinted.** The menu says what it is narrowed to ("Status: Pending", "Group A") with the primary border and the soft primary background.
+- **The arrow becomes a cross.** Once a value is chosen, the arrow of the menu is replaced by a cross (`dd-select-clear`) that takes the filter back to its base state. The cross has its own label ("Clear: Status").
+- **Counts go inside the menu.** When the values of a filter have counts, each option shows its count, computed with the other filters applied.
+- A filter with several values (status) uses checkboxes inside the menu; a filter with many values (course, activity) has a search field at the top of its menu.
+
+<Example title="A menu that filters, before and after a choice" src="selects/filter-select" />
 
 ## Behaviour
 
-1. Search runs when the user stops typing (300 ms) or presses Enter; the button is for those who look for it.
-2. The text searched also appears as an applied filter, so it can be removed like any other.
-3. Chips narrow the results at once. The counts on the chips are the counts **with the other filters applied**, so a chip never promises results that are not there.
-4. The count of results changes in a live region ("7 results"); with none, the empty state of a search appears, with the way to clear the filters.
-5. Every filter goes to the address, so the search can be shared and survives a reload.
-6. The matched text is highlighted in the results when the list is a list group.
+1. Search runs when the user stops typing (300 ms); Enter does not submit the page.
+2. Every filter applies at once and the list goes back to its first page.
+3. The cross of a menu clears that filter only; the button at the end of the row clears the search and every filter.
+4. The counts of the options are the counts **with the other filters applied**, so an option never promises results that are not there.
+5. With no results, the list shows the empty state of a search, with its icon and the way to clear the filters.
+6. Every filter goes to the address, so the search can be shared and survives a reload.
 
 ## Layout and spacing
 
 | Between | Distance |
 |---|---|
-| Search and chips | 1 rem |
-| Chips and applied filters | 1 rem |
-| Applied filters and results | 1 rem; the count sits at the right end of the applied-filters row |
+| Search and the first menu | 0.5 rem |
+| Menus | 0.5 rem |
+| Menus and the clear button | The rest of the row: the button sits at its end |
+| Toolbar and results | 0, a hairline separates them inside the same card |
 
 ## States
 
 | State | What the user sees |
 |---|---|
-| Searching | The results dim and a skeleton shows where they were; the field keeps its focus |
-| No results | The empty state of a search and a "Clear filters" button |
+| Searching | The results dim and keep their height; the field keeps its focus |
+| No results | The empty state of a search, with its icon and a "Clear filters" button |
 | Error | An alert that keeps the filters and offers "Try again" |
 
 ## Narrow screens
 
-The search takes the whole width; the chips scroll sideways in one row instead of wrapping into several; the applied filters wrap.
+The search takes the whole width; the menus wrap below it; the clear button stays at the end of the first row.
 
 ## Accessibility
 
-- The search is a `form` with `role="search"` and a label on the field.
-- Chips are toggle buttons (`aria-pressed`) in a labelled group.
-- Each remove button names its filter.
-- The count is a `role="status"` region.
+- The search has `role="search"` and a label on the field.
+- Each menu is a button with `aria-haspopup` and `aria-expanded`; its label names the filter.
+- The cross of a menu and the clear button name what they clear.
+- The count of results is a `role="status"` region.
 
 ## Before shipping
 
-- [ ] Everything applied is visible and removable.
-- [ ] The count of results is announced.
-- [ ] The empty result has a way out.
+- [ ] No menu offers its base state as an option.
+- [ ] A chosen filter is tinted and has its cross.
+- [ ] Chips and menus are not mixed in one toolbar.
+- [ ] The clear button is at the end of the row, with its icon.
 - [ ] The filters are in the address.

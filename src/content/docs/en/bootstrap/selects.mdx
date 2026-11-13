@@ -61,6 +61,16 @@ A select with the attribute `multiple` is drawn as a field of tags: what is chos
 
 <Example title="A select with several values, free tags and an empty field" src="selects/tags" />
 
+## A select that filters a list
+
+In the toolbar of a list a select is a filter, and it follows three rules:
+
+1. **Its base state is not an option.** "All groups" is what the select says while nothing is chosen (a `hidden` option, or the label of a button with the shape of a select); the list it opens never offers it.
+2. **A chosen value tints it.** The select shows the value with `border-primary`, the primary border and the soft primary background.
+3. **Its arrow becomes a cross.** Once a value is chosen, `dd-select-set` takes the arrow away and a `dd-select-clear` button with the `e/cancel` icon takes its place; pressing it goes back to the base state. Both live in a `dd-select-filter`.
+
+<Example title="Before and after a choice" src="selects/filter-select" />
+
 ## Combinations
 
 | Combination | Use it for |

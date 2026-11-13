@@ -61,6 +61,14 @@ Una cabecera ordenable es un botón dentro del `th`. Solo una columna está orde
 
 <Example title="Estilos de fila" src="tables/states" />
 
+### La altura de una lista
+
+Una tabla con la que se trabaja conserva **una sola altura** contenga lo que contenga (`--dd-table-h`, 34 rem). Con pocas filas queda espacio debajo; con muchas, la tabla se desplaza dentro de su caja, la cabecera se mantiene a la vista y se reserva el espacio de la barra de desplazamiento (`scrollbar-gutter: stable`), de modo que las columnas no se mueven cuando las filas superan la caja. Sin nada que mostrar, el [estado vacío](../../didactika/empty-states/) con su icono ocupa el lugar de la tabla, con la misma altura, para que la página no salte mientras la persona busca, filtra o cambia de página.
+
+La caja es el `table-responsive` de la tabla con `data-region="tablewrap"`; una lista que no es una tabla (un grupo de versiones o de capacidades) usa el mismo atributo en su propia caja.
+
+<Example title="Una lista que conserva su altura" src="patterns/search-filter" />
+
 ## Combinaciones
 
 | Combinación | Para qué usarla |
