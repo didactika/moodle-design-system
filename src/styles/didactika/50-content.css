@@ -57,7 +57,7 @@
 .ds-v-scope .table-hover tbody tr:hover, .ds-v-scope .table-striped tbody tr:nth-of-type(odd), .ds-v-scope .table tbody tr.table-active { background-color: transparent; color: var(--dd-ink); }
 .ds-v-scope .table-hover tbody tr:hover > * { background-color: color-mix(in srgb, var(--dd-primary) 5%, var(--dd-surface)); }
 .ds-v-scope .table-striped tbody tr:nth-of-type(odd) > * { background-color: var(--dd-surface-2); }
-.ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); }
+.ds-v-scope .table tbody tr.table-active > * { background-color: var(--dd-primary-soft); box-shadow: none; }
 .ds-v-scope .table-responsive { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); }
 .ds-v-scope caption { color: var(--dd-muted); }
 .ds-v-scope .table .table-select { width: 2.75rem; padding-right: 0; }
