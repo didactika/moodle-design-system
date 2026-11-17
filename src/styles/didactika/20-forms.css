@@ -275,6 +275,7 @@
  * The search of a list (dd-searchbox): the magnifier inside a round field, at the start of the toolbar.
  */
 .ds-v-scope .dd-searchbox { position: relative; flex: 1 1 16rem; max-width: 22rem; }
+@media (max-width: 400px) { .ds-v-scope .table-toolbar-start > .dd-searchbox { min-width: 7rem; } }
 .ds-v-scope .dd-searchbox > .icon, .ds-v-scope .dd-searchbox > i { position: absolute; top: 50%; left: .875rem; margin: 0; color: var(--dd-muted); transform: translateY(-50%); pointer-events: none; }
 .ds-v-scope .dd-searchbox .form-control { min-height: var(--dd-h); padding-left: 2.25rem; border-radius: 999px; }
 
@@ -293,6 +294,8 @@
  */
 .ds-v-scope .dd-select-filter { position: relative; display: inline-flex; max-width: 100%; }
 .ds-v-scope .dd-select.dd-select-set { padding-right: 2.5rem; background-image: none; }
+/* A menu drawn as a button cuts a long value with an ellipsis where its text ends, so it never runs under the cross. */
+.ds-v-scope button.dd-select { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ds-v-scope .dd-select-clear { position: absolute; top: 50%; right: .5rem; display: inline-flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; padding: 0; border: 0; border-radius: 50%; background-color: transparent; color: var(--dd-primary-ink); transform: translateY(-50%); transition: background-color var(--dd-ease); }
 .ds-v-scope .dd-select-clear .icon, .ds-v-scope .dd-select-clear i { width: .875rem; height: .875rem; margin: 0; font-size: .875rem; }
 .ds-v-scope .dd-select-clear:hover { background-color: color-mix(in srgb, var(--dd-primary) 14%, transparent); }

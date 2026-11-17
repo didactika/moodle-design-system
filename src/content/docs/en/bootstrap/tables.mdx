@@ -63,7 +63,7 @@ A sortable header is a button inside the `th`. Only one column is sorted at a ti
 
 ### The height of a list
 
-A table people work with keeps **one height** whatever it holds (`--dd-table-h`, 34 rem). With few rows there is room under them; with many the table scrolls inside its box, the header stays in view and the room of the scrollbar is kept (`scrollbar-gutter: stable`), so the columns never move when the rows outgrow the box. With nothing to show, the [empty state](../../didactika/empty-states/) with its icon takes the place of the table, at the same height, so the page does not jump while the person searches, filters or pages.
+A table people work with keeps **one height** whatever it holds (`--dd-table-h`): the room the window leaves it from where it starts, less its pager, and at least 18 rem, so on a computer the filters, the table and the pager fit the window without scrolling the page. With few rows there is room under them; with many the table scrolls inside its box and the header stays in view. The line of every row reaches the end of the row, and the last row keeps its line under it. No room is kept for a scrollbar that is not there: when the rows outgrow the box and the scrollbar appears, the columns are measured again once. With nothing to show, the [empty state](../../didactika/empty-states/) with its icon takes the place of the table, at the same height, so the page does not jump while the person searches, filters or pages.
 
 The box is the `table-responsive` of the table with `data-region="tablewrap"`; a list that is not a table (a list group of versions, of capabilities) uses the same attribute on its own box.
 
