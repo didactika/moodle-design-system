@@ -132,3 +132,4 @@
 .ds-v-scope .modal.position-static .modal-dialog { margin: 0 auto; }
 .ds-v-scope .modal.position-static .modal-dialog-scrollable { height: auto; }
 .ds-v-scope .modal.position-static .modal-dialog-scrollable .modal-content { max-height: none; }
+.ds-v-scope .navbar .nav-link .badge-float { right: 0; }

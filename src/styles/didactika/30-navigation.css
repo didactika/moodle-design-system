@@ -187,3 +187,10 @@
 .ds-v-scope .navbar .navbar-nav > li > .dropdown-menu { top: 100%; left: 0; }
 .ds-v-scope .navbar .navbar-nav > li > .dropdown-menu-end, .ds-v-scope .navbar .navbar-nav > li > .dropdown-menu-right { right: 0; left: auto; }
 .ds-v-scope .navbar > .container-fluid, .ds-v-scope .navbar > .container { flex-wrap: wrap; row-gap: .5rem; }
+
+/* a navbar shown in a frame narrower than its breakpoint wraps its collapse onto a second line, and the primary navigation of Moodle keeps its
+ * links in one row that scrolls sideways inside its own box, as the tabs do */
+.ds-v-scope .navbar-expand .navbar-collapse, .ds-v-scope .navbar-expand-lg .navbar-collapse { flex-wrap: wrap; gap: .5rem; }
+.ds-v-scope .primarynav-navbar { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.ds-v-scope .primarynav-navbar::-webkit-scrollbar { display: none; }
+.ds-v-scope .tab-content { min-width: 0; }
