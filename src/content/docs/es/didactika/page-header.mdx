@@ -17,7 +17,7 @@ Cada pantalla de un plugin empieza igual: la ruta, el título con su contexto y 
 
 - La ruta arriba, el título y una línea de contexto (quién, cuántos, hasta cuándo), las acciones a la derecha.
 - Una acción primaria; el resto como botones secundarios o de icono con título.
-- Una pastilla con icono antes del título cuando la pantalla trata de un objeto (un curso, un usuario).
+- Una caja de icono antes del título cuando la pantalla trata de un objeto (un curso, un usuario).
 
 </Rule>
 <Rule kind="dont" title="No">
@@ -31,7 +31,7 @@ Cada pantalla de un plugin empieza igual: la ruta, el título con su contexto y 
 
 ## Anatomía
 
-Una cabecera (`dd-page-header`) con la **ruta de navegación**, una fila (`dd-page-header-row`) con el **bloque principal** (`dd-page-header-main`: pastilla, `dd-page-title` y `dd-page-subtitle`) y las **acciones** (`dd-page-actions`), y una línea fina debajo que la separa del contenido.
+Un `header` marcado con `data-region="page-header"` (`d-flex flex-column gap-3 pb-3 border-bottom`) con las **migas de pan**, una fila (`d-flex flex-wrap justify-content-between gap-3`) que contiene el **bloque principal** (una `icon-box`, el título como `h1 h3 fw-bold` y la línea de contexto como `text-muted`) y las **acciones** (`d-flex flex-wrap gap-2`), y una línea fina debajo que lo separa del contenido.
 
 ## Variantes y estados
 
@@ -45,7 +45,7 @@ En una pantalla estrecha las acciones pasan bajo el título y se reparten en lí
 |---|---|
 | Cabecera × pestañas | Las pestañas de la pantalla van justo bajo la línea, como parte del mismo bloque. |
 | Cabecera × chips | Los chips de filtro abren el contenido, bajo la cabecera. |
-| Pastilla × objeto | La pastilla lleva el icono del tipo de objeto, así que la pantalla se reconoce antes de leer el título. |
+| Caja de icono × objeto | La caja de icono lleva el icono del tipo de objeto, así que la pantalla se reconoce antes de leer el título. |
 
 ## Qué añade Didactika y por qué
 
@@ -59,12 +59,13 @@ En una pantalla estrecha las acciones pasan bajo el título y se reparten en lí
 
 | Clase | Qué hace |
 |---|---|
-| `dd-page-header` | El bloque con su línea inferior |
-| `dd-page-header-row` | La fila de título y acciones |
-| `dd-page-header-main` | Pastilla y textos |
-| `dd-page-title` | El título |
-| `dd-page-subtitle` | La línea de contexto |
-| `dd-page-actions` | Los botones de la página |
+| `data-region="page-header"` | Marca el bloque |
+| `d-flex flex-column gap-3 pb-3 border-bottom` | El bloque con su línea inferior |
+| `d-flex flex-wrap align-items-start justify-content-between gap-3` | La fila de título y acciones |
+| `d-flex align-items-center gap-3` | Caja de icono y textos |
+| `h3 fw-bold mb-0` | El título |
+| `text-muted mb-0` | La línea de contexto |
+| `d-flex flex-wrap align-items-center gap-2` | Los botones de la página |
 
 ## Accesibilidad
 

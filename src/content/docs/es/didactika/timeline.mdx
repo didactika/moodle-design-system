@@ -31,7 +31,7 @@ Una línea de tiempo cuenta la historia de una cosa: un curso, una entrega, una 
 
 ## Anatomía
 
-Una lista ordenada (`dd-timeline`) de **sucesos** (`dd-timeline-item`) con un **título** (`dd-timeline-title`) y una línea de **datos** (`dd-timeline-meta`). Una línea une los puntos; `is-success`, `is-warning` e `is-danger` rellenan un punto.
+Una lista ordenada marcada con `data-region="timeline"` (`list-unstyled`) de **eventos** (`position-relative ps-4`) con un **punto** redondo (`badge rounded-pill`), un **título** (`fw-semibold`) y una línea de **datos** (`small text-muted`). Una línea une los puntos; `bg-success`, `bg-warning` y `bg-danger` rellenan un punto, y `border border-primary` lo deja como un anillo.
 
 ## Variantes y estados
 
@@ -56,9 +56,10 @@ Una lista ordenada (`dd-timeline`) de **sucesos** (`dd-timeline-item`) con un **
 
 | Clase | Qué hace |
 |---|---|
-| `dd-timeline` | La lista |
-| `dd-timeline-item` | Un suceso; `is-success`, `is-warning`, `is-danger` |
-| `dd-timeline-title`, `dd-timeline-meta` | Qué pasó, y quién y cuándo |
+| `data-region="timeline"`, `list-unstyled` | La lista |
+| `position-relative ps-4 pb-3` | Un evento |
+| `badge rounded-pill`, `bg-success`, `bg-warning`, `bg-danger` | El punto, relleno con el color de lo ocurrido |
+| `fw-semibold`, `small text-muted` | Qué ocurrió, y quién y cuándo |
 
 ## Accesibilidad
 

@@ -67,7 +67,7 @@ In the toolbar of a list a select is a filter, and it follows three rules:
 
 1. **Its base state is not an option.** "All groups" is what the select says while nothing is chosen (a `hidden` option, or the label of a button with the shape of a select); the list it opens never offers it.
 2. **A chosen value tints it.** The select shows the value with `border-primary`, the primary border and the soft primary background.
-3. **Its arrow becomes a cross.** Once a value is chosen, `dd-select-set` takes the arrow away and a `dd-select-clear` button with the `e/cancel` icon takes its place; pressing it goes back to the base state. Both live in a `dd-select-filter`.
+3. **Its arrow becomes a cross.** Once a value is chosen, the select is tinted (`border-primary`), loses its arrow and a `btn btn-link p-0` button with the `e/cancel` icon and `data-menu-clear` takes its place; pressing it goes back to the base state. Both sit inside a `data-region="select-filter"`.
 
 <Example title="Before and after a choice" src="selects/filter-select" />
 
@@ -95,7 +95,7 @@ In the toolbar of a list a select is a filter, and it follows three rules:
 | <Only of="v53" inline>`form-select`</Only><Only of="v45,v41" inline>`custom-select`</Only> | The select |
 | <Only of="v53" inline>`form-select-sm`, `form-select-lg`</Only><Only of="v45,v41" inline>`custom-select-sm`, `custom-select-lg`</Only> | Smaller and larger |
 | `form-label` | Label above the select |
-| `dd-select-menu` | The menu a select opens (Didactika). Built by the site; plugins do not write it |
+| `data-region="select-menu"` on a `dropdown-menu` | The menu a select opens. Built by the site; plugins use `dropdown-menu` |
 
 ## In this version
 

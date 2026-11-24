@@ -15,7 +15,7 @@ An empty list is a moment to help, not a blank. An empty state names what is mis
 <div class="ds-do-dont">
 <Rule kind="do" title="Use it">
 
-- One icon tile, one title and one line of text; the title says what is missing.
+- One icon box, one title and one line of text; the title says what is missing.
 - The main action of the region as a primary button, only if the user can do it.
 - A different text when the list is empty because of a search or a filter: say so and offer to clear it.
 
@@ -31,7 +31,7 @@ An empty list is a moment to help, not a blank. An empty state names what is mis
 
 ## Anatomy
 
-A **tile** with the icon (`dd-tile`), a **title** (`dd-empty-title`), a **line of text** (`dd-empty-text`) and an optional **button**, centred in the region (`dd-empty`). The dashed variant (`dd-empty-dashed`) draws the region as a place waiting to be filled; the inline variant (`dd-empty-inline`) is for a small area, such as a card or a side panel.
+A region marked `data-region="empty"`, a column made with Bootstrap utilities (`d-flex flex-column align-items-center text-center gap-2`), that holds an **icon box** (`icon-box`, the class Moodle already has), a **title** (`h6 fw-bold`), a **line of text** (`text-muted`) and an optional **button**. With `border rounded-3` the region is drawn as a place waiting to be filled, with a dashed outline; in a row (`flex-row`) it is compact, for a small area such as a card or a side panel.
 
 ## Variants and states
 
@@ -45,13 +45,13 @@ The first one invites to create, the second answers a search that found nothing,
 |---|---|
 | Dashed × primary button | The first time: nothing exists yet and the user can create it. |
 | Plain × secondary button | A search or a filter that returned nothing: the action undoes the narrowing. |
-| Inline × success tile | A queue that is empty because the work is done. |
+| Inline × success icon box | A queue that is empty because the work is done. |
 
 ## What Didactika adds and why
 
 | What it gives | Why it helps |
 |---|---|
-| A tile with the colour of the situation | Info for a search, success for "done", primary for "start here": the colour says whether it is an error or not before the text is read. |
+| An icon box with the colour of the situation | Info for a search, success for "done", primary for "start here": the colour says whether it is an error or not before the text is read. |
 | One action, as a button | It removes the question "and now what?" that a blank list leaves. |
 | A dashed outline for the first time | It reads as a place to fill, not as something broken. |
 
@@ -59,11 +59,12 @@ The first one invites to create, the second answers a search that found nothing,
 
 | Class | What it does |
 |---|---|
-| `dd-empty` | The block, centred |
-| `dd-empty-title` | The title |
-| `dd-empty-text` | The line of text |
-| `dd-empty-dashed` | A dashed outline |
-| `dd-empty-inline` | Compact, in a row |
+| `data-region="empty"` | Marks the block; the theme gives it its spacing and, with `border`, its dashed outline |
+| `d-flex flex-column align-items-center text-center gap-2` | The content, centred in a column |
+| `flex-row` | Compact, in a row |
+| `border rounded-3` | The dashed outline |
+| `icon-box`, `text-info`, `text-success` | The icon box, in the colour of the situation |
+| `h6 fw-bold`, `text-muted` | The title and the line of text |
 
 ## Accessibility
 

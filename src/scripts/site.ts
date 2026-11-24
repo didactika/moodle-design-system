@@ -451,7 +451,7 @@ const STATES: [string, string][] = [['ds-is-hover', 'stateHover'], ['ds-is-focus
 
 /** What the inspector offers for an element. */
 interface Capabilities { fields: string[]; states: boolean; disable: boolean; text: boolean; fill: boolean; radius: boolean }
-const COMPONENT = '.btn, .badge, .alert, .card, .toast, .progress, .progress-bar, .list-group-item, .dropdown-menu, .modal-content, .form-control, .form-select, .form-check-input, .page-link, .nav-link, .dd-tile, .table-sort, .dropdown-item, .navbar';
+const COMPONENT = '.btn, .badge, .alert, .card, .toast, .progress, .progress-bar, .list-group-item, .dropdown-menu, .modal-content, .form-control, .form-select, .form-check-input, .page-link, .nav-link, .icon-box, .table-sort, .dropdown-item, .navbar';
 const INTERACTIVE = 'a[href], button, input:not([type="hidden"]), select, textarea, summary, [tabindex], .btn, .page-link, .nav-link, .dropdown-item, .list-group-item-action, .table-sort';
 const capabilitiesOf = (el: HTMLElement): Capabilities => {
     const cs = getComputedStyle(el);

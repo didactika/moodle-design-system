@@ -31,7 +31,7 @@ Cuando un campo admite varios valores, la caja de lista del navegador es difíci
 
 ## Anatomía
 
-Un campo (`dd-tags`) que guarda las **etiquetas** (`dd-tag`), cada una con su **botón de quitar** (`dd-tag-remove`), un **marcador** cuando está vacío y, para texto libre, una **entrada** (`dd-tags-input`). Un `select` con `multiple` se dibuja como este campo y abre un **menú** de opciones con una marca; el select de debajo conserva sus valores y sus eventos.
+Un campo marcado con `data-region="tags"` (`form-control d-flex flex-wrap gap-1 h-auto`) que contiene las **etiquetas** (`badge rounded-pill text-bg-primary`), cada una con un **botón de quitar** (`btn btn-link btn-icon btn-sm p-0`), un **texto de ayuda** (`text-muted`) cuando está vacío y, para texto libre, un **campo de entrada** (`form-control border-0`). Un `select` con `multiple` se dibuja como este campo y abre un **menú** (`dropdown-menu`) con las opciones y una marca; el select de debajo conserva sus valores y sus eventos.
 
 ## Variantes y estados
 
@@ -57,11 +57,11 @@ Un campo (`dd-tags`) que guarda las **etiquetas** (`dd-tag`), cada una con su **
 
 | Clase | Qué hace |
 |---|---|
-| `dd-tags` | El campo |
-| `dd-tag` | Una etiqueta; `dd-tag-solid` para una rellena |
-| `dd-tag-remove` | El botón que la quita |
-| `dd-tags-input` | La entrada de texto de un campo de texto libre |
-| `dd-tags-placeholder` | El texto de un campo vacío |
+| `data-region="tags"`, `form-control` | El campo |
+| `badge rounded-pill text-bg-primary` | Una etiqueta |
+| `btn btn-link btn-icon btn-sm p-0` | El botón que la quita |
+| `form-control border-0` | El campo de entrada de un campo de texto libre |
+| `text-muted` | El texto de un campo vacío |
 
 ## Accesibilidad
 

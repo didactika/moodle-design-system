@@ -31,7 +31,7 @@ When a field takes several values, the list box of the browser is hard to read a
 
 ## Anatomy
 
-A field (`dd-tags`) that holds the **tags** (`dd-tag`), each with a **remove button** (`dd-tag-remove`), a **placeholder** when it is empty and, for free text, an **input** (`dd-tags-input`). A `select` with `multiple` is drawn as this field and opens a **menu** of the options with a check; the select underneath keeps its values and its events.
+A field marked `data-region="tags"` (`form-control d-flex flex-wrap gap-1 h-auto`) that holds the **tags** (`badge rounded-pill text-bg-primary`), each with a **remove button** (`btn btn-link btn-icon btn-sm p-0`), a **placeholder** (`text-muted`) when it is empty and, for free text, an **input** (`form-control border-0`). A `select` with `multiple` is drawn as this field and opens a **menu** (`dropdown-menu`) of the options with a check; the select underneath keeps its values and its events.
 
 ## Variants and states
 
@@ -57,11 +57,11 @@ A field (`dd-tags`) that holds the **tags** (`dd-tag`), each with a **remove but
 
 | Class | What it does |
 |---|---|
-| `dd-tags` | The field |
-| `dd-tag` | A tag; `dd-tag-solid` for a filled one |
-| `dd-tag-remove` | The button that removes it |
-| `dd-tags-input` | The text input of a free-text field |
-| `dd-tags-placeholder` | The text of an empty field |
+| `data-region="tags"`, `form-control` | The field |
+| `badge rounded-pill text-bg-primary` | A tag |
+| `btn btn-link btn-icon btn-sm p-0` | The button that removes it |
+| `form-control border-0` | The text input of a free-text field |
+| `text-muted` | The text of an empty field |
 
 ## Accessibility
 

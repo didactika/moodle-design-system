@@ -15,7 +15,7 @@ Una lista vacía es un momento para ayudar, no un hueco en blanco. Un estado vac
 <div class="ds-do-dont">
 <Rule kind="do" title="Úsalo">
 
-- Una pastilla con icono, un título y una línea de texto; el título dice qué falta.
+- Una caja de icono, un título y una línea de texto; el título dice qué falta.
 - La acción principal de la región como botón primario, solo si el usuario puede hacerla.
 - Otro texto cuando la lista está vacía por una búsqueda o un filtro: decirlo y ofrecer quitarlo.
 
@@ -31,7 +31,7 @@ Una lista vacía es un momento para ayudar, no un hueco en blanco. Un estado vac
 
 ## Anatomía
 
-Una **pastilla** con el icono (`dd-tile`), un **título** (`dd-empty-title`), una **línea de texto** (`dd-empty-text`) y un **botón** opcional, centrados en la región (`dd-empty`). La variante discontinua (`dd-empty-dashed`) dibuja la región como un sitio que espera llenarse; la variante en línea (`dd-empty-inline`) es para un área pequeña, como una tarjeta o un panel lateral.
+Una región marcada con `data-region="empty"`, una columna hecha con utilidades de Bootstrap (`d-flex flex-column align-items-center text-center gap-2`), que contiene una **caja de icono** (`icon-box`, la clase que Moodle ya tiene), un **título** (`h6 fw-bold`), una **línea de texto** (`text-muted`) y un **botón** opcional. Con `border rounded-3` la región se dibuja como un sitio que espera llenarse, con un borde discontinuo; en fila (`flex-row`) es compacta, para un área pequeña como una tarjeta o un panel lateral.
 
 ## Variantes y estados
 
@@ -45,13 +45,13 @@ El primero invita a crear, el segundo responde a una búsqueda que no encontró 
 |---|---|
 | Discontinuo × botón primario | La primera vez: no existe nada y el usuario puede crearlo. |
 | Normal × botón secundario | Una búsqueda o un filtro sin resultados: la acción deshace el filtrado. |
-| En línea × pastilla de éxito | Una cola vacía porque el trabajo está hecho. |
+| En línea × caja de icono de éxito | Una cola vacía porque el trabajo está hecho. |
 
 ## Qué añade Didactika y por qué
 
 | Qué aporta | Por qué ayuda |
 |---|---|
-| Una pastilla con el color de la situación | Info para una búsqueda, éxito para "hecho", primario para "empieza aquí": el color dice si es un error o no antes de leer el texto. |
+| Una caja de icono con el color de la situación | Info para una búsqueda, éxito para "hecho", primario para "empieza aquí": el color dice si es un error o no antes de leer el texto. |
 | Una acción, como botón | Quita la pregunta "¿y ahora qué?" que deja una lista en blanco. |
 | Un borde discontinuo la primera vez | Se lee como un sitio por llenar, no como algo roto. |
 
@@ -59,11 +59,12 @@ El primero invita a crear, el segundo responde a una búsqueda que no encontró 
 
 | Clase | Qué hace |
 |---|---|
-| `dd-empty` | El bloque, centrado |
-| `dd-empty-title` | El título |
-| `dd-empty-text` | La línea de texto |
-| `dd-empty-dashed` | Un borde discontinuo |
-| `dd-empty-inline` | Compacto, en fila |
+| `data-region="empty"` | Marca el bloque; el tema le da su espaciado y, con `border`, su borde discontinuo |
+| `d-flex flex-column align-items-center text-center gap-2` | El contenido, centrado en una columna |
+| `flex-row` | Compacto, en fila |
+| `border rounded-3` | El borde discontinuo |
+| `icon-box`, `text-info`, `text-success` | La caja de icono, con el color de la situación |
+| `h6 fw-bold`, `text-muted` | El título y la línea de texto |
 
 ## Accesibilidad
 

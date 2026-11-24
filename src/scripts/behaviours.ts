@@ -195,33 +195,38 @@ const installChoices = (env: Environment): void => {
     document.addEventListener('click', (event) => {
         const target = event.target instanceof Element ? event.target : null;
         if (!env.enabled() || !target || !target.closest('.ds-frame')) { return; }
-        const button = target.closest<HTMLElement>('.btn-group > .btn[aria-pressed], .dd-segmented > button[aria-pressed]');
+        const button = target.closest<HTMLElement>('.btn-group > .btn[aria-pressed]');
         if (button && !(button as HTMLButtonElement).disabled) { choose(button); return; }
-        const chip = target.closest<HTMLElement>('.dd-chip[aria-pressed]');
-        if (chip && !(chip as HTMLButtonElement).disabled) { chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')); return; }
-        const remove = target.closest<HTMLElement>('.dd-chip-remove, .dd-tag-remove');
-        const piece = remove?.closest<HTMLElement>('.dd-chip, .dd-tag');
-        const field = piece?.closest('.dd-tags');
+        const chip = target.closest<HTMLElement>('.btn.rounded-pill[aria-pressed]');
+        if (chip && !(chip as HTMLButtonElement).disabled) {
+            const on = chip.getAttribute('aria-pressed') !== 'true';
+            chip.setAttribute('aria-pressed', String(on));
+            chip.classList.toggle('active', on);
+            return;
+        }
+        const remove = target.closest<HTMLElement>('.badge > .btn-link');
+        const piece = remove?.closest<HTMLElement>('.badge');
+        const field = piece?.closest('[data-region="tags"]');
         if (piece && !(field && field.previousElementSibling instanceof HTMLSelectElement)) { piece.remove(); }
     });
     document.addEventListener('keydown', (event) => {
-        const input = event.target instanceof HTMLInputElement && event.target.matches('.dd-tags-input') ? event.target : null;
+        const input = event.target instanceof HTMLInputElement && event.target.matches('[data-region="tags"] > input') ? event.target : null;
         if (!env.enabled() || !input) { return; }
         if (event.key === 'Enter' && input.value.trim()) {
             event.preventDefault();
             const tag = document.createElement('span');
-            tag.className = 'dd-tag';
+            tag.className = 'badge rounded-pill text-bg-primary d-inline-flex align-items-center gap-1';
             tag.append(input.value.trim());
             const remove = document.createElement('button');
             remove.type = 'button';
-            remove.className = 'dd-tag-remove';
+            remove.className = 'btn btn-link btn-icon btn-sm p-0';
             remove.setAttribute('aria-label', `Remove ${input.value.trim()}`);
             tag.append(remove);
             input.before(tag);
             input.value = '';
         } else if (event.key === 'Backspace' && !input.value) {
             const last = input.previousElementSibling;
-            if (last instanceof HTMLElement && last.classList.contains('dd-tag')) { last.remove(); }
+            if (last instanceof HTMLElement && last.classList.contains('badge')) { last.remove(); }
         }
     });
 };

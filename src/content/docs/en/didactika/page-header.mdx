@@ -17,7 +17,7 @@ Every screen of a plugin starts the same way: the breadcrumb, the title with its
 
 - The breadcrumb above, the title and a line of context (who, how many, until when), the actions on the right.
 - One primary action; the rest as secondary buttons or icon buttons with a title.
-- An icon tile before the title when the screen is about one object (a course, a user).
+- An icon box before the title when the screen is about one object (a course, a user).
 
 </Rule>
 <Rule kind="dont" title="Don't">
@@ -31,7 +31,7 @@ Every screen of a plugin starts the same way: the breadcrumb, the title with its
 
 ## Anatomy
 
-A header (`dd-page-header`) with the **breadcrumb**, a row (`dd-page-header-row`) holding the **main block** (`dd-page-header-main`: tile, `dd-page-title` and `dd-page-subtitle`) and the **actions** (`dd-page-actions`), and a hairline under it that separates it from the content.
+A `header` marked `data-region="page-header"` (`d-flex flex-column gap-3 pb-3 border-bottom`) with the **breadcrumb**, a row (`d-flex flex-wrap justify-content-between gap-3`) holding the **main block** (an `icon-box`, the title as `h1 h3 fw-bold` and the context line as `text-muted`) and the **actions** (`d-flex flex-wrap gap-2`), and a hairline under it that separates it from the content.
 
 ## Variants and states
 
@@ -45,7 +45,7 @@ On a narrow screen the actions go below the title and wrap; the icon buttons kee
 |---|---|
 | Header × tabs | The tabs of the screen sit right under the hairline, as part of the same block. |
 | Header × chips | The filter chips open the content, under the header. |
-| Tile × object | The tile carries the icon of the object type, so the screen is recognised before the title is read. |
+| Icon box × object | The icon box carries the icon of the object type, so the screen is recognised before the title is read. |
 
 ## What Didactika adds and why
 
@@ -59,12 +59,13 @@ On a narrow screen the actions go below the title and wrap; the icon buttons kee
 
 | Class | What it does |
 |---|---|
-| `dd-page-header` | The block with its bottom line |
-| `dd-page-header-row` | The row of title and actions |
-| `dd-page-header-main` | Tile and texts |
-| `dd-page-title` | The title |
-| `dd-page-subtitle` | The line of context |
-| `dd-page-actions` | The buttons of the page |
+| `data-region="page-header"` | Marks the block |
+| `d-flex flex-column gap-3 pb-3 border-bottom` | The block with its bottom line |
+| `d-flex flex-wrap align-items-start justify-content-between gap-3` | The row of title and actions |
+| `d-flex align-items-center gap-3` | Icon box and texts |
+| `h3 fw-bold mb-0` | The title |
+| `text-muted mb-0` | The line of context |
+| `d-flex flex-wrap align-items-center gap-2` | The buttons of the page |
 
 ## Accessibility
 

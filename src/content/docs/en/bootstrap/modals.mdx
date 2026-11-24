@@ -47,7 +47,7 @@ A title that says what is asked, the fields, and the actions at the foot: the ma
 
 ### Confirmation
 
-For what deletes or cannot be undone. A tile with the danger icon, a title that is a question, and a button named by its action.
+For what deletes or cannot be undone. An icon box with the danger icon, a title that is a question, and a button named by its action.
 
 <Example title="Confirmation" src="modals/confirm" />
 
@@ -74,7 +74,7 @@ A wizard in a dialog: the progress of the steps at the top, the choices, and Bac
 | Combination | Use it for |
 |---|---|
 | Size × content | Small (`modal-sm`) for a question, default for a form, large (`modal-lg`) for a list or a preview, extra large (`modal-xl`) for a table. |
-| Icon tile × meaning | Danger for what deletes, success for a result, info for a notice; no tile for a plain form. |
+| Icon box × meaning | Danger for what deletes, success for a result, info for a notice; no icon box for a plain form. |
 | Scrollable × long content | For terms and lists; never for a long form, which is a page. |
 | Steps × flow | A progress bar of steps, and Back / Cancel / Next in the foot; no more than three steps. |
 | Centred × short | Vertically centred (`modal-dialog-centered`) for a short question; at the top for a form that may grow. |
@@ -86,7 +86,7 @@ A wizard in a dialog: the progress of the steps at the top, the choices, and Bac
 | Large radius, a soft deep shadow, no lines between header, body and foot | The dialog is one surface that floats; lines would split it into three boxes. |
 | Cancel is a link and the main action is filled | There is one thing to press; leaving is easy but never competes with it. |
 | The title is a question or a verb and the button repeats it | "Delete course?" / "Delete": the user knows what will happen without reading the body. |
-| The icon tile sets the tone before the text | A red tile asks for care before a word is read. |
+| The icon box sets the tone before the text | A red icon box asks for care before a word is read. |
 
 ## Classes
 
@@ -96,7 +96,7 @@ A wizard in a dialog: the progress of the steps at the top, the choices, and Bac
 | `modal-header`, `modal-title`, `modal-body`, `modal-footer` | Its parts |
 | `modal-sm`, `modal-lg`, `modal-xl` | Sizes |
 | <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Close button |
-| `dd-modal-static` | Shows a dialog in the page instead of over it, for the examples (Didactika) |
+| `position-static d-block` on `modal` | Shows a dialog in the page instead of over it, for the examples |
 | `modal-footer-split` | Back on the left, the actions on the right (Didactika) |
 
 ## In this version

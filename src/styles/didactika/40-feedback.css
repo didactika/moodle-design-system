@@ -1,15 +1,5 @@
 /* ================================================================== feedback: alerts, badges, progress, spinners, toasts, tooltips, popovers, modals */
 
-/* ------------------------------------------------------------------ icon tile (dd-tile)
- * A rounded square that holds an icon and takes the colour of what it sits in (an alert, a toast, a card) or of its own role class
- * (dd-tile-danger). The same piece is used everywhere an icon needs a place of its own, so a message, a card and a dialog read alike.
- */
-.ds-v-scope .dd-tile { display: inline-grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: .75rem; background-color: var(--dd-c-soft-2, var(--dd-primary-soft-2)); color: var(--dd-c-ink, var(--dd-primary-ink)); font-size: 1.0625rem; line-height: 1; }
-.ds-v-scope .dd-tile-sm { width: 1.75rem; height: 1.75rem; border-radius: .5rem; font-size: .9375rem; }
-.ds-v-scope .dd-tile-lg { width: 3rem; height: 3rem; border-radius: 1rem; font-size: 1.375rem; }
-.ds-v-scope .dd-tile-round { border-radius: 50%; }
-.ds-v-scope .dd-tile-solid { background-color: var(--dd-c, var(--dd-primary)); color: #fff; }
-.ds-v-scope .dd-tile .icon { color: inherit !important; }
 
 /* ------------------------------------------------------------------ alerts
  * A soft tint of the colour with a thin line of it around, and a text colour derived from the role, so every role reads at 4.5:1. Light is the
@@ -73,14 +63,6 @@
 .ds-v-scope .progress { height: .625rem; border-radius: 999px; background-color: var(--dd-hairline); box-shadow: none; font-size: .6875rem; overflow: hidden; }
 .ds-v-scope .progress-bar { border-radius: 0; background-color: var(--dd-c); font-weight: 600; transition: width .6s cubic-bezier(.2, 0, 0, 1), background-color var(--dd-ease); }
 .ds-v-scope .progress-bar:last-child { border-radius: 0 999px 999px 0; }
-.ds-v-scope .dd-progress { display: grid; gap: .5rem; }
-.ds-v-scope .dd-progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; font-size: .875rem; }
-.ds-v-scope .dd-progress-head b { font-weight: 600; }
-.ds-v-scope .dd-progress-value { color: var(--dd-muted); font-variant-numeric: tabular-nums; }
-.ds-v-scope .dd-progress-inline { display: flex; align-items: center; gap: .75rem; }
-.ds-v-scope .dd-progress-inline .progress { flex: 1; }
-.ds-v-scope .dd-progress-steps { display: flex; gap: .25rem; }
-.ds-v-scope .dd-progress-steps .progress { flex: 1; height: .375rem; }
 
 /* ------------------------------------------------------------------ spinners */
 .ds-v-scope .spinner-border { border-width: .18em; }
@@ -116,7 +98,7 @@
 .ds-v-scope .modal-content { border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-xl); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-lg); color: var(--dd-ink); }
 .ds-v-scope .modal-header { align-items: flex-start; gap: .75rem; padding: 1.25rem 1.25rem .5rem 1.5rem; border-bottom: 0; }
 .ds-v-scope .modal-title { font-size: 1.25rem; font-weight: 700; line-height: 1.3; letter-spacing: -.011em; }
-.ds-v-scope .modal-header .dd-tile + .modal-title { align-self: center; }
+.ds-v-scope .modal-header .icon-box + .modal-title { align-self: center; }
 .ds-v-scope .modal-body { padding: .5rem 1.5rem 1rem; line-height: 1.55; }
 .ds-v-scope .modal-footer { gap: .5rem; padding: .75rem 1.5rem 1.25rem; border-top: 0; }
 .ds-v-scope .modal-footer-split { justify-content: space-between; }
@@ -127,10 +109,27 @@
 }
 
 /* A modal shown in the page (the examples) instead of over it. */
-.ds-v-scope .modal.dd-modal-static { position: relative; display: block; height: auto; overflow: visible; }
-.ds-v-scope .dd-modal-static .modal-dialog { margin: 0 auto; }
-.ds-v-scope .dd-modal-static .modal-dialog-scrollable { height: auto; }
-.ds-v-scope .dd-modal-static .modal-dialog-scrollable .modal-content { max-height: none; }
 
 /* Alerts that follow each other keep a space between them, so each message reads as its own. */
 .ds-v-scope .alert + .alert, .ds-v-scope .alert + .progress { margin-top: .75rem; }
+
+/* ------------------------------------------------------------------ icon box (Moodle's icon-box)
+ * A rounded square that holds an icon and takes the colour of its text class (text-success, text-danger...) or, with a background class
+ * (bg-primary), is filled with it. Its size is the icon plus its padding (p-1 small, p-3 large); rounded-circle makes it round.
+ */
+.ds-v-scope .icon-box { display: inline-flex; align-items: center; justify-content: center; flex: none; box-sizing: border-box; width: 2.25rem; height: 2.25rem; padding: .5rem; border-radius: .75rem; background-color: var(--dd-c-soft-2, var(--dd-primary-soft-2)); color: var(--dd-c-ink, var(--dd-primary-ink)) !important; font-size: 1.0625rem; line-height: 1; }
+.ds-v-scope .icon-box.p-3 { width: 3rem; height: 3rem; border-radius: 1rem; font-size: 1.375rem; }
+.ds-v-scope .icon-box.p-1 { width: 1.75rem; height: 1.75rem; border-radius: .5rem; font-size: .9375rem; }
+.ds-v-scope .icon-box > .icon { color: inherit !important; }
+.ds-v-scope .icon-box.rounded-circle { border-radius: 50% !important; }
+.ds-v-scope .icon-box[class*="bg-"] { background-color: var(--dd-c, var(--dd-primary)) !important; color: #fff !important; }
+
+/* a bar inside a row of flex fills what the text leaves, and a row of bars shares the width */
+.ds-v-scope .d-flex > .progress { flex: 1 1 auto; }
+
+/* a dialog shown in the page, in the flow, instead of over it */
+.ds-v-scope .modal.position-static { height: auto; overflow: visible; }
+.ds-v-scope .modal.position-static .modal-dialog { margin: 0 auto; }
+.ds-v-scope .modal.position-static .modal-dialog-scrollable { height: auto; }
+.ds-v-scope .modal.position-static .modal-dialog-scrollable .modal-content { max-height: none; }
+.ds-v-scope .navbar .nav-link .badge-float { right: 0; }

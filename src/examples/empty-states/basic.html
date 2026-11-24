@@ -1,18 +1,18 @@
 <div style="display:grid;gap:1.25rem">
-  <div class="dd-empty dd-empty-dashed">
-    <span class="dd-tile"><i data-pix="i/course"></i></span>
-    <h3 class="dd-empty-title">No courses yet</h3>
-    <p class="dd-empty-text">Courses you create or are enrolled in appear here. Start with a new course or import one from a backup.</p>
-    <button type="button" class="btn btn-primary"><i data-pix="t/add"></i> New course</button>
+  <div data-region="empty" class="d-flex flex-column align-items-center text-center gap-2 p-5 border rounded-3">
+    <span class="icon-box p-3"><i data-pix="i/course"></i></span>
+    <h3 class="h6 fw-bold mb-0">No courses yet</h3>
+    <p class="text-muted mb-0">Courses you create or are enrolled in appear here. Start with a new course or import one from a backup.</p>
+    <button type="button" class="btn btn-primary mt-2"><i data-pix="t/add"></i> New course</button>
   </div>
-  <div class="dd-empty">
-    <span class="dd-tile dd-tile-info"><i data-pix="i/search"></i></span>
-    <h3 class="dd-empty-title">Nothing matches "alg"</h3>
-    <p class="dd-empty-text">Check the spelling or remove a filter to see more results.</p>
-    <button type="button" class="btn btn-outline-secondary"><i data-pix="i/reload"></i> Clear filters</button>
+  <div data-region="empty" class="d-flex flex-column align-items-center text-center gap-2 p-5">
+    <span class="icon-box p-3 text-info"><i data-pix="i/search"></i></span>
+    <h3 class="h6 fw-bold mb-0">Nothing matches "alg"</h3>
+    <p class="text-muted mb-0">Check the spelling or remove a filter to see more results.</p>
+    <button type="button" class="btn btn-outline-secondary mt-2"><i data-pix="i/reload"></i> Clear filters</button>
   </div>
-  <div class="dd-empty dd-empty-inline dd-empty-dashed">
-    <span class="dd-tile dd-tile-success"><i data-pix="i/checked"></i></span>
+  <div data-region="empty" class="d-flex flex-row align-items-center justify-content-center text-start gap-3 p-3 border rounded-3">
+    <span class="icon-box p-1 text-success"><i data-pix="i/checked"></i></span>
     <span><b>You are up to date.</b> There are no pending submissions to grade.</span>
   </div>
 </div>

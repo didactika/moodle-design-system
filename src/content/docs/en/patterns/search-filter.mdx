@@ -17,7 +17,7 @@ People find things in two ways: by typing what they remember and by narrowing a 
 
 ## Anatomy
 
-1. **Search field** (`dd-searchbox`): the magnifier inside a round field, at the start of the row.
+1. **Search field** (`role="search"`): the magnifier inside a round field, at the start of the row.
 2. **One menu for each filter**, beside the search: status, course, activity, group, dates. Each menu has the shape of a select and says what it filters ("Status", "All groups", "Grading date").
 3. **The button that clears every filter**, an icon button with the reload icon at the end of the row (`table-toolbar-end`), disabled while nothing narrows the list.
 4. **The results**, as a table (to work) or as a list (to choose), with the count in the pager under them.
@@ -28,7 +28,7 @@ People find things in two ways: by typing what they remember and by narrowing a 
 
 - **The base state is not an option.** "All groups", "All the students" or "Every status" is what the menu says while nothing is chosen; it never appears again inside the list of options.
 - **A chosen value is shown and tinted.** The menu says what it is narrowed to ("Status: Pending", "Group A") with the primary border and the soft primary background.
-- **The arrow becomes a cross.** Once a value is chosen, the arrow of the menu is replaced by a cross (`dd-select-clear`) that takes the filter back to its base state. The cross has its own label ("Clear: Status").
+- **The arrow becomes a cross.** Once a value is chosen, the arrow of the menu is replaced by a cross (`btn btn-link p-0` with `data-menu-clear`) that takes the filter back to its base state. The cross has its own label ("Clear: Status").
 - **Counts go inside the menu.** When the values of a filter have counts, each option shows its count, computed with the other filters applied.
 - A filter with several values (status) uses checkboxes inside the menu; a filter with many values (course, activity) has a search field at the top of its menu.
 - **A period never goes the wrong way round.** A menu of dates with two days keeps the first one on or before the last one: when the day just chosen passes the other, the other moves to it, however the day was written (by hand, with the calendar or in the address).
@@ -37,7 +37,7 @@ People find things in two ways: by typing what they remember and by narrowing a 
 
 ## One row, always
 
-The toolbar never breaks in two rows. The search shrinks down to its own room (10 rem, 7 rem on a phone under 400 px) and the filter menus keep their width beside it; a chosen menu says only its value ("Graded by a teacher", not "Status: Graded by a teacher") and ends with an ellipsis before its cross when it is too long: the text never runs under the cross. The menu is a block (`button.dd-select`), because only a block cuts its text with an ellipsis. When the menus do not fit, on a narrow screen or with long values, they are grouped in one menu, **Filters (2)**, always with the funnel icon (`i/filter`), which says how many filters are applied and holds the same menus one under the other; they come back to the row when there is room again.
+The toolbar never breaks in two rows. The search shrinks down to its own room (10 rem, 7 rem on a phone under 400 px) and the filter menus keep their width beside it; a chosen menu says only its value ("Graded by a teacher", not "Status: Graded by a teacher") and ends with an ellipsis before its cross when it is too long: the text never runs under the cross. The menu is a block (`button.form-select`), because only a block cuts its text with an ellipsis. When the menus do not fit, on a narrow screen or with long values, they are grouped in one menu, **Filters (2)**, always with the funnel icon (`i/filter`), which says how many filters are applied and holds the same menus one under the other; they come back to the row when there is room again.
 
 ## Behaviour
 
