@@ -69,9 +69,11 @@ The next example is not drawn with Bootstrap's classes: it is the secondary navi
 
 | What we changed | Why it helps |
 |---|---|
-| The selected tab has a line and a tint, the rest are quiet | Where you are is clear from the line, the tint and the weight at once, so it never depends on colour alone. |
+| The selected tab is plain text in the primary colour with a line under it, as Moodle's secondary navigation | Where you are is clear from the line and the colour at once, and the tabs of a plugin look like the ones of Moodle. |
+| A tab never shows a frame, a ring, a halo or lines at its sides, clicked or with the focus from the keyboard | A frame around a tab reads as a button that is pressed or broken; the tab with the focus takes only the grey line of a tab under the pointer. |
+| The row of tabs keeps one line and scrolls sideways when it does not fit, with no scroll bar | The page never breaks the tabs in two rows, and a narrow screen never shows a vertical bar beside them. |
 | Pills are fully rounded | They read as a choice, not as sections, which is the difference between pills and tabs. |
-| Hover tints and focus rings follow one rule | The control under the pointer or under the keyboard always answers the same way. |
+| Hover tints and focus rings follow one rule, except on tabs | The control under the pointer or under the keyboard always answers the same way; a tab answers with its line. |
 | Moodle's own navigation is left as Moodle draws it | The user meets the same navigation in every course and in every plugin; plugins should not teach a second one. |
 
 ## Classes

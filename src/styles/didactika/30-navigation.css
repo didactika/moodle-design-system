@@ -20,12 +20,19 @@
 .ds-v-scope .nav:not(.more-nav) .nav-link:focus:not(:focus-visible):not(.ds-is-focus) { box-shadow: none; }
 .ds-v-scope .nav-link.disabled, .ds-v-scope .nav-link:disabled { opacity: .5; pointer-events: none; }
 
-/* tabs: a line under the selected one, and a soft tint under the pointer */
-.ds-v-scope .nav-tabs { gap: .25rem; border-bottom: 1px solid var(--dd-hairline); }
-.ds-v-scope .nav-tabs:not(.more-nav) .nav-link { margin-bottom: -1px; padding: .625rem 1rem; border: 0; border-bottom: 2px solid transparent; border-radius: var(--dd-radius-sm) var(--dd-radius-sm) 0 0; background: none; }
-.ds-v-scope .nav-tabs:not(.more-nav) .nav-link:hover:not(.active):not(.disabled), .ds-v-scope .nav-tabs:not(.more-nav) .nav-link.ds-is-hover:not(.active):not(.disabled) { border-bottom-color: var(--dd-line); }
-.ds-v-scope .nav-tabs:not(.more-nav) .nav-link.active, .ds-v-scope .nav-tabs:not(.more-nav) .nav-item.show .nav-link { border-bottom-color: var(--dd-primary); background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); font-weight: 600; }
-.ds-v-scope .nav-tabs .nav-link:focus-visible, .ds-v-scope .nav-tabs .nav-link.ds-is-focus { border-radius: var(--dd-radius-sm); }
+/* tabs: drawn as Moodle draws its secondary navigation. Plain text; the open tab in the primary colour with a line under it, drawn as a
+   shadow so it never moves the row. A tab never shows a frame, a ring, a halo or lines at its sides, neither when it is clicked nor
+   when it has the focus from the keyboard: the tab with the focus takes the grey line of a tab under the pointer. One row that scrolls
+   sideways only when it does not fit, with no scroll bar. Moodle paints a halo around a pressed tab with rules as heavy as these and
+   loaded later, which the row clips to two lines at its sides; the line and the outline of a tab are said with !important. */
+.ds-v-scope .nav-tabs:not(.more-nav) { flex-wrap: nowrap; gap: .25rem; overflow-x: auto; overflow-y: hidden; border-bottom: 0; box-shadow: inset 0 -1px 0 var(--dd-hairline); scrollbar-width: none; }
+.ds-v-scope .nav-tabs:not(.more-nav)::-webkit-scrollbar { display: none; }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-item { flex: none; }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link { margin: 0; padding: .75rem 1rem; border: 0; border-radius: 0; background: none; box-shadow: none; color: var(--dd-muted); font-weight: 500; white-space: nowrap; }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link:hover:not(.active):not(.disabled), .ds-v-scope .nav-tabs:not(.more-nav) .nav-link.ds-is-hover:not(.active):not(.disabled),
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link:is(:focus, :focus-visible, :active, .focus, .ds-is-focus):not(.active) { outline: 0 !important; border-radius: 0; background: none !important; box-shadow: inset 0 -2px 0 var(--dd-line) !important; color: var(--dd-ink); }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link:is(:active, .ds-is-active):not(.active):not(.disabled) { background: none; }
+.ds-v-scope .nav-tabs:not(.more-nav) .nav-link.active, .ds-v-scope .nav-tabs:not(.more-nav) .nav-link.active:is(:hover, :focus, :focus-visible, :active, .focus, .ds-is-focus), .ds-v-scope .nav-tabs:not(.more-nav) .nav-item.show .nav-link { outline: 0 !important; border: 0 !important; border-radius: 0; background: none !important; box-shadow: inset 0 -3px 0 var(--dd-primary) !important; color: var(--dd-primary-ink) !important; }
 .ds-v-scope .tab-content > .tab-pane { color: var(--dd-ink); }
 
 /* pills: the selected one is filled, the rest are quiet */
