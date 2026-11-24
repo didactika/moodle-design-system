@@ -83,7 +83,8 @@ What a row has to explain (why a date, that a value is not saved yet, why there 
 |---|---|
 | Table × toolbar | Search and filters on the left, the main action on the right; the toolbar sits inside the same card as the table. |
 | Table × selection | A checkbox column; when rows are selected a bar shows how many and the actions that apply to them. |
-| Table × row actions | Icon buttons at the end of the row (edit, hide, delete), always visible, never hidden until hover. |
+| Table × row actions | Icon buttons at the end of the row (edit, hide, delete), always visible, never hidden until hover. Each kind has a slot of its own, in one order for the whole list: a row that lacks an action keeps its slot empty (`btn btn-link btn-icon invisible`, `aria-hidden="true"`), so the actions of one kind make one column. |
+| Table × icon before the name | One slot of one width in every row, empty or not, so every name starts at one line. |
 | Table × pager | The pager of a list in the foot: rows per page, range and arrows. |
 | Table × status | A soft badge with a dot for the state of each row. |
 | Compact × people | Small padding, an avatar with a name, a role in a badge and a thin progress bar. |
