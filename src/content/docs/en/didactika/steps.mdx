@@ -31,11 +31,11 @@ A task with several stages (an import, a course set-up) shows where the user is 
 
 ## Anatomy
 
-An ordered list (`dd-steps`) whose items (`dd-step`) take a number from a counter, a **label** (`dd-step-label`) and a **line** that joins each one to the next. A step is `is-done` (check and filled line), `is-current` (ringed in the primary colour) or neither (quiet).
+An ordered list marked `data-region="steps"` (`list-unstyled d-flex`) whose items hold a round **badge** (`badge rounded-pill`) with the number, a **label** and, in the horizontal list, a **line** (`hr`) that joins each one to the next. A done step has a filled badge (`bg-primary`) with a check, the current one (`aria-current="step"`) is ringed in the primary colour (`border border-primary text-primary`) and the ones to come are quiet (`text-muted`).
 
 ## Variants and states
 
-Horizontal for a wizard in a page or a dialog; vertical (`dd-steps-vertical`) when the labels are long or the space is narrow.
+Horizontal for a wizard in a page or a dialog; vertical (`flex-column`) when the labels are long or the space is narrow.
 
 <Example title="Steps" src="steps/basic" />
 
@@ -51,20 +51,21 @@ Horizontal for a wizard in a page or a dialog; vertical (`dd-steps-vertical`) wh
 
 | What it gives | Why it helps |
 |---|---|
-| The number comes from a counter, the check from the state | The order cannot be written wrong in the markup, and a done step always looks done. |
-| The line fills as the task advances | The user sees how much is left at a glance, without reading. |
+| The state is in the markup: a filled badge with a check, `aria-current`, `text-muted` | A done step always looks done and the current one is announced to assistive technology. |
+| The line takes the primary colour as the task advances | The user sees how much is left at a glance, without reading. |
 | The current step has a ring, not only a colour | It stays visible for users who do not tell colours apart. |
 
 ## Classes
 
 | Class | What it does |
 |---|---|
-| `dd-steps` | The list |
-| `dd-step` | One step |
-| `dd-step-label` | Its label |
-| `is-done` | A step that is finished |
-| `is-current` | The step the user is on |
-| `dd-steps-vertical` | Steps in a column |
+| `data-region="steps"` | Marks the list |
+| `list-unstyled d-flex` | The list, in a row; add `flex-column` for a column |
+| `badge rounded-pill` | The numbered mark of a step |
+| `bg-primary` | A step that is finished, with a check |
+| `border border-primary text-primary`, `aria-current="step"` | The step the user is on |
+| `text-muted` | A step still to come |
+| `hr` | The line that joins one step to the next |
 
 ## Accessibility
 

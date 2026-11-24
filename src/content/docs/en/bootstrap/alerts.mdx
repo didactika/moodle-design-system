@@ -50,7 +50,7 @@ The default is a soft tint of the colour with an accent bar on the left. Didacti
 
 ### Icon, heading and actions
 
-An icon goes in a tile (`dd-tile`), which takes the colour of the alert. A heading names the message, the text says what to do, and the actions are buttons of the same colour.
+An icon goes in an icon box (`icon-box`), which takes the colour of the alert. A heading names the message, the text says what to do, and the actions are buttons of the same colour.
 
 <Example title="Icon, heading and actions" src="alerts/rich" />
 
@@ -64,7 +64,7 @@ An icon goes in a tile (`dd-tile`), which takes the colour of the alert. A headi
 |---|---|
 | Colour × meaning | Success for what finished, info for what to know, warning for what to check, danger for what failed. Primary, secondary, light and dark are neutral notices. |
 | Style × weight | Soft by default; flat in dense places; outline when it must not weigh on the page; solid for the one message that cannot be missed. |
-| Icon + heading + actions | A tile with an icon, a heading, one or two sentences and the next step as a button or link. |
+| Icon + heading + actions | An icon box with an icon, a heading, one or two sentences and the next step as a button or link. |
 | Alert × dismissible | Only if the message does not come back with the page; close button at the right. |
 
 ## What Didactika changes and why
@@ -73,7 +73,7 @@ An icon goes in a tile (`dd-tile`), which takes the colour of the alert. A headi
 |---|---|
 | A tint, a line and a text colour derived from the role | Every role reads at 4.5:1 or more, and the message is told by the words, the icon and the bar, not only by the colour. |
 | Light, secondary and dark are three clear steps | Light is the quietest, dark is the strongest, secondary sits between: they never swap places. |
-| The icon lives in a tile of the alert's colour | The eye lands on the tile first and knows the kind of message before reading it. |
+| The icon lives in an icon box of the alert's colour | The eye lands on the icon box first and knows the kind of message before reading it. |
 | The accent bar on the left | It marks the message without a heavy border, and it is the part of the alert that stays when the tint is lost in a dark theme. |
 
 ## Classes
@@ -86,7 +86,7 @@ An icon goes in a tile (`dd-tile`), which takes the colour of the alert. A headi
 | `alert-dismissible`, <Only of="v53" inline>`btn-close`</Only><Only of="v45,v41" inline>`close`</Only> | Lets the user close it |
 | `fade show` | Animates when it appears and when it closes |
 | `alert-flat`, `alert-outline`, `alert-solid` | Styles of the alert: no bar, outline only and filled (Didactika) |
-| `dd-tile` | The tile that holds an icon; it takes the colour of the alert around it (Didactika) |
+| `icon-box` | The box that holds an icon; with a text class (`text-success`) it takes that colour (Moodle) |
 
 ## In this version
 

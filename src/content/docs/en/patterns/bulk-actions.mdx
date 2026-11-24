@@ -18,11 +18,11 @@ When the same action is needed on many rows (hide twenty courses, remove fifteen
 
 1. **Checkbox column** (`table-select`): a checkbox per row and one in the header that selects the rows of the page.
 2. **Selected rows** keep a tint (`table-active`) so the selection is visible at a glance. The tint is the only change: a selected row does not react to the pointer any differently from the others.
-3. **Floating bar** (`dd-floatbar`): centred at the bottom of the window, a card with the **count** in bold, the **actions** as tonal buttons and a **clear** button at the end.
+3. **Floating bar** (`data-region="floatbar"` on a `card`): centred at the bottom of the window, a card with the **count** in bold, the **actions** as tonal buttons and a **clear** button at the end.
 
 <Example title="The floating bar of the plugins" src="patterns/bulk-actions" />
 
-The example draws the bar in the flow of the page (`dd-floatbar-static`); on a real page it is fixed 1.5 rem above the bottom edge.
+The example draws the bar in the flow of the page (`position-static`); on a real page it is fixed 1.5 rem above the bottom edge.
 
 ## Behaviour
 

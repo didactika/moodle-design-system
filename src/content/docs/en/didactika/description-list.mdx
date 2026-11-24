@@ -31,7 +31,7 @@ When a screen shows the attributes of one thing (not a list of things), a table 
 
 ## Anatomy
 
-A `dl` (`dd-dl`) with pairs of **term** (`dt`, in a muted colour) and **description** (`dd`, in the ink colour), separated by a hairline. On a narrow screen, or with `dd-dl-stacked`, the label goes above its value.
+A `dl` with the class `row`, whose pairs are a **term** (`dt`, `col-sm-4`, in a muted colour) and a **description** (`dd`, `col-sm-8`), each with `px-0 py-2 mb-0 border-bottom` so a badge or a button sits in its column and on its line. On a narrow screen, or with `col-12` on both, the label goes above its value.
 
 ## Variants and states
 
@@ -56,8 +56,10 @@ A `dl` (`dd-dl`) with pairs of **term** (`dt`, in a muted colour) and **descript
 
 | Class | What it does |
 |---|---|
-| `dd-dl` | The list, in two columns |
-| `dd-dl-stacked` | The label above its value |
+| `dl.row` | The list |
+| `dt` with `col-sm-4 px-0 py-2 mb-0 border-bottom text-muted` | The label |
+| `dd` with `col-sm-8 px-0 py-2 mb-0 border-bottom` | The value |
+| `col-12` | The label above its value |
 
 ## Accessibility
 

@@ -81,13 +81,10 @@
 .ds-v-scope .pagination-lg .page-item .page-link { min-width: 2.75rem; height: 2.75rem; padding: 0 1rem; font-size: 1.0625rem; }
 
 /* pagination of a list (dd-pager): how many rows, which ones are shown, and the arrows. The pagination Didactika uses on its tables and lists. */
-.ds-v-scope .dd-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; padding: .25rem 0; color: var(--dd-muted); font-size: .875rem; }
-.ds-v-scope .dd-pager-size { display: flex; align-items: center; gap: .625rem; }
-.ds-v-scope .dd-pager-size .form-select { width: auto; }
-.ds-v-scope .dd-pager-end { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
-.ds-v-scope .dd-pager-range { color: var(--dd-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.ds-v-scope .dd-pager-range b { font-weight: 600; }
-.ds-v-scope .dd-pager .btn-group .btn { border-color: var(--dd-line); }
+.ds-v-scope [data-region="pager"] { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; padding: .25rem 0; color: var(--dd-muted); font-size: .875rem; }
+.ds-v-scope [data-region="pager"] .text-nowrap { color: var(--dd-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ds-v-scope [data-region="pager"] .text-nowrap b { font-weight: 600; }
+.ds-v-scope [data-region="pager"] .btn-group .btn { border-color: var(--dd-line); }
 
 /* ------------------------------------------------------------------ dropdown */
 .ds-v-scope .dropdown-menu {
@@ -156,31 +153,22 @@
  */
 .ds-v-scope .nav-search-toggle { width: 2.5rem; height: 2.5rem; min-height: 0; padding: 0; border-radius: 50%; color: var(--dd-ink); font-size: 1.125rem; }
 .ds-v-scope .nav-search-toggle:hover, .ds-v-scope .nav-search-toggle.ds-is-hover, .ds-v-scope .nav-search-toggle[aria-expanded="true"] { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink, var(--dd-primary)); }
-.ds-v-scope .dd-search { padding: .5rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); }
-.ds-v-scope .dd-search-field { position: relative; display: flex; align-items: center; gap: .75rem; margin: 0; padding: .25rem .75rem; border-radius: var(--dd-radius); background-color: var(--dd-surface-2, var(--dd-primary-soft)); color: var(--dd-muted); font-size: 1.125rem; }
-.ds-v-scope .dd-search-field .form-control { flex: 1; min-width: 0; padding: .5rem 0; border: 0; background: none; box-shadow: none; font-size: 1.0625rem; }
-.ds-v-scope .dd-search kbd { padding: .1rem .4rem; border: 1px solid var(--dd-hairline); border-radius: .375rem; background-color: var(--dd-surface); color: var(--dd-muted); font: 500 .6875rem/1.4 var(--bs-font-monospace, monospace); box-shadow: none; }
-.ds-v-scope .dd-search-filters { display: flex; flex-wrap: wrap; gap: .375rem; padding: .625rem .25rem .25rem; }
-.ds-v-scope .dd-search-results { margin: .375rem 0 0; padding: 0; list-style: none; }
-.ds-v-scope .dd-search-results a { display: flex; align-items: center; gap: .75rem; padding: .5rem .625rem; border-radius: var(--dd-radius); color: var(--dd-ink); text-decoration: none; }
-.ds-v-scope .dd-search-results a > span:nth-child(2) { flex: 1; min-width: 0; }
-.ds-v-scope .dd-search-results b { display: block; font-weight: 600; }
-.ds-v-scope .dd-search-results small { display: block; color: var(--dd-muted); }
-.ds-v-scope .dd-search-results a:hover, .ds-v-scope .dd-search-results a.ds-is-hover, .ds-v-scope .dd-search-results a.active { background-color: var(--dd-primary-soft); }
-.ds-v-scope .dd-search-foot { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin: .5rem 0 0; padding: .625rem .5rem .25rem; border-top: 1px solid var(--dd-hairline); color: var(--dd-muted); font-size: .8125rem; }
-.ds-v-scope .dd-search-foot kbd + kbd { margin-left: .125rem; }
+.ds-v-scope [data-region="search"] { padding: .5rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); box-shadow: var(--dd-shadow-md); }
+.ds-v-scope [data-region="search"] form { position: relative; display: flex; align-items: center; gap: .75rem; margin: 0; padding: .25rem .75rem; border-radius: var(--dd-radius); background-color: var(--dd-surface-2, var(--dd-primary-soft)); color: var(--dd-muted); font-size: 1.125rem; }
+.ds-v-scope [data-region="search"] form .form-control { flex: 1; min-width: 0; padding: .5rem 0; border: 0; background: none; box-shadow: none; font-size: 1.0625rem; }
+.ds-v-scope [data-region="search"] kbd { padding: .1rem .4rem; border: 1px solid var(--dd-hairline); border-radius: .375rem; background-color: var(--dd-surface); color: var(--dd-muted); font: 500 .6875rem/1.4 var(--bs-font-monospace, monospace); box-shadow: none; }
 
 /* the buttons of a pager are one group of small icon buttons: square-ish, joined, the ends rounded (the pager of Filebank) */
-.ds-v-scope .dd-pager-range small, .ds-v-scope .dd-pager-page { color: var(--dd-muted); }
+.ds-v-scope [data-region="pager"] .text-nowrap small { color: var(--dd-muted); }
 
 /* Buttons that have a border are never stuck together: a group of icon buttons (the arrows of a pager) keeps a gap between its buttons, each
  * with the shape of an icon button. Only borderless buttons (plain icon buttons, a segmented control) may touch. */
 .ds-v-scope .btn-group:has(> .btn-icon) { gap: .25rem; }
 .ds-v-scope .btn-group:has(> .btn-icon) > .btn.btn-icon { margin-left: 0; border-radius: 50%; }
 .ds-v-scope .btn-group:has(> .btn-icon.btn-link) { gap: 0; }
-.ds-v-scope .dd-pager .btn-group > .btn-icon { width: var(--dd-h-sm); }
+.ds-v-scope [data-region="pager"] .btn-group > .btn-icon { width: var(--dd-h-sm); }
 /* no underline in a pagination: the current page is the blue one */
-.ds-v-scope :is(.page-link, .pagination a, .dd-pager a, .dd-pager .btn):is(:hover, :focus, :active) { text-decoration: none; }
+.ds-v-scope :is(.page-link, .pagination a, [data-region="pager"] a, [data-region="pager"] .btn):is(:hover, :focus, :active) { text-decoration: none; }
 .ds-v-scope .pagination .page-item .page-link { border-radius: var(--dd-radius-btn); }
 
 /* Everything in a bar is centred on the same line: the brand, the links, the tools. Moodle stretches some of these boxes to the height of the

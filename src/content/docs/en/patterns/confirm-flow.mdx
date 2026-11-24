@@ -16,7 +16,7 @@ A destructive action has three moments: the question, the action and the way bac
 
 ## Anatomy
 
-1. **Question**: a dialog (`modal-sm`) with the **danger tile**, a title that is a question with the quantity ("Delete 3 courses?"), one line that says what is lost and what can still be recovered, and the buttons.
+1. **Question**: a dialog (`modal-sm`) with the **danger icon box**, a title that is a question with the quantity ("Delete 3 courses?"), one line that says what is lost and what can still be recovered, and the buttons.
 2. **Action**: the dialog closes at once and the list updates without reloading.
 3. **Way back**: a **toast** that says what happened, with "Undo" for as long as it is possible.
 
@@ -26,8 +26,8 @@ A destructive action has three moments: the question, the action and the way bac
 
 | Piece | Rule |
 |---|---|
-| Dialog | Small width (24 rem); the tile and the title on one line; the text under it; the foot with Cancel on the left of the danger button, both at the right |
-| Toast | Bottom left of the window, 24 rem wide at most; icon tile, text, Undo and a close button |
+| Dialog | Small width (24 rem); the icon box and the title on one line; the text under it; the foot with Cancel on the left of the danger button, both at the right |
+| Toast | Bottom left of the window, 24 rem wide at most; icon box, text, Undo and a close button |
 | Between dialog and toast | The toast appears after the dialog closes, never over it |
 
 ## Behaviour

@@ -31,7 +31,7 @@ Un chip de filtro acota una lista con una pulsación. Un grupo de chips es una b
 
 ## Anatomía
 
-Un botón (`dd-chip`) con una **etiqueta**, una **cuenta** opcional (`dd-chip-count`) y, al elegirlo (`aria-pressed="true"`), un tinte del color primario. Un filtro aplicado (`dd-chip-applied`) lleva un **botón de quitar** (`dd-chip-remove`). El grupo es `dd-chips`.
+Un botón (`btn btn-sm btn-outline-secondary rounded-pill`) con una **etiqueta**, un **recuento** opcional (`badge rounded-pill`) y, una vez elegido (`aria-pressed="true"`, `active`), el tinte del color primario. Un filtro aplicado es un `badge rounded-pill text-bg-primary` que contiene un **botón de quitar** (`btn btn-link btn-icon btn-sm p-0`). El grupo es un `d-flex flex-wrap gap-2` con `role="group"`.
 
 ## Variantes y estados
 
@@ -59,11 +59,11 @@ La barra de filtros, los filtros aplicados con sus botones de quitar y los estad
 
 | Clase | Qué hace |
 |---|---|
-| `dd-chips` | Un grupo de chips |
-| `dd-chip` | Un chip; `aria-pressed` o `active` si está elegido |
-| `dd-chip-count` | El número de resultados |
-| `dd-chip-applied` | Un filtro aplicado |
-| `dd-chip-remove` | El botón que lo quita |
+| `d-flex flex-wrap align-items-center gap-2` | Un grupo de chips, con `role="group"` y una etiqueta |
+| `btn btn-sm btn-outline-secondary rounded-pill` | Un chip; `aria-pressed` y `active` cuando está elegido |
+| `badge rounded-pill` | El número de resultados |
+| `badge rounded-pill text-bg-primary` | Un filtro aplicado |
+| `btn btn-link btn-icon btn-sm p-0` | El botón que lo quita |
 
 ## Accesibilidad
 

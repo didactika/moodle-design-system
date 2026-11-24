@@ -17,7 +17,7 @@ Una zona de archivos es el lugar para añadir archivos: dice qué hacer, qué se
 
 - Di los tipos aceptados y el tamaño máximo dentro de la zona.
 - Ofrece siempre el botón: arrastrar es un atajo, no la única vía.
-- Muestra un archivo que no se puede añadir con la razón, en texto y con la pastilla de peligro.
+- Muestra un archivo que no se puede añadir con la razón, en texto y con la caja de icono de peligro.
 
 </Rule>
 <Rule kind="dont" title="No">
@@ -31,7 +31,7 @@ Una zona de archivos es el lugar para añadir archivos: dice qué hacer, qué se
 
 ## Anatomía
 
-Una **zona** (`dd-dropzone`) con una pastilla de icono, un **título** (`dd-dropzone-title`), una **pista** (`dd-dropzone-hint`) y un botón. Cada archivo es una **fila** (`dd-file`) con su pastilla, **nombre** (`dd-file-name`), **tamaño** (`dd-file-size`) y un botón de quitar. Mientras un archivo está sobre la zona toma la clase `is-over`.
+Una **zona** marcada con `data-region="dropzone"` (`d-flex flex-column align-items-center gap-2 p-4 border rounded-3 text-center`) con una `icon-box`, un **título** (`h6 fw-bold`), una **ayuda** (`small text-muted`) y un botón. Cada archivo es una **fila** (`d-flex align-items-center gap-3 px-3 py-2 border rounded-3`) con su caja de icono, su **nombre** (`flex-grow-1 text-truncate`), su **tamaño** (`small text-muted`) y un botón de quitar. Mientras un archivo está sobre la zona toma la clase `ds-is-hover` en los ejemplos; una página la marca con su propio script.
 
 ## Variantes y estados
 
@@ -56,10 +56,11 @@ Una **zona** (`dd-dropzone`) con una pastilla de icono, un **título** (`dd-drop
 
 | Clase | Qué hace |
 |---|---|
-| `dd-dropzone`, `is-over` | La zona, y su estado con un archivo encima |
-| `dd-dropzone-title`, `dd-dropzone-hint` | Sus textos |
-| `dd-file` | La fila de un archivo |
-| `dd-file-name`, `dd-file-size` | El nombre y el tamaño |
+| `data-region="dropzone"` | La zona; el tema dibuja su borde discontinuo y su tinte cuando hay un archivo encima |
+| `d-flex flex-column align-items-center gap-2 p-4 border rounded-3` | Su disposición |
+| `h6 fw-bold`, `small text-muted` | Sus textos |
+| `d-flex align-items-center gap-3 px-3 py-2 border rounded-3` | Una fila de archivo |
+| `flex-grow-1 text-truncate`, `small text-muted` | El nombre y el tamaño |
 
 ## Accesibilidad
 

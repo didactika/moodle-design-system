@@ -1,24 +1,24 @@
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;align-items:stretch">
-  <div class="card"><div class="card-body" style="display:grid;gap:.75rem" aria-busy="true" aria-label="Loading courses">
-    <span class="dd-skeleton" style="width:55%"></span>
-    <span class="dd-skeleton"></span>
-    <span class="dd-skeleton" style="width:80%"></span>
-    <span class="dd-skeleton" style="width:40%"></span>
+  <div class="card"><div class="card-body placeholder-glow" style="display:grid;gap:.75rem" aria-busy="true" aria-label="Loading courses">
+    <span class="placeholder d-block" style="width:55%"></span>
+    <span class="placeholder d-block"></span>
+    <span class="placeholder d-block" style="width:80%"></span>
+    <span class="placeholder d-block" style="width:40%"></span>
     <small style="color:var(--dd-muted)">Loading</small>
   </div></div>
-  <div class="card"><div class="card-body"><div class="dd-empty" style="padding:1rem">
-    <span class="dd-tile"><i data-pix="i/course"></i></span>
-    <h3 class="dd-empty-title">No courses yet</h3>
-    <p class="dd-empty-text">Create one or import a backup.</p>
+  <div class="card"><div class="card-body"><div data-region="empty" class="d-flex flex-column align-items-center text-center gap-2" style="padding:1rem">
+    <span class="icon-box"><i data-pix="i/course"></i></span>
+    <h3 class="h6 fw-bold mb-0">No courses yet</h3>
+    <p class="text-muted mb-0">Create one or import a backup.</p>
     <button type="button" class="btn btn-primary btn-sm"><i data-pix="t/add"></i> New course</button>
   </div></div></div>
   <div class="card"><div class="card-body" style="display:grid;gap:.75rem">
     <div class="alert alert-danger mb-0" role="alert"><b>The courses did not load.</b> The server did not answer in time.</div>
     <button type="button" class="btn btn-outline-secondary btn-sm" style="justify-self:start"><i data-pix="i/reload"></i> Try again</button>
   </div></div>
-  <div class="card"><div class="card-body"><div class="dd-empty" style="padding:1rem">
-    <span class="dd-tile dd-tile-warning"><i data-pix="i/lock"></i></span>
-    <h3 class="dd-empty-title">You cannot see this list</h3>
-    <p class="dd-empty-text">It is only for course managers. Ask one of them for access.</p>
+  <div class="card"><div class="card-body"><div data-region="empty" class="d-flex flex-column align-items-center text-center gap-2" style="padding:1rem">
+    <span class="icon-box text-warning"><i data-pix="i/lock"></i></span>
+    <h3 class="h6 fw-bold mb-0">You cannot see this list</h3>
+    <p class="text-muted mb-0">It is only for course managers. Ask one of them for access.</p>
   </div></div></div>
 </div>

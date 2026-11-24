@@ -31,11 +31,11 @@ Una tarea con varias etapas (una importación, la puesta en marcha de un curso) 
 
 ## Anatomía
 
-Una lista ordenada (`dd-steps`) cuyos elementos (`dd-step`) toman un número de un contador, una **etiqueta** (`dd-step-label`) y una **línea** que une cada uno con el siguiente. Un paso es `is-done` (marca y línea llena), `is-current` (con anillo del color primario) o ninguno (apagado).
+Una lista ordenada marcada con `data-region="steps"` (`list-unstyled d-flex`) cuyos elementos contienen una **insignia** redonda (`badge rounded-pill`) con el número, una **etiqueta** y, en la lista horizontal, una **línea** (`hr`) que une cada uno con el siguiente. Un paso hecho tiene la insignia rellena (`bg-primary`) con una marca, el actual (`aria-current="step"`) lleva un anillo del color primario (`border border-primary text-primary`) y los que faltan son discretos (`text-muted`).
 
 ## Variantes y estados
 
-Horizontal para un asistente en una página o un diálogo; vertical (`dd-steps-vertical`) cuando las etiquetas son largas o el espacio es estrecho.
+Horizontal para un asistente en una página o un diálogo; vertical (`flex-column`) cuando las etiquetas son largas o el espacio es estrecho.
 
 <Example title="Pasos" src="steps/basic" />
 
@@ -59,12 +59,13 @@ Horizontal para un asistente en una página o un diálogo; vertical (`dd-steps-v
 
 | Clase | Qué hace |
 |---|---|
-| `dd-steps` | La lista |
-| `dd-step` | Un paso |
-| `dd-step-label` | Su etiqueta |
-| `is-done` | Un paso terminado |
-| `is-current` | El paso en el que está el usuario |
-| `dd-steps-vertical` | Pasos en columna |
+| `data-region="steps"` | Marca la lista |
+| `list-unstyled d-flex` | La lista, en fila; con `flex-column`, en columna |
+| `badge rounded-pill` | La marca numerada de un paso |
+| `bg-primary` | Un paso terminado, con una marca |
+| `border border-primary text-primary`, `aria-current="step"` | El paso en el que está el usuario |
+| `text-muted` | Un paso que falta |
+| `hr` | La línea que une un paso con el siguiente |
 
 ## Accesibilidad
 

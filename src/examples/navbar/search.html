@@ -12,23 +12,23 @@
       </div>
     </div>
   </nav>
-  <div class="collapse show dd-search" id="nav-search">
-    <form role="search" class="dd-search-field">
+  <div class="collapse show card card-body p-2" id="nav-search" data-region="search">
+    <form role="search" class="d-flex align-items-center gap-2 px-2">
       <i data-pix="a/search" aria-hidden="true"></i>
       <input type="search" class="form-control" placeholder="Search courses, people and activities" aria-label="Search" value="alg">
       <kbd>Esc</kbd>
     </form>
-    <div class="dd-search-filters" role="group" aria-label="Filter results">
+    <div class="d-flex flex-wrap gap-2 px-1 pt-2 pb-1" role="group" aria-label="Filter results">
       <button type="button" class="btn btn-sm btn-primary">All</button>
       <button type="button" class="btn btn-sm btn-outline-secondary">Courses</button>
       <button type="button" class="btn btn-sm btn-outline-secondary">People</button>
       <button type="button" class="btn btn-sm btn-outline-secondary">Activities</button>
     </div>
-    <ul class="dd-search-results">
-      <li><a href="#" class="active"><span class="dd-tile"><i data-pix="i/course"></i></span><span><b>Algebra I</b><small>Course · Mathematics</small></span><span class="badge badge-soft rounded-pill text-bg-primary">Course</span></a></li>
-      <li><a href="#"><span class="dd-tile dd-tile-info"><i data-pix="i/user"></i></span><span><b>Alicia Gil</b><small>Teacher · Algebra I</small></span><span class="badge badge-soft rounded-pill text-bg-info">Person</span></a></li>
-      <li><a href="#"><span class="dd-tile dd-tile-warning"><i data-pix="i/calendar"></i></span><span><b>Algebra I: unit 3 quiz</b><small>Closes on Friday at 18:00</small></span><span class="badge badge-soft rounded-pill text-bg-warning">Activity</span></a></li>
+    <ul class="list-group list-group-flush mt-2">
+      <li class="list-group-item p-0 border-0"><a href="#" class="list-group-item-action d-flex align-items-center gap-3 px-2 py-2 rounded-3 active"><span class="icon-box"><i data-pix="i/course"></i></span><span class="flex-grow-1"><b class="d-block">Algebra I</b><small class="d-block text-muted">Course · Mathematics</small></span><span class="badge badge-soft rounded-pill text-bg-primary">Course</span></a></li>
+      <li class="list-group-item p-0 border-0"><a href="#" class="list-group-item-action d-flex align-items-center gap-3 px-2 py-2 rounded-3"><span class="icon-box text-info"><i data-pix="i/user"></i></span><span class="flex-grow-1"><b class="d-block">Alicia Gil</b><small class="d-block text-muted">Teacher · Algebra I</small></span><span class="badge badge-soft rounded-pill text-bg-info">Person</span></a></li>
+      <li class="list-group-item p-0 border-0"><a href="#" class="list-group-item-action d-flex align-items-center gap-3 px-2 py-2 rounded-3"><span class="icon-box text-warning"><i data-pix="i/calendar"></i></span><span class="flex-grow-1"><b class="d-block">Algebra I: unit 3 quiz</b><small class="d-block text-muted">Closes on Friday at 18:00</small></span><span class="badge badge-soft rounded-pill text-bg-warning">Activity</span></a></li>
     </ul>
-    <p class="dd-search-foot"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+    <p class="d-flex flex-wrap gap-3 small text-muted border-top mt-2 mb-0 pt-2 px-2"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
   </div>
 </div>

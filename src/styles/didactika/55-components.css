@@ -1,166 +1,97 @@
-/* ================================================================== Didactika components: empty states, steps, filter chips, page header */
-
-/* ------------------------------------------------------------------ empty state (dd-empty)
- * What a list or a region shows when there is nothing in it: an icon tile, a title that says what is missing, one line that says what to do
- * and the action that does it.
+/* ================================================================== pieces of a screen that Bootstrap has no component for
+ * Every rule here is about a Bootstrap or Moodle class under a data-region that only marks the place, so a theme restyles them by restyling
+ * Bootstrap. There is no class of our own: an empty state, the steps of a task, a timeline and the rest are Bootstrap utilities and components.
  */
-.ds-v-scope .dd-empty { display: grid; justify-items: center; gap: .5rem; padding: 2.5rem 1.5rem; text-align: center; }
-.ds-v-scope .dd-empty .dd-tile { width: 3.5rem; height: 3.5rem; margin-bottom: .5rem; border-radius: 1rem; font-size: 1.5rem; }
-.ds-v-scope .dd-empty-title { margin: 0; font-size: 1.0625rem; font-weight: 700; color: var(--dd-ink); }
-.ds-v-scope .dd-empty-text { max-width: 28rem; margin: 0; color: var(--dd-muted); font-size: .9375rem; line-height: 1.5; }
-.ds-v-scope .dd-empty .btn { margin-top: .75rem; }
-.ds-v-scope .dd-empty-inline { grid-auto-flow: column; justify-content: center; align-items: center; gap: .75rem; padding: 1rem; text-align: left; }
-.ds-v-scope .dd-empty-inline .dd-tile { width: 2.25rem; height: 2.25rem; margin: 0; font-size: 1.0625rem; }
-.ds-v-scope .dd-empty-dashed { border: 1.5px dashed var(--dd-line); border-radius: var(--dd-radius-lg); }
 
-/* ------------------------------------------------------------------ steps (dd-steps)
- * The stages of a task, in order: a numbered mark, a label and a line that fills as the task advances. Done steps hold a check, the current one
- * is marked in the primary colour and the ones to come are quiet.
+/* ------------------------------------------------------------------ empty state (data-region="empty")
+ * What a list or a region shows when there is nothing in it: an icon box, a title that says what is missing, one line that says what to do and
+ * the action that does it. With a border it is drawn as a place waiting to be filled.
  */
-.ds-v-scope .dd-steps { display: flex; gap: 0; margin: 0; padding: 0; list-style: none; counter-reset: dd-step; }
-.ds-v-scope .dd-step { position: relative; display: flex; flex: 1 1 auto; align-items: center; gap: .625rem; min-width: 0; counter-increment: dd-step; color: var(--dd-muted); font-size: .875rem; font-weight: 500; }
-.ds-v-scope .dd-step::before { content: counter(dd-step); display: grid; flex: none; place-items: center; width: 1.75rem; height: 1.75rem; border: 1.5px solid var(--dd-line); border-radius: 50%; background: var(--dd-surface); font-size: .8125rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-.ds-v-scope .dd-step:not(:last-child)::after { content: ""; flex: 1; min-width: .5rem; height: 2px; margin-right: .5rem; border-radius: 2px; background: var(--dd-hairline); }
-.ds-v-scope .dd-step-label { flex: none; white-space: nowrap; }
-.ds-v-scope .dd-step:last-child { flex: none; }
-.ds-v-scope .dd-step.is-done { color: var(--dd-ink); }
-.ds-v-scope .dd-step.is-done::before { content: "\2713"; border-color: var(--dd-primary); background: var(--dd-primary); color: #fff; }
-.ds-v-scope .dd-step.is-done:not(:last-child)::after { background: var(--dd-primary); }
-.ds-v-scope .dd-step.is-current { color: var(--dd-ink); font-weight: 700; }
-.ds-v-scope .dd-step.is-current::before { border-color: var(--dd-primary); background: var(--dd-primary-soft); color: var(--dd-primary-ink); box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope [data-region="empty"] { padding: 2.5rem 1.5rem; }
+.ds-v-scope [data-region="empty"] > p { max-width: 28rem; font-size: .9375rem; line-height: 1.5; }
+.ds-v-scope [data-region="empty"].border { border-style: dashed !important; border-width: 1.5px !important; border-color: var(--dd-line) !important; border-radius: var(--dd-radius-lg) !important; }
+.ds-v-scope [data-region="empty"].flex-row { padding: 1rem; }
+.ds-v-scope [data-region="empty"].flex-row > span:last-child { min-width: 0; }
 
-/* ------------------------------------------------------------------ filter chips (dd-chip)
- * A small toggle that narrows a list: a label, an optional count and, once chosen, a tint of the primary colour. A group of them is a filter
- * bar; a chip with a remove button is an applied filter.
+/* ------------------------------------------------------------------ steps (data-region="steps")
+ * The stages of a task, in order: a numbered round badge, a label and a line that fills as the task advances. A done step holds a check on a
+ * filled badge, the current one (aria-current) is ringed in the primary colour and the ones to come are quiet.
  */
-.ds-v-scope .dd-chips { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
-.ds-v-scope .dd-chip { display: inline-flex; align-items: center; gap: .4375rem; min-height: 2rem; padding: .1875rem .75rem; border: 1px solid var(--dd-line); border-radius: 999px; background: var(--dd-surface); color: var(--dd-ink); font-size: .875rem; font-weight: 500; line-height: 1.4; cursor: pointer; transition: background-color var(--dd-ease), border-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease); }
-.ds-v-scope .dd-chip:hover, .ds-v-scope .dd-chip.ds-is-hover { border-color: var(--dd-line-hover); background: var(--dd-surface-2); }
-.ds-v-scope .dd-chip:focus-visible, .ds-v-scope .dd-chip.ds-is-focus { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
-.ds-v-scope .dd-chip[aria-pressed="true"], .ds-v-scope .dd-chip.active { border-color: var(--dd-primary); background: var(--dd-primary-soft); color: var(--dd-primary-ink); font-weight: 600; }
-.ds-v-scope .dd-chip-count { padding: 0 .4rem; border-radius: 999px; background: var(--dd-surface-3); color: var(--dd-muted); font-size: .75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-.ds-v-scope .dd-chip[aria-pressed="true"] .dd-chip-count { background: var(--dd-primary); color: #fff; }
-.ds-v-scope .dd-chip:disabled { opacity: .5; cursor: not-allowed; }
-.ds-v-scope .dd-chip-remove { position: relative; flex: none; width: 1.25rem; height: 1.25rem; margin: 0 -.375rem 0 -.125rem; padding: 0; border: 0; border-radius: 50%; background: none; color: inherit; cursor: pointer; opacity: .7; transition: background-color var(--dd-ease), opacity var(--dd-ease); }
-.ds-v-scope .dd-chip-remove::before, .ds-v-scope .dd-chip-remove::after { content: ""; position: absolute; top: 50%; left: 50%; width: .5625rem; height: 2px; border-radius: 2px; background: currentColor; }
-.ds-v-scope .dd-chip-remove::before { transform: translate(-50%, -50%) rotate(45deg); }
-.ds-v-scope .dd-chip-remove::after { transform: translate(-50%, -50%) rotate(-45deg); }
-.ds-v-scope .dd-chip-remove:focus-visible { outline: 0; box-shadow: 0 0 0 2px var(--dd-ring); opacity: 1; }
-.ds-v-scope .dd-chip-remove:hover { background: color-mix(in srgb, currentColor 14%, transparent); opacity: 1; }
-.ds-v-scope .dd-chip-applied { border-color: var(--dd-primary); background: var(--dd-primary-soft); color: var(--dd-primary-ink); cursor: default; }
+.ds-v-scope [data-region="steps"] > li { font-size: .875rem; font-weight: 500; }
+.ds-v-scope [data-region="steps"] .badge { display: inline-grid; flex: none; place-items: center; width: 1.75rem; height: 1.75rem; padding: 0; border-radius: 50%; font-size: .8125rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ds-v-scope [data-region="steps"] .badge:not([class*="bg-"]):not(.text-primary) { background-color: var(--dd-surface); color: var(--dd-muted); }
+.ds-v-scope [data-region="steps"] .badge.text-primary { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink) !important; box-shadow: 0 0 0 3px var(--dd-ring); }
+.ds-v-scope [data-region="steps"] .badge[class*="bg-"] { color: #fff; }
+.ds-v-scope [data-region="steps"] .badge > .icon { width: .875rem; height: .875rem; margin: 0; color: inherit !important; }
+.ds-v-scope [data-region="steps"] > li > hr { height: 2px; border: 0; background-color: var(--dd-hairline); opacity: 1; }
+.ds-v-scope [data-region="steps"] > li > hr.border-primary { background-color: var(--dd-primary); }
+.ds-v-scope [data-region="steps"].flex-column > li:not(:last-child)::after { content: ""; position: absolute; top: 2.125rem; bottom: .375rem; left: .8125rem; width: 2px; border-radius: 2px; background-color: var(--dd-hairline); }
+.ds-v-scope [data-region="steps"].flex-column > li:not(:last-child) > .badge[class*="bg-"] ~ * { min-width: 0; }
 
-/* ------------------------------------------------------------------ page header (dd-page-header)
+/* on a narrow screen a row of steps keeps the mark of every step and the label of the current one only; the others stay for assistive technology */
+@media (max-width: 576px) {
+  .ds-v-scope [data-region="steps"]:not(.flex-column) > li:not([aria-current]) > span:not(.badge) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ds-v-scope [data-region="steps"]:not(.flex-column) > li { gap: .375rem !important; }
+}
+
+/* ------------------------------------------------------------------ timeline (data-region="timeline")
+ * What happened to something, newest first: a dot on a line, what happened, who did it and when. The dot is a round badge with the colour of
+ * what happened (bg-success, bg-warning, bg-danger) or a ring in the primary colour.
+ */
+.ds-v-scope [data-region="timeline"] > li > .badge { display: block; position: absolute; top: .3125rem; left: .1875rem; width: .75rem; height: .75rem; padding: 0; border-radius: 50%; background-color: var(--dd-surface); }
+.ds-v-scope [data-region="timeline"] > li > .badge[class*="bg-"] { background-color: var(--dd-c) !important; border: 2px solid var(--dd-c); }
+.ds-v-scope [data-region="timeline"] > li > .badge.border { border-width: 2px !important; border-color: var(--dd-primary) !important; }
+.ds-v-scope [data-region="timeline"] > li:not(:last-child)::after { content: ""; position: absolute; top: 1.25rem; bottom: .25rem; left: .5rem; width: 2px; border-radius: 2px; background-color: var(--dd-hairline); }
+
+/* ------------------------------------------------------------------ drop zone (data-region="dropzone")
+ * Where files are dropped or chosen: a dashed area with an icon box, what to do, what is accepted and the button that opens the picker.
+ */
+.ds-v-scope [data-region="dropzone"] { padding: 2rem 1.5rem; border-style: dashed !important; border-width: 1.5px !important; border-color: var(--dd-line) !important; border-radius: var(--dd-radius-lg) !important; background-color: var(--dd-surface); transition: border-color var(--dd-ease), background-color var(--dd-ease); }
+.ds-v-scope [data-region="dropzone"]:hover, .ds-v-scope [data-region="dropzone"].ds-is-hover { border-color: var(--dd-primary) !important; background-color: var(--dd-primary-soft); }
+
+/* ------------------------------------------------------------------ page header (data-region="page-header")
  * The top of a screen of a plugin: breadcrumb, the title with its context, and the actions of the page on the right.
  */
-.ds-v-scope .dd-page-header { display: grid; gap: .75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--dd-hairline); }
-.ds-v-scope .dd-page-header .breadcrumb { margin: 0; }
-.ds-v-scope .dd-page-header-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: .75rem 1.5rem; }
-.ds-v-scope .dd-page-header-main { display: flex; align-items: center; gap: .875rem; min-width: 0; }
-.ds-v-scope .dd-page-title { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; color: var(--dd-ink); }
-.ds-v-scope .dd-page-subtitle { margin: .25rem 0 0; color: var(--dd-muted); font-size: .9375rem; }
-.ds-v-scope .dd-page-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.ds-v-scope [data-region="page-header"] { border-color: var(--dd-hairline) !important; }
+.ds-v-scope [data-region="page-header"] h1 { letter-spacing: -.015em; line-height: 1.2; }
 
-/* ------------------------------------------------------------------ avatars (dd-avatars)
+/* ------------------------------------------------------------------ avatars (data-region="avatars")
  * Avatars of a group that overlap, each ringed in the colour of the surface, and a last one with the number of people not shown.
  */
-.ds-v-scope .dd-avatars { display: inline-flex; align-items: center; }
-.ds-v-scope .dd-avatars .userinitials { box-sizing: content-box; margin-right: 0; border: 2px solid var(--dd-surface); }
-.ds-v-scope .dd-avatars .userinitials + .userinitials { margin-left: -.5rem; }
-.ds-v-scope .dd-avatars-more { background-color: var(--dd-primary-soft) !important; color: var(--dd-primary-ink) !important; font-size: .75rem; font-weight: 600; }
+.ds-v-scope [data-region="avatars"] .userinitials { box-sizing: content-box; margin-right: 0; border: 2px solid var(--dd-surface); }
+.ds-v-scope [data-region="avatars"] .userinitials + .userinitials { margin-left: -.5rem; }
+.ds-v-scope [data-region="avatars"] .userinitials.bg-light { background-color: var(--dd-primary-soft) !important; color: var(--dd-primary-ink) !important; font-size: .75rem; }
 
-/* ------------------------------------------------------------------ tip (dd-tip)
+/* ------------------------------------------------------------------ floating bar (data-region="floatbar")
+ * What follows the person at the bottom of the window while they have a selection: how many are chosen, what to do with them and a button that
+ * clears the choice. A card over the page, centred. With position-static it sits in the flow, as in the examples.
+ */
+.ds-v-scope [data-region="floatbar"] { position: fixed; bottom: 1.5rem; left: 50%; z-index: 1040; max-width: calc(100vw - 2rem); padding-left: 1.25rem !important; border-radius: 1rem; box-shadow: var(--dd-shadow-lg) !important; transform: translateX(-50%); }
+.ds-v-scope [data-region="floatbar"].position-static { position: static; transform: none; }
+@media (max-width: 576px) { .ds-v-scope [data-region="floatbar"] { flex-wrap: wrap; justify-content: center; border-radius: var(--dd-radius-lg); } }
+
+/* ------------------------------------------------------------------ gaps (Bootstrap 4 has no gap utilities) */
+.ds-v-scope .gap-1 { gap: .25rem; }
+.ds-v-scope .gap-2 { gap: .5rem; }
+.ds-v-scope .gap-3 { gap: 1rem; }
+.ds-v-scope .gap-4 { gap: 1.5rem; }
+
+/* ------------------------------------------------------------------ tooltip of a title (data-region="tip")
  * The label that appears over a button, a link or an icon that has a title. The browser draws its own for the title attribute and a page
- * cannot style it, so the examples show this one (src/scripts/tooltips.ts): a dark bubble with an arrow, fast, that follows the keyboard too.
- * It is not inside .ds-v-scope because it hangs from the body; the colours have a fallback for that.
+ * cannot style it, so the examples show a Bootstrap tooltip (src/scripts/tooltips.ts) that follows the keyboard too. It hangs from the body,
+ * outside .ds-v-scope; the colours have a fallback for that.
  */
-.dd-tip { position: fixed; z-index: 2000; max-width: 18rem; padding: .375rem .625rem; border-radius: .5rem; background: var(--dd-tip-bg, #1e293b); color: #fff; font: 500 .8125rem/1.35 system-ui, -apple-system, "Segoe UI", sans-serif; box-shadow: 0 8px 20px -6px rgb(15 23 42 / 45%); pointer-events: none; opacity: 0; transform: translateY(2px); transition: opacity .12s ease, transform .12s ease; }
-.dd-tip.is-visible { opacity: 1; transform: none; }
-.dd-tip::after { content: ""; position: absolute; left: var(--dd-tip-arrow, 50%); width: .5rem; height: .5rem; background: inherit; transform: translateX(-50%) rotate(45deg); }
-.dd-tip[data-place="top"]::after { bottom: -.25rem; }
-.dd-tip[data-place="bottom"]::after { top: -.25rem; }
-@media (prefers-reduced-motion: reduce) { .dd-tip { transition: none; } }
+.tooltip[data-region="tip"] { position: fixed; z-index: 2000; max-width: 18rem; margin: 0; padding: 0; opacity: 0; transform: translateY(2px); transition: opacity .12s ease, transform .12s ease; pointer-events: none; }
+.tooltip[data-region="tip"].is-visible { opacity: 1; transform: none; }
+.tooltip[data-region="tip"] .tooltip-inner { padding: .375rem .625rem; border-radius: .5rem; background: var(--dd-tip-bg, #1e293b); color: #fff; font: 500 .8125rem/1.35 system-ui, -apple-system, "Segoe UI", sans-serif; box-shadow: 0 8px 20px -6px rgb(15 23 42 / 45%); }
+.tooltip[data-region="tip"] .tooltip-arrow, .tooltip[data-region="tip"] .arrow { position: absolute; left: var(--dd-tip-arrow, 50%); width: .5rem; height: .5rem; background: var(--dd-tip-bg, #1e293b); transform: translateX(-50%) rotate(45deg); }
+.tooltip[data-region="tip"][data-place="top"] .tooltip-arrow, .tooltip[data-region="tip"][data-place="top"] .arrow { bottom: -.25rem; top: auto; }
+.tooltip[data-region="tip"][data-place="bottom"] .tooltip-arrow, .tooltip[data-region="tip"][data-place="bottom"] .arrow { top: -.25rem; bottom: auto; }
+.tooltip[data-region="tip"] .tooltip-arrow::before, .tooltip[data-region="tip"] .arrow::before { display: none; }
+@media (prefers-reduced-motion: reduce) { .tooltip[data-region="tip"] { transition: none; } }
 
-/* ------------------------------------------------------------------ segmented control (dd-segmented)
- * One choice among a few options that change the view of the same content (day, week, month): a track with the chosen option raised.
+/* ------------------------------------------------------------------ removable badges (a tag, an applied filter)
+ * A badge that holds a button to remove it is the soft tint of the primary colour, not the solid one, so it reads as a value that can be taken away.
  */
-.ds-v-scope .dd-segmented { display: inline-flex; gap: .125rem; padding: .1875rem; border-radius: var(--dd-radius-sm); background-color: var(--dd-surface-3); }
-.ds-v-scope .dd-segmented button { display: inline-flex; align-items: center; gap: .4375rem; min-height: 2rem; padding: .25rem .875rem; border: 0; border-radius: calc(var(--dd-radius-sm) - 2px); background: none; color: var(--dd-muted); font-size: .875rem; font-weight: 600; cursor: pointer; transition: background-color var(--dd-ease), color var(--dd-ease), box-shadow var(--dd-ease); }
-.ds-v-scope .dd-segmented button:hover { color: var(--dd-ink); }
-.ds-v-scope .dd-segmented button[aria-pressed="true"], .ds-v-scope .dd-segmented button.active { background-color: var(--dd-surface); box-shadow: var(--dd-shadow-sm); color: var(--dd-ink); }
-.ds-v-scope .dd-segmented button:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--dd-ring); }
-.ds-v-scope .dd-segmented button:disabled { opacity: .5; cursor: not-allowed; }
-
-/* ------------------------------------------------------------------ description list (dd-dl)
- * The facts of one thing as a label and a value on each line: a course, a user, a rule. The labels share a column so the eye runs down the
- * values.
- */
-.ds-v-scope .dd-dl { display: grid; grid-template-columns: minmax(7rem, 11rem) 1fr; margin: 0; }
-.ds-v-scope .dd-dl dt, .ds-v-scope .dd-dl dd { margin: 0; padding: .625rem 0; border-bottom: 1px solid var(--dd-hairline); }
-.ds-v-scope .dd-dl dt { padding-right: 1rem; color: var(--dd-muted); font-size: .875rem; font-weight: 500; }
-.ds-v-scope .dd-dl dd { color: var(--dd-ink); font-size: .9375rem; overflow-wrap: anywhere; }
-.ds-v-scope .dd-dl dt:last-of-type, .ds-v-scope .dd-dl dd:last-of-type { border-bottom: 0; }
-.ds-v-scope .dd-dl-stacked { grid-template-columns: 1fr; }
-.ds-v-scope .dd-dl-stacked dt { padding-bottom: 0; border-bottom: 0; }
-@media (max-width: 480px) { .ds-v-scope .dd-dl { grid-template-columns: 1fr; } .ds-v-scope .dd-dl dt { padding-bottom: 0; border-bottom: 0; } }
-
-/* ------------------------------------------------------------------ timeline (dd-timeline)
- * What happened to something, newest first: a dot on a line, what happened, who did it and when.
- */
-.ds-v-scope .dd-timeline { position: relative; margin: 0; padding: 0; list-style: none; }
-.ds-v-scope .dd-timeline-item { position: relative; display: grid; gap: .125rem; padding: 0 0 1.25rem 1.75rem; }
-.ds-v-scope .dd-timeline-item::before { content: ""; position: absolute; top: .3125rem; left: .1875rem; width: .75rem; height: .75rem; border: 2px solid var(--dd-primary); border-radius: 50%; background: var(--dd-surface); }
-.ds-v-scope .dd-timeline-item::after { content: ""; position: absolute; top: 1.25rem; bottom: .25rem; left: .5rem; width: 2px; border-radius: 2px; background: var(--dd-hairline); }
-.ds-v-scope .dd-timeline-item:last-child { padding-bottom: 0; }
-.ds-v-scope .dd-timeline-item:last-child::after { display: none; }
-.ds-v-scope .dd-timeline-item.is-success::before { border-color: var(--dd-success); background: var(--dd-success); }
-.ds-v-scope .dd-timeline-item.is-danger::before { border-color: var(--dd-danger); background: var(--dd-danger); }
-.ds-v-scope .dd-timeline-item.is-warning::before { border-color: var(--dd-warning); background: var(--dd-warning); }
-.ds-v-scope .dd-timeline-title { color: var(--dd-ink); font-size: .9375rem; font-weight: 600; }
-.ds-v-scope .dd-timeline-meta { color: var(--dd-muted); font-size: .8125rem; }
-
-/* ------------------------------------------------------------------ drop zone (dd-dropzone)
- * Where files are dropped or chosen: a dashed area with an icon tile, what to do, what is accepted and the button that opens the picker.
- */
-.ds-v-scope .dd-dropzone { display: grid; justify-items: center; gap: .375rem; padding: 2rem 1.5rem; border: 1.5px dashed var(--dd-line); border-radius: var(--dd-radius-lg); background-color: var(--dd-surface); text-align: center; transition: border-color var(--dd-ease), background-color var(--dd-ease); }
-.ds-v-scope .dd-dropzone:hover, .ds-v-scope .dd-dropzone.is-over { border-color: var(--dd-primary); background-color: var(--dd-primary-soft); }
-.ds-v-scope .dd-dropzone .dd-tile { margin-bottom: .375rem; }
-.ds-v-scope .dd-dropzone-title { margin: 0; color: var(--dd-ink); font-size: 1rem; font-weight: 600; }
-.ds-v-scope .dd-dropzone-hint { margin: 0; color: var(--dd-muted); font-size: .875rem; }
-.ds-v-scope .dd-dropzone .btn { margin-top: .5rem; }
-.ds-v-scope .dd-file { display: flex; align-items: center; gap: .75rem; padding: .625rem .75rem; border: 1px solid var(--dd-hairline); border-radius: var(--dd-radius); background: var(--dd-surface); }
-.ds-v-scope .dd-file-name { flex: 1; min-width: 0; overflow: hidden; color: var(--dd-ink); font-size: .9375rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
-.ds-v-scope .dd-file-size { color: var(--dd-muted); font-size: .8125rem; }
-
-/* vertical steps: the marks in a column joined by a line, each with its label and, if needed, a text under it */
-.ds-v-scope .dd-steps-vertical { flex-direction: column; gap: 0; }
-.ds-v-scope .dd-steps-vertical .dd-step { display: grid; flex: none; grid-template-columns: 1.75rem 1fr; align-items: start; column-gap: .75rem; padding-bottom: 1.5rem; }
-.ds-v-scope .dd-steps-vertical .dd-step:last-child { padding-bottom: 0; }
-.ds-v-scope .dd-steps-vertical .dd-step::before { grid-row: 1 / span 2; }
-.ds-v-scope .dd-steps-vertical .dd-step:not(:last-child)::after { content: ""; position: absolute; top: 2.125rem; bottom: .375rem; left: .8125rem; flex: none; width: 2px; min-width: 0; height: auto; margin: 0; }
-.ds-v-scope .dd-steps-vertical .dd-step-label { align-self: center; min-height: 1.75rem; display: flex; align-items: center; white-space: normal; }
-.ds-v-scope .dd-step-text { grid-column: 2; margin-top: -.125rem; color: var(--dd-muted); font-size: .8125rem; font-weight: 400; line-height: 1.45; }
-
-/* ------------------------------------------------------------------ skeleton (dd-skeleton)
- * The shape of what is loading: a bar the width of the text that will be there, with a light that passes. It keeps the height of the content, so
- * the page does not jump when the data arrives.
- */
-.ds-v-scope .dd-skeleton { display: block; height: .875rem; border-radius: .375rem; background: linear-gradient(90deg, var(--dd-hairline) 0%, var(--dd-surface-3) 50%, var(--dd-hairline) 100%); background-size: 200% 100%; animation: dd-shimmer 1.4s linear infinite; }
-@keyframes dd-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
-@media (prefers-reduced-motion: reduce) { .ds-v-scope .dd-skeleton { animation: none; } }
-
-/* ------------------------------------------------------------------ floating bar (dd-floatbar)
- * What follows the person at the bottom of the window while they have a selection: how many are chosen, what to do with them and a button
- * that clears the choice. It is the bar of the plugins of Didactika (Service manager, Icon restyle): a card over the page, centred, with the
- * actions as tonal buttons. The examples show it in the flow (dd-floatbar-static); on a page it is fixed.
- */
-.ds-v-scope .dd-floatbar { position: fixed; bottom: 1.5rem; left: 50%; z-index: 1040; display: flex; align-items: center; gap: 1rem; max-width: calc(100vw - 2rem); padding: .5rem .6rem .5rem 1.25rem; border: 1px solid var(--dd-hairline); border-radius: 1rem; background-color: var(--dd-surface); box-shadow: var(--dd-shadow-lg); transform: translateX(-50%); }
-.ds-v-scope .dd-floatbar-static { position: static; width: fit-content; max-width: 100%; margin-inline: auto; transform: none; }
-.ds-v-scope .dd-floatbar-count { color: var(--dd-ink); font-weight: 600; white-space: nowrap; }
-.ds-v-scope .dd-floatbar-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
-.ds-v-scope .dd-floatbar-clear { display: inline-grid; place-items: center; flex: none; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: .5rem; background: transparent; color: var(--dd-muted); transition: background-color var(--dd-ease), color var(--dd-ease); }
-.ds-v-scope .dd-floatbar-clear { position: relative; }
-.ds-v-scope .dd-floatbar-clear::before, .ds-v-scope .dd-floatbar-clear::after { content: ""; position: absolute; top: 50%; left: 50%; width: .75rem; height: 2px; border-radius: 2px; background: currentColor; }
-.ds-v-scope .dd-floatbar-clear::before { transform: translate(-50%, -50%) rotate(45deg); }
-.ds-v-scope .dd-floatbar-clear::after { transform: translate(-50%, -50%) rotate(-45deg); }
-.ds-v-scope .dd-floatbar-clear:hover, .ds-v-scope .dd-floatbar-clear:focus-visible { background-color: var(--dd-primary-soft); color: var(--dd-primary-ink); outline: 0; }
-@media (max-width: 576px) { .ds-v-scope .dd-floatbar { flex-wrap: wrap; justify-content: center; border-radius: var(--dd-radius-lg); } }
+.ds-v-scope .badge.text-bg-primary:has(> .btn-link) { background-color: var(--dd-primary-soft) !important; color: var(--dd-primary-ink) !important; font-weight: 600; }
+.ds-v-scope .badge > .btn-link { color: inherit; }

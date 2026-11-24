@@ -16,7 +16,7 @@ Una acción destructiva tiene tres momentos: la pregunta, la acción y el camino
 
 ## Anatomía
 
-1. **Pregunta**: un diálogo (`modal-sm`) con la **pastilla de peligro**, un título que es una pregunta con la cantidad ("¿Eliminar 3 cursos?"), una línea que dice qué se pierde y qué aún se puede recuperar, y los botones.
+1. **Pregunta**: un diálogo (`modal-sm`) con la **caja de icono de peligro**, un título que es una pregunta con la cantidad ("¿Eliminar 3 cursos?"), una línea que dice qué se pierde y qué aún se puede recuperar, y los botones.
 2. **Acción**: el diálogo se cierra al instante y la lista se actualiza sin recargar.
 3. **Camino de vuelta**: un **toast** que dice qué pasó, con "Deshacer" mientras sea posible.
 
@@ -26,8 +26,8 @@ Una acción destructiva tiene tres momentos: la pregunta, la acción y el camino
 
 | Pieza | Regla |
 |---|---|
-| Diálogo | Ancho pequeño (24 rem); la pastilla y el título en una línea; el texto debajo; el pie con Cancelar a la izquierda del botón de peligro, ambos a la derecha |
-| Toast | Abajo a la izquierda de la ventana, 24 rem como máximo; pastilla de icono, texto, Deshacer y un botón de cierre |
+| Diálogo | Ancho pequeño (24 rem); la caja de icono y el título en una línea; el texto debajo; el pie con Cancelar a la izquierda del botón de peligro, ambos a la derecha |
+| Toast | Abajo a la izquierda de la ventana, 24 rem como máximo; caja de icono, texto, Deshacer y un botón de cierre |
 | Entre diálogo y toast | El toast aparece cuando el diálogo se cierra, nunca encima |
 
 ## Comportamiento

@@ -55,7 +55,7 @@ For a screen of a plugin that needs a bar of its own (a standalone tool, a dashb
 
 ### Search from the bar
 
-The magnifier of a bar is a bold icon, not a text box: a field in the bar has to be narrow and competes with the links. Pressed, the icon opens a search component under the bar: a field with room for a long query, filters by kind, results that say what each one is (a tile, a title, a line of context and a badge), the one selected highlighted, and the keys that drive it. The icon takes the tint of the primary colour while the component is open.
+The magnifier of a bar is a bold icon, not a text box: a field in the bar has to be narrow and competes with the links. Pressed, the icon opens a search component under the bar: a field with room for a long query, filters by kind, results that say what each one is (an icon box, a title, a line of context and a badge), the one selected highlighted, and the keys that drive it. The icon takes the tint of the primary colour while the component is open.
 
 <Example title="Search icon and search component" src="navbar/search" />
 
@@ -86,7 +86,7 @@ The magnifier of a bar is a bold icon, not a text box: a field in the bar has to
 | `navbar-toggler` | The button that opens the menu on small screens |
 | `navbar-text` | Plain text inside the bar |
 | `nav-search-toggle` | The bold magnifier of a bar (Didactika) |
-| `dd-search`, `dd-search-field`, `dd-search-filters`, `dd-search-results`, `dd-search-foot` | The search component that opens under the bar (Didactika) |
+| `collapse card card-body`, `list-group list-group-flush`, `list-group-item-action` | The search panel that opens under the bar, with its filters as buttons and its results as a list group |
 | <Only of="v53" inline>`bg-body-tertiary`, `data-bs-theme="dark"`</Only><Only of="v45,v41" inline>`navbar-light bg-light`, `navbar-dark bg-primary`</Only> | Light and dark bar |
 
 ## In this version

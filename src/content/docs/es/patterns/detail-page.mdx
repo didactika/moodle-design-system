@@ -16,9 +16,9 @@ La página de detalle es a donde lleva la fila de una lista: un curso, un usuari
 
 ## Anatomía
 
-1. **Cabecera de página**: migas, una pastilla con el tipo de objeto, el **nombre**, una línea de contexto con su **estado** como insignia, y las acciones (la principal rellena, el resto de contorno o iconos).
+1. **Cabecera de página**: migas, una caja de icono con el tipo de objeto, el **nombre**, una línea de contexto con su **estado** como insignia, y las acciones (la principal rellena, el resto de contorno o iconos).
 2. **Pestañas** (`nav-tabs`) para las secciones del objeto (Resumen, Participantes, Calificaciones, Ajustes), con una cuenta en una insignia donde ayuda. La primera pestaña es el resumen.
-3. **Resumen**: tarjetas en una cuadrícula. **Datos** como lista de descripción (`dd-dl`); **Actividad** como línea de tiempo (`dd-timeline`); otras tarjetas según haga falta (cifras, progreso).
+3. **Resumen**: tarjetas en una cuadrícula. **Datos** como lista de descripción (`dl.row`); **Actividad** como línea de tiempo (`data-region="timeline"`); otras tarjetas según haga falta (cifras, progreso).
 4. **Cosas relacionadas** como tabla o lista dentro de su propia pestaña, con el mismo patrón que cualquier lista.
 
 <Example title="Una página de detalle" src="patterns/detail" />

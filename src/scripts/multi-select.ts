@@ -30,11 +30,11 @@ const render = (widget: Widget): void => {
     const chosen = [...select.options].filter((option) => option.selected);
     for (const option of chosen) {
         const tag = document.createElement('span');
-        tag.className = 'dd-tag';
+        tag.className = 'badge rounded-pill text-bg-primary d-inline-flex align-items-center gap-1';
         tag.append(labelOf(option));
         const remove = document.createElement('button');
         remove.type = 'button';
-        remove.className = 'dd-tag-remove';
+        remove.className = 'btn btn-link btn-icon btn-sm p-0';
         remove.setAttribute('aria-label', `Remove ${labelOf(option)}`);
         remove.tabIndex = -1;
         remove.dataset.index = String(option.index);
@@ -43,7 +43,7 @@ const render = (widget: Widget): void => {
     }
     if (!chosen.length) {
         const placeholder = document.createElement('span');
-        placeholder.className = 'dd-tags-placeholder';
+        placeholder.className = 'text-muted px-1';
         placeholder.textContent = select.dataset.placeholder ?? 'Choose…';
         field.append(placeholder);
     }
@@ -87,7 +87,8 @@ const open = (widget: Widget): void => {
     if (!frame) { return; }
     close();
     const menu = document.createElement('div');
-    menu.className = 'dropdown-menu show dd-select-menu';
+    menu.className = 'dropdown-menu show';
+    menu.dataset.region = 'select-menu';
     menu.setAttribute('role', 'listbox');
     menu.setAttribute('aria-multiselectable', 'true');
     menu.tabIndex = -1;
@@ -145,7 +146,8 @@ const open = (widget: Widget): void => {
 const enhance = (select: HTMLSelectElement): void => {
     if (widgets.has(select)) { return; }
     const field = document.createElement('div');
-    field.className = 'dd-tags';
+    field.className = 'form-control d-flex flex-wrap align-items-center gap-1 h-auto';
+    field.dataset.region = 'tags';
     field.tabIndex = select.disabled ? -1 : 0;
     field.setAttribute('role', 'combobox');
     field.setAttribute('aria-haspopup', 'listbox');
@@ -155,7 +157,7 @@ const enhance = (select: HTMLSelectElement): void => {
         label.id = label.id || `${select.id}-label`;
         field.setAttribute('aria-labelledby', label.id);
     }
-    select.classList.add('dd-tags-native');
+    select.classList.add('visually-hidden', 'sr-only');
     select.tabIndex = -1;
     select.setAttribute('aria-hidden', 'true');
     select.after(field);
@@ -183,8 +185,8 @@ export const installMultiSelects = (env: Environment): void => {
             close();
             if (same) { event.preventDefault(); return; }
         }
-        const remove = target.closest<HTMLElement>('.dd-tag-remove');
-        const field = target.closest<HTMLElement>('.dd-tags');
+        const remove = target.closest<HTMLElement>('[data-region="tags"] .badge > .btn-link');
+        const field = target.closest<HTMLElement>('[data-region="tags"]');
         const select = field?.previousElementSibling;
         if (!field || !(select instanceof HTMLSelectElement) || select.disabled) { return; }
         const widget = widgets.get(select);
@@ -201,7 +203,7 @@ export const installMultiSelects = (env: Environment): void => {
     document.addEventListener('keydown', (event) => {
         const target = event.target instanceof Element ? event.target : null;
         if (!target || !env.enabled() || current) { return; }
-        const field = target.closest<HTMLElement>('.dd-tags');
+        const field = target.closest<HTMLElement>('[data-region="tags"]');
         const select = field?.previousElementSibling;
         if (!field || !(select instanceof HTMLSelectElement) || select.disabled) { return; }
         const widget = widgets.get(select);

@@ -31,7 +31,7 @@ A timeline tells the history of one thing: a course, a submission, an import. Ea
 
 ## Anatomy
 
-An ordered list (`dd-timeline`) of **events** (`dd-timeline-item`) with a **title** (`dd-timeline-title`) and a **meta** line (`dd-timeline-meta`). A line joins the dots; `is-success`, `is-warning` and `is-danger` fill a dot.
+An ordered list marked `data-region="timeline"` (`list-unstyled`) of **events** (`position-relative ps-4`) with a round **dot** (`badge rounded-pill`), a **title** (`fw-semibold`) and a **meta** line (`small text-muted`). A line joins the dots; `bg-success`, `bg-warning` and `bg-danger` fill a dot, and `border border-primary` leaves it as a ring.
 
 ## Variants and states
 
@@ -56,9 +56,10 @@ An ordered list (`dd-timeline`) of **events** (`dd-timeline-item`) with a **titl
 
 | Class | What it does |
 |---|---|
-| `dd-timeline` | The list |
-| `dd-timeline-item` | An event; `is-success`, `is-warning`, `is-danger` |
-| `dd-timeline-title`, `dd-timeline-meta` | What happened, and who and when |
+| `data-region="timeline"`, `list-unstyled` | The list |
+| `position-relative ps-4 pb-3` | An event |
+| `badge rounded-pill`, `bg-success`, `bg-warning`, `bg-danger` | The dot, filled with the colour of what happened |
+| `fw-semibold`, `small text-muted` | What happened, and who and when |
 
 ## Accessibility
 

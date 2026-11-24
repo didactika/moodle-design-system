@@ -2,7 +2,7 @@
 // Licensed under the GNU General Public License, version 3 or later.
 
 /**
- * The tip of a title. A button, a link or an icon with a `title` shows its text in a bubble of the design system (dd-tip) instead of the one the
+ * The tip of a title. A button, a link or an icon with a `title` shows its text in a bubble of the design system (a Bootstrap tooltip) instead of the one the
  * browser draws, which cannot be styled. The text moves from `title` to `data-dd-title` while the page is open, and the element keeps an accessible
  * name (an `aria-label`) when it had none.
  *
@@ -46,10 +46,16 @@ export const installTips = (env: Environment): void => {
         if (!document.contains(el)) { return; }
         counter += 1;
         tip = document.createElement('div');
-        tip.className = 'dd-tip';
+        tip.className = 'tooltip show';
+        tip.dataset.region = 'tip';
         tip.id = `dd-tip-${counter}`;
         tip.setAttribute('role', 'tooltip');
-        tip.textContent = text;
+        const arrow = document.createElement('div');
+        arrow.className = 'tooltip-arrow arrow';
+        const inner = document.createElement('div');
+        inner.className = 'tooltip-inner';
+        inner.textContent = text;
+        tip.append(arrow, inner);
         document.body.append(tip);
         el.setAttribute('aria-describedby', tip.id);
         owner = el;

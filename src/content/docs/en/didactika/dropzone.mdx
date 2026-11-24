@@ -17,7 +17,7 @@ A drop zone is the place to add files: it says what to do, what is accepted and 
 
 - Say the accepted types and the maximum size inside the zone.
 - Always offer the button: dragging is a shortcut, not the only way.
-- Show a file that cannot be added with the reason, in text and with the danger tile.
+- Show a file that cannot be added with the reason, in text and with the danger icon box.
 
 </Rule>
 <Rule kind="dont" title="Don't">
@@ -31,7 +31,7 @@ A drop zone is the place to add files: it says what to do, what is accepted and 
 
 ## Anatomy
 
-A **zone** (`dd-dropzone`) with an icon tile, a **title** (`dd-dropzone-title`), a **hint** (`dd-dropzone-hint`) and a button. Each file is a **row** (`dd-file`) with its tile, **name** (`dd-file-name`), **size** (`dd-file-size`) and a remove button. While a file is over the zone it takes the class `is-over`.
+A **zone** marked `data-region="dropzone"` (`d-flex flex-column align-items-center gap-2 p-4 border rounded-3 text-center`) with an `icon-box`, a **title** (`h6 fw-bold`), a **hint** (`small text-muted`) and a button. Each file is a **row** (`d-flex align-items-center gap-3 px-3 py-2 border rounded-3`) with its icon box, its **name** (`flex-grow-1 text-truncate`), its **size** (`small text-muted`) and a remove button. While a file is over the zone it takes the class `ds-is-hover` in the examples; a page marks it with its own script.
 
 ## Variants and states
 
@@ -56,10 +56,11 @@ A **zone** (`dd-dropzone`) with an icon tile, a **title** (`dd-dropzone-title`),
 
 | Class | What it does |
 |---|---|
-| `dd-dropzone`, `is-over` | The zone, and its state with a file over it |
-| `dd-dropzone-title`, `dd-dropzone-hint` | Its texts |
-| `dd-file` | A file row |
-| `dd-file-name`, `dd-file-size` | The name and the size |
+| `data-region="dropzone"` | The zone; the theme draws its dashed outline and its tint when a file is over it |
+| `d-flex flex-column align-items-center gap-2 p-4 border rounded-3` | Its layout |
+| `h6 fw-bold`, `small text-muted` | Its texts |
+| `d-flex align-items-center gap-3 px-3 py-2 border rounded-3` | A file row |
+| `flex-grow-1 text-truncate`, `small text-muted` | The name and the size |
 
 ## Accessibility
 

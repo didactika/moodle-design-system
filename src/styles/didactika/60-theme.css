@@ -23,12 +23,12 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope {
 }
 
 /* ---- typography */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .display-1, .display-2, .display-3, .display-4, .card-title, .modal-title, .navbar-brand, .offcanvas-title, .accordion-button, .dd-page-title, .dd-empty-title) {
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .display-1, .display-2, .display-3, .display-4, .card-title, .modal-title, .navbar-brand, .offcanvas-title, .accordion-button) {
   font-family: var(--dd-theme-display);
   font-weight: 700;
   letter-spacing: -.02em;
 }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(input, select, textarea, .badge, .nav-link, .form-label, .form-control, .form-select, .dropdown-item, .alert, .toast, .table, .list-group-item, .popover, .tooltip, .page-link, .dd-chip) { font-family: var(--dd-theme-font); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(input, select, textarea, .badge, .nav-link, .form-label, .form-control, .form-select, .dropdown-item, .alert, .toast, .table, .list-group-item, .popover, .tooltip, .page-link) { font-family: var(--dd-theme-font); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn { --bs-btn-font-family: var(--dd-theme-font); font-family: var(--dd-theme-font); font-weight: 600; letter-spacing: -.005em; }
 
 /* ---- the primary actions and the fill of a progress bar carry the gradient */
@@ -51,13 +51,13 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .modal-footer { paddi
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dropdown-menu { border-color: transparent; box-shadow: var(--dd-shadow-md); }
 
 /* ---- motion: a ripple from the point of the click (src/scripts/ripple.ts) and a small lift on hover */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .dd-chip, .page-link, .nav-search-toggle) { position: relative; transition: background-color var(--dd-ease), border-color var(--dd-ease), color var(--dd-ease), box-shadow .2s cubic-bezier(.2, 0, 0, 1), transform .12s cubic-bezier(.2, 0, 0, 1); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .page-link, .nav-search-toggle) { position: relative; transition: background-color var(--dd-ease), border-color var(--dd-ease), color var(--dd-ease), box-shadow .2s cubic-bezier(.2, 0, 0, 1), transform .12s cubic-bezier(.2, 0, 0, 1); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn:is(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-dark):not(.btn-tonal):not(:disabled):not(.disabled):hover { transform: translateY(-1px); box-shadow: 0 6px 16px -4px color-mix(in srgb, var(--dd-c) 55%, transparent); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-ripple-host { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: .26; transform: scale(0); animation: dd-ripple .6s cubic-bezier(.2, 0, 0, 1) forwards; pointer-events: none; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope [data-region="ripple-host"] { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope [data-region="ripple"] { position: absolute; border-radius: 50%; background: currentColor; opacity: .26; transform: scale(0); animation: dd-ripple .6s cubic-bezier(.2, 0, 0, 1) forwards; pointer-events: none; }
 @keyframes dd-ripple { to { transform: scale(1); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-  html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .dd-chip, .page-link) { transition: none; transform: none !important; }
+  html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.btn, .page-link) { transition: none; transform: none !important; }
 }
 
 /* icon buttons grow a little when the pointer is over them, and the plain one shows its tinted circle */
@@ -66,11 +66,11 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn.btn-link.btn-ico
 
 /* ---- pills only where the design asks for them: the buttons of a table, a toolbar, a pager and the filters of a component. Forms, dialogs and
  * the rest keep the 8 px radius of the system. */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.table-actions, .table-toolbar, .table-foot, .dd-pager, .dd-page-actions, .dd-search-filters, .dd-floatbar) .btn:not(.btn-icon) { border-radius: 999px; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.table-actions, .table-toolbar, .table-foot, [data-region="pager"], [data-region="page-header"], [data-region="search"], [data-region="floatbar"]) .btn:not(.btn-icon) { border-radius: 999px; }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .btn-group > .btn-primary:not(.btn-tonal):not(:disabled):not(.disabled) { background-image: none; }
 
 /* ---- the tip: a little rounder, with a tinted shadow and a short entrance */
-html[data-brand="1"] .dd-tip { --dd-tip-bg: #0f2b2f; padding: .4375rem .75rem; border-radius: .75rem; font-family: "Inter", system-ui, sans-serif; box-shadow: 0 10px 24px -8px rgb(0 85 90 / 55%); }
+html[data-brand="1"] .tooltip[data-region="tip"] { --dd-tip-bg: #0f2b2f; padding: .4375rem .75rem; border-radius: .75rem; font-family: "Inter", system-ui, sans-serif; box-shadow: 0 10px 24px -8px rgb(0 85 90 / 55%); }
 
 /* ---- touches for a learning platform: what is selected, done or in progress is easy to see and a little rewarding */
 /* a row under the pointer gets a bar of the primary colour; a selected tab an underline that slides in */
@@ -78,8 +78,8 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .table > tbody > tr >
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .nav-tabs .nav-link { transition: color var(--dd-ease), box-shadow .25s cubic-bezier(.2, 0, 0, 1), background-color var(--dd-ease); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .nav-tabs .nav-link.active { box-shadow: inset 0 -3px 0 var(--dd-primary); }
 /* icon tiles carry a soft gradient of their colour; soft badges a hairline of it */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-tile:not(.dd-tile-solid) { background-image: linear-gradient(135deg, var(--dd-c-soft, var(--dd-primary-soft)) 0%, var(--dd-c-soft-2, var(--dd-primary-soft-2)) 100%); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-tile-solid { background-image: linear-gradient(135deg, color-mix(in srgb, var(--dd-c, var(--dd-primary)) 82%, #fff) 0%, var(--dd-c, var(--dd-primary)) 100%); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .icon-box:not([class*="bg-"]) { background-image: linear-gradient(135deg, var(--dd-c-soft, var(--dd-primary-soft)) 0%, var(--dd-c-soft-2, var(--dd-primary-soft-2)) 100%); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .icon-box[class*="bg-"] { background-image: linear-gradient(135deg, color-mix(in srgb, var(--dd-c, var(--dd-primary)) 82%, #fff) 0%, var(--dd-c, var(--dd-primary)) 100%); }
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .badge-soft { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--dd-c) 22%, transparent); }
 /* progress is thicker and has a light on top, so a bar that fills feels like progress */
 html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .progress { height: .75rem; }
@@ -90,9 +90,8 @@ html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .modal.show .modal-di
 @keyframes dd-pop { 0% { transform: scale(.8); } 60% { transform: scale(1.12); } 100% { transform: scale(1); } }
 @keyframes dd-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
 /* tags, chips and steps follow the shapes of the theme */
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-step.is-current::before { box-shadow: 0 0 0 4px var(--dd-ring); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-segmented { box-shadow: inset 0 1px 2px rgb(15 23 42 / 8%); }
-html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope .dd-dropzone { background-image: var(--dd-gradient-soft); background-color: transparent; }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope [data-region="steps"] [aria-current="step"] > .badge { box-shadow: 0 0 0 4px var(--dd-ring); }
+html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope [data-region="dropzone"] { background-image: var(--dd-gradient-soft); background-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   html[data-brand="1"][data-theme-version="0.1"] .ds-v-scope :is(.form-check-input, .modal-dialog, .toast) { animation: none !important; }
 }

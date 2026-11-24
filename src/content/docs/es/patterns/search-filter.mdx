@@ -17,7 +17,7 @@ Las personas encuentran las cosas de dos maneras: escribiendo lo que recuerdan y
 
 ## Anatomía
 
-1. **Campo de búsqueda** (`dd-searchbox`): la lupa dentro de un campo redondeado, al principio de la fila.
+1. **Campo de búsqueda** (`role="search"`): la lupa dentro de un campo redondeado, al principio de la fila.
 2. **Un menú para cada filtro**, junto a la búsqueda: estado, curso, actividad, grupo, fechas. Cada menú tiene la forma de un select y dice qué filtra ("Estado", "Todos los grupos", "Fecha de calificación").
 3. **El botón que quita todos los filtros**, un botón de icono con el icono de recargar al final de la fila (`table-toolbar-end`), desactivado mientras nada acota la lista.
 4. **Los resultados**, como tabla (para trabajar) o como lista (para elegir), con la cuenta en el paginador bajo ellos.
@@ -28,7 +28,7 @@ Las personas encuentran las cosas de dos maneras: escribiendo lo que recuerdan y
 
 - **El estado base no es una opción.** "Todos los grupos", "Todos los estudiantes" o "Todos los estados" es lo que dice el menú mientras no se elige nada; nunca vuelve a aparecer dentro de la lista de opciones.
 - **El valor elegido se muestra y se tiñe.** El menú dice a qué está acotado ("Estado: Pendiente", "Grupo A") con el borde primario y el fondo primario suave.
-- **La flecha se convierte en una cruz.** Al elegir un valor, la flecha del menú se sustituye por una cruz (`dd-select-clear`) que devuelve el filtro a su estado base. La cruz tiene su propia etiqueta ("Quitar: Estado").
+- **La flecha se convierte en una cruz.** Al elegir un valor, la flecha del menú se sustituye por una cruz (`btn btn-link p-0` con `data-menu-clear`) que devuelve el filtro a su estado base. La cruz tiene su propia etiqueta ("Quitar: Estado").
 - **Las cuentas van dentro del menú.** Cuando los valores de un filtro tienen cuentas, cada opción muestra la suya, calculada con los demás filtros aplicados.
 - Un filtro de varios valores (estado) usa casillas dentro del menú; un filtro de muchos valores (curso, actividad) tiene un campo de búsqueda al principio de su menú.
 - **Un periodo nunca queda al revés.** Un menú de fechas con dos días mantiene el primero igual o anterior al último: cuando el día recién elegido pasa al otro, el otro se mueve hasta él, se haya escrito como se haya escrito (a mano, con el calendario o en la dirección).
@@ -37,7 +37,7 @@ Las personas encuentran las cosas de dos maneras: escribiendo lo que recuerdan y
 
 ## Siempre una fila
 
-La barra nunca se parte en dos filas. La búsqueda se estrecha hasta su propio espacio (10 rem, 7 rem en un teléfono de menos de 400 px) y los menús de filtro conservan su ancho junto a ella; un menú elegido dice solo su valor ("Calificado por un docente", no "Estado: Calificado por un docente") y termina con puntos suspensivos antes de su cruz cuando es demasiado largo: el texto nunca pasa por debajo de la cruz. El menú es un bloque (`button.dd-select`), porque solo un bloque corta su texto con puntos suspensivos. Cuando los menús no caben, en una pantalla estrecha o con valores largos, se agrupan en un solo menú, **Filtros (2)**, siempre con el icono del embudo (`i/filter`), que indica cuántos filtros están aplicados y contiene los mismos menús uno debajo de otro; vuelven a la fila cuando vuelve a haber espacio.
+La barra nunca se parte en dos filas. La búsqueda se estrecha hasta su propio espacio (10 rem, 7 rem en un teléfono de menos de 400 px) y los menús de filtro conservan su ancho junto a ella; un menú elegido dice solo su valor ("Calificado por un docente", no "Estado: Calificado por un docente") y termina con puntos suspensivos antes de su cruz cuando es demasiado largo: el texto nunca pasa por debajo de la cruz. El menú es un bloque (`button.form-select`), porque solo un bloque corta su texto con puntos suspensivos. Cuando los menús no caben, en una pantalla estrecha o con valores largos, se agrupan en un solo menú, **Filtros (2)**, siempre con el icono del embudo (`i/filter`), que indica cuántos filtros están aplicados y contiene los mismos menús uno debajo de otro; vuelven a la fila cuando vuelve a haber espacio.
 
 ## Comportamiento
 

@@ -16,9 +16,9 @@ The detail page is where a row of a list leads: one course, one user, one rule. 
 
 ## Anatomy
 
-1. **Page header**: breadcrumb, a tile with the type of object, the **name**, one line of context with its **status** as a badge, and the actions (the main one filled, the rest outline or icons).
+1. **Page header**: breadcrumb, an icon box with the type of object, the **name**, one line of context with its **status** as a badge, and the actions (the main one filled, the rest outline or icons).
 2. **Tabs** (`nav-tabs`) for the sections of the object (Summary, Participants, Grades, Settings), with a count in a badge where it helps. The first tab is the summary.
-3. **Summary**: cards in a grid. **Details** as a description list (`dd-dl`); **Activity** as a timeline (`dd-timeline`); other cards as needed (figures, progress).
+3. **Summary**: cards in a grid. **Details** as a description list (`dl.row`); **Activity** as a timeline (`data-region="timeline"`); other cards as needed (figures, progress).
 4. **Related things** as a table or list inside their own tab, with the same pattern as any list.
 
 <Example title="A detail page" src="patterns/detail" />

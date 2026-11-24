@@ -31,7 +31,7 @@ Un control segmentado cambia entre vistas del mismo contenido, sin salir de la p
 
 ## Anatomía
 
-Una pista (`dd-segmented`) que guarda los **botones**. El elegido tiene `aria-pressed="true"` y se eleva sobre la pista.
+Un grupo de botones de Bootstrap (`btn-group` con `role="group"`) cuyos **botones** son `btn btn-outline-secondary`. El elegido tiene `aria-pressed="true"` y `active`.
 
 ## Variantes y estados
 
@@ -56,8 +56,9 @@ Una pista (`dd-segmented`) que guarda los **botones**. El elegido tiene `aria-pr
 
 | Clase | Qué hace |
 |---|---|
-| `dd-segmented` | La pista con sus botones |
-| `aria-pressed="true"` o `active` | El botón elegido |
+| `btn-group` | El grupo de botones |
+| `btn btn-outline-secondary` | Una opción |
+| `aria-pressed="true"` y `active` | El botón elegido |
 
 ## Accesibilidad
 

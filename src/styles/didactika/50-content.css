@@ -17,10 +17,6 @@
 .ds-v-scope .card-hover:hover { border-color: var(--dd-line); box-shadow: var(--dd-shadow-md); transform: translateY(-2px); }
 .ds-v-scope .card-hover:focus-within { box-shadow: 0 0 0 3px var(--dd-ring); }
 .ds-v-scope .card-flat { box-shadow: none; }
-.ds-v-scope .dd-stat { display: grid; gap: .125rem; }
-.ds-v-scope .dd-stat-value { font-size: 1.75rem; font-weight: 700; line-height: 1.1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.ds-v-scope .dd-stat-label { color: var(--dd-muted); font-size: .8125rem; }
-.ds-v-scope .dd-stat-trend { font-size: .8125rem; font-weight: 600; }
 
 /* ------------------------------------------------------------------ list group */
 .ds-v-scope .list-group { border-radius: var(--dd-radius-lg); }
@@ -80,7 +76,7 @@
 .ds-v-scope { --dd-table-h: 34rem; }
 .ds-v-scope .table-responsive[data-region="tablewrap"], .ds-v-scope [data-region="tablewrap"] { block-size: var(--dd-table-h); overflow-y: auto; overscroll-behavior: contain; }
 .ds-v-scope [data-region="tablewrap"] thead th { position: sticky; inset-block-start: 0; z-index: 1; background-color: var(--dd-surface); }
-.ds-v-scope [data-region="tablewrap"] > .dd-empty { display: grid; place-content: center; justify-items: center; min-block-size: 100%; }
+.ds-v-scope [data-region="tablewrap"] > [data-region="empty"] { display: grid; place-content: center; justify-items: center; min-block-size: 100%; }
 .ds-v-scope .table-sort { display: inline-flex; align-items: center; gap: .375rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
 .ds-v-scope .table-sort:hover, .ds-v-scope .table-sort.ds-is-hover { color: var(--dd-ink); }
 .ds-v-scope th[aria-sort="ascending"] .table-sort, .ds-v-scope th[aria-sort="descending"] .table-sort { color: var(--dd-primary-ink, var(--dd-primary)); }
@@ -158,6 +154,6 @@
   .ds-v-scope .table-responsive .table th, .ds-v-scope .table-responsive .table td { white-space: nowrap; }
   .ds-v-scope .table-responsive .table th:first-child, .ds-v-scope .table-responsive .table td:first-child { position: sticky; inset-inline-start: 0; z-index: 1; background-color: var(--dd-surface); box-shadow: inset -1px 0 0 var(--dd-hairline); }
   .ds-v-scope .table-responsive .table thead th:first-child { z-index: 2; }
-  .ds-v-scope .nav-tabs, .ds-v-scope .dd-chips { flex-wrap: nowrap; overflow-x: auto; }
-  .ds-v-scope .nav-tabs .nav-link, .ds-v-scope .dd-chip { flex: none; white-space: nowrap; }
+  .ds-v-scope .nav-tabs, .ds-v-scope [role="group"]:has(> .btn.rounded-pill) { flex-wrap: nowrap; overflow-x: auto; }
+  .ds-v-scope .nav-tabs .nav-link, .ds-v-scope .btn.rounded-pill { flex: none; white-space: nowrap; }
 }

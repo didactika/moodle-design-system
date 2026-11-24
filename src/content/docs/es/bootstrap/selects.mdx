@@ -67,7 +67,7 @@ En la barra de una lista un select es un filtro, y sigue tres reglas:
 
 1. **Su estado base no es una opción.** "Todos los grupos" es lo que dice el select mientras no se elige nada (una opción `hidden`, o la etiqueta de un botón con forma de select); la lista que abre nunca la ofrece.
 2. **Un valor elegido lo tiñe.** El select muestra el valor con `border-primary`, el borde primario y el fondo primario suave.
-3. **Su flecha se convierte en una cruz.** Al elegir un valor, `dd-select-set` quita la flecha y un botón `dd-select-clear` con el icono `e/cancel` ocupa su lugar; al pulsarlo se vuelve al estado base. Ambos van dentro de un `dd-select-filter`.
+3. **Su flecha se convierte en una cruz.** Al elegir un valor, el selector se tiñe (`border-primary`), pierde su flecha y un botón `btn btn-link p-0` con el icono `e/cancel` y `data-menu-clear` ocupa su lugar; al pulsarlo se vuelve al estado base. Ambos van dentro de un `data-region="select-filter"`.
 
 <Example title="Antes y después de elegir" src="selects/filter-select" />
 
@@ -95,7 +95,7 @@ En la barra de una lista un select es un filtro, y sigue tres reglas:
 | <Only of="v53" inline>`form-select`</Only><Only of="v45,v41" inline>`custom-select`</Only> | El selector |
 | <Only of="v53" inline>`form-select-sm`, `form-select-lg`</Only><Only of="v45,v41" inline>`custom-select-sm`, `custom-select-lg`</Only> | Más pequeño y más grande |
 | `form-label` | Etiqueta sobre el selector |
-| `dd-select-menu` | El menú que abre un selector (Didactika). Lo construye el sitio; los plugins no lo escriben |
+| `data-region="select-menu"` en un `dropdown-menu` | El menú que abre un selector. Lo construye el sitio; los plugins usan `dropdown-menu` |
 
 ## En esta versión
 

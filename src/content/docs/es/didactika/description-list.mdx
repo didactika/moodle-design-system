@@ -31,7 +31,7 @@ Cuando una pantalla muestra los atributos de una cosa (no una lista de cosas), u
 
 ## Anatomía
 
-Un `dl` (`dd-dl`) con pares de **término** (`dt`, en un color atenuado) y **descripción** (`dd`, en el color del texto), separados por una línea fina. En una pantalla estrecha, o con `dd-dl-stacked`, la etiqueta va sobre su valor.
+Un `dl` con la clase `row`, cuyos pares son un **término** (`dt`, `col-sm-4`, en un color atenuado) y una **descripción** (`dd`, `col-sm-8`), cada uno con `px-0 py-2 mb-0 border-bottom` para que una insignia o un botón queden en su columna y en su línea. En una pantalla estrecha, o con `col-12` en ambos, la etiqueta va encima de su valor.
 
 ## Variantes y estados
 
@@ -56,8 +56,10 @@ Un `dl` (`dd-dl`) con pares de **término** (`dt`, en un color atenuado) y **des
 
 | Clase | Qué hace |
 |---|---|
-| `dd-dl` | La lista, en dos columnas |
-| `dd-dl-stacked` | La etiqueta sobre su valor |
+| `dl.row` | La lista |
+| `dt` con `col-sm-4 px-0 py-2 mb-0 border-bottom text-muted` | La etiqueta |
+| `dd` con `col-sm-8 px-0 py-2 mb-0 border-bottom` | El valor |
+| `col-12` | La etiqueta encima de su valor |
 
 ## Accesibilidad
 

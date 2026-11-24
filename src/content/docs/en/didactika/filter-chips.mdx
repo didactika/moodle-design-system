@@ -31,7 +31,7 @@ A filter chip narrows a list with one press. A group of chips is a filter bar; a
 
 ## Anatomy
 
-A button (`dd-chip`) with a **label**, an optional **count** (`dd-chip-count`) and, once chosen (`aria-pressed="true"`), a tint of the primary colour. An applied filter (`dd-chip-applied`) holds a **remove button** (`dd-chip-remove`). The group is `dd-chips`.
+A button (`btn btn-sm btn-outline-secondary rounded-pill`) with a **label**, an optional **count** (`badge rounded-pill`) and, once chosen (`aria-pressed="true"`, `active`), the tint of the primary colour. An applied filter is a `badge rounded-pill text-bg-primary` that holds a **remove button** (`btn btn-link btn-icon btn-sm p-0`). The group is a `d-flex flex-wrap gap-2` with `role="group"`.
 
 ## Variants and states
 
@@ -59,11 +59,11 @@ The bar of filters, the applied filters with their remove buttons, and the state
 
 | Class | What it does |
 |---|---|
-| `dd-chips` | A group of chips |
-| `dd-chip` | A chip; `aria-pressed` or `active` when chosen |
-| `dd-chip-count` | The number of results |
-| `dd-chip-applied` | An applied filter |
-| `dd-chip-remove` | The button that removes it |
+| `d-flex flex-wrap align-items-center gap-2` | A group of chips, with `role="group"` and a label |
+| `btn btn-sm btn-outline-secondary rounded-pill` | A chip; `aria-pressed` and `active` when chosen |
+| `badge rounded-pill` | The number of results |
+| `badge rounded-pill text-bg-primary` | An applied filter |
+| `btn btn-link btn-icon btn-sm p-0` | The button that removes it |
 
 ## Accessibility
 
